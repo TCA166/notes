@@ -1,0 +1,315 @@
+\documentclass{../notatki}
+
+\title{Grafika komputerowa}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Literatura}
+
+\begin{itemize}
+    \item \href{https://wp.faculty.wmi.amu.edu.pl/GRK.html}{Wykład}
+    \item \href{https://learnopengl.com/book/book_pdf.pdf}{J. de Vries, "Learn OpenGL"}
+    \item \href{https://andkok.faculty.wmi.amu.edu.pl/grk/zad_1/}{Ćwiczenia}
+\end{itemize}
+
+\section{Operacje}
+
+Wyróżniamy trzy rodzaje operacji na punktach w przestrzeni n-wymiarowej:
+
+\begin{itemize}
+    \item Skalowanie\\
+    $$
+    f(
+        \begin{bmatrix}
+        x \\
+        y
+        \end{bmatrix}
+    )
+    =
+    \begin{bmatrix}
+        s_x * x \\
+        s_y * y
+    \end{bmatrix}
+    $$
+    \item Rotacja\\
+    $$
+    f(
+        \begin{bmatrix}
+        x \\
+        y
+        \end{bmatrix}
+    )
+    =
+    \begin{bmatrix}
+        x * cos(\theta) - y * sin(\theta) \\
+        x * sin(\theta) + y * cos(\theta)
+    \end{bmatrix}
+    $$
+    \item Translacja\\
+    $$
+    f(
+        \begin{bmatrix}
+        x \\
+        y
+        \end{bmatrix}
+    )
+    =
+    \begin{bmatrix}
+        x + 1 \\
+        y - 1
+    \end{bmatrix}
+    $$
+\end{itemize}
+
+\section{Operacje 2D}
+
+\subsection{Skalowanie}
+
+$$
+S = \begin{bmatrix}
+        s_x & 0 \\
+        0 & s_y
+    \end{bmatrix}
+\text{lub }
+\begin{bmatrix} s_x & 0 & 0 \\ 0 & s_y & 0 \\ 0 & 0 & 1 \end{bmatrix}
+$$
+
+\subsection{Rotacja}
+
+$$
+R = \begin{bmatrix}
+        cos(\theta) & -sin(\theta) \\
+        sin(\theta) & cos(\theta)
+    \end{bmatrix}
+\text{lub }
+\begin{bmatrix} cos(\theta) & -sin(\theta) & 0 \\ sin(\theta) & cos(\theta) & 0 \\ 0 & 0 & 1 \end{bmatrix}
+$$
+
+\subsection{Translacja}
+
+$$
+T = 
+\begin{bmatrix}
+    1 & 2 \\
+    3 & 4
+\end{bmatrix}
+\text{lub dla } 
+\vec{V}=(T_x, T_y),
+T=
+\begin{bmatrix} 1 & 0 & T_x \\ 0 & 1 & T_y \\ 0 & 0 & 1 \end{bmatrix}
+$$
+
+\section{Konkatenacja operacji}
+
+Operacje można łączyć w łańcuchy, np. $T * R * S$
+Jako że to jest mnożenie macierzy, to kolejność ma znaczenie.
+Najpierw wykonuje się operację z prawej strony.
+
+\section{Operacje 3D}
+
+\subsection{Skalowanie}
+
+$$
+S = \begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+$$
+
+\subsection{Rotacja}
+
+$$
+R_x(\theta) = 
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & cos(\theta) & -sin(\theta) \\
+    0 & sin(\theta) & cos(\theta) 
+\end{bmatrix}
+$$
+
+$$
+R_y(\theta) = 
+\begin{bmatrix}
+    cos(\theta) & 0 & sin(\theta) \\
+    0 & 1 & 0 \\
+    -sin(\theta) & 0 & cos(\theta) 
+\end{bmatrix}
+$$
+
+$$
+R_z(\theta) = 
+\begin{bmatrix}
+    cos(\theta) & -sin(\theta) & 0 \\
+    sin(\theta) & cos(\theta) & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+$$
+
+\subsection{Translacja}
+
+$$
+\text{Dla wektora }
+\vec{V}=(T_x, T_y, T_z),
+T=
+\begin{bmatrix} 1 & 0 & 0, & T_x \\ 0 & 1 & 0 & T_y \\ 0 & 0 & 1 & T_z \\ 0 & 0 & 0 & 1 \end{bmatrix}
+$$
+
+\section{Kamery}
+
+Podczas patrzenia na obiekt w polu widzenia kamery można wyróżnić następujące płaszczyzny:
+
+\begin{itemize}
+    \item Górna
+    \item Dolna
+    \item Lewa
+    \item Prawa
+    \item Bliska
+    \item Daleka
+\end{itemize}
+
+\subsection{Projekcje}
+
+Kluczowym aspektem kamery jest projekcja, czyli rzutowanie obiektów na płaszczyznę ekranu.
+Trzeba w jakiś sposób zamienić punkty w 3D na punkty w 2D.
+
+\subsubsection{Ortogonalna}
+
+\begin{itemize}
+    \item Wszystkie linie są równoległe
+    \item Brak perspektywy
+    \item Obiekty są przeskalowane
+    \item Nie ma odczucia głębi, obiekty pozostają tego samego rozmiaru niezależnie od odległości
+    \item Linie równoległe pozostają równoległe po projekcji
+\end{itemize}
+
+\subsubsection{Perspektywiczna}
+
+\begin{itemize}
+    \item Linie zbiegają się w jednym punkcie
+    \item Obiekty są przeskalowane
+    \item Odczucie głębi
+    \item Obiekty są mniejsze w miarę oddalania się od kamery
+    \item "Normalna" projekcja
+\end{itemize}
+
+\section{Pipeline}
+
+Renderowanie obrazu składa się z kilku etapów:
+
+$$
+\text{Object Space} \rightarrow \text{World space} \overset{M_{cam}}{\rightarrow} \text{View space} \overset{M_{pro}}{\rightarrow} \text{Clip space} \overset{M_{vp}}{\rightarrow} \text{Screen space}
+$$
+
+\subsection{VP}
+
+Dla widoku wielkości $n_x * n_y$
+$$
+M_{vp} = \begin{bmatrix} 
+    \frac{n_x}{2} & 0 & 0 & \frac{n_x - 1}{2} \\
+    0 & \frac{n_y}{2} & 0 & \frac{n_y - 1}{2} \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1 
+\end{bmatrix}
+$$
+
+\subsection{Pro}
+
+Dla przestrzeni widoku ortogonalnego stworzonego przez trzy punkty:
+
+- $(l,b,n)$ w lewym dolnym rogu
+- $(r,b,n)$ w prawym dolnym rogu
+- $(r,t,f)$ w prawym górnym rogu
+
+$$
+M_{ort} = \begin{bmatrix} 
+    \frac{2}{r - l} & 0 & 0 & -\frac{l + r}{r - l} \\
+    0 & \frac{2}{t - b} & 0 & -\frac{b + t}{t - b} \\
+    0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\
+    0 & 0 & 0 & 1 
+\end{bmatrix}
+$$
+
+$$
+M_{per} = M_{ort} \cdot \begin{bmatrix} 
+    n & 0 & 0 & 0 \\
+    0 & n & 0 & 0 \\
+    0 & 0 & n + f & -nf \\
+    0 & 0 & 0 & 1 
+\end{bmatrix}
+$$
+
+\subsection{Cam}
+
+Dla wektorów określających kierunek patrzenia kamery: $\vec{g}$, $\vec{v}$, $\vec{u}$, $\vec{w} = -v$ oraz $\vec{e}$ określającym przesunięcie kamery
+
+$$
+M_{cam} = \begin{bmatrix} 
+    u_x & u_y & u_z & 0 \\
+    v_x & v_y & v_z & 0 \\
+    w_x & w_y & w_z & 0 \\
+    0 & 0 & 0 & 1 
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & 0 & -e_x \\
+    0 & 1 & 0 & -e_y \\
+    0 & 0 & 1 & -e_z \\
+    0 & 0 & 0 & 1 
+\end{bmatrix}
+$$
+
+\subsection{Model}
+
+Matryca modelu to po prostu macierz transformacji obiektu.
+Jak obiekt jest obrócony, przesunięty, skalowany.
+To zależy od tego gdzie jest obiekt w przestrzeni, jako że zwykle punkty modelu są w przestrzeni obiektu (relatywnie do środka obiektu).
+
+\subsection{Złożenie}
+
+$$
+pipeline(\begin{bmatrix}x \\ y \\ z\\ 1\end{bmatrix}) = M_{vp}M_{ort}M_{cam}\begin{bmatrix}x \\ y \\ z\\ 1\end{bmatrix}
+$$
+
+\section{Algorytmy Renderowania}
+
+Jako, że w procesie przekształcenia pipeline zatracana jest informacja o koordynacie $z$ punktów, konieczne jest renderowanie obiektów w konkretnej kolejności.
+
+\subsection{Algorytm malarza}
+
+Ten algorytm jest niezwykle prosty.
+Obiekty się sortuje wobec pozycji w $z$ i najpierw renderuje się te w tle.
+Niestety, nie działa to dla obiektów przecinających się i innych o skomplikowanej topologii.
+
+\subsection{Z-buffer}
+
+Dla każdego obiektu zapisujesz na jakim z "jest" pixel i jakiego koloru jest.
+Jeśli w globalnym z bufferze ten pixel ma większe z to w bufferze pixel jest zastępowany.
+Efektem działania algorytmu jest buffer z pixelami "renderowany od tyłu".
+
+\section{Culling i Clipping}
+
+W procesie renderowania koniecznym jest czasami obsługiwanie co jeśli obiekt wychodzi poza kąt widzenia oraz co jeśli obiekt jest niewidoczny.
+
+\subsection{Clipping}
+
+Czyli obcinanie obiektów składa się z dwóch etapów:
+
+\begin{itemize}
+    \item Wykrywanie czy obiekt przecina jedną z płaszczyzn
+    \item Tworzenie nowych mniejszych obiektów
+\end{itemize}
+
+\subsubsection{Wykrywanie}
+
+Jeśli dla n=normalny wektor płaszczyzny oraz q=punkt na płaszczyźnie $f(p) = n * (p - q) < 0$ to punkt p jest wewnątrz.
+
+\subsubsection{Tworzenie}
+
+Dla każdej krawędzi obiektu sprawdzamy czy przecina ona płaszczyznę.
+Dzieląc trójkąty na mniejsze wewnątrz pola widzenia, tworzymy nowe trójkąty na podstawie punktów przecięcia z płaszczyzną.
+
+\subsection{Culling}
+
+Odrzucanie trójkątów których wektor normalny jest skierowany od punktu widzenia to backface culling.
+Any zobaczyć czy wektor normalny $\vec{n}$ jest skierowany od punktu widzenia to wystarczy złożyć go z wektorem punktu widzenia $\vec{v}$
+Jeśli $\vec{n} \cdot \vec{v} < 0$ to trójkąt jest skierowany do kamery.
+
+\end{document}

@@ -1,0 +1,2 @@
+#! /bin/bash
+find . -type f \( -name "*.aux" -o -name "*.log" -o -name "*.out" -o -name "*.toc" -o -name "*.bbl" -o -name "*.blg" -o -name "*.synctex.gz" -o -name "*.fdb_latexmk" -o -name "*.fls" -o -name "*.lof" -o -name "*.lot" -o -name "*.lol" -o -name "*.listing" -o -name "*.gz" -o -name "*.dvi" -o -name "*.nav" -o -name "*.snm" -o -name "*.vrb" -o -name "*.xdv" -o -name "*.bak" -o -name "*.bcf" -o -name "*.run.xml" -o -name "*.synctex(busy)" -o -name "*.synctex" \) -exec rm -f {} +
