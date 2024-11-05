@@ -14,6 +14,19 @@
     \item \href{https://andkok.faculty.wmi.amu.edu.pl/grk/zad_1/}{Ćwiczenia}
 \end{itemize}
 
+\section{Wektory}
+
+$$
+\vec{v} \cdot \vec{w} = v_x \cdot w_x + v_y \cdot w_y + v_z \cdot w_z
+$$
+
+$$
+\vec{v} \cdot \vec{w} = |\vec{v}| \cdot |\vec{w}| \cdot cos(\theta)
+$$
+
+Jeśli $\vec{v}$ i $\vec{w}$ są prostopadłe to $\vec{v} \cdot \vec{w} = 0$.
+A z kolei jeśli $\vec{v} \cdot \vec{w}$ są normalne to $\vec{v} \cdot \vec{w} = cos(\theta)$.
+
 \section{Operacje}
 
 Wyróżniamy trzy rodzaje operacji na punktach w przestrzeni n-wymiarowej:
@@ -311,5 +324,74 @@ Dzieląc trójkąty na mniejsze wewnątrz pola widzenia, tworzymy nowe trójkąt
 Odrzucanie trójkątów których wektor normalny jest skierowany od punktu widzenia to backface culling.
 Any zobaczyć czy wektor normalny $\vec{n}$ jest skierowany od punktu widzenia to wystarczy złożyć go z wektorem punktu widzenia $\vec{v}$
 Jeśli $\vec{n} \cdot \vec{v} < 0$ to trójkąt jest skierowany do kamery.
+
+\section{Oświetlenie}
+
+$$
+I = f_{att}(D + S) + A
+$$
+
+\subsection{Diffuse}
+
+$$
+D = I_p \cdot K_d \cdot max(0, cos(\theta))
+$$
+
+gdzie:
+
+\begin{itemize}
+    \item $I_p$ to intensywność światła
+    \item $K_d$ to współczynnik odbicia
+    \item $\theta$ to kąt między wektorem światła a wektorem normalnym do powierzchni
+\end{itemize}
+
+\subsection{Specular}
+
+$$
+S = I_p \cdot K_s \cdot max(0, cos(\alpha))^n
+$$
+
+gdzie:
+
+\begin{itemize}
+    \item $I_p$ to intensywność światła
+    \item $K_s$ to współczynnik odbicia
+    \item $\alpha$ to kąt między wektorem do kamery a wektorem odbicia
+    \item $n$ to współczynnik tłumienia
+\end{itemize}
+
+\subsection{Ambient}
+
+$$
+A = I_a \cdot K_a
+$$
+
+gdzie:
+
+\begin{itemize}
+    \item $I_a$ to intensywność światła
+    \item $K_a$ to współczynnik odbicia
+\end{itemize}
+
+\subsection{Attenuation}
+
+$$
+f_{att} = 1 - \frac{d}{r}^2
+$$
+
+gdzie:
+
+\begin{itemize}
+    \item $d$ to odległość od źródła światła
+    \item $r$ to promień światła
+\end{itemize}
+
+\subsection{Shading}
+
+\begin{itemize}
+    \item Flat shading - kolor obiektu jest jednolity
+    \item Gouraud shading - kolor obiektu jest interpolowany między wierzchołkami
+    \item Phong shading - kolor obiektu jest interpolowany między pikselami
+\end{itemize}
 
 \end{document}
