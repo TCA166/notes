@@ -26,3 +26,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{diagbox}
+
+\renewcommand{\figurename}{Diagram}
+\renewcommand{\tablename}{Tabela}
+\renewcommand{\contentsname}{Spis treści}

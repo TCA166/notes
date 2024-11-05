@@ -261,6 +261,7 @@ $$
         \end{minipage}
     }
     \caption{Tabela konkatenacji języków $L_1$ i $L_2$ oraz graf przejść automatu}
+    \label{fig:automat:example}
 \end{figure}
 
 \subsubsection{Rozszerzona funkcja przejść}
@@ -278,35 +279,45 @@ $$
 
 Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\mathfrak{A}$ w którym $T=\{0, 1\}, P \in L(\mathfrak{A})$ wtedy i tylko wtedy gdy w $P$ występuje na pierwszym od końca miejscu.
 
-\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
-    \node[state,initial] (q_0)   {$q_0$}; 
-    \node[state,accepting](q_1) [right=of q_0] {$q_1$};
-    \path[->] 
-    (q_0) edge [bend left] node {1} (q_1)
-        edge [loop above] node {0} ()
-    (q_1) edge [bend left] node {0} (q_0) 
-        edge [loop below] node {1} ();
-\end{tikzpicture}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[state,accepting](q_1) [right=of q_0] {$q_1$};
+        \path[->] 
+        (q_0) edge [bend left] node {1} (q_1)
+            edge [loop above] node {0} ()
+        (q_1) edge [bend left] node {0} (q_0) 
+            edge [loop below] node {1} ();
+    \end{tikzpicture}
+    \caption{Diagram przejścia automatu do wykrywania 1 na pierwszym miejscu od końca}
+    \label{fig:automat:1end}
+\end{figure}
 
 Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\mathfrak{A}$ w którym $T=\{0, 1\}, P \in L(\mathfrak{A})$ wtedy i tylko wtedy gdy w $P$ występuje na drugim od końca miejscu 1.
 
-\begin{tikzpicture}[shorten >=1pt,node distance=2.0cm,on grid,auto]
-    \node[state,initial] (q_0)   {$q_0$}; 
-    \node[state](q_1) [right=of q_0] {$q_1$};
-    \node[state,accepting](q_2) [above right=of q_1] {$q_2$};
-    \node[state,accepting](q_3) [below right=of q_1] {$q_3$};
-    \path[->] 
-    (q_0) edge   node {1} (q_1)
-          edge  [loop above] node {0} ()
-    (q_1) edge  [bend left] node {0} (q_3)
-          edge  [bend left] node {1} (q_2)
-    (q_2) edge  [loop above] node {1} ()
-          edge  [bend left] node {0} (q_3)
-    (q_3) edge  [bend left] node {1} (q_1)
-          edge  [bend left] node {0} (q_0);
-\end{tikzpicture}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2.0cm,on grid,auto]
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[state](q_1) [right=of q_0] {$q_1$};
+        \node[state,accepting](q_2) [above right=of q_1] {$q_2$};
+        \node[state,accepting](q_3) [below right=of q_1] {$q_3$};
+        \path[->] 
+        (q_0) edge   node {1} (q_1)
+            edge  [loop above] node {0} ()
+        (q_1) edge  [bend left] node {0} (q_3)
+            edge  [bend left] node {1} (q_2)
+        (q_2) edge  [loop above] node {1} ()
+            edge  [bend left] node {0} (q_3)
+        (q_3) edge  [bend left] node {1} (q_1)
+            edge  [bend left] node {0} (q_0);
+    \end{tikzpicture}
+    \caption{Diagram przejścia automatu do wykrywania 1 na drugim miejscu od końca}
+    \label{fig:automat:2end}
+\end{figure}
 
-Widać wprost zależność że w zależności od miejsca od końca na którym ma być jeden rośnie ilość stanów.
+Widać na diagramie \ref{fig:automat:2end} wprost zależność że w zależności od miejsca od końca na którym ma być jeden rośnie ilość stanów.
 Ilość stanów maszyny $|K|$ do wykrywania 1 na $n$-tym miejscu od końca można wyrazić w następujący sposób: $|K| = 2^n$ 
 
 \subsection{Niedeterministyczne automaty skończone}
@@ -327,17 +338,20 @@ gdzie oznaczenia są identyczne jak dla deterministycznego automatu z dwoma ró�
     \item $Q_0$ zbiór stanów początkowych automatu
 \end{itemize}
 
-Niedeterministyczna wersja automatu skończenie stanowego $\mathfrak{A}$ z \href{#subsubsection.7.2.3}{poprzedniego przykładu}.
-
-\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
-    \node[state,initial] (q_0)   {$q_0$}; 
-    \node[state](q_1) [right=of q_0] {$q_1$};
-    \node[state,accepting](q_2) [right=of q_1] {$q_2$};
-    \path[->] 
-    (q_0) edge  node {1} (q_1)
-          edge  [loop above] node {0,1} ()
-    (q_1) edge  node {0,1} (q_2);
-\end{tikzpicture}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[state](q_1) [right=of q_0] {$q_1$};
+        \node[state,accepting](q_2) [right=of q_1] {$q_2$};
+        \path[->] 
+        (q_0) edge  node {1} (q_1)
+            edge  [loop above] node {0,1} ()
+        (q_1) edge  node {0,1} (q_2);
+    \end{tikzpicture}
+    \caption{Niedeterministyczna wersja automatu $\mathfrak{A}$ z rysunku \ref{fig:automat:2end}}
+    \label{fig:automat:2end-ndet}
+\end{figure}
 
 Jak widać zamiast 4 stanów potrzeba tylko 3, to dlatego, że dla wersji niedeterministycznej $|K| = n + 1$
 
@@ -356,7 +370,7 @@ $$
 \stackrel{\wedge}{\delta}(\{p\}, a) = \delta(p, a)
 $$
 
-\subsection{Twierdzenie Scotta}
+\subsubsection{Twierdzenie Scotta}
 
 \begin{itemize}
     \item każdy \textbf{nie}deterministyczny automat skończony można zastąpić równoważnym deterministycznym automatem skończonym
@@ -370,71 +384,79 @@ $$\mathfrak{L}_{det} = \mathfrak{L}_{ndet}$$
 
 Zatem co nam daje niedeterministyczność? Przede wszystkim prostotę, ale kosztem wykładniczej złożoności.
 
-\subsubsection{Przykład}
-
 Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\mathfrak{A}$ w którym $T=\{a\}, P \in L(\mathfrak{A})$ wtedy i tylko wtedy gdy $(2 | |P|) \vee (3 | |P|)$.
 
-\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
-    \node[state,initial,accepting] (q_0)   {$q_0$}; 
-    \node[state](q_1) [above right=of q_0] {$q_1$};
-    \node[state, accepting](q_2) [right=of q_1] {$q_2$};
-    \node[state, accepting](q_3) [below right=of q_2] {$q_3$};
-    \node[state,accepting](q_4) [below left=of q_3] {$q_4$};
-    \node[state](q_5) [left=of q_4] {$q_5$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)
-    (q_1) edge  node {a} (q_2)
-    (q_2) edge  node {a} (q_3)
-    (q_3) edge  node {a} (q_4)
-    (q_4) edge  node {a} (q_5)
-    (q_5) edge  node {a} (q_0);
-\end{tikzpicture}
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial,accepting] (q_0)   {$q_0$}; 
+        \node[state](q_1) [above right=of q_0] {$q_1$};
+        \node[state, accepting](q_2) [right=of q_1] {$q_2$};
+        \node[state, accepting](q_3) [below right=of q_2] {$q_3$};
+        \node[state,accepting](q_4) [below left=of q_3] {$q_4$};
+        \node[state](q_5) [left=of q_4] {$q_5$};
+        \path[->] 
+        (q_0) edge  node {a} (q_1)
+        (q_1) edge  node {a} (q_2)
+        (q_2) edge  node {a} (q_3)
+        (q_3) edge  node {a} (q_4)
+        (q_4) edge  node {a} (q_5)
+        (q_5) edge  node {a} (q_0);
+    \end{tikzpicture}
+    \caption{Diagram przejścia automatu do wykrywania słów o długości podzielnej przez 2 lub 3}
+    \label{fig:automat:2or3}
+\end{figure}
 
-Jak widzimy diagram przyjmuje postać cyklu o okresie 6, ponieważ $NWW(3,2)=6$.
+Jak widzimy na diagramie \ref{fig:automat:2or3} przyjmuje postać cyklu o okresie 6, ponieważ $NWW(3,2)=6$.
 Problem z diagramami deterministycznym się pojawia dla wyższych liczb, np.: $7$ i $5$, wtedy $NWW(7,5)=35$.
-Zatem narysujmy diagram niedeterministyczny.
+Zatem narysujmy diagram niedeterministyczny \ref{fig:automat:5or7}.
 
-\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
-    \node[] (initial) {start};
-    \node[state, accepting] (q5_0) [left=of initial] {$q_0^5$};
-    \node[state] (q5_1) [below left=of q5_0] {$q_1^5$};
-    \node[state] (q5_2) [left=of q5_1] {$q_2^5$};
-    \node[state] (q5_4) [above left=of q5_0] {$q_4^5$};
-    \node[state] (q5_3) [left=of q5_4] {$q_3^5$};
-    
-    \node[state, accepting] (q7_0) [right=of initial] {$q_0^7$};
-    \node[state] (q7_1) [above right=of q7_0] {$q_1^7$};
-    \node[state] (q7_2) [right=of q7_1] {$q_2^7$};
-    \node[state] (q7_3) [right=of q7_2] {$q_3^7$};
-    \node[state] (q7_6) [below right=of q7_0] {$q_6^7$};
-    \node[state] (q7_5) [right=of q7_6] {$q_5^7$};
-    \node[state] (q7_4) [right=of q7_5] {$q_4^7$};
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+        \node[] (initial) {start};
+        \node[state, accepting] (q5_0) [left=of initial] {$q_0^5$};
+        \node[state] (q5_1) [below left=of q5_0] {$q_1^5$};
+        \node[state] (q5_2) [left=of q5_1] {$q_2^5$};
+        \node[state] (q5_4) [above left=of q5_0] {$q_4^5$};
+        \node[state] (q5_3) [left=of q5_4] {$q_3^5$};
+        
+        \node[state, accepting] (q7_0) [right=of initial] {$q_0^7$};
+        \node[state] (q7_1) [above right=of q7_0] {$q_1^7$};
+        \node[state] (q7_2) [right=of q7_1] {$q_2^7$};
+        \node[state] (q7_3) [right=of q7_2] {$q_3^7$};
+        \node[state] (q7_6) [below right=of q7_0] {$q_6^7$};
+        \node[state] (q7_5) [right=of q7_6] {$q_5^7$};
+        \node[state] (q7_4) [right=of q7_5] {$q_4^7$};
 
-    \path[->]
-    (q5_0) edge node {a} (q5_1)
-    (q5_1) edge node {a} (q5_2)
-    (q5_2) edge node {a} (q5_3)
-    (q5_3) edge node {a} (q5_4)
-    (q5_4) edge node {a} (q5_0);
+        \path[->]
+        (q5_0) edge node {a} (q5_1)
+        (q5_1) edge node {a} (q5_2)
+        (q5_2) edge node {a} (q5_3)
+        (q5_3) edge node {a} (q5_4)
+        (q5_4) edge node {a} (q5_0);
 
 
-    \path[->]
-    (q7_0) edge node {a} (q7_1)
-    (q7_1) edge node {a} (q7_2)
-    (q7_2) edge node {a} (q7_3)
-    (q7_3) edge node {a} (q7_4)
-    (q7_4) edge node {a} (q7_5)
-    (q7_5) edge node {a} (q7_6)
-    (q7_6) edge node {a} (q7_0);
+        \path[->]
+        (q7_0) edge node {a} (q7_1)
+        (q7_1) edge node {a} (q7_2)
+        (q7_2) edge node {a} (q7_3)
+        (q7_3) edge node {a} (q7_4)
+        (q7_4) edge node {a} (q7_5)
+        (q7_5) edge node {a} (q7_6)
+        (q7_6) edge node {a} (q7_0);
 
-    \draw[->] (initial) -- (q5_0);
-    \draw[->] (initial) -- (q7_0);
-\end{tikzpicture}
+        \draw[->] (initial) -- (q5_0);
+        \draw[->] (initial) -- (q7_0);
+    \end{tikzpicture}
+    \caption{Diagram przejścia automatu ndet do wykrywania słów o długości podzielnej przez 5 lub 7}
+    \label{fig:automat:5or7}
+\end{figure}
 
 Jako, że automaty niedetermnistyczne pozwalają na kilka stanów początkowych, to tworzymy diagram niespójny, który w zależności od tego czy $|P|$ jest podzielne przez $5$ czy $7$ przechodzi do odpowiedniego pod-automatu.
 Najłatwiej to można sobie wyobrazić jako dwa równoległe automaty z alternatywą na koniec.
 
-\subsubsection{Dowód niedet \texorpdfstring{$\rightarrow$}{->} det}
+\subsubsection{Przekształcenie niedet \texorpdfstring{$\rightarrow$}{->} det}
 
 $$
 \mathfrak{A} = \langle K,T,\delta,Q_0,H \rangle
@@ -462,5 +484,94 @@ $$
     \item $H' = \{A \in K' : A \cap H \ne \emptyset\}$
     \item $\delta'(A, a) = \bigcup_{q \in A}\delta(q, a)$
 \end{itemize}
+
+Dla automatu \ref{fig:automat:2end-ndet} zbudujmy równoważny automat deterministyczny.
+Korzystając z powyższych zasad otrzymujemy:
+
+\begin{itemize}
+    \item $K' = P(K) = \{\emptyset, \{q_0\}, ..., \{q_1, q_2\}, \{q_0, q_1, q_2\}\} = \{q^\emptyset, q^0, ..., q^{12}, q^{012}\}$
+    \item $H' = \{q^2, q^{12}, q^{02}, q^{012}\}$
+    \item $q_0' = \{q_0\} = q^0$
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \resizebox{0.5\textwidth}{!}{    
+        
+        \begin{minipage}{0.25\textwidth}
+            \begin{tabular}{c|c|c}
+                \backslashbox{$K'$}{$T$} & 0             & 1 \\ \hline
+                $q^\emptyset$            & $q^\emptyset$ & $q^\emptyset$ \\
+                $\rightarrow q^0$        & $q^0$         & $q^{01}$ \\
+                $q^1$                    & $q^2$         & $q^2$ \\
+                $\underline{q^2}$        & $q^\emptyset$ & $q^\emptyset$ \\
+                $q^{01}$                 & $q^{02}$      & $q^{012}$ \\
+                $\underline{q^{12}}$     & $q^2$         & $q^2$ \\
+                $\underline{q^{02}}$     & $q^0$         & $q^{01}$ \\
+                $\underline{q^{012}}$    & $q^{02}$      & $q^{012}$ \\
+            \end{tabular}
+        \end{minipage}
+        \begin{minipage}{0.45\textwidth}
+            \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+                \node[state,initial] (q_0)   {$q^0$}; 
+                \node[state](q_1) [right=of q_0] {$q^{01}$};
+                \node[state,accepting](q_2) [above right=of q_1] {$q^{012}$};
+                \node[state,accepting](q_3) [below right=of q_1] {$q^{02}$};
+                \node[state,accepting](q_4) [above right=of q_3] {$q^2$};
+                \node[state](q_6) [right=of q_4] {$q^\emptyset$};
+                \node[state](q_5) [above=of q_4] {$q^1$};
+                \node[state,accepting](q_7) [below=of q_4] {$q^{12}$};
+                \path[->] 
+                (q_0) edge   node {1} (q_1)
+                    edge  [loop above] node {0} ()
+                (q_1) edge  [bend left] node {0} (q_3)
+                    edge  [bend left] node {1} (q_2)
+                (q_2) edge  [loop above] node {1} ()
+                    edge  [bend left] node {0} (q_3)
+                (q_3) edge  [bend left] node {1} (q_1)
+                    edge  [bend left] node {0} (q_0)
+                (q_4) edge node {0, 1} (q_6)
+                (q_5) edge node {0, 1} (q_4)
+                (q_7) edge node {0, 1} (q_4)
+                (q_6) edge [loop above] node {0, 1} (q_6);
+            \end{tikzpicture}
+        \end{minipage}
+    }
+    \caption{Zdeterminizowany automat z rysunku \ref{fig:automat:2end-ndet} i jego tabela przejść}
+    \label{fig:automat:2end-det}
+\end{figure}
+
+Jak widać na diagramie \ref{fig:automat:2end-det} liczba stanów wzrosła z 3 do 8, co jest zgodne z przewidywaniami.
+Jednocześnie widać, że diagram \ref{fig:automat:2end} zawiera się w diagramie \ref{fig:automat:2end-det}, co niekoniecznie oznacza, że są sobie równoważne, lecz jako, że stany dodatkowe są nieosiągalne to te dwa automaty są równoważne.
+\textbf{Nie zawsze równoważność automatów będzie tak oczywista.}
+
+\subsection{Automaty z przejściem}
+
+Co jeśli moglibyśmy zmienić stan ale nie ruszyć głowicy? Wtedy mamy do czynienia z automatem z przejściem.
+
+$$
+\epsilon \in T, \epsilon = \text{nie ruszaj głowicy automatu}
+$$
+
+$$
+\delta: K \times (T \cup \{\epsilon\}) \rightarrow P(K)
+$$
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[state](q_1) [right=of q_0] {$q_1$};
+        \node[state,accepting](q_2) [right=of q_1] {$q_2$};
+        \path[->] 
+        (q_0) edge  node {$\epsilon$} (q_1)
+            edge  [loop above] node {0} ()
+        (q_1) edge  node {$\epsilon$} (q_2)
+            edge  [loop above] node {1} ();
+    \end{tikzpicture}
+    \caption{Automat z przejściem}
+    \label{fig:automat:epsilon}
+\end{figure}
+Automat przedstawiony na rysunku \ref{fig:automat:epsilon} akceptuje języki o następującej postaci $L(\mathfrak{A})=\{0^n1^m2^k: n,m,k \ge 0\}$.
 
 \end{document}
