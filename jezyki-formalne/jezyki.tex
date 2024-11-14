@@ -557,6 +557,8 @@ $$
 \delta: K \times (T \cup \{\epsilon\}) \rightarrow P(K)
 $$
 
+\textbf{Każdy automat z przejściem jest niedeterministyczny}
+
 \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
@@ -573,5 +575,91 @@ $$
     \label{fig:automat:epsilon}
 \end{figure}
 Automat przedstawiony na rysunku \ref{fig:automat:epsilon} akceptuje języki o następującej postaci $L(\mathfrak{A})=\{0^n1^m2^k: n,m,k \ge 0\}$.
+
+\textbf{Nie istnieją różne epsilony:} $00\epsilon1\epsilon222 = 00122$
+
+\subsubsection{Domknięcie stanu}
+
+$$
+E(q) = \text{zbiór stanów osiągalnych z } q \text{ przez dowolną liczbę epsilonów}
+$$
+
+\begin{enumerate}
+    \item $q \in E(q)$
+    \item $r \in E(q) \wedge p \in \delta(r, \epsilon) \rightarrow p \in E(q)$
+\end{enumerate}
+
+\subsubsection{Domknięcie zbioru stanów}
+
+$$
+E(A) = \bigcup_{q \in A}E(q)
+$$
+
+\subsubsection{Rozszerzona funkcja przejść}
+
+$$
+\stackrel{\wedge}{\delta}: P(K) \times T^* \rightarrow P(K)
+$$
+
+\begin{itemize}
+    \item $\stackrel{\wedge}{\delta}(A, \epsilon) = E(A)$
+    \item $\stackrel{\wedge}{\delta}(A, Pa) = \bigcup_{q \in \stackrel{\wedge}{\delta}(A, P)}E(\delta(q, a))$
+\end{itemize}
+
+\subsubsection{Przekształcenie \texorpdfstring{$\epsilon \rightarrow$}{->} ndet}
+
+$$
+\mathfrak{A}' = \langle K',T',\delta',Q_0',H' \rangle
+$$
+
+$$
+T' = T, K' = K, H' = H, Q_0' = E(Q_0), \delta'(A, a) = E(\delta(q, a))
+$$
+
+$$
+\mathfrak{L_{ndet} = \mathfrak{L_{\epsilon}}}
+$$
+
+\subsection{Def języków akceptowalnych przez automaty ndet oraz z przejściem}
+
+$$
+L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(Q_0, P) \cap H \ne \emptyset\}
+$$
+
+\section{Wyrażenia regularne}
+
+$$
+Reg(V) = \text{zbiór wyrażeń regularnych nad alfabetem } V
+$$
+
+\begin{itemize}
+    \item $o \in Reg(V)$
+    \item $e \in Reg(V)$
+    \item $a \in V \rightarrow a \in Reg(V)$
+    \item $u, v \in Reg(V) \rightarrow (u + v), (u \cdot v), (u^*) \in Reg(V)$
+\end{itemize}
+
+\subsection{Operacje}
+
+\textbf{W kolejności od najwyższego priorytetu do najniższego}
+
+\begin{enumerate}
+    \item $L(u^*) = (L(u))^*$
+    \item $L(uv) = L(u) \cdot L(v)$
+    \item $L(u + v) = L(u) \cup L(v)$
+    \item $L(u) = \{u\}$
+\end{enumerate}
+
+\subsection{Przykłady}
+
+$$
+L(ba^*) = \{ba^n : n \ge 0\}
+$$
+
+$$
+L(ba^*) = L(b)L(a^*) = \{b\} \cdot (L(a))^* = \{b\} \cdot \{a\}^* = \{ba^n : n \ge 0\}
+$$
+
+$L((a + b)^*ab(a + b)^*)$ - wszystkie słowa nad alfabetem $\{a, b\}$ zaczynające się od a i kończące się b
 
 \end{document}
