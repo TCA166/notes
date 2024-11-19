@@ -338,6 +338,10 @@ gdzie oznaczenia są identyczne jak dla deterministycznego automatu z dwoma ró�
     \item $Q_0$ zbiór stanów początkowych automatu
 \end{itemize}
 
+$$
+L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(Q_0, P) \cap H \ne \emptyset\}
+$$
+
 \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
@@ -606,7 +610,7 @@ $$
     \item $\stackrel{\wedge}{\delta}(A, Pa) = \bigcup_{q \in \stackrel{\wedge}{\delta}(A, P)}E(\delta(q, a))$
 \end{itemize}
 
-\subsubsection{Przekształcenie \texorpdfstring{$\epsilon \rightarrow$}{->} ndet}
+\subsubsection{Przekształcenie \texorpdfstring{$\epsilon \rightarrow$}{eps ->} ndet}
 
 $$
 \mathfrak{A}' = \langle K',T',\delta',Q_0',H' \rangle
@@ -617,14 +621,27 @@ T' = T, K' = K, H' = H, Q_0' = E(Q_0), \delta'(A, a) = E(\delta(q, a))
 $$
 
 $$
-\mathfrak{L_{ndet} = \mathfrak{L_{\epsilon}}}
+\mathfrak{L_{ndet} = \mathfrak{L_{\epsilon}} = \mathfrak{L_{det}}}
 $$
 
-\subsection{Def języków akceptowalnych przez automaty ndet oraz z przejściem}
-
-$$
-L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(Q_0, P) \cap H \ne \emptyset\}
-$$
+\begin{figure}[h!]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        $\delta_\epsilon$ & a              & b         & $\epsilon$ \\ \hline
+        $\rightarrow q_0$ & $\emptyset$    & $\{q_1\}$ & $\{q_2\}$  \\
+        $q_1$             & $\{q_1, q_2\}$ & $\{q_2\}$ & $\emptyset$ \\
+        \underline{$q_2$} & $\{q_0\}$    & $\emptyset$ & $\emptyset$ \\    
+    \end{tabular}
+    \textbf{$\Longrightarrow$}
+    \begin{tabular}{c|c|c}
+        $\delta_{ndet}$              & a                           & b           \\ \hline
+        $\rightarrow q_0$             & $E(\emptyset)=\emptyset$    & $\{q_1\}$   \\
+        $q_1$                         & $\{q_1, q_2\}$              & $\{q_2\}$   \\
+        $\rightarrow \underline{q_2}$ & $E(\{q_0\})=\{q_0, q_2\}$   & $\emptyset$ \\    
+    \end{tabular}
+    \caption{Przekształcenie automatu z przejściem na niedeterministyczny}
+    \label{fig:automat:eps2ndet}
+\end{figure}
 
 \section{Wyrażenia regularne}
 
@@ -644,6 +661,7 @@ $$
 \textbf{W kolejności od najwyższego priorytetu do najniższego}
 
 \begin{enumerate}
+    \item $P \in Reg(V) \rightarrow L(P) \ne \emptyset$
     \item $L(u^*) = (L(u))^*$
     \item $L(uv) = L(u) \cdot L(v)$
     \item $L(u + v) = L(u) \cup L(v)$
@@ -661,5 +679,200 @@ L(ba^*) = L(b)L(a^*) = \{b\} \cdot (L(a))^* = \{b\} \cdot \{a\}^* = \{ba^n : n \
 $$
 
 $L((a + b)^*ab(a + b)^*)$ - wszystkie słowa nad alfabetem $\{a, b\}$ zaczynające się od a i kończące się b
+
+\subsection{Tw. Kleenego}
+
+$$
+\forall_{v \in Reg(V)}L(v) \subset \mathfrak{L}_{det}  
+$$
+
+Każdy język generowany przez wyrażenie regularne jest językiem akceptowanym przez automat skończony.
+Dowód opiera się na konstrukcji automatu $\epsilon$ odpowiadającego operatorowi wyrażenia regularnego.
+
+\subsubsection{$w = u + v$}
+
+$$
+L(u + v) = L(u) \cup L(v)
+$$
+$$
+L(u) = L(\mathfrak{A}_u), L(v) = L(\mathfrak{A}_v)
+$$
+$$
+L(\mathfrak{A}) = L(\mathfrak{A}_u) \cup L(\mathfrak{A}_v)
+$$
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[rectangle, draw] (u) [above right=of q_0] {$\mathfrak{A}_u$};
+        \node[rectangle, draw] (v) [below right=of q_0] {$\mathfrak{A}_v$};
+        \path[->] 
+        (q_0) edge [bend left] node {$\epsilon$} (u)
+            edge [bend right] node {$\epsilon$} (v);
+    \end{tikzpicture}
+    \caption{Konstrukcja automatu dla wyrażenia regularnego $u + v$}
+    \label{fig:reg:plus}
+\end{figure}
+
+\subsubsection{$w = uv$}
+
+$$
+L(uv) = L(u) \cdot L(v)
+$$
+$$
+L(u) = L(\mathfrak{A}_u), L(v) = L(\mathfrak{A}_v)
+$$
+$$
+L(\mathfrak{A}) = L(\mathfrak{A}_u) \cdot L(\mathfrak{A}_v)
+$$
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[rectangle, draw] (u) [right=of q_0] {$\mathfrak{A}_u$};
+        \node[rectangle, draw] (v) [right=of u] {$\mathfrak{A}_v$};
+        \path[->] 
+        (q_0) edge node {$\epsilon$} (u)
+        (u) edge node {$\epsilon$} (v);
+    \end{tikzpicture}
+    \caption{Konstrukcja automatu dla wyrażenia regularnego $uv$}
+    \label{fig:reg:concat}
+\end{figure}
+
+\subsubsection{$w = u^*$}
+
+$$
+L(u^*) = (L(u))^*
+$$
+$$
+L(u) = L(\mathfrak{A}_u)
+$$
+$$
+L(\mathfrak{A}) = (L(\mathfrak{A}_u))^*
+$$
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[rectangle, draw] (u) [right=of q_0] {$\mathfrak{A}_u$};
+        \node[state,accepting] (q_1) [right=of u] {$q_1$};
+        \path[->] 
+        (q_0) edge node {$\epsilon$} (u)
+        (q_0) edge [bend right] node {$\epsilon$} (q_1)
+        (u) edge node {$\epsilon$} (q_1)
+        (u) edge [loop above] node {$\epsilon$} ();
+    \end{tikzpicture}
+    \caption{Konstrukcja automatu dla wyrażenia regularnego $u^*$}
+    \label{fig:reg:star}
+\end{figure}
+
+\section{Klasy języków}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[state,accepting] (q_1) [right=of q_0] {$q_1$};
+        \node[state] (q_f) [right=of q_1] {$q_f$};
+        \path[->] 
+        (q_0) edge [loop above] node {a} ()
+        (q_0) edge node {b} (q_1)
+        (q_1) edge [loop above] node {b} ()
+        (q_1) edge node {b} (q_f)
+        (q_f) edge [loop above] node {a,b} ();
+    \end{tikzpicture}
+    \caption{Konstrukcja automatu dla automatu $a^*b^*$}
+    \label{fig:cls:ex1}
+\end{figure}
+
+Język regularny to język akceptowany przez wyrażenie regularne, czyli język akceptowany przez automat skończony.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+        \node[state,initial] (q_0)   {$q_0$}; 
+        \node[state] (q_1) [right=of q_0] {$q_1$};
+        \node[state,accepting] (q_2) [below=of q_1] {$q_2$};
+        \node[state] (q_3) [right=of q_1] {$q_3$};
+        \node[state] (q_4) [below=of q_3] {$q_4$};
+        \node[state] (q_5) [right=of q_3] {$q_5$};
+        \node[state] (q_6) [below=of q_5] {$q_6$};
+        \path[->] 
+        (q_0) edge node {a} (q_1)
+        (q_1) edge node {a} (q_3)
+        (q_1) edge node {b} (q_2)
+        (q_3) edge node {b} (q_4)
+        (q_3) edge node {a} (q_5)
+        (q_4) edge node {b} (q_2)
+        (q_5) edge node {b} (q_6)
+        (q_6) edge node {b} (q_4);
+    \end{tikzpicture}
+    \caption{Konstrukcja automatu akceptującego język $L = \{a^nb^n : 1 \le n \le 3\}$ \textbf{bez śmietnika}}
+    \label{fig:cls:ex2}
+\end{figure}
+
+\par \noindent \textbf{Czy można zapisać automat deterministyczny (lub nie) skończenie stanowy, akceptujący język $L = \{a^nb^n : n \ge 1\}$ ?}
+
+Nie da się, ponieważ wymagałoby to nieskończonej ilości stanów. Zatem język $L$ nie jest językiem regularnym.
+
+\subsection{Lemat o pompowaniu dla języków regularnych}
+
+Służy do dowodzenia, że język \textbf{nie} jest regularny.
+
+Jeżeli $L = L(\mathfrak{A})$\\
+\indent to: istnieje $k \ge 0$, taki, że każde słowo $P \in L$ o długości $|P| \ge k$ można zapisać jako $P = XYZ$, spełniające warunki:
+
+\begin{itemize}
+    \item $Y \ne \epsilon$
+    \item $|XY| \le k$
+    \item $\forall_{i \ge 0} XY^iZ \in L$
+\end{itemize}
+
+Parafrazując: jeśli język jest regularny, to nie ma w nim słowa, którego nie mógłbyś podzielić na trzy części, takie, że środkowa część jest powtarzalna.
+
+\subsubsection{Przykład zgodny}
+
+Dlaczego język $L = \{a^nb^m : n,m \ge 1\}$ jest regularny?
+
+\begin{itemize}
+    \item $k > 2, P \in L$
+    \item $|P| \ge k \rightarrow n + m \ge k$
+    \item $P = a^{n - x}a^xb^m$ czyli $P = XYZ$ gdzie $X = a^{n - x}, Y = a^x, Z = b^m$
+    \item $n - x + x < k \leftrightarrow |XY| \le k$
+    \item dla $i \ge 0$ $XY^iZ = a^{n - x}a^{xi}b^m = a^{n + x(i - 1)}b^m$, co jak widzimy jest w języku $L$
+\end{itemize}
+
+\subsubsection{Przykład niezgodny}
+
+Dlaczego język $L = \{a^nb^n : n \ge 1\}$ nie jest regularny?
+
+\begin{itemize}
+    \item $k > 2, P \in L$
+    \item $|P| \ge k \rightarrow 2n \ge k$
+    \item $|XY| \le k \rightarrow XY = a^n \vee XY = b^n$
+    \item dla $i = 2$ $XY^2Z = a^nb^nb^n \notin L$
+\end{itemize}
+
+\textbf{Zatem muszą istnieć języki nieregularne}
+
+\subsection{Nadzbiory języków regularnych}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=1cm,on grid,auto,rounded corners=0.5cm]
+        \node[draw, circle] (reg) at (0,0) {$Reg$};
+        \node[right=of reg] (cf) {$cf$};
+        \node[fit=(reg) (cf), draw] (cfs) {};
+        \node[left=of reg] (cs) {$cs$};
+        \node[fit=(cfs) (cs), draw] (css) {};
+        \node[below=of reg] (turing) {Rozpoznawane przez maszyny Turinga};
+        \node[fit=(css) (turing), draw] (allturing) {};
+    \end{tikzpicture}
+    \caption{Nadzbiory języków regularnych}
+    \label{fig:cls:reg}
+\end{figure}
 
 \end{document}
