@@ -771,6 +771,23 @@ $$
 
 \section{Klasy języków}
 
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=1cm,on grid,auto,rounded corners=0.5cm]
+        \node[draw, circle] (reg) at (0,0) {$Reg$};
+        \node[right=of reg] (cf) {$cf$};
+        \node[fit=(reg) (cf), draw] (cfs) {};
+        \node[left=of reg] (cs) {$cs$};
+        \node[fit=(cfs) (cs), draw] (css) {};
+        \node[below=of reg] (turing) {Rozpoznawane przez maszyny Turinga};
+        \node[fit=(css) (turing), draw] (allturing) {};
+    \end{tikzpicture}
+    \caption{Nadzbiory języków regularnych}
+    \label{fig:cls:reg}
+\end{figure}
+
+\subsection{Języki regularne}
+
 \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
@@ -818,12 +835,16 @@ Język regularny to język akceptowany przez wyrażenie regularne, czyli język 
 
 Nie da się, ponieważ wymagałoby to nieskończonej ilości stanów. Zatem język $L$ nie jest językiem regularnym.
 
-\subsection{Lemat o pompowaniu dla języków regularnych}
+\subsubsection{Lemat o pompowaniu dla języków regularnych}
 
 Służy do dowodzenia, że język \textbf{nie} jest regularny.
 
 Jeżeli $L = L(\mathfrak{A})$\\
 \indent to: istnieje $k \ge 0$, taki, że każde słowo $P \in L$ o długości $|P| \ge k$ można zapisać jako $P = XYZ$, spełniające warunki:
+
+Lemat o pompowaniu jest warunkiem koniecznym ale nie wystarczającym.
+To oznacza, że wszystkie języki regularne spełniają warunek lematu o pompowaniu, ale nie wszystkie języki spełniający warunek lematu o pompowaniu są regularne.
+Warunkiem dostatecznym jest zdefiniowanie automatu skończenie stanowego akceptującego język.
 
 \begin{itemize}
     \item $Y \ne \epsilon$
@@ -833,7 +854,7 @@ Jeżeli $L = L(\mathfrak{A})$\\
 
 Parafrazując: jeśli język jest regularny, to nie ma w nim słowa, którego nie mógłbyś podzielić na trzy części, takie, że środkowa część jest powtarzalna.
 
-\subsubsection{Przykład zgodny}
+\textbf{Przykład zgodny}
 
 Dlaczego język $L = \{a^nb^m : n,m \ge 1\}$ jest regularny?
 
@@ -845,7 +866,7 @@ Dlaczego język $L = \{a^nb^m : n,m \ge 1\}$ jest regularny?
     \item dla $i \ge 0$ $XY^iZ = a^{n - x}a^{xi}b^m = a^{n + x(i - 1)}b^m$, co jak widzimy jest w języku $L$
 \end{itemize}
 
-\subsubsection{Przykład niezgodny}
+\textbf{Przykład niezgodny}
 
 Dlaczego język $L = \{a^nb^n : n \ge 1\}$ nie jest regularny?
 
@@ -858,21 +879,86 @@ Dlaczego język $L = \{a^nb^n : n \ge 1\}$ nie jest regularny?
 
 \textbf{Zatem muszą istnieć języki nieregularne}
 
-\subsection{Nadzbiory języków regularnych}
+\subsubsection{Przechodniość regularności}
 
-\begin{figure}[h]
-    \centering
-    \begin{tikzpicture}[shorten >=1pt,node distance=1cm,on grid,auto,rounded corners=0.5cm]
-        \node[draw, circle] (reg) at (0,0) {$Reg$};
-        \node[right=of reg] (cf) {$cf$};
-        \node[fit=(reg) (cf), draw] (cfs) {};
-        \node[left=of reg] (cs) {$cs$};
-        \node[fit=(cfs) (cs), draw] (css) {};
-        \node[below=of reg] (turing) {Rozpoznawane przez maszyny Turinga};
-        \node[fit=(css) (turing), draw] (allturing) {};
-    \end{tikzpicture}
-    \caption{Nadzbiory języków regularnych}
-    \label{fig:cls:reg}
-\end{figure}
+Z tw. Kleenego:
+
+$$L_1,L_2 \in \mathfrak{L}_{reg} \rightarrow L_1 \cup L_2, L_1 \cdot L_2, L_1^*, L_2^* \in \mathfrak{L}_{reg}$$
+
+$$
+L_1 \cup L_2 = L(v + w) = L(v) \cup L(w) = L_1 \cup L_2
+$$
+
+$$
+L_1 \cap L_2 = \overline{L_1 \cap L_2} = \overline{\overline{L_1} \cup \overline{L_2}}
+$$
+
+\section{Gramatyki}
+
+Gramatyki służą do generowania języków.
+Działanie gramatyk wyraża się przy pomocy reguły przepisującej.
+
+$$
+(P, Q) - \text{słowa}
+$$
+
+$$
+\text{Jeżeli } P \rightarrow Q \text{ oraz } U = P_1PP_2 \text{ to } U \Rightarrow P_1QP_2
+$$
+
+Jeżeli reguła przepisująca jest wykonywana wielokrotnie to używamy oznaczenia $\stackrel{*}{\Rightarrow}$.
+
+\subsection{Typu 3 (regularne)}
+
+$$
+G = \langle V_N, V_T, S, F \rangle
+$$
+
+gdzie:
+
+\begin{itemize}
+    \item $V_N$ - zbiór nieterminali (symboli zastępowanych)
+    \item $V_T$ - zbiór terminali (symboli niezastępowanych)
+    \item $S$ - symbol początkowy
+    \item $F$ - zbiór reguł przepisujących
+\end{itemize}
+
+$$
+V_N \cap V_T = \emptyset
+$$
+
+\subsubsection{Wyprowadzanie słowa w jednym kroku}
+
+Dla gramatyki $G$ mówimy, że $W$ jest wyprowadzane w jednym kroku z $U$ (oznaczane $U \Rightarrow W$) jeżeli istnieje reguła $P \rightarrow Q \in F$ taka, że $U = P_1PQ_2$ oraz $W = P_1QQ_2$.
+
+\subsubsection{Wyprowadzanie słowa w wielu krokach}
+
+Dla gramatyki $G$ mówimy, że $W$ jest wyprowadzane w wielu krokach z $U$ (oznaczane $U \stackrel{*}{\Rightarrow} W$) wtedy gdy $U=W$, lub gdy istnieją słowa $R_1 \dots R_n : n > 1$ gdzie $R_1 = U$ a $R_n=W$.
+
+\subsubsection{Język generowany przez gramatykę}
+
+$$
+L(G) = \{W \in V_T^* : S \stackrel{*}{\Rightarrow} W\}
+$$
+
+\subsubsection{Przykład prosty}
+
+$$
+L(G) = \{a^n : n \ge 0\} = L(a^*)
+$$
+
+$$
+G = \langle \{S\}, \{a\}, S, \{S \rightarrow aS, S \rightarrow \epsilon\} \rangle
+$$
+
+\subsubsection{Przykład złożony}
+
+$$
+L(G) = \{a^nb^n : n \ge 1\} \notin \mathfrak{L}_{reg}
+$$
+
+$$
+G = \langle \{S\}, \{a, b\}, S, \{S \rightarrow aSb, S \rightarrow ab\} \rangle
+$$
 
 \end{document}
