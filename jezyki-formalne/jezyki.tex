@@ -1,4 +1,5 @@
 \documentclass{../notatki}
+\usepackage{float}
 
 \title{Języki formalne}
 
@@ -9,10 +10,10 @@
 \section{Literatura}
 
 \begin{itemize}
-    \item \href{}{J.E. Hopencroft "Wprowadzenie do teorii automatów i obliczeń"}
-    \item \href{}{M. Sipser "Wprowadzenie do teorii obliczeń"}
-    \item \href{}{G.E. Revesz "Introduction to formal languages"}
-    \item \href{}{H.R. Lewin, Papadimitriou "Elements of the Theory of Computation"}
+    \item J.E. Hopencroft "Wprowadzenie do teorii automatów i obliczeń"
+    \item M. Sipser "Wprowadzenie do teorii obliczeń"
+    \item G.E. Revesz "Introduction to formal languages"
+    \item H.R. Lewin, Papadimitriou "Elements of the Theory of Computation"
 \end{itemize}
 
 \section{Język}
@@ -117,7 +118,7 @@ $$
 L_1 = \{a, aa\}, L_2 = \{b, aba\}, L_1L_2 = \{ab, aaba, aab, aaaba\}
 $$
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{c|c|c}
 \backslashbox{$L_2$}{$L_1$} & a    & aa \\ \hline
@@ -234,7 +235,7 @@ $$
 \delta: K \times T \rightarrow K
 $$
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \resizebox{0.5\textwidth}{!}{    
         \begin{minipage}{0.25\textwidth}
@@ -279,7 +280,7 @@ $$
 
 Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\mathfrak{A}$ w którym $T=\{0, 1\}, P \in L(\mathfrak{A})$ wtedy i tylko wtedy gdy w $P$ występuje na pierwszym od końca miejscu.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -296,7 +297,7 @@ Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\m
 
 Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\mathfrak{A}$ w którym $T=\{0, 1\}, P \in L(\mathfrak{A})$ wtedy i tylko wtedy gdy w $P$ występuje na drugim od końca miejscu 1.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2.0cm,on grid,auto]
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -342,7 +343,7 @@ $$
 L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(Q_0, P) \cap H \ne \emptyset\}
 $$
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -498,7 +499,7 @@ Korzystając z powyższych zasad otrzymujemy:
     \item $q_0' = \{q_0\} = q^0$
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \resizebox{0.5\textwidth}{!}{    
         
@@ -563,7 +564,7 @@ $$
 
 \textbf{Każdy automat z przejściem jest niedeterministyczny}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -624,7 +625,7 @@ $$
 \mathfrak{L_{ndet} = \mathfrak{L_{\epsilon}} = \mathfrak{L_{det}}}
 $$
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tabular}{c|c|c|c}
         $\delta_\epsilon$ & a              & b         & $\epsilon$ \\ \hline
@@ -689,7 +690,7 @@ $$
 Każdy język generowany przez wyrażenie regularne jest językiem akceptowanym przez automat skończony.
 Dowód opiera się na konstrukcji automatu $\epsilon$ odpowiadającego operatorowi wyrażenia regularnego.
 
-\subsubsection{$w = u + v$}
+\subsubsection{\texorpdfstring{$w = u + v$}{w = u + v}}
 
 $$
 L(u + v) = L(u) \cup L(v)
@@ -701,7 +702,7 @@ $$
 L(\mathfrak{A}) = L(\mathfrak{A}_u) \cup L(\mathfrak{A}_v)
 $$
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -715,7 +716,7 @@ $$
     \label{fig:reg:plus}
 \end{figure}
 
-\subsubsection{$w = uv$}
+\subsubsection{\texorpdfstring{$w = uv$}{w = u}}
 
 $$
 L(uv) = L(u) \cdot L(v)
@@ -727,7 +728,7 @@ $$
 L(\mathfrak{A}) = L(\mathfrak{A}_u) \cdot L(\mathfrak{A}_v)
 $$
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -741,7 +742,7 @@ $$
     \label{fig:reg:concat}
 \end{figure}
 
-\subsubsection{$w = u^*$}
+\subsubsection{\texorpdfstring{$w = u^*$}{w = u*}}
 
 $$
 L(u^*) = (L(u))^*
@@ -753,7 +754,7 @@ $$
 L(\mathfrak{A}) = (L(\mathfrak{A}_u))^*
 $$
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -788,7 +789,7 @@ $$
 
 \subsection{Języki regularne}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
@@ -807,7 +808,7 @@ $$
 
 Język regularny to język akceptowany przez wyrażenie regularne, czyli język akceptowany przez automat skończony.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
         \node[state,initial] (q_0)   {$q_0$}; 
