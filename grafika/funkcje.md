@@ -131,3 +131,35 @@ void camera::update_front(float yaw, float pitch) {
     front = glm::normalize(front);
 }
 ```
+
+## Pytania
+
+### Wyjaśnij dlaczego teksturę (w klasycznym przypadku obraz rastrowy) przekształcamy w OpenGL do przestrzeni współrzędnych ciągłych. Ile wymiarów w ogólności ma ta przestrzeń? Jakie symbole używamy w OpenGL do opisu jej osi
+
+Przekształcamy teksturę do przestrzeni współrzędnych ciągłych, aby umożliwić precyzyjne mapowanie tekstury na powierzchnię obiektu. Dzięki temu możemy łatwo określić, które punkty tekstury odpowiadają poszczególnym punktom powierzchni obiektu. Przestrzeń ta ma zazwyczaj 2 wymiary dla tekstur 2D, ale może mieć również 3 wymiary dla tekstur 3D. Osi w przestrzeni tekstury opisujemy symbolami s, t (dla tekstur 2D) oraz r (dla tekstur 3D)
+
+### W jakim obszarze przestrzeni tekstury znajduje się jej pojedyncza kopia? Czy istnieje tylko jedna taka kopia?
+
+Pojedyncza kopia tekstury znajduje się w przestrzeni współrzędnych tekstury w zakresie od 0 do 1 w obu wymiarach (s, t). W zależności od ustawień powtarzania tekstur (wrapping mode) w OpenGL, może istnieć wiele kopii tekstury.
+
+### Oblicz w przestrzeni tekstury położenie teksela (125,400) obrazu 2D o wymiarach 1000x800 pikseli
+
+s = 125 / 1000 = 0.125
+t = 400 / 800 = 0.5
+
+### Dlaczego często widzimy na obiekcie przynajmniej lekko zdeformowany obraz tekstury?
+
+Obraz tekstury może być zdeformowany na obiekcie z powodu różnic w kształcie i proporcjach między teksturą a powierzchnią obiektu
+
+### Wyjaśnij w miarę precyzyjnie jak poprawnie należy odwzorować teksturę z zachowaniem perspektywy
+
+Aby poprawnie odwzorować teksturę z zachowaniem perspektywy, należy używać współrzędnych tekstury w przestrzeni projektowanej (projected texture coordinates) oraz odpowiednich równań projekcji. Współrzędne tekstury muszą być interpolowane w sposób perspektywiczny, co często wymaga użycia shaderów
+
+### Wyjaśnij co to jest mipmapping i w jakiej scenie 3D ma istotne zastosowanie
+
+Mipmapping to technika używana do poprawy wydajności i jakości teksturowania. Polega na tworzeniu serii mniejszych wersji tekstury (mipmaps), które są używane w zależności od odległości obiektu od kamery. Mipmapping jest szczególnie przydatne w scenach 3D z obiektami oddalonymi od kamery, gdzie użycie mniejszych wersji tekstury redukuje aliasing i poprawia wydajność renderowania
+
+### Wyjaśnij jaką rolę w teksturowaniu pojedynczego trójkąta pełni shader wierzchołków, a jaką shader fragmentów
+
+**Shader wierzchołków (vertex shader)**: Przekształca współrzędne wierzchołków i przypisuje współrzędne tekstury do wierzchołków. Przygotowuje dane do dalszego przetwarzania w shaderze fragmentów.  
+**Shader fragmentów (fragment shader)**: Odpowiada za interpolację współrzędnych tekstury dla każdego fragmentu (piksela) i pobieranie odpowiednich wartości z tekstury. Nakłada teksturę na fragmenty powierzchni obiektu, uwzględniając oświetlenie i inne efekty wizualne
