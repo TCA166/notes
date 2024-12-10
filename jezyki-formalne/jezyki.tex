@@ -844,25 +844,20 @@ Nie da się, ponieważ wymagałoby to nieskończonej ilości stanów. Zatem jęz
 
 \subsubsection{Lemat o pompowaniu dla języków regularnych}
 
-Służy do dowodzenia, że język \textbf{nie} jest regularny.
-
-Jeżeli $L = L(\mathfrak{A})$\\
-\indent to: istnieje $k \ge 0$, taki, że każde słowo $P \in L$ o długości $|P| \ge k$ można zapisać jako $P = XYZ$, spełniające warunki:
-
-Lemat o pompowaniu jest warunkiem koniecznym ale nie wystarczającym.
-To oznacza, że wszystkie języki regularne spełniają warunek lematu o pompowaniu, ale nie wszystkie języki spełniający warunek lematu o pompowaniu są regularne.
-Warunkiem dostatecznym jest zdefiniowanie automatu skończenie stanowego akceptującego język.
-
+Służy do dowodzenia, że język \textbf{nie} jest regularny. \\
+Jeżeli $L = L(\mathfrak{A})$\\to: istnieje $k \ge 0$, taki, że każde słowo $P \in L$ o długości $|P| \ge k$ można zapisać jako $P = XYZ$, spełniające warunki:\\
 \begin{itemize}
     \item $Y \ne \epsilon$
     \item $|XY| \le k$
     \item $\forall_{i \ge 0} XY^iZ \in L$
 \end{itemize}
+Parafrazując: jeśli język jest regularny, to nie ma w nim słowa, którego nie mógłbyś podzielić na trzy części, takie, że środkowa część jest powtarzalna. \\
 
-Parafrazując: jeśli język jest regularny, to nie ma w nim słowa, którego nie mógłbyś podzielić na trzy części, takie, że środkowa część jest powtarzalna.
+Lemat o pompowaniu jest warunkiem koniecznym ale nie wystarczającym.
+To oznacza, że wszystkie języki regularne spełniają warunek lematu o pompowaniu, ale nie wszystkie języki spełniający warunek lematu o pompowaniu są regularne.
+Warunkiem dostatecznym jest zdefiniowanie automatu skończenie stanowego akceptującego język.
 
-\textbf{Przykład zgodny}
-
+\textbf{Przykład zgodny} \\
 Dlaczego język $L = \{a^nb^m : n,m \ge 1\}$ jest regularny?
 
 \begin{itemize}
@@ -872,9 +867,7 @@ Dlaczego język $L = \{a^nb^m : n,m \ge 1\}$ jest regularny?
     \item $n - x + x < k \leftrightarrow |XY| \le k$
     \item dla $i \ge 0$ $XY^iZ = a^{n - x}a^{xi}b^m = a^{n + x(i - 1)}b^m$, co jak widzimy jest w języku $L$
 \end{itemize}
-
-\textbf{Przykład niezgodny}
-
+\textbf{Przykład niezgodny} \\
 Dlaczego język $L = \{a^nb^n : n \ge 1\}$ nie jest regularny?
 
 \begin{itemize}
@@ -883,7 +876,6 @@ Dlaczego język $L = \{a^nb^n : n \ge 1\}$ nie jest regularny?
     \item $|XY| \le k \rightarrow XY = a^n \vee XY = b^n$
     \item dla $i = 2$ $XY^2Z = a^nb^nb^n \notin L$
 \end{itemize}
-
 \textbf{Zatem muszą istnieć języki nieregularne}
 
 \subsubsection{Przechodniość regularności}
@@ -898,6 +890,10 @@ $$
 
 $$
 L_1 \cap L_2 = \overline{L_1 \cap L_2} = \overline{\overline{L_1} \cup \overline{L_2}}
+$$
+
+$$
+L_3 \subsetneq L_2 \subsetneq L_1 \subsetneq L_0
 $$
 
 \section{Gramatyki}
@@ -1034,6 +1030,94 @@ Dla $G = \langle V_N, V_T, S, F \rangle$
     \item $Q_0 = \{S\}$
     \item $H = \{A \in K : A \rightarrow \epsilon \in F\}$
     \item $A \rightarrow aB \in F$ to $B \in \delta(A, a)$
+\end{itemize}
+
+\section{Algorytmy}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm]
+        \node (start) [startstop] {Start};
+        \node (pro1) [process, below of=start] {$k := 0$};
+        \node (dec1) [decision, below of=pro1] {$k \le 5$};
+        \node (pro2) [process, right of=dec1, xshift=3cm] {$k := k + 1$};
+        \node (pro3) [process, left of=dec1, xshift=-3cm] {$k := k + 2$};
+        \node (io) [io, below of=dec1] {Wypisz k};
+        \node (stop) [startstop, below of=io] {Stop};
+        \draw [arrow] (start) -- (pro1);
+        \draw [arrow] (pro1) -- (dec1);
+        \draw [arrow] (dec1) -- node[anchor=south] {tak} (pro2);
+        \draw [arrow] (dec1) -- node[anchor=south] {nie} (pro3);
+        \draw [arrow] (pro2) |- (io);
+        \draw [arrow] (pro3) |- (io);
+        \draw [arrow] (io) -- (stop);
+    \end{tikzpicture}
+    \caption{Schemat blokowy przykładowego algorytmu}
+\end{figure}
+
+Algorytm to zbiór procedur, które dla danego wejścia dają określony wynik. My zakładamy, że algorytm zwraca TAK lub NIE.
+
+\subsection{Problem}
+
+Problem to zbiór instancji, oraz zbiór instancji pozytywnych problemu.
+
+$$
+\mathcal{P} = \langle \mathbb{I}, \mathbb{P} \rangle
+$$
+$$
+\mathbb{P} \subset \mathbb{I}
+$$
+Warto zauważyć zatem, że $\mathbb{I}$ działa jak alfabet, a $\mathbb{P}$ jak język nad tym alfabetem.
+Algorytm dla danego problemu określa czy dana instancja należy do zbioru pozytywnego (języka), w podobny sposób jak automat określa co jest w języku.
+Zatem algorytm działa trochę jak funkcja $\mathcal{A}: \mathbb{I} \rightarrow \{\top, \bot\}$.
+
+\subsubsection{Problem rozstrzygalny}
+
+Problem rozstrzygalny to taki problem, dla którego istnieje algorytm, który dla każdej instancji zwraca TAK lub NIE.
+
+\subsubsection{Problem pustości}
+
+$$
+\mathbb{I} = \text{wszystkie automaty} = \mathbb{A}
+$$
+$$
+\mathbb{P} = \{\mathfrak{A} \in \mathbb{A} : L(\mathfrak{A} = \emptyset)\}
+$$
+Jest to problem \textbf{rozstrzygalny} dla języków regularnych. 
+
+\subsubsection{Problem skończoności}
+
+$$
+\mathbb{I} = \mathbb{A}
+$$
+$$
+\mathbb{P} = \{\mathfrak{A} \in \mathbb{A} : |L(\mathfrak{A})| < \infty\}
+$$
+Jest to problem \textbf{rozstrzygalny} dla języków regularnych.
+
+\subsubsection{Problem nieskończoności}
+
+$$
+\mathbb{I} = \mathbb{A}
+$$
+$$
+\mathbb{P} = \{\mathfrak{A} \in \mathbb{A} : |L(\mathfrak{A})| = \infty\}
+$$
+Jest to problem \textbf{rozstrzygalny} dla języków regularnych, ponieważ jest to odwrotne pytanie do problemu skończoności.
+
+\subsubsection{Problem równości}
+
+$$
+\mathbb{I} = \mathbb{A} \times \mathbb{A}
+$$
+$$
+\mathbb{P} = \{(\mathfrak{A}_1, \mathfrak{A}_2) \in \mathbb{A} \times \mathbb{A} : L(\mathfrak{A}_1) = L(\mathfrak{A}_2)\}
+$$
+Jest to problem \textbf{rozstrzygalny} dla języków regularnych.
+
+\begin{itemize}
+    \item Zbuduj $\mathfrak{B}$, takie, że $L(\mathfrak{B}) = (L(\mathfrak{A_1}) \cap \overline{L(\mathfrak{A_2})}) \cup (L(\mathfrak{A_2}) \cap \overline{L(\mathfrak{A_1})})$ (XOR mnogościowe)
+    \item Zastosuj problem pustości na $\mathfrak{B}$
 \end{itemize}
 
 \end{document}
