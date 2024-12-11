@@ -1,0 +1,66 @@
+\documentclass{../notatki}
+
+\title{Algebra liniowa}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Uporządkowana para liczb}
+
+$$
+(a, b) = \{ \{a\}, \{a, b\} \}
+$$
+
+\section{Grupa}
+
+Grupa to uporządkowana para $G(A, \circ)$, gdzie $A$ to zbiór, a $\circ$ to działanie spełniające następujące warunki:
+
+\begin{itemize}
+    \item Zachodzi łączność działania $\forall a, b, c \in A: a \circ (b \circ c) = (a \circ b) \circ c$
+    \item Istnieje element neutralny $e \in A: \forall a \in A: a \circ e = e \circ a = a$
+    \item Dla każdego elementu istnieje element odwrotny $\forall a \in A: \exists a^{-1} \in A: a \circ a^{-1} = a^{-1} \circ a = e$
+\end{itemize}
+
+\subsection{Grupa abelowa}
+
+Grupa abelowa, to specjalny rodzaj grupy w którym spełniony jest dodatkowy warunek:
+
+\begin{itemize}
+    \item Grupa jest przemienna $\forall a, b \in A: a \circ b = b \circ a$
+\end{itemize}
+
+\subsection{Przykłady grup}
+
+$$
+G(\mathbb{Z}, +), G(\mathbb{Q}, +), G(\mathbb{R}, +), G(\mathbb{C}, +)
+$$
+
+\section{Pierścień}
+
+Pierścień to uporządkowana trójka $R(A, +, \cdot)$, gdzie $A$ to zbiór, a $+$ i $\cdot$ to działania spełniające następujące warunki:
+
+\begin{itemize}
+    \item $(A, +)$ jest grupą abelową
+    \item $+$ i $\cdot$ są są wewnętrzne dla $A$
+    \item Dla każdego $a, b, c \in A$ zachodzi rozdzielność mnożenia względem dodawania: $a \cdot (b + c) = a \cdot b + a \cdot c$ oraz $(a + b) \cdot c = a \cdot c + b \cdot c$
+    \item Istnieje element neutralny mnożenia $1 \in A: \forall a \in A: a \cdot 1 = 1 \cdot a = a$
+\end{itemize}
+
+\subsection{Pierścień z jedynką}
+
+Pierścień z jedynką to pierścień, w którym istnieje element neutralny mnożenia oraz $A \ne \emptyset$
+
+\subsection{Pierścień przemienny}
+
+Pierścień przemienny to pierścień, w którym mnożenie jest przemienna
+
+\section{Ciało}
+
+Ciało $C(K, +, \cdot)$ to pierścień przemienny z jedynką, oraz $(K \setminus \{0\}, \cdot)$ jest grupą
+
+\section{Homomorfizmy}
+
+\subsection{}
+
+\end{document}

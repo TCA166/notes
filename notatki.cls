@@ -12,8 +12,13 @@
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
+
 \fancyhead[L]{\textbf{\@title}}
+\fancyhead[C]{\href{https://github.com/TCA166/notes}{TCA166}}
 \fancyhead[R]{\@date}
+
+\fancyfoot[C]{\thepage}
+
 \renewcommand{\headrulewidth}{0pt}
 %do obrazków
 \RequirePackage{graphicx}
