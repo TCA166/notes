@@ -61,6 +61,183 @@ Ciało $C(K, +, \cdot)$ to pierścień przemienny z jedynką, oraz $(K \setminus
 
 \section{Homomorfizmy}
 
-\subsection{}
+Homomorfizmy to odwzorowania $f: A \rightarrow B$, jeśli $A$ i $B$ spełniają dodatkowe warunki..
+
+\subsection{Homomorfizmy grupy}
+
+Jeśli $(A, +_A)$ i $(B, +_B)$ to grupy oraz 
+
+$$
+\forall_{a \in A, b \in B} f(a +_A b) = f(a) +_B f(b) 
+$$
+
+\subsection{Homomorfizmy pierścieni}
+
+Jeśli $(A, +_A, \cdot_A)$ i $(B, +_B, \cdot_B)$ to pierścienie oraz
+
+$$
+\forall_{a \in A, b \in B} f(a +_A b) = f(a) +_B f(b) \wedge f(a \cdot_B b) = f(a) \cdot_B f(b)
+$$
+
+\subsection{Jądro homomorfizmu}
+
+$$
+ker f = \{a \in A: f(a) = O_B\} 
+$$
+
+\subsection{Obraz homomorfizmu}
+
+$$
+im f = \{b \in B: \exists a \in A: f(a) = b\}
+$$
+
+\section{Permutacje}
+
+$$
+\pi =
+\begin{pmatrix}
+  1   & 2   & 3   & \cdots & n-1   \\
+  a_1 & a_2 & a_3 & \cdots &  a_n  
+\end{pmatrix}
+$$
+
+$$
+a_n = \pi(n)
+$$
+
+\subsection{Rozkład na cykle}
+
+$$
+\pi = 
+\begin{pmatrix}
+    a_1 & a_2 & a_3 & \cdots & a_n   \\
+    a_2 & a_3 & a_4 & \cdots & a_1  
+\end{pmatrix}
+= (a_1, a_2, a_3, \dots, a_n)
+$$
+
+$$
+\pi' = 
+\begin{pmatrix}
+    a_1 & a_2 & b_1 & b_2   \\
+    a_2 & a_1 & b_2 & a_1  
+\end{pmatrix}
+= (a_1, a_2) \cdot (b_1, b_2)
+$$
+
+\subsection{Iloczyn transpozycji}
+
+$$
+(a_1, a_2, a_3, \dots, a_k) = (a_1, a_k) \cdot (a_1, a_{k-1}) \cdot \dots \cdot (a_1, a_3) \cdot (a_1, a_2)
+$$
+
+\subsection{Postać macierzowa}
+
+$$
+\pi = 
+\begin{pmatrix}
+    1 & 2 & 3 & 4\\
+    2 & 2 & 4 & 3
+\end{pmatrix}
+= 
+\begin{vmatrix}
+    0 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0\\
+    0 & 0 & 0 & 1\\
+    0 & 0 & 1 & 0
+\end{vmatrix}
+$$
+
+\subsection{Znak permutacji}
+
+Ilość czynników w iloczynie transpozycji określa parzystość permutacji.
+
+$$(-1)^n$$ gdzie $n$ to ilość transpozycji
+
+\section{Macierze}
+
+\subsection{Macierz jednostkowa}
+
+$$
+I =
+\begin{vmatrix}
+    1 & 0 & 0 & \cdots & 0 \\
+    0 & 1 & 0 & \cdots & 0 \\
+    0 & 0 & 1 & \cdots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \cdots & 1
+\end{vmatrix}
+$$
+
+\subsection{Macierz odwrotna}
+
+Macierz odwrotna do $A$ to taka macierz $B$, że $A \cdot B = B \cdot A = I$
+
+\subsection{Macierz transponowana}
+
+$$
+A^T =
+\begin{vmatrix}
+    a_{11} & a_{21} & a_{31} & \cdots & a_{m1} \\
+    a_{12} & a_{22} & a_{32} & \cdots & a_{m2} \\
+    a_{13} & a_{23} & a_{33} & \cdots & a_{m3} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    a_{1n} & a_{2n} & a_{3n} & \cdots & a_{mn}
+\end{vmatrix}
+$$
+
+\subsection{Wzory Cramera}
+
+\subsection{Ograniczenie macierzy}
+
+$$
+A_{ij} = \text{macierz bez kolumny } i \text{ oraz wierszu } j
+$$
+
+\subsection{Wyznacznik Macierzy}
+
+$$
+\det A = a_{11} \cdot A_{11} + a_{12} \cdot A_{12} + a_{13} \cdot A_{13} + \dots + a_{1n} \cdot A_{1n}
+$$
+
+Dla macierzy $2 \times 2$
+
+$$
+$$
+
+Dla macierzy $3 \times 3$
+
+$$
+$$
+
+\subsubsection{Tw. Laplace'a}
+
+$$
+\det A = a_{i1}A_{i1} + a_{i2}A_{i2} + \dots + a_{in}A_{in} \text{ dla każdego } 1 \le i \le n
+$$
+
+\subsubsection{Własności}
+
+\begin{itemize}
+    \item Jeżeli macierz kwadratowa $A$ ma wiersz lub kolumnę złożoną z samych zer to $\det A$ = 0
+    \item Jeżeli macierz kwadratowa ma kolumnę lub wiersz pomnożoną przez skalar to wyznacznik też jest wielokrotnością skalara
+    \item Jeżeli dwie macierze $A$ i $B$ kwadratowe różnią się od innej macierzy $C$ tylko tą samą kolumną lub wierszem, który $C$ jest sumą odpowiednich w $A$ i $B$ to $\det C = \det A + \det B$
+    \item Zamiana miejscami dwóch kolumn lub wierszy spowoduje zamienienie się znaku wyznacznika na przeciwny
+    \item Jeżeli jedna kolumna lub wiersz jest wielokrotnością innego wiersza lub kolumny to wyznacznik jest równy 0
+    \item Dodawanie wierszy i kolumn nie zmienia wyznacznika
+    \item Wyznacznik macierzy górnotrójkątnej lub dolnotrójkątnej jest równy iloczynowi elementów na przekątnej
+\end{itemize}
+
+\subsubsection{Tw. Cauche'go}
+
+$$
+\det AB = \det A \cdot \det B
+$$
+
+\subsection{Dopełnienie algebraiczne macierzy}
+
+$$
+A_{ij} = (-1)^{i + j} \det M_{ij} 
+$$
 
 \end{document}
