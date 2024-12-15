@@ -140,12 +140,12 @@ $$
     2 & 2 & 4 & 3
 \end{pmatrix}
 = 
-\begin{vmatrix}
+\begin{bmatrix}
     0 & 0 & 0 & 0\\
     1 & 1 & 0 & 0\\
     0 & 0 & 0 & 1\\
     0 & 0 & 1 & 0
-\end{vmatrix}
+\end{bmatrix}
 $$
 
 \subsection{Znak permutacji}
@@ -160,13 +160,13 @@ $$(-1)^n$$ gdzie $n$ to ilość transpozycji
 
 $$
 I =
-\begin{vmatrix}
+\begin{bmatrix}
     1 & 0 & 0 & \cdots & 0 \\
     0 & 1 & 0 & \cdots & 0 \\
     0 & 0 & 1 & \cdots & 0 \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     0 & 0 & 0 & \cdots & 1
-\end{vmatrix}
+\end{bmatrix}
 $$
 
 \subsection{Macierz odwrotna}
@@ -177,18 +177,16 @@ Macierz odwrotna do $A$ to taka macierz $B$, że $A \cdot B = B \cdot A = I$
 
 $$
 A^T =
-\begin{vmatrix}
+\begin{bmatrix}
     a_{11} & a_{21} & a_{31} & \cdots & a_{m1} \\
     a_{12} & a_{22} & a_{32} & \cdots & a_{m2} \\
     a_{13} & a_{23} & a_{33} & \cdots & a_{m3} \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     a_{1n} & a_{2n} & a_{3n} & \cdots & a_{mn}
-\end{vmatrix}
+\end{bmatrix}
 $$
 
-\subsection{Wzory Cramera}
-
-\subsection{Ograniczenie macierzy}
+\subsection{Minory macierzy}
 
 $$
 A_{ij} = \text{macierz bez kolumny } i \text{ oraz wierszu } j
@@ -203,11 +201,13 @@ $$
 Dla macierzy $2 \times 2$
 
 $$
+\det A = a_{11} \cdot a_{22} - a_{12} \cdot a_{21}
 $$
 
-Dla macierzy $3 \times 3$
+Dla macierzy $n \times n$
 
 $$
+\det A = \sum_{i=1}^{n} (-1)^{i+j} \cdot a_{ij} \cdot A_{ij}
 $$
 
 \subsubsection{Tw. Laplace'a}
@@ -234,10 +234,108 @@ $$
 \det AB = \det A \cdot \det B
 $$
 
+\subsection{Wzory Cramera}
+
+Dla zestawu równań liniowych
+
+$$
+\begin{cases}
+    a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1 \\
+    a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2 \\
+    \vdots \\
+    a_{n1}x_1 + a_{n2}x_2 + \dots + a_{nn}x_n = b_n
+\end{cases}
+$$
+Możemy przedstawić czynniki jako macierz
+$$
+W = \det
+\begin{bmatrix}
+    a_{11} & a_{12} & \cdots & a_{1n} \\
+    a_{21} & a_{22} & \cdots & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{bmatrix}
+$$
+I zastępując kolumnę $i$ kolumną wyrazów wolnych otrzymujemy
+$$
+W_i = \det
+\begin{bmatrix}
+    a_{11} & a_{12} & \cdots & a_{1i-1} & b_1 & a_{1i+1} & \cdots & a_{1n} \\
+    a_{21} & a_{22} & \cdots & a_{2i-1} & b_2 & a_{2i+1} & \cdots & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & \cdots & a_{ni-1} & b_n & a_{ni+1} & \cdots & a_{nn}
+\end{bmatrix}
+$$
+
+$$
+x_i = \frac{W_i}{W}
+$$
+
 \subsection{Dopełnienie algebraiczne macierzy}
 
 $$
 A_{ij} = (-1)^{i + j} \det M_{ij} 
 $$
+
+\section{Przestrzeń liniowa}
+
+Przestrzeń liniowa $V$ nad ciałem $K$ to zbiór $V$ oraz działania $+$ i $\cdot$ spełniające następujące warunki:
+
+\begin{itemize}
+    \item $(V, +, \theta)$ jest grupą abelową z elementem neutralnym $\theta$
+    \item Dla każdego $\alpha, \beta \in K$ i $v \in V$ zachodzi $\alpha \cdot (\beta \cdot v) = (\alpha \cdot \beta) \cdot v$
+    \item Dla każdego $\alpha \in K$ i $v, w \in V$ zachodzi $\alpha \cdot (v + w) = \alpha \cdot v + \alpha \cdot w$
+    \item $1 \cdot v = v$
+\end{itemize}
+
+\section{Wektory}
+
+Wektor to element przestrzeni liniowej $V$
+
+\subsection{Układ wektorów}
+
+Układ wektorów przestrzeni liniowej $V$ o wskaźnikach ze zbioru T to funkcja $v: T \rightarrow V$. Wartość funkcji v w elemencie t oznaczamy $v_t$.
+
+\subsection{Kombinacja liniowa}
+
+Kombinacja liniowa wektorów $v_1, v_2, \dots, v_n$ to wektor postaci
+
+$$
+\alpha_1 \cdot v_1 + \alpha_2 \cdot v_2 + \dots + \alpha_n \cdot v_n
+$$
+
+Zbiór wszystkich kombinacji liniowych nazywamy powłoką liniową układu
+
+\subsection{Rozpinanie}
+
+Wektory z układu wektorów rozpinają przestrzeń jeżeli każdy z wektorów należy do przestrzeni oraz jest kombinacją liniową wektorów układu, czyli można go wyrazić za pomocą innych wektorów.
+
+Wektory są liniowo niezależne gdy ich kombinacja liniowa (L) jest równa $\theta_v$(wektor zerowy) lub matryca tych wektorów ma $\det \ne 0$ lub rząd matrycy wektorów = ilości wektorów
+
+\subsection{Własności wektorów}
+
+\begin{itemize}
+    \item Jeżeli wektory są liniowo zależne to jeden z nich jest kombinacją liniową pozostałych
+    \item Jeżeli $\theta_v$ jest kombinacją liniową wektorów to są liniowo zależne
+    \item Niezależny układ rozpinający przestrzeń V nazywamy bazą przestrzeni V
+    \item Jeżeli układ tworzący bazę jest skończony to mówimy że V ma bazę skończoną
+    \item Kolumny macierzy $A$ są wektorami liniowo zależnymi jeżeli $AX = \theta$ ma rozwiązanie niezerowe ze względu na $X$
+    \item Jeżeli kolumny macierzy $A$ to wektory liniowo niezależne to $AX = \theta$ ma jedno rozwiązanie i $\det A \ne 0$
+\end{itemize}
+
+\section{Wrońskian}
+
+Macierz zawierająca pochodne n funkcji do m-1 włącznie stopnia. 
+
+$$
+W_{11} = f_1(x), W_{12} = f_2(x), \dots, W_{1n} = f_n(x)
+$$
+
+$$
+W_{21} = f_1'(x), W_{22} = f_2'(x), \dots, W_{2n} = f_n'(x)
+$$
+
+Jeśli funkcje są liniowo zależne w przedziale $(a,b)$ to ich wrońskian jest tożsamościowo równy zeru.
+Jeżeli $x_0 \in (a, b)$ i $W(x_0) \ne 0$ to funkcje we wrońskianie są liniowo niezależne 
 
 \end{document}
