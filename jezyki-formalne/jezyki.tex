@@ -282,6 +282,10 @@ $$
     \item $\stackrel{\wedge}{\delta}(q, Pa) = \delta(\stackrel{\wedge}{\delta}(q, P), a)$
 \end{itemize}
 
+$$
+L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(q_0, P) \in H\}
+$$
+
 \subsubsection{Przykład}
 
 Narysuj diagram przejścia deterministycznego automatu skończenie stanowego $\mathfrak{A}$ w którym $T=\{0, 1\}, P \in L(\mathfrak{A})$ wtedy i tylko wtedy gdy w $P$ występuje na pierwszym od końca miejscu.
@@ -345,10 +349,6 @@ gdzie oznaczenia są identyczne jak dla deterministycznego automatu z dwoma ró�
     \item $Q_0$ zbiór stanów początkowych automatu
 \end{itemize}
 
-$$
-L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(Q_0, P) \cap H \ne \emptyset\}
-$$
-
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
@@ -379,6 +379,10 @@ $$
 
 $$
 \stackrel{\wedge}{\delta}(\{p\}, a) = \delta(p, a)
+$$
+
+$$
+L(\mathfrak{A}) = \{P \in T^* : \stackrel{\wedge}{\delta}(Q_0, P) \cap H \ne \emptyset\}
 $$
 
 \subsubsection{Twierdzenie Scotta}
@@ -940,6 +944,34 @@ Dla gramatyki $G$ mówimy, że $W$ jest wyprowadzane w wielu krokach z $U$ (ozna
 
 $$
 L(G) = \{W \in V_T^* : S \stackrel{*}{\Rightarrow} W\}
+$$
+
+\subsubsection{Przykład prosty}
+
+$$
+F = \{S \rightarrow aaSA, S \rightarrow \epsilon, A \rightarrow bA, A \rightarrow b \}
+$$
+
+$$
+S \stackrel{*}{\Rightarrow} a^{2n}SA^n \Rightarrow a^{2n}A^n \stackrel{*}{\Rightarrow} a^{2n}b^m
+$$
+
+$$
+L(G) = \{a^{2n}b^m : n \ge 0, m \ge 0\} \cup \{\epsilon\}
+$$
+
+\subsubsection{Przykład złożony}
+
+$$
+F = \{S \rightarrow abScd, S \rightarrow A, A \rightarrow dcAba, A \rightarrow \epsilon\}
+$$
+
+$$
+S \stackrel{*}{\Rightarrow} (ab)^nS(cd)^n \Rightarrow (ab)^nA(cd)^n \stackrel{*}{\Rightarrow} (ab)^n(dc)^mA(ba)^m(cd)^n \Rightarrow (ab)^n(dcba)^m(cd)^n
+$$
+
+$$
+L(G) = \{(ab)^n(dcba)^m(cd)^n : n \ge 1, m \ge 0\} \cup \{\epsilon\}
 $$
 
 \subsubsection{Przykład prosty}
