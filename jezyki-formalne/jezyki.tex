@@ -900,6 +900,15 @@ $$
 L_3 \subsetneq L_2 \subsetneq L_1 \subsetneq L_0
 $$
 
+\subsection{Bezkontekstowe}
+
+\subsubsection{Część wspólna języków bezkontekstowych}
+
+$$
+\stackrel{CF}{\{a^nb^nc^k : n \ge 1 \}} \cap \stackrel{CF}{\{a^nb^kc^k : n \ge 1
+\}} = \stackrel{CTX}{\{a^nb^nc^n : n \ge 1\}}
+$$
+
 \section{Gramatyki}
 
 Gramatyki służą do generowania języków.
@@ -997,21 +1006,10 @@ $$
 \subsection{Rodzaje gramatyk}
 
 \begin{itemize}
-    \item Typu 0 (ogólne) \\
-    \textbf{Bez} ograniczeń na reguły
-    \item Typu 1 (kontekstowe) \\
-    $$
-    F = \{Q_1AQ_2 \rightarrow Q_1PQ_2 : Q_1, Q_2, A, P \in \{V_N \cup V_T\}^* \backslash S\} \cup \{S \rightarrow \epsilon\}
-    $$
-    Reguły w $F$ nie mogą pozwolić na zmniejszenie się ciągu.
-    \item Typu 2 (bezkontekstowe) \\
-    $$
-    F = \{A \rightarrow P : A \in V_N, P \in \{V_N \cup V_T\}^*\}
-    $$
-    \item Typu 3 (regularne) \\
-    $$
-    F = \{A \rightarrow aB, A \rightarrow a, A \rightarrow \epsilon : A, B \in V_N, a \in V_T\}
-    $$
+    \item Typu 0 (ogólne)
+    \item Typu 1 (kontekstowe)
+    \item Typu 2 (bezkontekstowe)
+    \item Typu 3 (regularne)
 \end{itemize}
 
 $$
@@ -1022,13 +1020,11 @@ $$
 L(G_n) = \mathfrak{L}_n = L(\mathfrak{A}_n)
 $$
 
-\subsubsection{Gramatyki liniowe}
+\subsection{Gramatyki typu 3}
 
-Gramatyki regularne inaczej nazywa są gramatykami liniowymi prawostronnymi.
-Gramatyki liniowe prawostronne to gramatyki, w których $F = \{A \rightarrow Pb\}$.
-Gramatyki liniowe lewostronne to gramatyki, w których $F = \{A \rightarrow bP\}$.
-\textbf{Gramatyki liniowe lewostronne są równoważne gramatykom liniowym prawostronnym.}
-Gramatyki liniowe to gramatyki kontekstowe, w których $F = \{A \rightarrow P_1B_2\}$
+$$
+F = \{A \rightarrow aB, A \rightarrow a, A \rightarrow \epsilon : A, B \in V_N, a \in V_T\}
+$$
 
 \subsubsection{Gramatyki Normalne typu 3}
 
@@ -1038,6 +1034,95 @@ $$
 
 Liczba kroków generacji $= |P|$.
 Każda gramatyka regularna może być zapisana w postaci gramatyki normalnej typu 3.
+
+\subsubsection{Gramatyki liniowe}
+
+Gramatyki regularne inaczej nazywa są gramatykami liniowymi prawostronnymi.
+Gramatyki liniowe prawostronne to gramatyki, w których $F = \{A \rightarrow Pb\}$.
+Gramatyki liniowe lewostronne to gramatyki, w których $F = \{A \rightarrow bP\}$.
+\textbf{Gramatyki liniowe lewostronne są równoważne gramatykom liniowym prawostronnym.}
+Gramatyki liniowe to gramatyki kontekstowe, w których $F = \{A \rightarrow P_1B_2\}$
+
+\subsection{Gramatyki bezkontekstowe}
+
+$$
+F = \{A \rightarrow P : A \in V_N, P \in \{V_N \cup V_T\}^*\}
+$$
+
+\subsubsection{Problem należenia słowa pustego}
+
+Dla każdej gramatyki bezkontekstowej $G$ można efektywnie skonstruować 
+równoważną jej gramatykę bezkontekstową $G'$, w której nie ma reguł 
+przepisujących symbol początkowy w słowo puste, za wyjątkiem sytuacji jeśli 
+$\epsilon \in L(G)$. Wówczas jedyną regułą w $F'$ zawierającą $\epsilon$ będzie
+$S' \rightarrow \epsilon$ i $S'$ nie pojawia się po prawej stronie żadnej
+reguły.
+
+Problem należenia słowa pustego jest rozstrzygalny dla gramatyk 
+bezkontekstowych. Algorytm wygląda następująco:
+
+\begin{enumerate}
+    \item Przekształć gramatykę $G$ na równoważną jej gramatykę $G'$, w której 
+        nie ma reguł przepisujących symbol początkowy w słowo puste.
+    \item Sprawdź, czy $S' \rightarrow \epsilon \in F'$.
+\end{enumerate}
+
+\subsubsection{Gramatyki normalne bezkontekstowe}
+
+Gramatyka bezkontekstowa jest normalna, jeżeli każda reguła przepisująca ma
+postać $A \rightarrow a$ lub $A \rightarrow BC$, \textbf{efektywnie tworząc
+drzewo binarne}.
+
+Dla każdej $\epsilon$-wolnej gramatyki bezkontekstowej można efektywnie
+skonstruować równoważną jej gramatykę bezkontekstową normalną.
+
+\noindent \textbf{Zamiana CF $\rightarrow$ CF norm}
+
+\begin{itemize}
+    \item Pozbądź się terminałów z reguł innych niż te o kształcie $A 
+    \rightarrow a$ kosztem nowych nieterminali.
+    $$
+    \{A \rightarrow abXc\} \Rightarrow \{A \rightarrow X_aX_bXX_c, X_a 
+    \rightarrow a, X_b \rightarrow b, X_c \rightarrow c\}
+    $$
+    \item Zamień reguły o kształcie $A \rightarrow a_1a_2\dots a_nB$ na reguły
+    o kształcie $A \rightarrow a_1X_1, X_1 \rightarrow a_2X_2, \dots, X_{n-1}
+    \rightarrow a_nB$.
+    $$
+    \{A \rightarrow X_1X_2X_3X_4\} \Rightarrow \{A \rightarrow X_1Z_1, Z_1 
+    \rightarrow X_2Z_2, Z_2 \rightarrow X_3X_4\}
+    $$
+\end{itemize}
+
+\subsubsection{Problem słowa}
+
+Problem słowa jest rozstrzygalny dla gramatyk bezkontekstowych.
+Algorytm siłowy ma złożoność $O(\overline{\overline{F}}^{|P|})$ gdzie $|P|$ to
+długość słowa. Z kolei algorytm "CYK" ma złożoność $O(|P|^3)$.
+
+\subsubsection{Lemat o pompowaniu dla gramatyk bezkontekstowych}
+
+Istnieje liczba naturalna $p$ zależna od L, taka, że dla każdego słowa $P \in L$
+o długości $|P| \ge p$ istnieje podział $P = UXWYZ$ spełniający warunki:
+
+\begin{itemize}
+    \item $XY \ne \epsilon$
+    \item $|XWY| \le p$
+    \item $\forall_{i \ge 0} UX^iWY^iZ \in L$
+\end{itemize}
+
+Dla normalnych gramatyk $n = \overline{\overline{V_n}}$, $p=2^n$
+
+\subsection{Gramatyki kontekstowe}
+
+$$
+F = \{Q_1AQ_2 \rightarrow Q_1PQ_2 : Q_1, Q_2, A, P \in \{V_N \cup V_T\}^* \backslash S\} \cup \{S \rightarrow \epsilon\}
+$$
+Reguły w $F$ nie mogą pozwolić na zmniejszenie się ciągu.
+
+\subsection{Gramatyki ogólne}
+
+\textbf{Bez} ograniczeń na reguły
 
 \subsection{Przekształcenie automatu na gramatykę}
 
