@@ -1,0 +1,183 @@
+\documentclass{../notatki}
+
+\title{Logika i Teoria Mnogości}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Prawa logiki}
+
+\subsection{Prawa łączności}
+
+\begin{itemize}
+  \item $(p \land q) \land r \leftrightarrow p \land (q \land r)$
+  \item $(p \lor q) \lor r \leftrightarrow p \lor (q \lor r)$
+  \item $((p \leftrightarrow q) \leftrightarrow r) \leftrightarrow (p
+    \leftrightarrow (q \leftrightarrow r))$
+\end{itemize}
+
+\subsection{Prawa przemienności}
+
+\begin{itemize}
+  \item $p \land q \leftrightarrow q \land p$
+  \item $p \lor q \leftrightarrow q \lor p$
+  \item $(p \leftrightarrow q) \leftrightarrow (q \leftrightarrow p)$
+\end{itemize}
+
+\subsection{Prawa impotentności}
+
+\begin{itemize}
+  \item $p \lor p \leftrightarrow p$
+  \item $p \land p \leftrightarrow p$
+\end{itemize}
+
+\subsection{Prawo rozdzielności}
+
+$$(p \land q) \lor r \leftrightarrow (p \lor r) \land (q \lor r)$$
+
+\subsection{Prawo de Morgana}
+
+$$
+\neg (p \land q) \leftrightarrow \neg p \lor \neg q
+$$
+
+\subsection{Prawo podwójnej negacji}
+
+$$
+\neg \neg p \leftrightarrow p
+$$
+
+\subsection{Prawo transpozycji}
+
+$$
+(p \rightarrow q) \leftrightarrow (\neg q \rightarrow \neg p)
+$$
+
+\subsection{Prawo eksportacji-importacji}
+
+$$
+(p \land q) \rightarrow r \leftrightarrow p \rightarrow (q \rightarrow r)
+$$
+
+\section{Wnioskowanie}
+
+$$
+\frac{x_1, x_2, \ldots, x_n}{y}
+$$
+
+$x_n$ - założenia, $y$ - teza
+
+Wnioskowanie jest dedukcyjne jeżeli $x_1 \land x_2 \dots \land x_n
+\rightarrow y$ jest tautologią.
+
+Jeżeli wniosek wynika logicznie z przesłanek to wnioskowanie jest dedukcyjne.
+
+\subsection{Reguły wnioskowania}
+
+Poniższe reguły są zawsze poprawne.
+
+$$
+\frac{p, p \rightarrow q}{q}
+$$
+
+$$
+\frac{p\rightarrow q, q \rightarrow r}{p \rightarrow r}
+$$
+
+$$
+\frac{p \rightarrow q, \neg q}{\neg p}
+$$
+
+$$
+\frac{p \rightarrow q, q \rightarrow p}{p \leftrightarrow q}
+$$
+
+\section{Przekształcenia}
+
+$$
+p \rightarrow q \leftrightarrow \neg p \lor q
+$$
+
+$$
+(p \leftrightarrow q) \leftrightarrow (p \rightarrow q) \land (q \rightarrow p)
+$$
+
+$$
+X \downarrow Y = \neg (x \lor y)
+$$
+
+$$
+X \uparrow Y = \neg (x \land y)
+$$
+
+\section{Postaci normalne}
+
+APN - alternatywna postać normalna. Zbiór klauzul nad zmiennymi połączonymi
+operatorem alternatywy. $(p \land q) \lor (\neg p \land q)$. Jeśli w APN jest
+para klauzul przeciwnych to jest to anty-tautologia.
+
+KPN - koniunkcyjna postać normalna. Zbiór klauzul nad zmiennymi połączonymi
+operatorem koniunkcji. $(p \lor q) \land (\neg p \lor q)$. Jeśli w KPN jest
+para klauzul przeciwnych to jest to tautologia.
+
+\begin{tabular}{|c|c|c|c|c|c|c|l|l|}
+  \hline
+  $p$ & $q$ & $r$ & APN & KPN \\ \hline
+  1 & 1 & 1 & $p \land q \land r$ & $\neg p \lor \neg q \lor \neg r$ \\ \hline
+  1 & 1 & 0 & $p \land q \land \neg r$ & $\neg p \lor \neg q \lor r$ \\ \hline
+  1 & 0 & 1 & $p \land \neg q \land r$ & $\neg p \lor q \lor \neg r$ \\ \hline
+\end{tabular}
+
+\section{Sekwenty}
+
+Sekwent to para zbiorów formuł logicznych powstający z normalnego zapisu
+algebry logicznej.
+
+\begin{tikzpicture}
+  \node (a) at (0, 0) {$p \lor q \rightarrow p \land q$};
+  \node (b) [below=of a] {$\neg(p \lor q), p \land q$};
+  \node (b_1) [below left=of b] {$\neg p, p \land q$};
+  \node (b_2) [below right=of b] {$\neg q, p \land q$};
+  \node (c) [below left= of b_1] {$\neg p, p$};
+  \node (d) [below right= of b_1] {$\neg p, q$};
+  \node (e) [below left= of b_2] {$\neg q, p$};
+  \node (f) [below right= of b_2] {$\neg q, q$};
+  \draw[->] (a) -- (b);
+  \draw[->] (b) -- (b_1);
+  \draw[->] (b) -- (b_2);
+  \draw[->] (b_1) -- (c);
+  \draw[->] (b_1) -- (d);
+  \draw[->] (b_2) -- (e);
+  \draw[->] (b_2) -- (f);
+\end{tikzpicture}
+
+Przy pomocy takiego drzewa można sprawdzić czy formula jest tautologią.
+
+\section{Kwantyfikatory}
+
+$$
+\forall_{A(x)} B(x) \leftrightarrow \forall_{x} (A(x) \rightarrow B(x))
+$$
+
+$$
+\exists_{A(x)} B(x) \leftrightarrow \exists_{x} (A(x) \land B(x))
+$$
+
+\section{Zbiory}
+
+\begin{itemize}
+  \item $X \subset Y \leftrightarrow \forall x (x \in X \rightarrow x \in Y)$
+  \item $X \cup Y \leftrightarrow \{x : x \in X \lor x \in Y\}$
+  \item $X \cap Y \leftrightarrow \{x : x \in X \land x \in Y\}$
+  \item $X \setminus Y \leftrightarrow \{x : x \in X \land \neg x \in Y\}$
+  \item $A \div B = \{x : (x \in A \land \neg x \in B) \lor (\neg x
+    \in A \land x \in B)\}$
+  \item $\bigcup_{i \in I} A_i = \{x: \exists_{i \in I}(x \in A_i)\}$
+  \item $\bigcap_{i \in I} A_i = \{x: \forall_{i \in I}(x \in A_i)\}$
+\end{itemize}
+$\mathbb{U}$ - uniwersum \\
+$A' = \mathbb{U} \setminus A$ \\
+$A \times B = \{<x, y>: x \in A \land y \in B\}$
+
+\end{document}
