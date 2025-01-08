@@ -166,7 +166,7 @@ Mipmapping to technika używana do poprawy wydajności i jakości teksturowania.
 **Shader wierzchołków (vertex shader)**: Przekształca współrzędne wierzchołków i przypisuje współrzędne tekstury do wierzchołków. Przygotowuje dane do dalszego przetwarzania w shaderze fragmentów.  
 **Shader fragmentów (fragment shader)**: Odpowiada za interpolację współrzędnych tekstury dla każdego fragmentu (piksela) i pobieranie odpowiednich wartości z tekstury. Nakłada teksturę na fragmenty powierzchni obiektu, uwzględniając oświetlenie i inne efekty wizualne
 
-### PBF
+### PBR
 
 #### Podaj definicję współczynnika załamania fali świetlnej oraz klasyczną postać prawa Snella
 
