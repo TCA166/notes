@@ -213,3 +213,19 @@ W modelu phonga jest to wszystko uproszczone do intensywności światła, wspó�
 #### Podaj kilka przykładów aproksymacji BRDF w modelach odbicia stosowanych w grafice komputerowej
 
 Model Phonga, Model Blinna-Phonga, Model Lambertowski, Model Cook-Torrance
+
+### Kwaterniony
+
+#### Zdefiniuj macierz obrotu jako szczególny przypadek macierzy ortogonalnych
+
+Macierz obrotu to szczególny przypadek macierzy ortogonalnej, który dodatkowo spełnia warunek, że jej wyznacznik wynosi dokładnie +1
+
+#### Co oznaczają i do czego służą pojęcia: Pitch, Yaw, Roll?
+
+Pitch - x  
+Yaw - y
+Roll - z
+
+#### Podaj istotnie złą cechę kątów Eulera jako narzędzia obrótów w 3D
+
+Gimbal lock
