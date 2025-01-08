@@ -9,9 +9,10 @@
 \section{Literatura}
 
 \begin{itemize}
-    \item \href{https://wp.faculty.wmi.amu.edu.pl/GRK.html}{Wykład}
-    \item \href{https://learnopengl.com/book/book_pdf.pdf}{J. de Vries, "Learn OpenGL"}
-    \item \href{https://andkok.faculty.wmi.amu.edu.pl/grk/zad_1/}{Ćwiczenia}
+  \item \href{https://wp.faculty.wmi.amu.edu.pl/GRK.html}{Wykład}
+  \item \href{https://learnopengl.com/book/book_pdf.pdf}{J. de Vries,
+    "Learn OpenGL"}
+  \item \href{https://andkok.faculty.wmi.amu.edu.pl/grk/zad_1/}{Ćwiczenia}
 \end{itemize}
 
 \section{Wektory}
@@ -25,53 +26,54 @@ $$
 $$
 
 Jeśli $\vec{v}$ i $\vec{w}$ są prostopadłe to $\vec{v} \cdot \vec{w} = 0$.
-A z kolei jeśli $\vec{v} \cdot \vec{w}$ są normalne to $\vec{v} \cdot \vec{w} = cos(\theta)$.
+A z kolei jeśli $\vec{v} \cdot \vec{w}$ są normalne to $\vec{v} \cdot
+\vec{w} = cos(\theta)$.
 
 \section{Operacje}
 
 Wyróżniamy trzy rodzaje operacji na punktach w przestrzeni n-wymiarowej:
 
 \begin{itemize}
-    \item Skalowanie\\
+  \item Skalowanie\\
     $$
     f(
-        \begin{bmatrix}
+      \begin{bmatrix}
         x \\
         y
-        \end{bmatrix}
+      \end{bmatrix}
     )
     =
     \begin{bmatrix}
-        s_x * x \\
-        s_y * y
+      s_x * x \\
+      s_y * y
     \end{bmatrix}
     $$
-    \item Rotacja\\
+  \item Rotacja\\
     $$
     f(
-        \begin{bmatrix}
+      \begin{bmatrix}
         x \\
         y
-        \end{bmatrix}
+      \end{bmatrix}
     )
     =
     \begin{bmatrix}
-        x * cos(\theta) - y * sin(\theta) \\
-        x * sin(\theta) + y * cos(\theta)
+      x * cos(\theta) - y * sin(\theta) \\
+      x * sin(\theta) + y * cos(\theta)
     \end{bmatrix}
     $$
-    \item Translacja\\
+  \item Translacja\\
     $$
     f(
-        \begin{bmatrix}
+      \begin{bmatrix}
         x \\
         y
-        \end{bmatrix}
+      \end{bmatrix}
     )
     =
     \begin{bmatrix}
-        x + 1 \\
-        y - 1
+      x + 1 \\
+      y - 1
     \end{bmatrix}
     $$
 \end{itemize}
@@ -81,37 +83,43 @@ Wyróżniamy trzy rodzaje operacji na punktach w przestrzeni n-wymiarowej:
 \subsection{Skalowanie}
 
 $$
-S = \begin{bmatrix}
-        s_x & 0 \\
-        0 & s_y
-    \end{bmatrix}
+S =
+\begin{bmatrix}
+  s_x & 0 \\
+  0 & s_y
+\end{bmatrix}
 \text{lub }
-\begin{bmatrix} s_x & 0 & 0 \\ 0 & s_y & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} s_x & 0 & 0 \\ 0 & s_y & 0 \\ 0 & 0 & 1
+\end{bmatrix}
 $$
 
 \subsection{Rotacja}
 
 $$
-R = \begin{bmatrix}
-        cos(\theta) & -sin(\theta) \\
-        sin(\theta) & cos(\theta)
-    \end{bmatrix}
+R =
+\begin{bmatrix}
+  cos(\theta) & -sin(\theta) \\
+  sin(\theta) & cos(\theta)
+\end{bmatrix}
 \text{lub }
-\begin{bmatrix} cos(\theta) & -sin(\theta) & 0 \\ sin(\theta) & cos(\theta) & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} cos(\theta) & -sin(\theta) & 0 \\ sin(\theta) &
+  cos(\theta) & 0 \\ 0 & 0 & 1
+\end{bmatrix}
 $$
 
 \subsection{Translacja}
 
 $$
-T = 
+T =
 \begin{bmatrix}
-    1 & 2 \\
-    3 & 4
+  1 & 2 \\
+  3 & 4
 \end{bmatrix}
-\text{lub dla } 
+\text{lub dla }
 \vec{V}=(T_x, T_y),
 T=
-\begin{bmatrix} 1 & 0 & T_x \\ 0 & 1 & T_y \\ 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} 1 & 0 & T_x \\ 0 & 1 & T_y \\ 0 & 0 & 1
+\end{bmatrix}
 $$
 
 \section{Konkatenacja operacji}
@@ -125,35 +133,38 @@ Najpierw wykonuje się operację z prawej strony.
 \subsection{Skalowanie}
 
 $$
-S = \begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+S =
+\begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0
+  \\ 0 & 0 & 0 & 1
+\end{bmatrix}
 $$
 
 \subsection{Rotacja}
 
 $$
-R_x(\theta) = 
+R_x(\theta) =
 \begin{bmatrix}
-    1 & 0 & 0 \\
-    0 & cos(\theta) & -sin(\theta) \\
-    0 & sin(\theta) & cos(\theta) 
+  1 & 0 & 0 \\
+  0 & cos(\theta) & -sin(\theta) \\
+  0 & sin(\theta) & cos(\theta)
 \end{bmatrix}
 $$
 
 $$
-R_y(\theta) = 
+R_y(\theta) =
 \begin{bmatrix}
-    cos(\theta) & 0 & sin(\theta) \\
-    0 & 1 & 0 \\
-    -sin(\theta) & 0 & cos(\theta) 
+  cos(\theta) & 0 & sin(\theta) \\
+  0 & 1 & 0 \\
+  -sin(\theta) & 0 & cos(\theta)
 \end{bmatrix}
 $$
 
 $$
-R_z(\theta) = 
+R_z(\theta) =
 \begin{bmatrix}
-    cos(\theta) & -sin(\theta) & 0 \\
-    sin(\theta) & cos(\theta) & 0 \\
-    0 & 0 & 1
+  cos(\theta) & -sin(\theta) & 0 \\
+  sin(\theta) & cos(\theta) & 0 \\
+  0 & 0 & 1
 \end{bmatrix}
 $$
 
@@ -163,45 +174,50 @@ $$
 \text{Dla wektora }
 \vec{V}=(T_x, T_y, T_z),
 T=
-\begin{bmatrix} 1 & 0 & 0, & T_x \\ 0 & 1 & 0 & T_y \\ 0 & 0 & 1 & T_z \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} 1 & 0 & 0, & T_x \\ 0 & 1 & 0 & T_y \\ 0 & 0 & 1 &
+  T_z \\ 0 & 0 & 0 & 1
+\end{bmatrix}
 $$
 
 \section{Kamery}
 
-Podczas patrzenia na obiekt w polu widzenia kamery można wyróżnić następujące płaszczyzny:
+Podczas patrzenia na obiekt w polu widzenia kamery można wyróżnić
+następujące płaszczyzny:
 
 \begin{itemize}
-    \item Górna
-    \item Dolna
-    \item Lewa
-    \item Prawa
-    \item Bliska
-    \item Daleka
+  \item Górna
+  \item Dolna
+  \item Lewa
+  \item Prawa
+  \item Bliska
+  \item Daleka
 \end{itemize}
 
 \subsection{Projekcje}
 
-Kluczowym aspektem kamery jest projekcja, czyli rzutowanie obiektów na płaszczyznę ekranu.
+Kluczowym aspektem kamery jest projekcja, czyli rzutowanie obiektów
+na płaszczyznę ekranu.
 Trzeba w jakiś sposób zamienić punkty w 3D na punkty w 2D.
 
 \subsubsection{Ortogonalna}
 
 \begin{itemize}
-    \item Wszystkie linie są równoległe
-    \item Brak perspektywy
-    \item Obiekty są przeskalowane
-    \item Nie ma odczucia głębi, obiekty pozostają tego samego rozmiaru niezależnie od odległości
-    \item Linie równoległe pozostają równoległe po projekcji
+  \item Wszystkie linie są równoległe
+  \item Brak perspektywy
+  \item Obiekty są przeskalowane
+  \item Nie ma odczucia głębi, obiekty pozostają tego samego rozmiaru
+    niezależnie od odległości
+  \item Linie równoległe pozostają równoległe po projekcji
 \end{itemize}
 
 \subsubsection{Perspektywiczna}
 
 \begin{itemize}
-    \item Linie zbiegają się w jednym punkcie
-    \item Obiekty są przeskalowane
-    \item Odczucie głębi
-    \item Obiekty są mniejsze w miarę oddalania się od kamery
-    \item "Normalna" projekcja
+  \item Linie zbiegają się w jednym punkcie
+  \item Obiekty są przeskalowane
+  \item Odczucie głębi
+  \item Obiekty są mniejsze w miarę oddalania się od kamery
+  \item "Normalna" projekcja
 \end{itemize}
 
 \section{Pipeline}
@@ -209,18 +225,22 @@ Trzeba w jakiś sposób zamienić punkty w 3D na punkty w 2D.
 Renderowanie obrazu składa się z kilku etapów:
 
 $$
-\text{Object Space} \rightarrow \text{World space} \overset{M_{cam}}{\rightarrow} \text{View space} \overset{M_{pro}}{\rightarrow} \text{Clip space} \overset{M_{vp}}{\rightarrow} \text{Screen space}
+\text{Object Space} \rightarrow \text{World space}
+\overset{M_{cam}}{\rightarrow} \text{View space}
+\overset{M_{pro}}{\rightarrow} \text{Clip space}
+\overset{M_{vp}}{\rightarrow} \text{Screen space}
 $$
 
 \subsection{VP}
 
 Dla widoku wielkości $n_x * n_y$
 $$
-M_{vp} = \begin{bmatrix} 
-    \frac{n_x}{2} & 0 & 0 & \frac{n_x - 1}{2} \\
-    0 & \frac{n_y}{2} & 0 & \frac{n_y - 1}{2} \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1 
+M_{vp} =
+\begin{bmatrix}
+  \frac{n_x}{2} & 0 & 0 & \frac{n_x - 1}{2} \\
+  0 & \frac{n_y}{2} & 0 & \frac{n_y - 1}{2} \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1
 \end{bmatrix}
 $$
 
@@ -233,39 +253,44 @@ Dla przestrzeni widoku ortogonalnego stworzonego przez trzy punkty:
 - $(r,t,f)$ w prawym górnym rogu
 
 $$
-M_{ort} = \begin{bmatrix} 
-    \frac{2}{r - l} & 0 & 0 & -\frac{l + r}{r - l} \\
-    0 & \frac{2}{t - b} & 0 & -\frac{b + t}{t - b} \\
-    0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\
-    0 & 0 & 0 & 1 
+M_{ort} =
+\begin{bmatrix}
+  \frac{2}{r - l} & 0 & 0 & -\frac{l + r}{r - l} \\
+  0 & \frac{2}{t - b} & 0 & -\frac{b + t}{t - b} \\
+  0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\
+  0 & 0 & 0 & 1
 \end{bmatrix}
 $$
 
 $$
-M_{per} = M_{ort} \cdot \begin{bmatrix} 
-    n & 0 & 0 & 0 \\
-    0 & n & 0 & 0 \\
-    0 & 0 & n + f & -nf \\
-    0 & 0 & 0 & 1 
+M_{per} = M_{ort} \cdot
+\begin{bmatrix}
+  n & 0 & 0 & 0 \\
+  0 & n & 0 & 0 \\
+  0 & 0 & n + f & -nf \\
+  0 & 0 & 0 & 1
 \end{bmatrix}
 $$
 
 \subsection{Cam}
 
-Dla wektorów określających kierunek patrzenia kamery: $\vec{g}$, $\vec{v}$, $\vec{u}$, $\vec{w} = -v$ oraz $\vec{e}$ określającym przesunięcie kamery
+Dla wektorów określających kierunek patrzenia kamery: $\vec{g}$,
+$\vec{v}$, $\vec{u}$, $\vec{w} = -v$ oraz $\vec{e}$ określającym
+przesunięcie kamery
 
 $$
-M_{cam} = \begin{bmatrix} 
-    u_x & u_y & u_z & 0 \\
-    v_x & v_y & v_z & 0 \\
-    w_x & w_y & w_z & 0 \\
-    0 & 0 & 0 & 1 
+M_{cam} =
+\begin{bmatrix}
+  u_x & u_y & u_z & 0 \\
+  v_x & v_y & v_z & 0 \\
+  w_x & w_y & w_z & 0 \\
+  0 & 0 & 0 & 1
 \end{bmatrix}
 \begin{bmatrix}
-    1 & 0 & 0 & -e_x \\
-    0 & 1 & 0 & -e_y \\
-    0 & 0 & 1 & -e_z \\
-    0 & 0 & 0 & 1 
+  1 & 0 & 0 & -e_x \\
+  0 & 1 & 0 & -e_y \\
+  0 & 0 & 1 & -e_z \\
+  0 & 0 & 0 & 1
 \end{bmatrix}
 $$
 
@@ -273,56 +298,70 @@ $$
 
 Matryca modelu to po prostu macierz transformacji obiektu.
 Jak obiekt jest obrócony, przesunięty, skalowany.
-To zależy od tego gdzie jest obiekt w przestrzeni, jako że zwykle punkty modelu są w przestrzeni obiektu (relatywnie do środka obiektu).
+To zależy od tego gdzie jest obiekt w przestrzeni, jako że zwykle
+punkty modelu są w przestrzeni obiektu (relatywnie do środka obiektu).
 
 \subsection{Złożenie}
 
 $$
-pipeline(\begin{bmatrix}x \\ y \\ z\\ 1\end{bmatrix}) = M_{vp}M_{ort}M_{cam}\begin{bmatrix}x \\ y \\ z\\ 1\end{bmatrix}
+pipeline(
+  \begin{bmatrix}x \\ y \\ z\\ 1
+\end{bmatrix}) = M_{vp}M_{ort}M_{cam}
+\begin{bmatrix}x \\ y \\ z\\ 1
+\end{bmatrix}
 $$
 
 \section{Algorytmy Renderowania}
 
-Jako, że w procesie przekształcenia pipeline zatracana jest informacja o koordynacie $z$ punktów, konieczne jest renderowanie obiektów w konkretnej kolejności.
+Jako, że w procesie przekształcenia pipeline zatracana jest
+informacja o koordynacie $z$ punktów, konieczne jest renderowanie
+obiektów w konkretnej kolejności.
 
 \subsection{Algorytm malarza}
 
 Ten algorytm jest niezwykle prosty.
 Obiekty się sortuje wobec pozycji w $z$ i najpierw renderuje się te w tle.
-Niestety, nie działa to dla obiektów przecinających się i innych o skomplikowanej topologii.
+Niestety, nie działa to dla obiektów przecinających się i innych o
+skomplikowanej topologii.
 
 \subsection{Z-buffer}
 
 Dla każdego obiektu zapisujesz na jakim z "jest" pixel i jakiego koloru jest.
-Jeśli w globalnym z bufferze ten pixel ma większe z to w bufferze pixel jest zastępowany.
+Jeśli w globalnym z bufferze ten pixel ma większe z to w bufferze
+pixel jest zastępowany.
 Efektem działania algorytmu jest buffer z pixelami "renderowany od tyłu".
 
 \section{Culling i Clipping}
 
-W procesie renderowania koniecznym jest czasami obsługiwanie co jeśli obiekt wychodzi poza kąt widzenia oraz co jeśli obiekt jest niewidoczny.
+W procesie renderowania koniecznym jest czasami obsługiwanie co jeśli
+obiekt wychodzi poza kąt widzenia oraz co jeśli obiekt jest niewidoczny.
 
 \subsection{Clipping}
 
 Czyli obcinanie obiektów składa się z dwóch etapów:
 
 \begin{itemize}
-    \item Wykrywanie czy obiekt przecina jedną z płaszczyzn
-    \item Tworzenie nowych mniejszych obiektów
+  \item Wykrywanie czy obiekt przecina jedną z płaszczyzn
+  \item Tworzenie nowych mniejszych obiektów
 \end{itemize}
 
 \subsubsection{Wykrywanie}
 
-Jeśli dla n=normalny wektor płaszczyzny oraz q=punkt na płaszczyźnie $f(p) = n * (p - q) < 0$ to punkt p jest wewnątrz.
+Jeśli dla n=normalny wektor płaszczyzny oraz q=punkt na płaszczyźnie
+$f(p) = n * (p - q) < 0$ to punkt p jest wewnątrz.
 
 \subsubsection{Tworzenie}
 
 Dla każdej krawędzi obiektu sprawdzamy czy przecina ona płaszczyznę.
-Dzieląc trójkąty na mniejsze wewnątrz pola widzenia, tworzymy nowe trójkąty na podstawie punktów przecięcia z płaszczyzną.
+Dzieląc trójkąty na mniejsze wewnątrz pola widzenia, tworzymy nowe
+trójkąty na podstawie punktów przecięcia z płaszczyzną.
 
 \subsection{Culling}
 
-Odrzucanie trójkątów których wektor normalny jest skierowany od punktu widzenia to backface culling.
-Any zobaczyć czy wektor normalny $\vec{n}$ jest skierowany od punktu widzenia to wystarczy złożyć go z wektorem punktu widzenia $\vec{v}$
+Odrzucanie trójkątów których wektor normalny jest skierowany od
+punktu widzenia to backface culling.
+Any zobaczyć czy wektor normalny $\vec{n}$ jest skierowany od punktu
+widzenia to wystarczy złożyć go z wektorem punktu widzenia $\vec{v}$
 Jeśli $\vec{n} \cdot \vec{v} < 0$ to trójkąt jest skierowany do kamery.
 
 \section{Oświetlenie}
@@ -340,9 +379,10 @@ $$
 gdzie:
 
 \begin{itemize}
-    \item $I_p$ to intensywność światła
-    \item $K_d$ to współczynnik odbicia
-    \item $\theta$ to kąt między wektorem światła a wektorem normalnym do powierzchni
+  \item $I_p$ to intensywność światła
+  \item $K_d$ to współczynnik odbicia
+  \item $\theta$ to kąt między wektorem światła a wektorem normalnym
+    do powierzchni
 \end{itemize}
 
 \subsection{Specular}
@@ -354,10 +394,10 @@ $$
 gdzie:
 
 \begin{itemize}
-    \item $I_p$ to intensywność światła
-    \item $K_s$ to współczynnik odbicia
-    \item $\alpha$ to kąt między wektorem do kamery a wektorem odbicia
-    \item $n$ to współczynnik tłumienia
+  \item $I_p$ to intensywność światła
+  \item $K_s$ to współczynnik odbicia
+  \item $\alpha$ to kąt między wektorem do kamery a wektorem odbicia
+  \item $n$ to współczynnik tłumienia
 \end{itemize}
 
 \subsection{Ambient}
@@ -369,8 +409,8 @@ $$
 gdzie:
 
 \begin{itemize}
-    \item $I_a$ to intensywność światła
-    \item $K_a$ to współczynnik odbicia
+  \item $I_a$ to intensywność światła
+  \item $K_a$ to współczynnik odbicia
 \end{itemize}
 
 \subsection{Attenuation}
@@ -382,16 +422,16 @@ $$
 gdzie:
 
 \begin{itemize}
-    \item $d$ to odległość od źródła światła
-    \item $r$ to promień światła
+  \item $d$ to odległość od źródła światła
+  \item $r$ to promień światła
 \end{itemize}
 
 \subsection{Shading}
 
 \begin{itemize}
-    \item Flat shading - kolor obiektu jest jednolity
-    \item Gouraud shading - kolor obiektu jest interpolowany między wierzchołkami
-    \item Phong shading - kolor obiektu jest interpolowany między pikselami
+  \item Flat shading - kolor obiektu jest jednolity
+  \item Gouraud shading - kolor obiektu jest interpolowany między wierzchołkami
+  \item Phong shading - kolor obiektu jest interpolowany między pikselami
 \end{itemize}
 
 \end{document}
