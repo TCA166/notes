@@ -7,6 +7,8 @@
 
 \tableofcontents
 
+\newpage
+
 \section{Literatura}
 
 \begin{itemize}
@@ -45,19 +47,21 @@ wieloznaczność syntaktyczna
 Język składa się z gramatyk i automatów. Gramatyka generuje język,
 automat rozpoznaje język.
 
-\begin{tikzpicture}[node distance=2cm]
-  \node[draw, minimum size=2cm] (square) {L};
-  \draw[<-] (square.west) -- node[anchor=south]{generowanie}
-  node[anchor=north]{gramatyki} ++(-3,0);
-  \draw[<-] (square.east) -- node[anchor=south]{rozpoznawanie}
-  node[anchor=north]{automaty} ++(3,0);
-\end{tikzpicture}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=2cm]
+    \node[draw, minimum size=2cm] (square) {L};
+    \draw[<-] (square.west) -- node[anchor=south]{generowanie}
+    node[anchor=north]{gramatyki} ++(-3,0);
+    \draw[<-] (square.east) -- node[anchor=south]{rozpoznawanie}
+    node[anchor=north]{automaty} ++(3,0);
+  \end{tikzpicture}
+  \caption{Ilustracja relacji języków, automatów i gramatyk}
+\end{figure}
 
 \section{Alfabet}
 
-Alfabet to zbiór atomowych dozwolonych symboli
-
-Przykład: $\{a, b, c, d\}$
+Alfabet to zbiór atomowych dozwolonych symboli. Przykład: $\{a, b, c, d\}$
 
 \section{Słowo}
 
@@ -147,20 +151,16 @@ $$
 $$
 L = \{a, ab\}, L^0 = \{\epsilon\}, L^1 = \{a, ab\}, L^2 = L \cdot L
 $$
-
 \textbf{Potęgowanie na językach jest dziwne}
 
 $$
 L = \{a^n : n \ge 0\}, L^2 = \{a^n a^m : a, m \ge 0\} = \{a^n : a \ge 0\} = L
 $$
-
 Potęgowanie języku \textbf{nie} zwiększyło mocy
-
 $$
 L = \{a^n : n > 0\}, L^2 = \{a^n a^m : a, m > 0\} = L \setminus \{a\}
 = \{a^n : n > 1\}
 $$
-
 Potęgowanie języku \textbf{zmniejszyło} moc
 
 \subsection{Odbicie języka}
@@ -179,7 +179,6 @@ $$
 $$
 L = \{a, ab\}, "aababaabab" \in L^n, n=?
 $$
-
 Jest to problem wykładniczy, który wymaga stworzenia drzewa różnych możliwości.
 
 \section{Domknięcie Kleenego}
@@ -216,7 +215,7 @@ $$
 L = \{a^n : n > 1\}, L^1 \ne L^2, L^* = L
 $$
 
-\section{Automaty}
+\section{Automaty Regularne}
 
 \begin{itemize}
   \item nieskończona taśma
@@ -365,7 +364,6 @@ końca można wyrazić w następujący sposób: $|K| = 2^n$
 $$
 \mathfrak{A} = \langle K,T,\delta,Q_0,H \rangle
 $$
-
 gdzie oznaczenia są identyczne jak dla deterministycznego automatu z
 dwoma różnicami:
 
@@ -428,7 +426,6 @@ $$
 \end{itemize}
 
 $$\mathfrak{L}_{det} = \mathfrak{L}_{ndet}$$
-
 Zatem co nam daje niedeterministyczność? Przede wszystkim prostotę,
 ale kosztem wykładniczej złożoności.
 
@@ -436,7 +433,7 @@ Narysuj diagram przejścia deterministycznego automatu skończenie
 stanowego $\mathfrak{A}$ w którym $T=\{a\}, P \in L(\mathfrak{A})$
 wtedy i tylko wtedy gdy $(2 | |P|) \vee (3 | |P|)$.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
     \node[state,initial,accepting] (q_0)   {$q_0$};
@@ -464,7 +461,7 @@ Problem z diagramami deterministycznym się pojawia dla wyższych
 liczb, np.: $7$ i $5$, wtedy $NWW(7,5)=35$.
 Zatem narysujmy diagram niedeterministyczny \ref{fig:automat:5or7}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
     \node[] (initial) {start};
@@ -542,7 +539,6 @@ $$
   \item $H' = \{A \in K' : A \cap H \ne \emptyset\}$
   \item $\delta'(A, a) = \bigcup_{q \in A}\delta(q, a)$
 \end{itemize}
-
 Dla automatu \ref{fig:automat:2end-ndet} zbudujmy równoważny automat
 deterministyczny.
 Korzystając z powyższych zasad otrzymujemy:
@@ -1342,5 +1338,103 @@ Jest to problem \textbf{rozstrzygalny} dla języków regularnych.
     (L(\mathfrak{A_2}) \cap \overline{L(\mathfrak{A_1})})$ (XOR mnogościowe)
   \item Zastosuj problem pustości na $\mathfrak{B}$
 \end{itemize}
+
+\section{Automaty ze stosem}
+
+Zachowują się jak automaty regularne z $\epsilon$ przejściami, ale z tą różnicą,
+że mają dodatkową głowicę operującą na stosie.
+
+$$
+\mathfrak{A}_{zs} = \langle Z, K, T, \delta, z_0, q_0, H \rangle
+$$
+
+\begin{itemize}
+  \item $Z$ - zbiór symboli stosu
+  \item $K$ - zbiór stanów
+  \item $T$ - zbiór symboli wejściowych
+  \item $\delta$ - funkcja przejścia
+  \item $z_0$ - symbol początkowy stosu
+  \item $q_0$ - stan początkowy
+  \item $H$ - zbiór stanów akceptujących
+\end{itemize}
+
+Głowica na taśmie jest tylko i wyłącznie do odczytu, natomiast głowica na stosie
+czytając element ze stosu, usuwa go i następnie może włożyć na stos nowe
+elementy.
+
+$$
+\delta: Z \times K \times (T \cup \{\epsilon\}) \rightarrow P(Z^* \times K)
+$$
+
+\subsection{Konfiguracja}
+
+Konfiguracja to opis chwilowy automatu ze stosem. Formalnie jest to słowo
+postaci $WqP \in Z^*KT^*$ takie, że $W \in Z^*$ (głowica ogląda ostatni symbol
+$W$), $q \in K$ natomiast $P \in T^*$
+
+Konfiguracja początkowa to konfiguracja dla początkowych zmiennych automatu.
+Z reguły jest to $z_0q_0P : P \in T^*$. Konfiguracja końcowa z kolei to
+konfiguracja dla stanów akceptujących. Z reguły przyjmuje postać $z
+q\epsilon : z \in Z, q \in H$.
+
+\subsubsection{Bezpośrednia redukcja konfiguracji}
+
+Dla dwóch konfiguracji $X, Y$ mówimy że $X$ bezpośrednio redukuje się do $Y$
+($X \Rightarrow Y$) jeśli $X=\omega zqaP$, $Y=\omega Upp$ oraz:
+
+\begin{itemize}
+  \item $q,p \in K$
+  \item $z \in Z, a \in T \cup \{\epsilon\}$
+  \item $\omega, U \in Z^*, p \in T^*$
+  \item $(U, p) \in \delta(z, q, a)$
+\end{itemize}
+
+\subsubsection{Redukcja konfiguracj}
+
+Dla dwóch konfiguracji $X, Y$ mówimy że $X$ redukuje się do $Y$
+($\stackrel{*}{\Rightarrow}$), jeśli istnieje ciąg $X_1,X_2\dots, X_n$ taki, że:
+$X_1 = X, X_n = Y, \forall_{1 \le i < n}X_i \Rightarrow X_{i + 1}$
+
+\subsection{Języki automatu ze stosem}
+
+Dla automatów ze stosem języki definiujemy przy pomocy redukcji konfiguracji.
+Język akceptowany przez $\mathfrak{A}_{zs}$ to zbiór
+$L(\mathfrak{A})=\{P \in T^* : z_0q_0P \stackrel{*}{\Rightarrow}
+Wp\epsilon : W \in Z^*, p \in H\}$.
+\textbf{lub} $N(\mathfrak{A})=\{P \in T^* : z_0q_0P
+\stackrel{*}{\Rightarrow} \epsilon p \epsilon : p \in K\}$
+
+Są dwie różne konwencje dot. tego czy automat akceptuje język. Albo automat
+dochodzi do stanu końcowego ($L(\mathfrak{A})$), albo kończy mu się
+stos ($N(\mathfrak{A})$). Dla dowolnego automatu ze stosem $\mathfrak{A}$ można
+skonstruować automat $\mathfrak{A}'$ dla którego
+$L(\mathfrak{A})=N(\mathfrak{A}')$ i na odwrót.
+
+\subsection{Przykład}
+
+\textbf{$\mathfrak{A}_{zs}$ akceptujący język $\{a^nb^n : n \ge 1\}$}
+
+\begin{itemize}
+  \item $Z = \{z_0, a\}$
+  \item $K = \{q_0, q_1, q_2\}$
+  \item $T = \{a, b\}$
+  \item $H = \{q_2\}$
+\end{itemize}
+
+$$
+\delta: Z \times K \times (T \cup \{\epsilon\}) \rightarrow P(Z^* \times K)
+$$
+Przy każdym a dodajemy a na stos, a potem czytając b ściagamy ze stosu. Jeśli
+liczba jest a i b jest równa to jak dojdziemy do końca to stos będzie pusty.
+
+\begin{enumerate}
+  \item $\delta(z_0, q_0, b) = \emptyset$ - pierwsze co czytamy to b: nonsens
+  \item $\delta(z_0, q_0, a) = (z_0a, q_0)$ - przechodzimy w tryb czytania a
+  \item $\delta(a, q_0, a) = (aa, q_0)$ - czytamy a
+  \item $\delta(a, q_0, b) = (\epsilon, q_1)$ - przechodzimy w tryb czytania b
+  \item $\delta(a, q_1, b) = (\epsilon, q_1)$ - czytamy b
+  \item $\delta(z_0, q_1, b) = \emptyset$ - jeśli stos jest pusty a dalej są b
+  \item $\delta(z_0, q_1, \epsilon) = (z_0, q_2)$ - stan końcowy
+\end{enumerate}
 
 \end{document}
