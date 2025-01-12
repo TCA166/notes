@@ -6,9 +6,11 @@
 
 \tableofcontents
 
-\section{Prawa logiki}
+\section{Logika}
 
-\subsection{Prawa łączności}
+\subsection{Prawa logiki}
+
+\subsubsection{Prawa łączności}
 
 \begin{itemize}
   \item $(p \land q) \land r \leftrightarrow p \land (q \land r)$
@@ -17,7 +19,7 @@
     \leftrightarrow (q \leftrightarrow r))$
 \end{itemize}
 
-\subsection{Prawa przemienności}
+\subsubsection{Prawa przemienności}
 
 \begin{itemize}
   \item $p \land q \leftrightarrow q \land p$
@@ -25,42 +27,42 @@
   \item $(p \leftrightarrow q) \leftrightarrow (q \leftrightarrow p)$
 \end{itemize}
 
-\subsection{Prawa impotentności}
+\subsubsection{Prawa impotentności}
 
 \begin{itemize}
   \item $p \lor p \leftrightarrow p$
   \item $p \land p \leftrightarrow p$
 \end{itemize}
 
-\subsection{Prawo rozdzielności}
+\subsubsection{Prawo rozdzielności}
 
 $$(p \land q) \lor r \leftrightarrow (p \lor r) \land (q \lor r)$$
 
-\subsection{Prawo de Morgana}
+\subsubsection{Prawo de Morgana}
 
 $$
 \neg (p \land q) \leftrightarrow \neg p \lor \neg q
 $$
 
-\subsection{Prawo podwójnej negacji}
+\subsubsection{Prawo podwójnej negacji}
 
 $$
 \neg \neg p \leftrightarrow p
 $$
 
-\subsection{Prawo transpozycji}
+\subsubsection{Prawo transpozycji}
 
 $$
 (p \rightarrow q) \leftrightarrow (\neg q \rightarrow \neg p)
 $$
 
-\subsection{Prawo eksportacji-importacji}
+\subsubsection{Prawo eksportacji-importacji}
 
 $$
 (p \land q) \rightarrow r \leftrightarrow p \rightarrow (q \rightarrow r)
 $$
 
-\section{Wnioskowanie}
+\subsection{Wnioskowanie}
 
 $$
 \frac{x_1, x_2, \ldots, x_n}{y}
@@ -73,7 +75,7 @@ Wnioskowanie jest dedukcyjne jeżeli $x_1 \land x_2 \dots \land x_n
 
 Jeżeli wniosek wynika logicznie z przesłanek to wnioskowanie jest dedukcyjne.
 
-\subsection{Reguły wnioskowania}
+\subsubsection{Reguły wnioskowania}
 
 Poniższe reguły są zawsze poprawne.
 
@@ -93,7 +95,7 @@ $$
 \frac{p \rightarrow q, q \rightarrow p}{p \leftrightarrow q}
 $$
 
-\section{Przekształcenia}
+\subsection{Przekształcenia}
 
 $$
 p \rightarrow q \leftrightarrow \neg p \lor q
@@ -111,7 +113,7 @@ $$
 X \uparrow Y = \neg (x \land y)
 $$
 
-\section{Postaci normalne}
+\subsection{Postaci normalne}
 
 APN - alternatywna postać normalna. Zbiór klauzul nad zmiennymi połączonymi
 operatorem alternatywy. $(p \land q) \lor (\neg p \land q)$. Jeśli w APN jest
@@ -129,7 +131,7 @@ para klauzul przeciwnych to jest to tautologia.
   1 & 0 & 1 & $p \land \neg q \land r$ & $\neg p \lor q \lor \neg r$ \\ \hline
 \end{tabular}
 
-\section{Sekwenty}
+\subsection{Sekwenty}
 
 Sekwent to para zbiorów formuł logicznych powstający z normalnego zapisu
 algebry logicznej.
@@ -154,7 +156,7 @@ algebry logicznej.
 
 Przy pomocy takiego drzewa można sprawdzić czy formula jest tautologią.
 
-\section{Kwantyfikatory}
+\subsection{Kwantyfikatory}
 
 $$
 \forall_{A(x)} B(x) \leftrightarrow \forall_{x} (A(x) \rightarrow B(x))
@@ -164,7 +166,9 @@ $$
 \exists_{A(x)} B(x) \leftrightarrow \exists_{x} (A(x) \land B(x))
 $$
 
-\section{Zbiory}
+\section{Teoria Mnogości}
+
+\subsection{Zbiory}
 
 \begin{itemize}
   \item $X \subset Y \leftrightarrow \forall x (x \in X \rightarrow x \in Y)$
@@ -179,5 +183,341 @@ $$
 $\mathbb{U}$ - uniwersum \\
 $A' = \mathbb{U} \setminus A$ \\
 $A \times B = \{<x, y>: x \in A \land y \in B\}$
+
+\subsection{Relacje}
+
+$$
+R^{-1} = \{<y, x>: <x, y> \in R\}
+$$
+
+$$
+xRy \leftrightarrow <x, y> \in R
+$$
+
+\subsubsection{Złożenie relacji}
+
+$$
+R \circ S = \{<x, z>: \exists_{y}(xRy \land ySz)\}
+$$
+
+\textbf{Przykład:} \\
+$R = \{<1, 2>, <2, 3>\}$ \\
+$S = \{<2, 3>, <3, 4>\}$ \\
+$R \circ S = \{<1, 3>, <2, 4>\}$
+
+\subsubsection{Rodzaje relacji}
+
+\begin{itemize}
+  \item Zwrotna $\forall_{x \in A}xRx$
+  \item Preciwzwrotna $\neg \exists_{x \in A}xRx$
+  \item Symetryczna $\forall_{x, y \in A}(xRy \rightarrow yRx)$
+  \item Przeciwsymetryczna $\forall_{x, y \in A}(xRy \rightarrow \neg yRx)$
+  \item Antysymetryczna $\forall_{x, y \in A}((xRy \land yRx)
+    \rightarrow x = y)$
+  \item Przechodnia $\forall_{x, y, z \in A}((xRy \land yRz) \rightarrow xRz)$
+  \item Spójna $\forall_{x, y \in A}(xRy \lor yRx)$
+  \item Słabospójna $\forall_{x, y \in A}(xRy \lor x = y \lor yRx)$
+\end{itemize}
+
+\subsubsection{Relacja równoważności}
+
+Relacja równoważności to relacja która jest zwrotna, symetryczna i przechodnia.
+Taka relacja może mieć klasy abstrakcji $[x]_R=\{y : xRy\}$
+
+\subsubsection{Relacje porządkujące}
+
+Relację $R \subset A_2$ nazywamy relacją porządkującą na zbiorze $A_1$ jeżeli:
+
+\begin{itemize}
+  \item $R$ jest zwrotna
+  \item $R$ jest antysymetryczna
+  \item $R$ jest przechodnia
+\end{itemize}
+
+Dodatkowo ta relacja może być liniowo porządkująca jeżeli:
+
+\begin{itemize}
+  \item $R$ jest spójna
+  \item $R$ jest porządkująca
+\end{itemize}
+
+Zbiór $X \subset A_1$ jest łańcuchem w zbiorze uporządkowanym $(A_1, R)$ jeżeli
+dla dowolnych $x, y \in X$ zachodzi $xRy \lor yRx$.
+
+\subsubsection{Zbiory uporządkowane}
+
+$(X, A)$ to zbiór uporządkowany; $X$ to zbiór, $A$ to relacja porządkująca.
+
+\begin{itemize}
+  \item Element najmniejszy a: $\forall_{x \in X}(a \le x)$
+  \item Element największy b: $\forall_{x \in X}(x \le b)$
+  \item Element minimalny a: $\forall_{x \in X}(x \le a \rightarrow x = a)$
+  \item Element maksymalny b: $\forall_{x \in X}(b \le x \rightarrow x = b)$
+\end{itemize}
+
+Element największy/najmniejszy jest jedynym elementem maksymalnym/minimalnym,
+oraz jest jednocześnie kresem górnym/dolnym.
+
+\subsection{Kresy}
+
+Kres nie musi należeć do zbioru.
+
+\subsubsection{Kres górny}
+
+$$
+\alpha = \sup A \leftrightarrow \forall_{x \in A}(x \le \alpha)
+$$
+
+\subsubsection{Kres dolny}
+
+$$
+\beta = \inf A \leftrightarrow \forall_{x \in A}(\beta \le x)
+$$
+
+\subsection{Funkcje}
+
+Relacja binarna $R$ spełniająca prawostronną jednoznaczność to funkcja.
+
+$$
+\forall_{x,y,z}(xRy \land xRz \rightarrow y = z)\text{; czyli dla każdego x
+jest jedno y}
+$$
+Przeciwdziedzina funkcji $f: D^*(f) = \{f(x) : x \in D(f)\}$
+
+$$
+f: X \rightarrow Y \text{ jeżeli } D(f)=X \land D^*(f) \subset Y
+$$
+Funkcja odwzorowuje zbiór $X$ na zbiór $Y$ jeżeli $D^*(f)=Y$
+
+$$
+\forall_{x_1, x_2 \in X}(f(x_1) = f(x_2) \rightarrow x_1 = x_2)
+\rightarrow f\text{ jest iniekcją}
+$$
+Iniekcja to funkcja różnowarościowa, suriekcja to funkcja
+odwzorowująca na zbiór,
+a bijekcja to iniekcja i suriekcja. \\
+Obraz zbioru to $f[A] = \{f(x) : x \in A\} = \{y: \exists_x(x \in A
+\land y = f(x))\}$
+
+$$
+f^{-1}[B] = \{x: f(x) \in B\}
+$$
+
+\subsection{Liczby naturalne}
+
+$$
+S(x) = x \cup \{x\} \text{- następnik zbioru} X
+$$
+
+$$
+n \in \mathbb{N}, n = \{0, 1, \dots, n-1\}
+$$
+
+$$
+0 = \emptyset, 1 = \{0\} = S(\emptyset), 2 = \{0, 1\}
+$$
+
+$$
+\mathbb{N} = \{0, 1, 2, \dots\}
+$$
+Zbiór $X$ jest indukcyjny jeżeli:
+
+\begin{itemize}
+  \item $0 \in X$
+  \item $x \in X \rightarrow S(x) \in X$
+\end{itemize}
+Liczba naturalna to zbiór należący do wszystkich indukcyjnych zbiorów.
+
+\subsection{Zasada indukcji matematycznej}
+
+$$
+0 \in X \land \forall_{n \in X}(S(n) \in X) \rightarrow X = \mathbb{N}
+$$
+
+$$
+f(n) \text{ - formuła} \land \forall_{f(n)}(F(S(n))) \rightarrow
+\forall_{n \in \mathbb{N}}(f(n))
+$$
+
+\subsection{Liczby całkowite}
+
+$$
+\mathbb{Z} = \mathbb{N} \cup \{0\} \cup \{-n: n \in \mathbb{N}\}
+$$
+
+\subsection{Liczby wymierne}
+
+$$
+\mathbb{Q} = \{x: x = \frac{m}{n}, m \in \mathbb{Z}, n \in \mathbb{N}\}
+$$
+
+\subsection{Porządki}
+
+\subsubsection{Porządek produktowy}
+
+$$
+a, b \in A \times B \land \forall_{x_A, y_A \in A, x_B, y_B \in
+B}(x_A \le_A x_B \land y_A \le_B y_B) \rightarrow a \le b
+$$
+
+\subsubsection{Porządek leksykograficzny}
+
+$$
+a, b \in A \times B \land \forall_{x_A, y_A \in A, x_B, y_B \in B}(x_A = x_B
+\land y_A \le_B y_B) \rightarrow a \le b
+$$
+
+\subsection{Właściwe odcinki początkowe}
+
+$(A, \le)$ - zbiór liniowo uporządkowany. Jeżeli $X \subset A$ oraz
+$\forall_{x, y \in A}(x \in X \land y < x) \rightarrow y \in X$ to X jest
+właściwym odcinkiem początkowym. \\
+\textbf{Przykład:}
+\begin{itemize}
+  \item $A = (\{1, 2, 3, 4, 5\}, \le)$ - zbiór liniowo uporządkowany
+  \item $X = \{1, 2, 3\}$ - właściwy odcinek początkowy
+  \item $Y = \{2, 3, 4\}$ - nie jest właściwym odcinkiem początkowym
+\end{itemize}
+\textbf{Przykład:}
+\begin{itemize}
+  \item $A = (\mathbb{Q}, \le)$ - zbiór liczb wymiernych
+  \item $X = \{x \in \mathbb{Q}: x < 0\}$ - właściwy odcinek początkowy
+\end{itemize}
+
+$X$ jest właściwym odcinkiem początkowym. Zaczyna się od $-\infty$ i kończy na
+0. Jedyne elementy mniejsze od elementów z $X$ to elementy z $X$.
+
+\subsection{Liczby rzeczywiste}
+
+Liczby rzeczywiste definiujemy jako niepuste właściwe odcinki początkowe w
+$(\mathbb{Q}, \le)$, nie mające elementu największego.
+
+Zatem liczby wymierne są reprezentowane przez niepuste właściwe odcinki
+początkowe w $(\mathbb{Q}, \le)$, które nie mają elementu największego, ale
+mają kres górny.
+
+Liczby niewymierne to liczby wymierne, ale nie mają kresu górnego.
+
+\subsection{Dobry porządek}
+
+Porządek $\le$, który ma element najmniejszy w każdym podzbiorze niepustym, jest
+dobrym porządkiem. Zbiór dobrze uporządkowany można przedstawić jako serię
+mniejszości elementów różnych zbiorów $a_0<a_1<a_2\dots<b_0<b_1\dots$
+
+Przykładem zbioru liniowo uporządkowanego ale nie dobrze uporządkowanego jest
+$\mathbb{R}$ lub $\mathbb{Z}$. Każdy podzbiór w $\mathbb{R}$ jest nieskończony,
+zatem nie da się skonstruować serii mniejszości.
+
+Funkcja działająca ze zbioru dobrze uporządkowanego $(A, \le)$ do zbioru dobrze
+uporządkowanego $(B, \le)$ zachowuje porządek jeśli $\forall_{x \le_A
+y; x,y \in A}(f(x) \le_B f(y))$, oraz zachowuje ostry porządek jeśli $\forall_{x
+< y; x,y \in A}(f(x) < f(y))$.
+
+\subsection{Homomorfizmy}
+
+Jeżeli funkcja $f: A \rightarrow B$ dla zbiorów liniowo uporządkowanych $(A,
+\le_A)$ i $(B, \le_B)$ jest iniekcją i zachowuje porządek to jest to
+homomorfizm porządkowy. Jeżeli funkcja jest homomorfizmem porządkowym oraz
+bijekcją dla zbiorów uporządkowanych to jest izomorfizmem. Zbiory dla których
+istnieje izomorfizm są izomorficzne wobec siebie ($A \backsimeq B$).
+Jeżeli $A$ jest
+zbiorem dobrze uporządkowanym i funkcja $f$ zachowuje ostry porządek
+to $x \le f(x)$ dla każdego $x \in A$. Zbiór dobrze uporządkowany nie
+jest izomorficzny z żadnym swoim właściwym odcinkiem początkowym.
+Jeżeli $A$ i $B$ są zbiorami dobrze uporządkowanymi i $A \backsimeq
+B$ to $A$ i $B$ są izomorficzne z właściwymi odcinkami początkowymi
+drugiego zbioru.
+
+\subsection{Aksojmat wyboru}
+
+Dla dowolnej rodziny zbiorów niepustych i parami rozłącznych istnieje zbiór
+zawarty w sumie tej rodziny i mający z każdym zbiorem tej rodziny dokładnie
+jeden element wspólny.
+
+Ten aksojmat jest równoważny:
+\begin{itemize}
+  \item Twierdzeniu, że dla dowolnej rodziny zbiorów niepustych
+    istnieje funkcja wyboru dla rodziny
+  \item Twierdzeniu, że dla każdego zbioru istnieje dobry porządek na
+    tym zbiorze
+  \item Jeżeli zbiór uporządkowany spełnia warunek łańcucha, to dla
+    każdego łańcucha istnieje ograniczenie górne
+\end{itemize}
+
+\subsection{Liczby kardynalne}
+
+Zbiór $X$ jest równoliczby ze zbiorem $Y$ jeżeli istnieje bijekcja
+$f: X \rightarrow Y$($X \backsim Y$).
+
+$$
+\overline{\overline{X}} = |X| = \text{liczba elementów zbioru } X
+$$
+Zbiór $Y$ jest skończony, jeżeli jest równoliczby z jakąś liczbą naturalną:
+$\exists_{x \in \mathbb{N}}(Y \backsim x)$. Zbiór skończony nie jest równoliczny
+z żadnym ze swoich podzbiorów.
+
+$$
+\aleph_0 = |\mathbb{N}| = \aleph_0 + \aleph_0 = \text{liczba liczb naturalnych}
+$$
+
+Moc zbioru to $\aleph_0$ wtedy i tylko wtedy jeżeli X jest zbiorem wszystkich
+wyrazów pewnego ciągu nieskończonego bez powtórzeń. Zbiór jest przeliczalny
+jeżeli jest skończony lub mocy $\aleph_0$. Zbiór jest niepusty i przeliczalny
+wtedy i tylko wtedy gdy jest zbiorem wszystkich wyrazów pewnego ciągu
+nieskończonego.\\
+\textbf{Zbiór $\mathbb{R}$ jest nieprzeliczalny.}
+
+$$
+\mathfrak{c} = |\mathbb{R}| = \mathfrak{c} + \mathfrak{c} > \aleph_0
+$$
+
+$$
+|X| \le |Y| \leftrightarrow \exists_Z(Z \subset X \land Z \backsim X)
+$$
+
+\subsubsection{Twierdzenie Cantora}
+
+$P(X)$ - zbiór potęgowy X
+
+$$
+|X| < |P(X)|
+$$
+
+\subsection{Twierdzenie Cantora-Bernsteina}
+
+$$
+|X| \le |Y| \land |X| \ge |Y| \rightarrow |X| = |Y|
+$$
+
+$$
+|X| + |Y| = |X \cup Y|
+$$
+
+$$
+|X| \cdot |Y| = |X \times Y|
+$$
+
+\subsection{Twierdzenie Hessenberga}
+
+$$
+X \times X \backsim X
+$$
+dla każdego nieskończonego zbioru $X$
+
+$$
+\aleph_{n + 1} > \aleph_n, n \in \mathbb{N}
+$$
+
+\subsection{Hipoteza continuum}
+
+$$
+\mathfrak{c} = \aleph_1
+$$
+
+$$
+2^{\aleph_0} = \aleph_1
+$$
+
+Udowodniono, że ta hipoteza jest niezależna od aksjomatów teorii mnogości.
 
 \end{document}
