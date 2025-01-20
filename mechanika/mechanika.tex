@@ -27,12 +27,15 @@ $$
 \stackrel{\wedge}{F_x} \cdot x + \stackrel{\wedge}{F_y} \cdot y +
 \stackrel{\wedge}{F_z} \cdot z
 $$
-
 Dla siły grawitacyjnej działającej na ciało o masie $m$ pod kątem
 $\alpha$ do osi $x$ mamy:
 
 $$
 F_g = m \cdot g \cdot \sin \alpha
+$$
+
+$$
+F_{avg} = -\frac{\Delta m}{\Delta t} \cdot \Delta v
 $$
 
 \section{Ruch prostoliniowy}
@@ -86,11 +89,80 @@ $$
 $$
 E_p = mgh
 $$
-
 Energia potencjalna sprężystości sprężyny:
 
 $$
 E_p = \frac{1}{2}kd^2
+$$
+
+\section{Pęd}
+
+$$
+p = m \cdot v
+$$
+\textbf{Zasada zachowania pędu:}\\
+W układzie izolowanym suma pędów ciał jest stała:
+
+$$
+p_{t=0} = p_{t=t}
+$$
+
+\subsection{Popęd}
+
+$$
+J = F \cdot \Delta t
+$$
+
+\section{Obroty}
+
+$$
+\omega = \frac{\Delta \phi}{\Delta t}
+$$
+
+$$
+\alpha = \frac{\Delta \omega}{\Delta t}
+$$
+
+$$
+\int \alpha dt = \int d\omega
+$$
+
+$$
+F_c = m \cdot a_c = m \cdot r \cdot \omega^2
+$$
+gdzie $a_c$ to przyspieszenie dośrodkowe, a $r$ to promień obrotu. Dla obiektu
+o długości $l$ i jednorodnym rozłożeniu masy to $r = \frac{l}{2}$.
+
+$$
+\text{ rpm} = \frac{2\pi}{60} \text{ rad/s}
+$$
+
+\subsection{Moment bezwładności}
+
+$$
+I = \sum m_i r_i^2
+$$
+czyli suma momentów bezwładności wszystkich punktów materialnych w ciele.
+Moment bezwładności wyraża opór ciała na zmianę ruchu obrotowego.
+
+Moment obrotowy:
+$$
+\tau = I \cdot \alpha = I \cdot \frac{\Delta \omega}{\Delta t}
+$$
+
+$$
+W = \frac{I\omega^2}{2}
+$$
+
+\section{Toczenie się}
+
+Energia kinetyczna ruchu postępowego:
+$$
+E_K = \frac{mV^2}{2}
+$$
+Energia kinetyczna obrotu:
+$$
+E_K = \frac{I\omega^2}{2}
 $$
 
 \end{document}
