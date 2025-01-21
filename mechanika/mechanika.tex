@@ -40,6 +40,15 @@ $$
 $$
 Naturalnie nie zawsze możemy obliczyć całkę oznaczoną w ten sposób. Wtedy
 musimy posłużyć się bardziej zaawansowanymi metodami.
+Aby zademonstrować zastosowanie całek wyobraźmy sobię ciało co się porusza
+ciągle przyspieszając w jednym kierunku. $a(t) = t^2$. Jeśli chcielibyśmy
+obliczyć prędkośc ciała w chwili $t = 3$ to chcemy dodać wszystkie
+przyspieszenia
+jakie ciało doświadczyło do tej chwili. Wtedy mamy:
+
+$$
+v(t) = \int^3_0 a(t) dt = \int^3_0 t^2 dt = \left[\frac{t^3}{3}\right]^3_0 = 9
+$$
 
 \section{Kinematyka}
 
@@ -111,11 +120,6 @@ Dla ruchu po okręgu mamy:
 $$
 a = \frac{v^2}{r}
 $$
-Dla prędkości kątowej $\omega$ mamy:
-$$
-\omega = \frac{\Delta \phi}{\Delta t}
-$$
-gdzie $\phi$ to kąt ruchu po okręgu.
 
 \section{Siły}
 
@@ -272,7 +276,8 @@ Bryła sztywna to ciało, które zachowuje swoją formę podczas ruchu.
     \draw (O) -- (A) node[midway, below] {$r$};
     \draw (O) -- (A');
     \draw[fill=none](0,0) circle (2.0);
-    \draw[draw=blue] (O) ++(0:5mm) arc (0:90:5mm) node[midway]{$\phi$};
+    \draw[draw=blue] (O) ++(0:7mm) arc (0:90:7mm) node[midway, below
+    left]{$\phi$};
     \draw[->] (A) -- (2, 2) node[midway, right] {$\vec{v}$};
 
   \end{tikzpicture}
@@ -306,36 +311,113 @@ $$
 I = \sum m_i r_i^2
 $$
 czyli suma momentów bezwładności wszystkich punktów materialnych w ciele.
-Moment bezwładności wyraża opór ciała na zmianę ruchu obrotowego.\\
+Moment bezwładności wyraża opór ciała na zmianę ruchu obrotowego.
+
 Moment pędu:
 $$
 L = I \cdot \omega
-$$
-Moment siły:
-$$
-\tau = \frac{dL}{dt}
-$$
-
-\subsection{Moment bezwładności}
-
-Moment obrotowy:
-$$
-\tau = I \cdot \alpha = I \cdot \frac{\Delta \omega}{\Delta t}
 $$
 
 $$
 W = \frac{I\omega^2}{2}
 $$
 
-\subsection{Toczenie się}
+\subsection{Moment obrotowy}
 
-Energia kinetyczna ruchu postępowego:
+Moment obrotowy:
 $$
-E_K = \frac{mV^2}{2}
+\tau = I \cdot \alpha = I \cdot \frac{\Delta \omega}{\Delta t}
 $$
-Energia kinetyczna obrotu:
+
+\subsection{Twierdzenie Steinera}
+
+W przypadku gdy znamy moment bezwładności względem jednej osi obrotu
+(przechodzącej przez środek masy) to możemy obliczyć moment bezwładności
+względem innej równoległej osi obrotu:
+$$
+I = I_0 + m \cdot d^2
+$$
+
+\subsection{Energia kinetyczna w ruchu obrotowym}
+
 $$
 E_K = \frac{I\omega^2}{2}
 $$
+
+\section{Szczególna Teoria Względności}
+
+Szczególna teoria względności to podzbiór ogólnej teorii względności, i nie
+uwzględnia grawitacji. Skupia się na ruchu ciał w układach odniesienia
+poruszających się z prędkościami zbliżonymi do prędkości światła.
+
+\subsection{Postulaty}
+
+\begin{enumerate}
+  \item Prawa fizyki są takie same we wszystkich układach odniesienia
+    poruszających się z prędkościami stałymi.
+  \item Prędkość światła w próżni jest stała i niezależna od prędkości
+    źródła światła.
+\end{enumerate}
+
+\subsection{Transformacja Lorentza}
+
+$$
+\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
+$$
+Transformacja Lorentza to przekształcenie współrzędnych między układami
+odniesienia poruszającymi się z różnymi prędkościami. Dla dwóch układów
+odniesienia $S$ i $S'$ poruszających się względem siebie z prędkością $v$
+względem siebie wzdłuż osi $x$ mamy:
+
+$$
+x' = \gamma(x - vt)
+$$
+
+$$
+t' = \gamma(t - \frac{vx}{c^2})
+$$
+
+\subsection{Względność równoczesności}
+
+Dla danego układu odniesienia zdarzenia odbywają się z różnicą czasu
+$\le \Delta t_0$. Jest to stała dla danego układu odniesienia.
+Dla obserwatora poruszającego się z prędkością $v$ zdarzenia
+mogą odbywać się w różnych momentach czasu.
+
+$$
+\Delta t = \gamma \Delta t_0
+$$
+
+\subsection{Dylatacja czasu}
+
+Dla obserwatora poruszającego się z prędkością $v$ czas w jego układzie
+odniesienia płynie wolniej. Dla obserwatora stacjonarnego czas w układzie
+poruszającym się płynie szybciej. Obserwator oczywiście nie odczuwa tego
+efektu.
+
+$$
+t = t_0 \cdot \gamma
+$$
+
+\subsection{Skrócenie długości}
+
+Dla obserwatora poruszającego się z prędkością $v$ długość ciała w jego
+układzie odniesienia jest skrócona. Dla obserwatora stacjonarnego długość
+ciała w układzie poruszającym się jest dłuższa.
+
+$$
+l = l_0 \cdot \gamma
+$$
+gdzie $l$ to długość ciała w układzie poruszającym się, a $l_0$ to długość
+ciała w układzie stacjonarnym.
+
+\subsection{Geometria czasoprzestrzeni}
+
+W szczególnej teorii względności czas i przestrzeń są złączone w jedną
+całość. Dlatego też zamiast mówić o czasie i przestrzeni mówimy o
+czasoprzestrzeni.
+Względność czasu i przestrzeni sprawia, że czas i przestrzeń są względne
+i zależą od prędkości obserwatora. To oznacza, że pozycję w czasoprzestrzeni
+wyraża się czterowektorem $(x, y, z, t)$.
 
 \end{document}
