@@ -37,7 +37,7 @@
 
 %do rysowaniu diagramów
 \RequirePackage{tikz}
-\usetikzlibrary{fit, automata, positioning, shapes.geometric, arrows}
+\usetikzlibrary{fit, automata, positioning, shapes.geometric, arrows, calc}
 %tikz algorytm style
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum
 width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
