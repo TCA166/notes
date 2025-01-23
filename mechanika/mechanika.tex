@@ -234,7 +234,13 @@ Np.: dla trójkąta środek masy znajduje się w punkcie przecięcia środkowych
     second line={(B)--(B1)}) coordinate[label=below right:$M$] (M);
   \end{tikzpicture}
 \end{figure*}
-Dla układu n ciał środek masy to będzie ważona średnia położeń ciał.
+Dla układu n ciał środek masy to będzie ważona średnia położeń ciał. Zatem dla
+układu n ciał o masach $m_i$ i położeniach $r_i$ środek masy to:
+
+$$
+M = \frac{\sum m_i \cdot r_i}{\sum m_i}
+$$
+oraz dla odległości od środka masy $d_i$ mamy $m_i \cdot d_i = d_n \cdot m_n$
 
 \subsection{Zasada zachowania pędu}
 
@@ -261,6 +267,9 @@ Bryła sztywna to ciało, które zachowuje swoją formę podczas ruchu.
 
 \subsection{Przyspieszenie kątowe}
 
+Zmiana kąta obrotu ciała to przyspieszenie kątowe. Jest to cecha całego ciała,
+a nie jego składowych. Przyspieszenie kątowe to zmiana prędkości kątowej
+w czasie.
 \begin{figure*}[h]
   \centering
   \begin{tikzpicture}
@@ -273,9 +282,10 @@ Bryła sztywna to ciało, które zachowuje swoją formę podczas ruchu.
     \draw[fill=none](0,0) circle (2.0);
     \draw[draw=blue] (O) ++(0:7mm) arc (0:90:7mm) node[midway, below
     left]{$\phi$};
-    \draw[draw=green, ->] (A) -- (3, 0) node[midway, below right] {$\vec{F_c}$};
-    \draw[draw=red, ->] (O) ++(0:2) arc (0:90:2) node[midway, above
-    right]{$\vec{\omega}$};
+    \draw[draw=red, ->] (A) -- (3, 0) node[midway, below right] {$\vec{F_c}$};
+    \draw[draw=green, ->] (A) -- (2, 2) node[midway, right] {$\vec{v_t}$};
+    \draw[draw=red, ->] (O) ++(0:1.2) arc (0:90:1.2) node[midway, above
+    right]{$\omega$};
 
   \end{tikzpicture}
 \end{figure*}
@@ -284,7 +294,8 @@ $$
 \omega = \frac{\Delta \phi}{\Delta t}, \quad \alpha = \frac{\Delta
 \omega}{\Delta t}
 $$
-
+Prędkość kątowa jest analogiczna do prędkości liniowej, a przyspieszenie
+kątowe do przyspieszenia liniowego.
 $$
 \int \alpha(t) dt = \omega(t)
 $$
@@ -294,14 +305,20 @@ $$
 $$
 
 $$
+\text{rpm} = \frac{2\pi}{60} \frac{\text{rad}}{\text{s}}
+$$
+
+\subsubsection{Punkt na obwodzie koła}
+Prędkość punktu na obwodzie koła to prędkość styczna($v_t$). Dla koła mamy:
+$$
+\omega = \frac{v_t}{r}
+$$
+Punkt na obwodzie koła doświadcza przyspieszenia dośrodkowego:
+$$
 F_c = m \cdot a_c = m \cdot r \cdot \omega^2
 $$
 gdzie $a_c$ to przyspieszenie dośrodkowe, a $r$ to promień obrotu. Dla obiektu
 o długości $l$ i jednorodnym rozłożeniu masy to $r = \frac{l}{2}$.
-
-$$
-\text{rpm} = \frac{2\pi}{60} \frac{\text{rad}}{\text{s}}
-$$
 
 \subsection{Bezwładność, pęd i energia}
 
@@ -310,22 +327,29 @@ I = \sum m_i r_i^2
 $$
 czyli suma momentów bezwładności wszystkich punktów materialnych w ciele.
 Moment bezwładności wyraża opór ciała na zmianę ruchu obrotowego.
-
+Dla prętu o długości $l$ mamy:
+$$
+I = \int r^2 dm
+$$
 Moment pędu:
 $$
 L = I \cdot \omega
 $$
 
 $$
-W = \frac{I\omega^2}{2}
+W = \int^{\theta_0}_0 mgr\sin\theta d\theta = mgr(1 - \cos\theta_0)
 $$
 
-\subsection{Moment obrotowy}
+\subsection{Moment obrotowy (siły)}
 
-Moment obrotowy:
 $$
-\tau = I \cdot \alpha = I \cdot \frac{\Delta \omega}{\Delta t}
+\tau = I \cdot \alpha = I \cdot \frac{\Delta \omega}{\Delta t} =
+r\sin\alpha \cdot F
 $$
+gdzie $\alpha$ to kąt między siłą a promieniem obrotu.
+O momencie obrotowym (torque) można myśleć jako o siły powodującej obrót
+ciała. Aby zatrzymać obracające się ciało musimy zastosować siłę przeciwną
+do momentu obrotowego. Jest to jakby siła odpowiedzialna za $\omega$.
 
 \subsection{Twierdzenie Steinera}
 
@@ -338,9 +362,32 @@ $$
 
 \subsection{Energia kinetyczna w ruchu obrotowym}
 
+W jaki sposób obliczyć energię kinetyczną ciała w ruchu obrotowym? Wystarczy
+zsumować energię kinetyczną wszystkich punktów materialnych w ciele.
+
 $$
-E_K = \frac{I\omega^2}{2}
+E_K = \sum \frac{1}{2} m_i v_{ti}^2 = \frac{1}{2} \sum m_i r_i^2 \omega^2 =
+\frac{I\omega^2}{2}
 $$
+
+\subsection{Porównanie ruchu liniowego i obrotowego}
+
+\begin{figure*}[h]
+  \centering
+  \begin{tabular}{c|c|c}
+    Cecha & Ruch liniowy & Ruch obrotowy \\ \hline
+    przemieszczenie & $x$ & $\theta$ \\ \hline
+    prędkość & $v = \frac{\Delta v}{\Delta t}$ & $\omega =
+    \frac{\Delta \theta}{\Delta t}$ \\ \hline
+    przyspieszenie & $a = \frac{\Delta a}{\Delta t}$ & $\alpha =
+    \frac{\Delta \omega}{\Delta t}$ \\ \hline
+    bezwładność & $m$ & $I$ \\ \hline
+    pęd & $p = m \cdot v$ & $L = I \cdot \omega$ \\ \hline
+    zmiana pędu & $F = m \cdot a$ & $\tau = I \cdot \alpha$ \\ \hline
+    $E_K$ & $\frac{m \cdot v^2}{2}$ & $\frac{I \cdot \omega^2}{2}$ \\ \hline
+    Praca & $W = F \cdot d$ & $\tau \cdot \theta$
+  \end{tabular}
+\end{figure*}
 
 \section{Szczególna Teoria Względności}
 
@@ -374,6 +421,12 @@ $$
 $$
 t' = \gamma(t - \frac{vx}{c^2})
 $$
+Relatywistyczna suma prędkości:
+$$
+u' = \frac{u + v}{1 - \frac{uv}{c^2}}
+$$
+gdzie $u$ to prędkość dodana, $v$ to prędkość układu odniesienia, a $c$ to
+prędkość światła.
 
 \subsection{Względność równoczesności}
 
