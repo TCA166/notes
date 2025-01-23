@@ -81,11 +81,7 @@ $$
 Dla pozycji ciała $x$ mamy:
 
 $$
-x(t) = x_0 + v_0t + \frac{1}{2}a t^2
-$$
-
-$$
-\Delta x = s = \int v(t) dt
+x(t) = x_0 + v_0t + \frac{1}{2}a t^2 = x_0 + \int v(t) dt
 $$
 
 \subsection{Ruch w wielu wymiarach}
@@ -238,7 +234,6 @@ Np.: dla trójkąta środek masy znajduje się w punkcie przecięcia środkowych
     second line={(B)--(B1)}) coordinate[label=below right:$M$] (M);
   \end{tikzpicture}
 \end{figure*}
-
 Dla układu n ciał środek masy to będzie ważona średnia położeń ciał.
 
 \subsection{Zasada zachowania pędu}
@@ -278,21 +273,24 @@ Bryła sztywna to ciało, które zachowuje swoją formę podczas ruchu.
     \draw[fill=none](0,0) circle (2.0);
     \draw[draw=blue] (O) ++(0:7mm) arc (0:90:7mm) node[midway, below
     left]{$\phi$};
-    \draw[->] (A) -- (2, 2) node[midway, right] {$\vec{v}$};
+    \draw[draw=green, ->] (A) -- (3, 0) node[midway, below right] {$\vec{F_c}$};
+    \draw[draw=red, ->] (O) ++(0:2) arc (0:90:2) node[midway, above
+    right]{$\vec{\omega}$};
 
   \end{tikzpicture}
 \end{figure*}
 
 $$
-\omega = \frac{\Delta \phi}{\Delta t}
+\omega = \frac{\Delta \phi}{\Delta t}, \quad \alpha = \frac{\Delta
+\omega}{\Delta t}
 $$
 
 $$
-\alpha = \frac{\Delta \omega}{\Delta t}
+\int \alpha(t) dt = \omega(t)
 $$
 
 $$
-\int \alpha dt = \int d\omega
+\int \omega(t) dt = \phi(t)
 $$
 
 $$
@@ -302,7 +300,7 @@ gdzie $a_c$ to przyspieszenie dośrodkowe, a $r$ to promień obrotu. Dla obiektu
 o długości $l$ i jednorodnym rozłożeniu masy to $r = \frac{l}{2}$.
 
 $$
-\text{ rpm} = \frac{2\pi}{60} \text{ rad/s}
+\text{rpm} = \frac{2\pi}{60} \frac{\text{rad}}{\text{s}}
 $$
 
 \subsection{Bezwładność, pęd i energia}

@@ -223,7 +223,7 @@ Macierz obrotu to szczególny przypadek macierzy ortogonalnej, który dodatkowo 
 #### Co oznaczają i do czego służą pojęcia: Pitch, Yaw, Roll?
 
 Pitch - x  
-Yaw - y
+Yaw - y  
 Roll - z
 
 #### Podaj istotnie złą cechę kątów Eulera jako narzędzia obrótów w 3D
