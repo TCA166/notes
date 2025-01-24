@@ -18,7 +18,7 @@ Całki to operacje odwrotne do pochodnych. Dla funkcji $f(x)$ całka oznaczona
 to pole pod wykresem funkcji $f(x)$ na przedziale $[a, b]$. Pozwalają nam
 obliczyć pole pod krzywą, a także sumę nieskończenie wielu wartości funkcji.
 
-\begin{figure*}[h]
+\begin{figure*}[ht]
   \centering
   \begin{tikzpicture}
     \draw[->] (0, 0) -- (4, 0) node[right] {$x$};
@@ -28,6 +28,7 @@ obliczyć pole pod krzywą, a także sumę nieskończenie wielu wartości funkcj
     \fill[fill=gray, fill opacity=0.5] (0, 0) -- (0, 1) -- (3, 1) --
     (3, 0) -- cycle;
   \end{tikzpicture}
+  \caption{Całka oznaczona funkcji $f(x)$ na przedziale $[0, 3]$}
 \end{figure*}
 
 $$
@@ -40,11 +41,28 @@ $$
 $$
 Naturalnie nie zawsze możemy obliczyć całkę oznaczoną w ten sposób. Wtedy
 musimy posłużyć się bardziej zaawansowanymi metodami.
-Aby zademonstrować zastosowanie całek wyobraźmy sobię ciało co się porusza
+Aby zademonstrować zastosowanie całek wyobraźmy sobie ciało co się porusza
 ciągle przyspieszając w jednym kierunku. $a(t) = t^2$. Jeśli chcielibyśmy
-obliczyć prędkośc ciała w chwili $t = 3$ to chcemy dodać wszystkie
+obliczyć prędkość ciała w chwili $t = 3$ to chcemy dodać wszystkie
 przyspieszenia
 jakie ciało doświadczyło do tej chwili. Wtedy mamy:
+
+\begin{figure*}[ht]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (0, 0) -- (2, 0) node[right] {$x$};
+    \draw[->] (0, 0) -- (0, 4) node[above] {$y$};
+
+    \fill [gray, fill opacity=0.5, domain=0:2, variable=\x]
+    (-2, 0)
+    -- plot ({\x}, {\x*\x})
+    -- (2, 0)
+    -- cycle;
+    \draw[domain=0:2, smooth, variable=\t, blue] plot
+    ({\t}, {\t * \t}) node[right] {$a(t)$};
+  \end{tikzpicture}
+  \caption{Całka oznaczona $a(t)$ na przedziale $[0, 3]$}
+\end{figure*}
 
 $$
 v(t) = \int^3_0 a(t) dt = \int^3_0 t^2 dt = \left[\frac{t^3}{3}\right]^3_0 = 9
@@ -89,7 +107,7 @@ $$
 Aby opisać ruch w $n \in \mathbb{N}$ wymiarach, potrzebujemy po prostu $n$
 wymiarowych wektorów. Dla ruchu w dwóch wymiarach mamy:
 
-\begin{figure*}[h]
+\begin{figure*}[ht]
   \centering
   \begin{tikzpicture}
     \draw [->] (0,0) -- (4.0,0) node [below right] {$x$};
@@ -103,6 +121,7 @@ wymiarowych wektorów. Dla ruchu w dwóch wymiarach mamy:
     \draw[draw=blue] (A) ++(0:10mm) arc (0:39:10mm) node[midway,
     left]{$\alpha$};
   \end{tikzpicture}
+  \caption{Dekonstrukcja prędkości na składowe}
 \end{figure*}
 
 $$
@@ -222,7 +241,7 @@ położenie w relacji do ciał w układzie może mieć wpływ na ruch układu.
 Dla równej dystrybucji masy środek masy znajduje się w środku układu.
 Np.: dla trójkąta środek masy znajduje się w punkcie przecięcia środkowych.
 
-\begin{figure*}[h]
+\begin{figure*}[ht]
   \centering
   \begin{tikzpicture}
     \draw (0,1) coordinate[label=left:$A$] (A) --
@@ -233,6 +252,7 @@ Np.: dla trójkąta środek masy znajduje się w punkcie przecięcia środkowych
     (intersection cs:first line={(A)--(A1)},
     second line={(B)--(B1)}) coordinate[label=below right:$M$] (M);
   \end{tikzpicture}
+  \caption{Środek masy trójkąta}
 \end{figure*}
 Dla układu n ciał środek masy to będzie ważona średnia położeń ciał. Zatem dla
 układu n ciał o masach $m_i$ i położeniach $r_i$ środek masy to:
@@ -263,14 +283,16 @@ niesprężyste, w których energia kinetyczna nie jest zachowana.
 
 \subsection{Bryła sztywna}
 
-Bryła sztywna to ciało, które zachowuje swoją formę podczas ruchu.
+Bryła sztywna to ciało, które zachowuje swoją formę podczas ruchu. W odróżnieniu
+od ciała punktowego, bryła sztywna ma rozmiar i kształt. Dla bryły sztywnej
+mamy dwa rodzaje ruchu: ruch liniowy i ruch obrotowy.
 
 \subsection{Przyspieszenie kątowe}
 
 Zmiana kąta obrotu ciała to przyspieszenie kątowe. Jest to cecha całego ciała,
 a nie jego składowych. Przyspieszenie kątowe to zmiana prędkości kątowej
 w czasie.
-\begin{figure*}[h]
+\begin{figure*}[ht]
   \centering
   \begin{tikzpicture}
     \coordinate (O) at (0, 0);
@@ -286,8 +308,8 @@ w czasie.
     \draw[draw=green, ->] (A) -- (2, 2) node[midway, right] {$\vec{v_t}$};
     \draw[draw=red, ->] (O) ++(0:1.2) arc (0:90:1.2) node[midway, above
     right]{$\omega$};
-
   \end{tikzpicture}
+  \caption{Ilustracja wartości i sił w ruchu obrotowym}
 \end{figure*}
 
 $$
@@ -327,10 +349,23 @@ I = \sum m_i r_i^2
 $$
 czyli suma momentów bezwładności wszystkich punktów materialnych w ciele.
 Moment bezwładności wyraża opór ciała na zmianę ruchu obrotowego.
-Dla prętu o długości $l$ mamy:
+Dla pręta o długości $l$ mamy:
 $$
 I = \int r^2 dm
 $$
+
+\begin{table*}[ht]
+  \centering
+  \begin{tabular}{c|c}
+    Ciało & Moment bezwładności \\ \hline
+    Pręt & $I = \frac{1}{12} m \cdot l^2$ \\ \hline
+    Koło & $I = \frac{1}{2} m \cdot r^2$ \\ \hline
+    Pierścień & $I = m \cdot r^2$ \\ \hline
+    Kula & $I = \frac{2}{5} m \cdot r^2$
+  \end{tabular}
+  \caption{Momenty bezwładności dla różnych ciał}
+\end{table*}
+
 Moment pędu:
 $$
 L = I \cdot \omega
@@ -364,19 +399,24 @@ $$
 
 W jaki sposób obliczyć energię kinetyczną ciała w ruchu obrotowym? Wystarczy
 zsumować energię kinetyczną wszystkich punktów materialnych w ciele.
-
+Dla ciała które nie porusza się liniowo mamy:
 $$
 E_K = \sum \frac{1}{2} m_i v_{ti}^2 = \frac{1}{2} \sum m_i r_i^2 \omega^2 =
 \frac{I\omega^2}{2}
 $$
+Dla ciała które porusza się liniowo i obrotowo mamy:
+$$
+E_K = \frac{m \cdot v^2}{2} + \frac{I \cdot \omega^2}{2}
+$$
+Dystrybucja energii na ruch obrotowy i postępowy zależy od momentu bezwładności.
 
 \subsection{Porównanie ruchu liniowego i obrotowego}
 
-\begin{figure*}[h]
+\begin{table*}[ht]
   \centering
   \begin{tabular}{c|c|c}
     Cecha & Ruch liniowy & Ruch obrotowy \\ \hline
-    przemieszczenie & $x$ & $\theta$ \\ \hline
+    przemieszczenie & $x$ & $\angle \theta$ \\ \hline
     prędkość & $v = \frac{\Delta v}{\Delta t}$ & $\omega =
     \frac{\Delta \theta}{\Delta t}$ \\ \hline
     przyspieszenie & $a = \frac{\Delta a}{\Delta t}$ & $\alpha =
@@ -387,7 +427,8 @@ $$
     $E_K$ & $\frac{m \cdot v^2}{2}$ & $\frac{I \cdot \omega^2}{2}$ \\ \hline
     Praca & $W = F \cdot d$ & $\tau \cdot \theta$
   \end{tabular}
-\end{figure*}
+  \caption{Porównanie ruchu liniowego i obrotowego}
+\end{table*}
 
 \section{Szczególna Teoria Względności}
 
