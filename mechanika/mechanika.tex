@@ -187,12 +187,6 @@ tarcie kinetyczne gdy ciała poruszają się. W pewnym sensie tarcie statyczne
 określa siłę potrzebną do wzruszenia ciała, a tarcie kinetyczne to jaką siłę
 trzeba utrzymać aby ciało poruszało się z daną prędkością.
 
-\subsection{Popęd}
-
-$$
-J = F \cdot \Delta t
-$$
-
 \section{Energia}
 
 Energia to miara zdolności ciała do wykonywania pracy. Energia kinetyczna to
@@ -285,6 +279,14 @@ $$
 Zderzenia to procesy w których ciała zmieniają swoje prędkości. Rozróżniamy
 zderzenia sprężyste, w których energia kinetyczna jest zachowana, oraz
 niesprężyste, w których energia kinetyczna nie jest zachowana.
+
+\subsection{Popęd}
+
+$$
+J = \Delta p = F \cdot \Delta t
+$$
+Szczególnie przydatne jeśli np.: mamy wykres siły w czasie $F(t)$. Wtedy
+$\int^{t_1}_{t_0} F(t) dt = \Delta p$
 
 \section{Obroty}
 
@@ -386,12 +388,17 @@ $$
 
 $$
 \tau = I \cdot \alpha = I \cdot \frac{\Delta \omega}{\Delta t} =
-r\sin\alpha \cdot F
+r\sin\alpha \cdot F = \frac{L}{\Delta t}
 $$
 gdzie $\alpha$ to kąt między siłą a promieniem obrotu.
 O momencie obrotowym (torque) można myśleć jako o siły powodującej obrót
 ciała. Aby zatrzymać obracające się ciało musimy zastosować siłę przeciwną
 do momentu obrotowego. Jest to jakby siła odpowiedzialna za $\omega$.
+
+$$
+\vec{\tau} = \vec{r} \times \vec{F}
+$$
+gdzie $\vec{r}$ to pozycja a $\vec{F}$ to siła
 
 \subsection{Twierdzenie Steinera}
 
@@ -496,10 +503,8 @@ t' = \gamma(t - \frac{vx}{c^2})
 $$
 Relatywistyczna suma prędkości:
 $$
-u' = \frac{u + v}{1 - \frac{uv}{c^2}}
+u = \frac{u' + v}{1 - \frac{u'v}{c^2}}
 $$
-gdzie $u$ to prędkość dodana, $v$ to prędkość układu odniesienia, a $c$ to
-prędkość światła.
 
 \subsection{Względność równoczesności}
 
