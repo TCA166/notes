@@ -503,8 +503,30 @@ t' = \gamma(t - \frac{vx}{c^2})
 $$
 Relatywistyczna suma prędkości:
 $$
-u = \frac{u' + v}{1 - \frac{u'v}{c^2}}
+u' = \frac{u + v}{1 - \frac{uv}{c^2}}
 $$
+Jeżeli układ $S'$ porusza się względem układu $S$ z prędkością $v$ i
+w $S'$ ciało
+ma prędkość $u$ to w układzie $S$ to ciało ma prędkość $u'$.
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}[node distance=1cm]
+    \node[draw, very thick, red] (x) at (-3,0.5) {$x$};
+    \node[draw, very thick, above left=of x] (y) {$y$};
+    \node[draw, very thick, above right=of x] (z) {$z$};
+    \draw[->] (y.east) -- node[midway, above] {$v$} ++(1,0);
+    \draw[->] (z.east) -- node[midway, above] {$u'$} ++(1,0);
+
+    \draw[dotted] (0,0) -- (0,3) node[left] {$S$} node[right] {$S'$};
+
+    \node[draw, very thick] (x) at (3, 0.5) {$x$};
+    \node[draw, very thick, above left=of x, red] (y) {$y$};
+    \node[draw, very thick, above right=of x] (z) {$z$};
+    \draw[->] (z.east) -- node[midway, above] {$u$} ++(1,0);
+    \draw[->] (x.west) -- node[midway, above] {$v$} ++(-1,0);
+  \end{tikzpicture}
+\end{figure*}
 
 \subsection{Względność równoczesności}
 
