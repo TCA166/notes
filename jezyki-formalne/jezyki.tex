@@ -1187,8 +1187,40 @@ skonstruować równoważną jej gramatykę bezkontekstową normalną.
 \subsubsection{Problem słowa}
 
 Problem słowa jest rozstrzygalny dla gramatyk bezkontekstowych.
+Problem słowa polega na sprawdzeniu, czy dane słowo należy do języka
+generowanego przez gramatykę bezkontekstową.
 Algorytm siłowy ma złożoność $O(\overline{\overline{F}}^{|P|})$ gdzie $|P|$ to
 długość słowa. Z kolei algorytm "CYK" ma złożoność $O(|P|^3)$.
+
+\noindent \textbf{Algorytm CYK}
+
+Algorytm CYK na wejściu przyjmuje gramatykę bezkontekstową w postaci
+normalnej. Dla danego słowa $P$ sprawdza, czy $P \in L(G)$. Ponieważ drzewa
+wyprowadzenia w postaci normalnej są drzewami binarnymi, drzewo dla $P$ będzie
+miało dokładnie $|P| - 1$ wierzchołków wewnętrznych. Algorytm ten polega na
+konstruowaniu tablicy trójkątnej o końcowej podstawie długości $|P|$ elementów
+i wysokości $|P| - 1$ wierszy. W komórce $(i, j)$ przechowywane są nieterminalne
+symbole, które mogą wyprowadzić słowo $P[i..j]$. Wartość w komórce $(1, |P|)$
+oznacza, czy $P \in L(G)$.
+
+\begin{table*}
+  \centering
+  \begin{tabular}{|ccccc}
+    $X_{15}$ & & & & \\
+    $X_{14}$ & $X_{25}$ & & & \\
+    $X_{13}$ & $X_{24}$ & $X_{35}$ & & \\
+    $X_{12}$ & $X_{23}$ & $X_{34}$ & $X_{45}$ & \\
+    $X_{11}$ & $X_{22}$ & $X_{33}$ & $X_{44}$ & $X_{55}$ \\
+    \hline
+    $P_1$ & $P_2$ & $P_3$ & $P_4$ & $P_5$
+  \end{tabular}
+  \caption{Tablica trójkątna dla algorytmu CYK}
+\end{table*}
+
+Tabelę konstruujemy od dołu. W pierwszym kroku wypełniamy komórki $P_n$. Potem
+dla każdego $P_n$ znajdujemy wszystkie nieterminalne symbole, które mogą
+tworzyć $P_n$. W kolejnym kroku dla zbioru $X_{ij}$ znajdujemy wszystkie
+nieterminalne symbole, które mogą wyprowadzić $P_iP_{i+1}\dots P_j$.
 
 \subsubsection{Lemat o pompowaniu dla gramatyk bezkontekstowych}
 
