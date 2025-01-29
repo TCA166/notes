@@ -1403,6 +1403,23 @@ Jest to problem \textbf{rozstrzygalny} dla języków regularnych.
   \item Zastosuj problem pustości na $\mathfrak{B}$
 \end{itemize}
 
+\subsection{Formalizm}
+
+Algorytmy nie mają formalnej definicji. Jest to pojęcie intuicyjne.
+Formalizacją algorytmu są maszyny Turinga(\ref{sec:maszyny-turinga}).
+Z kolei ciekawą konsekwencją jest to, że zatem teoretycznie nie ma dowodu na to
+czy każdy problem i algorytm ma swoją maszynę Turinga.
+
+\subsection{Teza Churcha-Turinga}
+
+Klasa funkcji obliczalnych na maszynie Turinga, maszynie RAM oraz
+funkcji $\lambda$ jest równoważna klasie algorytmów. Innymi słowy: każdy
+algorytm (pojęcie rozmyte) ma swoją implementację.
+
+Nie jest to twierdzenie, ani lemat - jest to teza, która nie ma dowodu. Jest to
+dogmat, aksjomat informatyki jako dziedziny. Jej zaprzeczenie by oznaczało, że
+istnieje algorytm, którego nie da się zaimplementować.
+
 \section{Automaty ze stosem}
 
 Zachowują się jak automaty regularne z $\epsilon$ przejściami, ale z tą różnicą,
@@ -1531,6 +1548,7 @@ det CF \subset CF
 $$
 
 \section{Maszyny Turinga}
+\label{sec:maszyny-turinga}
 
 $$
 \mathfrak{M} = \langle K, \gamma, \delta, q_0, H \rangle
@@ -1576,8 +1594,12 @@ maszyna Turinga akceptuje. Formalnie jest to zbiór $L(\mathfrak{M}) = \{w \in
 \subsection{Rozstrzygalność}
 
 Jeśli maszyna zatrzymuje się dla każdego wejścia w stanie $q_a$ lub $q_r$ to
-jest rozstrzygająca, oraz problem jest rozstrzygalny. \textbf{Maszyna
-Turinga to formalizm algorytmu.}
+jest rozstrzygająca. \textbf{Maszyna Turinga to formalizm algorytmu.} Dwie
+maszyny są równoważne jeśli rozstrzygają te same języki. Problem jest
+rozstrzygalny jeśli istnieje maszyna Turinga, która rozstrzyga język
+$$
+L_{I,P} = \{<i>: i \in P\}
+$$
 
 \subsection{Maszyna Turinga niedeterministyczna}
 
@@ -1585,11 +1607,88 @@ Maszyna Turinga niedeterministyczna to maszyna Turinga, która w każdym stanie
 może mieć wiele możliwości przejścia. Formalnie jest to maszyna Turinga, dla
 której funkcja przejścia $\delta$ nie jest funkcją, ale zbiorem funkcji.
 
-\subsection{Złożoność obliczeniowa}
+\section{Złożoność obliczeniowa}
 
 Niech $\mathfrak{M}$ będzie det. maszyną Turinga, która zatrzymuje się dla
 każdego wejścia. Złożoność obliczeniowa maszyny Turinga to funkcja
 $f: \mathbb{N} \rightarrow \mathbb{N}$ taka, że dla każdego słowa
 wejściowego $w$, maszyna zatrzymuje się w co najwyżej $f(|w|)$ krokach.
+
+\subsection{Notacja O}
+
+Jest to notacja asymptotyczna, używana do określania skali osiąganych wartości
+przez funkcję. Niech $f, g: \mathbb{N} \rightarrow \mathbb{R}^+ \cup \{0\}$.
+Mówimy, że funkcja jest duże O od g jeśli istnieje $c > 0$ i $n_0$ takie, że
+dla każdego $n > n_0$ zachodzi $f(n) \le c \cdot g(n)$.
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (0, 0) -- (2, 0) node[right] {$x$};
+    \draw[->] (0, 0) -- (0, 4) node[above] {$y$};
+    \draw[domain=0:2, smooth, variable=\x, blue] plot
+    ({\x}, {0.5 * \x * \x + 1}) node[right] {$f(x)$};
+    \draw[domain=0:2, smooth, variable=\x, red] plot
+    ({\x}, {\x * \x}) node[right] {$g(x)$};
+    \draw[dashed] (1.414213562, 0) -- (1.414213562, 4) node[above] {$n_0$};
+  \end{tikzpicture}
+  \caption{Ilustracja notacji O}
+\end{figure*}
+
+\subsection{Klasa TIME}
+
+Niech $f: \mathbb{N} \rightarrow \mathbb{R}^+ \cup \{0\}$. Klasą $TIME(f)$
+nazywamy zbiór języków, które są akceptowane przez maszynę Turinga, której
+złożoność obliczeniowa jest $O(f(n))$.
+
+Dla każdej deterministycznej wielotaśmowej maszyny Turinga o złożoności $f(n)$
+można skonstruować odpowiadającą jej jednotaśmową maszynę Turinga o złożoności
+$O(f(n)^2)$.
+
+Podobna transformacja jest możliwa dla maszyn niedeterministycznych, ale
+złożoność wynosi $2^{O(f(n))}$. Zatem widzimy, że maszyny niedeterministyczne
+są bardziej wydajne, ale mniej realistyczne.
+
+\subsection{Redukowalność wielomianowa}
+
+Język $L_1$ jest redukowalny do języka $L_2$ w czasie wielomianowym, jeśli
+istnieje funkcja obliczalna w czasie wielomianowym $f: V^*
+\rightarrow V^*$ taka,
+że dla każdego $w \in V^*$ zachodzi $w \in L_1 \Leftrightarrow f(w) \in L_2$.
+Czyli jeśli istnieje przyporządkowanie wielomianowe między językami.
+
+\subsection{Klasa P}
+
+Klasa wszystkich języków rozstrzygalnych w czasie wielomianowym przez maszynę
+Turinga deterministyczną to klasa P.
+
+$$
+P = \bigcup_{k \in \mathbb{N}} TIME(n^k)
+$$
+
+$$
+L_1 \le_p L_2 \land L_2 \in P \Rightarrow L_1 \in P
+$$
+
+\subsection{Klasa NP}
+
+Klasa wszystkich języków, które są rozstrzygalne w czasie wielomianowym przez
+maszynę Turinga niedeterministyczną to klasa NP.
+
+\subsubsection{Klasa NP-trudna}
+
+$$
+\forall_{L \in NP} L' \le_p L \Rightarrow L \in NP_{HARD}
+$$
+
+\subsubsection{Klasa NP-zupełna}
+
+$$
+L \in NP_{HARD} \land L \in NP \Rightarrow L \in NP_{COMPLETE}
+$$
+
+$$
+L \in NP_{COMPLETE} \land L \in P \Rightarrow P = NP
+$$
 
 \end{document}
