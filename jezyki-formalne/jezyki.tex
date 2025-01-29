@@ -838,6 +838,10 @@ $$
 
 \section{Klasy języków}
 
+Języki w zależności od swoich właściwości można podzielić na klasy.
+Z reguły języki dzielimy na klasy w zależności od tego co jest konieczne
+do ich rozpoznania i generowania.
+
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[shorten >=1pt,node distance=1cm,on
@@ -853,6 +857,11 @@ $$
   \caption{Nadzbiory języków regularnych}
   \label{fig:cls:reg}
 \end{figure}
+
+Każda klasa języków ma odpowiadającą klasę automatów, oraz gramatyk.
+$$
+L(G_n) = \mathfrak{L}_n = L(\mathfrak{A}_n)
+$$
 
 \subsection{Języki regularne}
 
@@ -974,12 +983,30 @@ $$
 
 \subsection{Bezkontekstowe}
 
+Klasa języków bezkontekstowych jest zamknięta na operacje sumy, konkatenacji
+i domknięcia Kleene'ego.
+
 \subsubsection{Część wspólna języków bezkontekstowych}
 
 $$
 \stackrel{CF}{\{a^nb^nc^k : n \ge 1 \}} \cap \stackrel{CF}{\{a^nb^kc^k : n \ge 1
-\}} = \stackrel{CTX}{\{a^nb^nc^n : n \ge 1\}}
+\}} = \stackrel{CS}{\{a^nb^nc^n : n \ge 1\}}
 $$
+
+\subsubsection{Lemat o pompowaniu dla języków bezkontekstowych}
+
+Istnieje liczba naturalna $p$ zależna od L, taka, że dla każdego słowa $P \in L$
+o długości $|P| \ge p$ istnieje podział $P = UXWYZ$ spełniający warunki:
+
+\begin{itemize}
+  \item $XY \ne \epsilon$
+  \item $|XWY| \le p$
+  \item $\forall_{i \ge 0} UX^iWY^iZ \in L$
+\end{itemize}
+
+\subsection{Kontekstowe}
+
+\subsection{Rozpoznawane przez maszyny Turinga}
 
 \section{Gramatyki}
 
@@ -1087,6 +1114,26 @@ $$
 G = \langle \{S\}, \{a, b\}, S, \{S \rightarrow aSb, S \rightarrow ab\} \rangle
 $$
 
+\subsection{Suma gramatyk}
+
+$$
+F_1 = \{S \rightarrow aS, S \rightarrow \epsilon\}, L(G_1) = \{a^n : n \ge 0\}
+$$
+
+$$
+F_2 = \{S \rightarrow bS, S \rightarrow \epsilon\}, L(G_2) = \{b^n : n \ge 0\}
+$$
+
+$$
+F_1 \cup F_2 \ne F_{G_1 \cup G_2}
+$$
+
+$$
+F_{G_1 \cup G_2} = \{S^1 \rightarrow aS^1, S^1 \rightarrow \epsilon,
+  S^2 \rightarrow bS^2, S^2 \rightarrow \epsilon, S \rightarrow S^1,
+S \rightarrow S^2, S \rightarrow S^1S^2\}
+$$
+
 \subsection{Rodzaje gramatyk}
 
 \begin{itemize}
@@ -1098,10 +1145,6 @@ $$
 
 $$
 G_2 \subset G_1 \subset G_0, G_3 \subset G_0
-$$
-
-$$
-L(G_n) = \mathfrak{L}_n = L(\mathfrak{A}_n)
 $$
 
 \subsection{Gramatyki typu 3}
@@ -1221,17 +1264,6 @@ Tabelę konstruujemy od dołu. W pierwszym kroku wypełniamy komórki $P_n$. Pot
 dla każdego $P_n$ znajdujemy wszystkie nieterminalne symbole, które mogą
 tworzyć $P_n$. W kolejnym kroku dla zbioru $X_{ij}$ znajdujemy wszystkie
 nieterminalne symbole, które mogą wyprowadzić $P_iP_{i+1}\dots P_j$.
-
-\subsubsection{Lemat o pompowaniu dla gramatyk bezkontekstowych}
-
-Istnieje liczba naturalna $p$ zależna od L, taka, że dla każdego słowa $P \in L$
-o długości $|P| \ge p$ istnieje podział $P = UXWYZ$ spełniający warunki:
-
-\begin{itemize}
-  \item $XY \ne \epsilon$
-  \item $|XWY| \le p$
-  \item $\forall_{i \ge 0} UX^iWY^iZ \in L$
-\end{itemize}
 
 Dla normalnych gramatyk $n = \overline{\overline{V_n}}$, $p=2^n$
 
@@ -1432,7 +1464,7 @@ $X_1 = X, X_n = Y, \forall_{1 \le i < n}X_i \Rightarrow X_{i + 1}$
 Dla automatów ze stosem języki definiujemy przy pomocy redukcji konfiguracji.
 Język akceptowany przez $\mathfrak{A}_{zs}$ to zbiór
 $L(\mathfrak{A})=\{P \in T^* : z_0q_0P \stackrel{*}{\Rightarrow}
-Wp\epsilon : W \in Z^*, p \in H\}$.
+Wp\epsilon : W \in Z^*, p \in H\}$
 \textbf{lub} $N(\mathfrak{A})=\{P \in T^* : z_0q_0P
 \stackrel{*}{\Rightarrow} \epsilon p \epsilon : p \in K\}$
 
@@ -1468,5 +1500,96 @@ liczba jest a i b jest równa to jak dojdziemy do końca to stos będzie pusty.
   \item $\delta(z_0, q_1, b) = \emptyset$ - jeśli stos jest pusty a dalej są b
   \item $\delta(z_0, q_1, \epsilon) = (z_0, q_2)$ - stan końcowy
 \end{enumerate}
+
+\subsection{Deterministyczne automaty ze stosem}
+
+Jeśli poniższe warunki są spełnione to uznajemy, że automat ze stosem jest
+deterministyczny:
+
+\begin{itemize}
+  \item Dla dowolnych $z \in Z$ oraz $q \in K$ jeśli $\delta(z, q,
+    \epsilon) \ne \emptyset$ to dla każdego $a \in T$ mamy $\delta(z, q,
+    a) = \emptyset$
+  \item Dla każdego $q \in K, z \in Z, a \in T \cup \{\epsilon\}$ zachodzi
+    $|\delta(z, q, a)| \le 1$
+\end{itemize}
+Innymi słowy: automaty ze stosem są deterministyczne, jeśli dla każdego
+stanu i symbolu wejściowego istnieje co najwyżej jedno przejście, oraz jeśli
+istnieje przejście na $\epsilon$ to nie ma przejść na inne symbole.
+
+\subsubsection{Klasa języków det CF}
+
+Deterministycznym automatom ze stosem odpowiada klasa języków.
+Potocznie nazywamy ją klasą języków deterministycznych
+bezkontekstowych (det CF).
+
+\subsubsection{Właściwości języków det CF}
+
+Jest to klasa domknięta na dopełnienie, iloczyn.
+$$
+det CF \subset CF
+$$
+
+\section{Maszyny Turinga}
+
+$$
+\mathfrak{M} = \langle K, \gamma, \delta, q_0, H \rangle
+$$
+
+\begin{itemize}
+  \item $K$ - zbiór stanów
+  \item $\gamma$ - zbiór symboli taśmy
+  \item $\delta$ - funkcja przejścia
+  \item $q_0$ - stan początkowy
+  \item $H$ - zbiór stanów akceptujących
+\end{itemize}
+
+$$
+\delta: K \times \gamma \rightarrow K \times \gamma \times \{L, R\}
+$$
+
+Głowica tego automatu porusza się po taśmie, czytając i zapisując symbole.
+Instrukcje (zapisane w $\delta$) mają postać: $qaq'a'M : M \in \{L,
+R\}$ i czyta się w następujący
+sposób: jeśli głowica jest w stanie $q$ i czyta symbol $a$ to zapisuje symbol
+$a'$, przechodzi w stan $q'$ i przesuwa głowicę w lewo (L) lub w prawo (R).
+$\delta$ nie musi być funkcją całkowitą, czyli może nie być zdefiniowana dla
+niektórych stanów i symboli.
+
+\subsection{Konfiguracja maszyny Turinga}
+
+Konfiguracja to opis chwilowy maszyny Turinga. Formalnie jest to słowo
+postaci $WqP \in \gamma^*K\gamma^*$ takie, że $W$ to zawartość taśmy po lewej
+stronie głowicy, $q$ to stan w którym znajduje się głowica, a $P$ to zawartość
+taśmy po prawej stronie głowicy.
+
+Rozkaz maszyny qbq'b'L przekształca $uaqbw \rightarrow uq'ab'w$. $\mathfrak{M}$
+akceptuje słowo $w$ wtedy gdy istnieje ciąg konfiguracji $C_1, C_2, \dots, C_n$
+taki, że $C_1 = q_0w$, $C_n = uq'bw$ oraz $C_i$ redukuje się do $C_{i+1}$.
+
+\subsection{Język akceptowany przez maszynę Turinga}
+
+Język akceptowany przez maszynę Turinga to zbiór wszystkich słów, które
+maszyna Turinga akceptuje. Formalnie jest to zbiór $L(\mathfrak{M}) = \{w \in
+\gamma^* : q_0w \stackrel{*}{\Rightarrow} uq_aw : u, w \in \gamma^*\}$
+
+\subsection{Rozstrzygalność}
+
+Jeśli maszyna zatrzymuje się dla każdego wejścia w stanie $q_a$ lub $q_r$ to
+jest rozstrzygająca, oraz problem jest rozstrzygalny. \textbf{Maszyna
+Turinga to formalizm algorytmu.}
+
+\subsection{Maszyna Turinga niedeterministyczna}
+
+Maszyna Turinga niedeterministyczna to maszyna Turinga, która w każdym stanie
+może mieć wiele możliwości przejścia. Formalnie jest to maszyna Turinga, dla
+której funkcja przejścia $\delta$ nie jest funkcją, ale zbiorem funkcji.
+
+\subsection{Złożoność obliczeniowa}
+
+Niech $\mathfrak{M}$ będzie det. maszyną Turinga, która zatrzymuje się dla
+każdego wejścia. Złożoność obliczeniowa maszyny Turinga to funkcja
+$f: \mathbb{N} \rightarrow \mathbb{N}$ taka, że dla każdego słowa
+wejściowego $w$, maszyna zatrzymuje się w co najwyżej $f(|w|)$ krokach.
 
 \end{document}
