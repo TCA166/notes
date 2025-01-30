@@ -1,0 +1,236 @@
+\documentclass{../notatki}
+
+\title{Zadania domowe z Języków Formalnych}
+
+\begin{document}
+
+\section{Znajdź języki}
+
+\begin{itemize}
+  \item $L_1(L_1 \setminus  L_2) \ne L_1 $
+  \item $(L_1 \cup L_2)^* \ne L_1^* \cup L_2^*$
+\end{itemize}
+
+\divider
+Dla $L_1 = \{a^n : n > 1\}$ oraz $L_2 = \{b^n : n > 1\}$:
+
+\begin{itemize}
+  \item $L_1 \setminus L_2 = L_1$, $L_1 \cdot L_1 \ne L_1$, zatem
+    pierwsza nierówność jest spełniona.
+  \item $L_1^* = L_1 $ i $L_2^* = L_2$, z kolei $"ba" \in (L_1 \cup
+    L_2)^*$ oraz $"ba" \notin (L_1 \cup L_2)$ zatem $(L_1 \cup L_2)^*
+    \ne L_1^* \cup L_2^*$
+\end{itemize}
+Dla powyższych języków równości nie są prawdziwe.
+
+\section{}
+
+$$
+L_1 = \{a^nb^m : n,m \ge 1\}, L_2 = \{a, b, c\}
+$$
+\subsection{Oblicz 0,1,2,3,4 potęgi języków}
+$L_1^0 = \{\epsilon\}$, $L_1^1 = L_1$\\
+$L_1^2 = \{a^nb^ma^ob^p : n,m,o,p \ge 1\}$\\
+$L_1^3 = \{a^nb^ma^ob^pa^qb^r : n,m,o,p,q,r \ge 1\}$\\
+$L_1^4 = \{a^nb^ma^ob^pa^qb^ra^sb^t : n,m,o,p,q,r,s,t \ge 1\}$\\
+$L_2^0 = \{\epsilon\}$, $L_2^1 = L_2$\\
+$L_2^2 = \{P \in \{a,b,c\}^* : 2| |P|\}$\\
+$L_2^3 = \{P \in \{a,b,c\}^* : 3| |P|\}$\\
+$L_2^4 = \{P \in \{a,b,c\}^* : 4| |P|\}$\\
+
+\subsection{Podaj słowny opis języków}
+
+\begin{itemize}
+  \item $L_1$ - język składający się ze słów złożonych z co najmniej
+    jednej litery $a$ i co najmniej jednej litery $b$.
+  \item $L_2$ - język składający się z pojedynczych liter $a$, $b$ i $c$.
+\end{itemize}
+
+\section{Narysuj diagram automatu skończenie stanowego, który
+akceptuje język}
+
+$$
+L(\mathfrak{A}) = \{P\ \in \{a, b, c\}^*: aabc \subset P\}
+$$
+
+\divider
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}[shorten >=1pt,node distance=2.0cm,on grid,auto]
+    \node[state,initial] (q_0)   {$q_0$};
+    \node[state](q_1) [right=of q_0] {$q_1$};
+    \node[state](q_2) [right=of q_1] {$q_2$};
+    \node[state](q_3) [right=of q_2] {$q_3$};
+    \node[state, accepting](q_4) [right=of q_3] {$q_4$};
+    \path[->]
+    (q_0) edge [bend left] node {a} (q_1)
+    edge  [loop above] node {b,c} ()
+    (q_1) edge  [bend left] node {a} (q_2)
+    edge  [bend left] node {b,c} (q_0)
+    (q_2) edge  [loop above] node {a} ()
+    edge  [bend left] node {b} (q_3)
+    edge  [bend left] node[swap] {c} (q_0)
+    (q_3) edge  [bend left] node {c} (q_4)
+    edge  [bend left] node[swap] {a} (q_1)
+    edge [bend left] node {b} (q_0)
+    (q_4) edge  [loop above] node {a,b,c} ();
+  \end{tikzpicture}
+\end{figure*}
+
+\section{Narysuj diagram automatu skończenie stanowego, który
+akceptuje język}
+
+$$
+L(\mathfrak{A}) = \{P\ \in \{a, b, c\}^*: P'aabc, P'
+\in \{a, b, c\}^*\}
+$$
+
+\divider
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}[shorten >=1pt,node distance=2.0cm,on grid,auto]
+    \node[state,initial] (q_0)   {$q_0$};
+    \node[state](q_1) [right=of q_0] {$q_1$};
+    \node[state](q_2) [right=of q_1] {$q_2$};
+    \node[state](q_3) [right=of q_2] {$q_3$};
+    \node[state, accepting](q_4) [right=of q_3] {$q_4$};
+    \path[->]
+    (q_0) edge [bend left] node {a} (q_1)
+    edge  [loop above] node {b,c} ()
+    (q_1) edge  [bend left] node {a} (q_2)
+    edge  [bend left] node {b,c} (q_0)
+    (q_2) edge  [loop above] node {a} ()
+    edge  [bend left] node {b} (q_3)
+    edge  [bend left] node[swap] {c} (q_0)
+    (q_3) edge  [bend left] node {c} (q_4)
+    edge  [bend left] node {a} (q_1)
+    edge [bend left] node {b} (q_0)
+    (q_4) edge [bend left] node[swap] {a} (q_1)
+    edge [bend left] node {b,c} (q_0);
+  \end{tikzpicture}
+\end{figure*}
+
+\section{Przeprowadź determinizacje automatu}
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}[shorten >=1pt,node distance=2.0cm,on grid,auto]
+    \node[state,initial] (q_0)   {$q_0$};
+    \node[state, accepting](q_1) [right=of q_0] {$q_1$};
+    \node[state](q_2) [below right=of q_0] {$q_2$};
+    \path[->]
+    (q_0) edge [bend left] node {$\epsilon$} (q_1)
+    edge [bend right] node {a} (q_2)
+    (q_1) edge  [bend left] node {a} (q_0)
+    (q_2) edge  [loop right] node {b} ()
+    edge [bend right] node[midway, right] {a,b} (q_1);
+  \end{tikzpicture}
+\end{figure*}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{c|c|c|c}
+    $\delta$          & a         & b              & $\epsilon$ \\ \hline
+    $\rightarrow q_0$ & $\{q_2\}$ & $\emptyset$    & $\{q_1\}$ \\ \hline
+    $\underline{q_1}$ & $\{q_0\}$ & $\emptyset$    & $\emptyset$ \\ \hline
+    $q_2$             & $\{q_1\}$ & $\{q_1, q_2\}$ & $\emptyset$ \\
+  \end{tabular}
+\end{table}
+
+\divider
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{c|c|c}
+    $\delta$                      & a              & b \\ \hline
+    $\rightarrow q_0$             & $\{q_2\}$      & $\emptyset$ \\ \hline
+    $\rightarrow \underline{q_1}$ & $\{q_0, q_1\}$ & $\emptyset$\\ \hline
+    $q_2$                         & $\{q_1\}$      & $\{q_1, q_2\}$ \\
+  \end{tabular}
+\end{table}
+
+$$
+\mathfrak{A} = \langle \{q^\emptyset, q^0, q^1, q^2, q^{01}, q^{12},
+q^{02}, q^{012}\},\{a, b\},\delta,q^{01},H = \{q^1, q^{01}, q^{12},
+q^{012}\} \rangle
+$$
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{c|c|c}
+    $\delta$                       & a              & b \\ \hline
+    $q^\emptyset$                  & $q^\emptyset$  & $q^\emptyset$ \\ \hline
+    $q^0$                          & $q^2$          & $q^\emptyset$ \\ \hline
+    $\underline{q^1}$              & $q^{01}$       & $q^\emptyset$ \\ \hline
+    $q^2$                          & $q^1$          & $q^{12}$ \\ \hline
+    $\rightarrow\underline{q^{01}}$& $q^{012}$      & $q^\emptyset$ \\ \hline
+    $\underline{q^{12}}$           & $q^{01}$       & $q^{12}$ \\ \hline
+    $q^{02}$                       & $q^{12}$       & $q^{12}$ \\ \hline
+    $\underline{q^{012}}$          & $q^{012}$      & $q^{12}$ \\
+  \end{tabular}
+\end{table}
+
+\section{Narysuj diagram automatu skończenie stanowego, który
+akceptuje język}
+
+$$
+L(\mathfrak{A}) = \{P\ \in \{a, b, c\}^* \wedge (ab)^n \nsubseteq P
+: n \ge 3\}
+$$
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{c|c|c|c}
+    $\delta$                       & a           & b            & c \\ \hline
+    $\underline{\rightarrow q_0}$  & $q_a$       & $q_b$        &
+    $q_c$ \\ \hline
+    $\underline{q_a}$              & $q_a$       & $q_{ab}$     &
+    $q_c$ \\ \hline
+    $\underline{q_b}$              & $q_a$       & $q_b$        &
+    $q_c$ \\ \hline
+    $\underline{q_c}$              & $q_a$       & $q_b$        &
+    $q_C$ \\ \hline
+    $\underline{q_{ab}}$           & $q_{aba}$   & $q_b$        &
+    $q_c$ \\ \hline
+    $\underline{q_{aba}}$          & $q_a$       & $q_{abab}$   &
+    $q_c$ \\ \hline
+    $\underline{q_{abab}}$         & $q_{ababa}$ & $q_b$        &
+    $q_c$ \\ \hline
+    $\underline{q_{ababa}}$        & $q_a$       & $q_f$        &
+    $q_c$ \\ \hline
+    $q_f$                          & $q_f$       & $q_f$        &
+    $q_f$ \\ \hline
+  \end{tabular}
+\end{table}
+
+\section{Stwórz automat akceptujący język generowany przez gramatykę}
+
+$$
+F = \{S \rightarrow \epsilon, S \rightarrow aB, B \rightarrow bA, B
+\rightarrow bS, A \rightarrow aA, A \rightarrow \epsilon\}
+$$
+
+\divider
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+    \node[state,initial, accepting] (q_0)   {$q_S$};
+    \node[state](q_1) [right=of q_0] {$q_B$};
+    \node[state, accepting](q_2) [right=of q_1] {$q_A$};
+    \path[->]
+    (q_0) edge [bend left] node {a} (q_1)
+    (q_1) edge node {b} (q_2)
+    edge [bend left] node {b} (q_0)
+    (q_2) edge  [loop right] node {a} ();
+  \end{tikzpicture}
+\end{figure*}
+
+$$
+L(G) = L(\mathfrak{A}) = L(\epsilon + (ab)^* + (ab)^*ab(a)^*) =
+L((ab)^*(\epsilon + ab(a)^*))
+$$
+
+\end{document}

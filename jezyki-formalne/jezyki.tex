@@ -1,7 +1,6 @@
 \documentclass{../notatki}
-\usepackage{float}
 
-\title{Języki formalne}
+\title{Języki formalne i złożoność obliczeniowa}
 
 \begin{document}
 
@@ -138,8 +137,7 @@ $$
   \end{tabular}
   \caption{Tabela konkatenacji języków $L_1$ i $L_2$}
 \end{table}
-
-$|L_1L_2| \le |L_1| \cdot |L_2|$ bo eps wszystko psuje
+$|L_1L_2| \le |L_1| \cdot |L_2|$ bo $\epsilon$ wszystko psuje.
 
 $$
 L_1 = \{a^n : n \ge 0\}, L_2 = \{b^n : n \ge 0\}, L_1L_2 = \{a^nb^m :
@@ -1470,7 +1468,7 @@ Dla dwóch konfiguracji $X, Y$ mówimy że $X$ bezpośrednio redukuje się do $Y
   \item $(U, p) \in \delta(z, q, a)$
 \end{itemize}
 
-\subsubsection{Redukcja konfiguracj}
+\subsubsection{Redukcja konfiguracyj}
 
 Dla dwóch konfiguracji $X, Y$ mówimy że $X$ redukuje się do $Y$
 ($\stackrel{*}{\Rightarrow}$), jeśli istnieje ciąg $X_1,X_2\dots, X_n$ taki, że:
