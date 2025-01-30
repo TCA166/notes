@@ -1230,7 +1230,7 @@ skonstruować równoważną jej gramatykę bezkontekstową normalną.
 Problem słowa jest rozstrzygalny dla gramatyk bezkontekstowych.
 Problem słowa polega na sprawdzeniu, czy dane słowo należy do języka
 generowanego przez gramatykę bezkontekstową.
-Algorytm siłowy ma złożoność $O(\overline{\overline{F}}^{|P|})$ gdzie $|P|$ to
+Algorytm siłowy ma złożoność $O(|F|^{|P|})$ gdzie $|P|$ to
 długość słowa. Z kolei algorytm "CYK" ma złożoność $O(|P|^3)$.
 
 \noindent \textbf{Algorytm CYK}
@@ -1244,7 +1244,7 @@ i wysokości $|P| - 1$ wierszy. W komórce $(i, j)$ przechowywane są nietermina
 symbole, które mogą wyprowadzić słowo $P[i..j]$. Wartość w komórce $(1, |P|)$
 oznacza, czy $P \in L(G)$.
 
-\begin{table*}
+\begin{table*}[h]
   \centering
   \begin{tabular}{|ccccc}
     $X_{15}$ & & & & \\
@@ -1262,8 +1262,33 @@ Tabelę konstruujemy od dołu. W pierwszym kroku wypełniamy komórki $P_n$. Pot
 dla każdego $P_n$ znajdujemy wszystkie nieterminalne symbole, które mogą
 tworzyć $P_n$. W kolejnym kroku dla zbioru $X_{ij}$ znajdujemy wszystkie
 nieterminalne symbole, które mogą wyprowadzić $P_iP_{i+1}\dots P_j$.
-
 Dla normalnych gramatyk $n = \overline{\overline{V_n}}$, $p=2^n$
+
+\noindent \textbf{Przykład}
+
+$$
+F = \{S \rightarrow AB | BC, A \rightarrow BA | a, B \rightarrow CC |
+b, C \rightarrow AB | a\}
+$$
+$X_{11} = \{B\}$, ponieważ tylko $B$ generuje $b$. Z kolei $X_{12}
+\rightarrow X_{11} \times X_{22} = \{BA, BC\}$ zatem $X_{22} = \{S, A\}$ bo to
+jedyne nieterminalne symbole, które generują $BA$ lub $BC$.
+\begin{table*}[h]
+  \centering
+  \begin{tabular}{|ccccc}
+    $\{S, A, C\}$ & & & & \\
+    $\emptyset$ & $\{S, A, C\}$ & & & \\
+    $\emptyset$ & $\{B\}$ & $\{B\}$ & & \\
+    $\{S, A\}$ & $\{B\}$ & $\{S, C\}$ & $\{S, A\}$ & \\
+    $\{B\}$ & $\{A, C\}$ & $\{A, C\}$ & $\{B\}$ & $\{A, C\}$ \\
+    \hline
+    $b$ & $a$ & $a$ & $b$ & $a$
+  \end{tabular}
+  \caption{Tablica trójkątna dla $F$ i słowa "baaba"}
+\end{table*}
+
+Z kolei ta tabela potrafi określić, np.: że $S | A
+\stackrel{*}{\Rightarrow} ba$ oraz $B \stackrel{*}{\Rightarrow} aba$.
 
 \subsection{Gramatyki kontekstowe}
 
@@ -1571,6 +1596,14 @@ sposób: jeśli głowica jest w stanie $q$ i czyta symbol $a$ to zapisuje symbol
 $a'$, przechodzi w stan $q'$ i przesuwa głowicę w lewo (L) lub w prawo (R).
 $\delta$ nie musi być funkcją całkowitą, czyli może nie być zdefiniowana dla
 niektórych stanów i symboli.
+
+\subsection{Modele maszyny Turinga}
+
+Istnieje wiele różnych modeli maszyny Turinga. Z reguły różnią się one ilością
+taśm oraz tym czy taśmy są nieskończone. Wszystkie te modele są równoważne.
+Jedynie złożoność obliczeniowa maszyn z większą długością taśm jest "lepsza"
+od maszyn z mniejszą długością taśm. Czyli, np.: maszyna z dwiema taśmami
+jest równoważna maszynie z jedną taśmą, ale jest bardziej wydajna.
 
 \subsection{Konfiguracja maszyny Turinga}
 
