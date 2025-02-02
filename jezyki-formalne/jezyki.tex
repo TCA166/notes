@@ -1262,7 +1262,11 @@ Tabelę konstruujemy od dołu. W pierwszym kroku wypełniamy komórki $P_n$. Pot
 dla każdego $P_n$ znajdujemy wszystkie nieterminalne symbole, które mogą
 tworzyć $P_n$. W kolejnym kroku dla zbioru $X_{ij}$ znajdujemy wszystkie
 nieterminalne symbole, które mogą wyprowadzić $P_iP_{i+1}\dots P_j$.
-Dla normalnych gramatyk $n = \overline{\overline{V_n}}$, $p=2^n$
+$$
+((i \le k < j) \land (B \in X_{ik}) \land (C \in X_{k+1j}) \land (A
+\rightarrow BC)) \rightarrow A \in X_{ij}
+$$
+Dla normalnych gramatyk $n = \overline{\overline{V_n}}$, $p=2^n$.
 
 \noindent \textbf{Przykład}
 
@@ -1270,9 +1274,13 @@ $$
 F = \{S \rightarrow AB | BC, A \rightarrow BA | a, B \rightarrow CC |
 b, C \rightarrow AB | a\}
 $$
-$X_{11} = \{B\}$, ponieważ tylko $B$ generuje $b$. Z kolei $X_{12}
-\rightarrow X_{11} \times X_{22} = \{BA, BC\}$ zatem $X_{22} = \{S, A\}$ bo to
-jedyne nieterminalne symbole, które generują $BA$ lub $BC$.
+$X_{11} = \{B\}$, ponieważ tylko $B$ generuje $b$. Z kolei $X_{12} = \{S, A\}$,
+ponieważ: $k = 1$, więc musimy brać pod uwagę wszystkie ciała
+$X_{1k}X_{k_2} = \{BA, BC\}$. Są dwa nieterminały, które mogą
+wyprowadzić te elementy: $A$ i $S$.
+$X_{24} = \{B\}$, ponieważ: $k \in \{2, 3\}$ więc musimy brać pod uwagę:
+$X_{22}X_{34} \cup X_{23}X_{44} = \{AS, AC, CS, CC, BB\}$. Jest tylko jeden
+nieterminał, który może wyprowadzić któryś z tych elementów: $B$.
 \begin{table*}[h]
   \centering
   \begin{tabular}{|ccccc}
