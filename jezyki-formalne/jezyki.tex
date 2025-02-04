@@ -866,17 +866,17 @@ $$
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
-    \node[state,initial] (q_0)   {$q_0$};
-    \node[state,accepting] (q_1) [right=of q_0] {$q_1$};
+    \node[state,initial, accepting] (q_0)   {$q_a$};
+    \node[state,accepting] (q_1) [right=of q_0] {$q_b$};
     \node[state] (q_f) [right=of q_1] {$q_f$};
     \path[->]
     (q_0) edge [loop above] node {a} ()
     (q_0) edge node {b} (q_1)
     (q_1) edge [loop above] node {b} ()
-    (q_1) edge node {b} (q_f)
+    (q_1) edge node {a} (q_f)
     (q_f) edge [loop above] node {a,b} ();
   \end{tikzpicture}
-  \caption{Konstrukcja automatu dla automatu $a^*b^*$}
+  \caption{Konstrukcja automatu deterministycznego dla języka $L(a^*b^*)$}
   \label{fig:cls:ex1}
 \end{figure}
 
