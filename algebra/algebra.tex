@@ -349,14 +349,34 @@ równa $\theta_v$(wektor zerowy) lub matryca tych wektorów ma $\det
   \item Jeżeli wektory są liniowo zależne to jeden z nich jest
     kombinacją liniową pozostałych
   \item Jeżeli $\theta_v$ jest kombinacją liniową wektorów to są liniowo zależne
-  \item Niezależny układ rozpinający przestrzeń V nazywamy bazą przestrzeni V
-  \item Jeżeli układ tworzący bazę jest skończony to mówimy że V ma
-    bazę skończoną
   \item Kolumny macierzy $A$ są wektorami liniowo zależnymi jeżeli
     $AX = \theta$ ma rozwiązanie niezerowe ze względu na $X$
   \item Jeżeli kolumny macierzy $A$ to wektory liniowo niezależne to
     $AX = \theta$ ma jedno rozwiązanie i $\det A \ne 0$
 \end{itemize}
+
+\section{Baza}
+
+Niezależny układ rozpinający przestrzeń V nazywamy bazą przestrzeni
+V. Jeżeli układ tworzący bazę jest skończony to mówimy że V ma
+bazę skończoną. Liczba elementów bazy $S$ przestrzeni $V$ nazywamy $dim V$ czyli
+wymiarem przestrzeni.
+
+\subsection{Macierz przejścia}
+
+Dla dwóch baz $B_1= (v_1, \dots, v_n), B_2 = (w_1, \dots, w_n)$ przestrzeni
+liniowej $R_n$ oraz zależności $v_n = a_{1n}w1 + a_{2n}w_2 + \dots + a_{nn}w_n$
+to macierz
+$$
+A =
+\begin{bmatrix}
+  a_{11} & a_{12} & \cdots & a_{1n} \\
+  a_{21} & a_{22} & \cdots & a_{2n} \\
+  \vdots & \vdots & \ddots & \vdots\\
+  a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{bmatrix}
+$$
+jest macierzą przejścia między $B_1$ i $B_2$
 
 \section{Wrońskian}
 
@@ -374,5 +394,44 @@ Jeśli funkcje są liniowo zależne w przedziale $(a,b)$ to ich
 wrońskian jest tożsamościowo równy zeru.
 Jeżeli $x_0 \in (a, b)$ i $W(x_0) \ne 0$ to funkcje we wrońskianie są
 liniowo niezależne
+
+\section{Przekształcenie liniowe}
+
+Mówimy, że funkcja $T: V \rightarrow W$ jest przekształceniem liniowym, jeżeli:
+
+$$
+\forall_{v_1, v_2 \in V} T(v_1 + v_2) = T(v_1) + T(v_2) \land
+T(\alpha \cdot v) = \alpha T(v)
+$$
+
+Jeżeli $V = W$, to przekształcenie liniowe nazywamy operatorem
+liniowym przestrzeni.
+
+\subsection{Macierz przekształcenia liniowego}
+
+Dla dwóch baz $B_v i B_w$ oraz $T(v_n) = a_{1n}w_1 + a_{2n}w_2 +
+\dots + a_{mn}w_m$.
+To macierz wymiaru $m \times n$ to macierz przekształcenia $T$ w bazach.
+
+\section{Wektory własne}
+
+Niezerowy wektor $v$ nazywamy wektorem własnym macierzy $A$ jeżeli istnieje
+skalar $\lambda$ taki, że $Av = \lambda v$. W takiej konfiguracji $\lambda$
+nazywamy wartością własną macierzy $A$ odpowiadającą wektorowi $v$.
+
+\subsection{Macierz charakterystyczna}
+
+Macierz $A - tI_n$ o współczynnikach w pierścieniu wielomianów $K[t]$ nazywamy
+macierzą charakterystyczną macierzy $A$. Równanie $\det(A - tI_n) = 0$ nazywamy
+równaniem charakterystycznym macierzy. $f_A(t) = \det(A -
+tI_n)=(-1)^n\det(A - tI_n) \in K[t]$ nazywamy wielomianem charakterystycznym
+macierzy. $f_A(t) = (t - \lambda)^kg(t)$ nazywamy krotnością
+algebraiczną wartością
+własnej. Przestrzeń własna to zbiór wektorów własnych odpowiadającym wartościom
+własnym.
+
+Ślad macierzy to $tr A = a_{11} + a_{22} + \dots$. Krotność geometryczna
+wartości własnej to rząd macierzy powstałej z wektora przestrzeni własnej danej
+wartości własnej, lub wymiar przestrzeni własnej.
 
 \end{document}
