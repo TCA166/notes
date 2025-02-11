@@ -136,4 +136,307 @@ Współczesne procesory dzięki specjalnych architekturach mogą
 jednocześnie wykonywać etapy cyklu rozkazowego. Np. w trakcie
 wykonywania polecenie pobrać kod nowego polecenia
 
+\section{Urządzenia I/O}
+
+Na urządzenie składa się kontroler i samo urządzenie. System
+operacyjny kontaktuje się przy pomocy sterownika z kontrolerem dzięki
+czemu ma dostęp do urządzenia. Realizację operacji I/O można przeprowadzić na
+trzy sposoby. Procesor może czekać aktywnie, robiąc figuratywnie nic. Lepszym
+rozwiązaniem jest wykorzystanie przerwań, gdzie kontroler na końcu
+operacji generuje przerwanie. Alternatywnie przy pomocy systemu DMA,
+gdzie kontroler zwraca dane do DMA, a DMA po zakończeniu czytania
+generuje przerwanie.
+
+\section{Magistrale}
+
+Magistrale w komputerze służą do dystrybucji danych w komputerze. Zazwyczaj
+wyróżniamy trzy równoległe kanały:
+
+\begin{itemize}
+  \item magistrala adresowa - przekazuje adres komórek z operacjami
+  \item magistrala sterująca - przekazuje rodzaj wykonywanej operacji
+  \item magistrala danych - przekazuje dane dot. operacji
+\end{itemize}
+
+\section{Procesy}
+
+Proces to istota systemu operacyjnego, reprezentująca program wykonywujący się.
+Każdy proces ma swoją przestrzeń adresową, czyli wydzielony zakres w pamięci.
+Przestrzeń adresowa przechowuje program, dane, zbiór zasobów oraz
+blok kontrolny który opisuje stan procesu.
+
+\subsection{Tworzenie procesu}
+
+Na żądanie procesu nowy proces może zostać stworzony. Nowy proces
+może współdzielić część zasobów z procesem rodzicem. Usunięcie procesu oznacza
+zwolnienie jego zasobów.
+
+\subsection{Wieloprogramowość}
+
+W idealnym świecie żaden z programów nie musiałby czekać na operacje I/O.
+Lecz niestety tak nie jest. Obecność innych programów i obsługa innych programów
+umożliwia systemowi zmianę kontekstu w momencie blokady I/O.
+
+\subsection{Zarządcy}
+
+Procesy współdzielą zasoby dlatego konieczne jest wdrożenie procedur
+zarządzania procesami i zasobami. Wyróżniamy dwa rodzaje zarządców:
+zasobów i procesów.
+
+\subsection{Struktury danych}
+
+Koniecznym jest, aby gdzieś zarządcy zapisywali swoje dane. W tym celu istnieje
+kilka struktur wykorzystywanych konkretnie do zapisywania wiedzy o
+procesie i zasobach.
+
+\begin{itemize}
+  \item Deskryptor procesu - używany przez zarządcę procesów w celu
+    rejestrowania stanu procesu
+  \item Tabela procesów – Zbiór deskryptorów
+  \item Deskryptor zasobu – przechowuje informacje o dostępności zasobu
+\end{itemize}
+W większość systemów wyróżniamy kilka stanów procesu, z reguły przechowywanych
+w deskryptorze procesu.
+
+\begin{itemize}
+  \item Nowy
+  \item Wykonywany
+  \item Oczekujący - wykonywanie zostało zakończone, ale wciąż czeka na coś
+  \item Gotowy - oczekiwanie zostało zakończone
+  \item Zakończony - zabity
+  \item Zombie - nie może być zabity, bo ma dzieci
+\end{itemize}
+
+\subsection{Przełączenie kontekstu}
+
+Zadania wykonywane są na procesorze w krótkich cyklach z czasem
+przypisanym do 1 zadania. Po końcu cyklu następuje przełączenie kontekstu.
+Przełączenie kontekstu polega na zachowaniu stanu i kontekstu procesu
+i załadowaniu nowego kontekstu. Na kontekst składa się stan tych
+zasobów z których proces korzysta.
+
+\subsection{Kolejki procesów}
+
+Procesy są organizowane w kolejki. Wyróżniamy kilka rodzajów tych kolejek.
+
+\begin{itemize}
+  \item Kolejka zadań
+  \item Kolejka procesów gotowych
+  \item Kolejka do urządzenia
+  \item Kolejka oczekujących na sygnał synchronizacji
+\end{itemize}
+
+\subsection{Planiści}
+
+Planiści to programy szeregujące wybierające procesu z kolejek w taki
+sposób aby dążyć do optymalizacji. Większość systemów wyróżnia
+następujących planistów:
+
+\begin{itemize}
+  \item Planista krótkoterminowy - zajmuje się przydziałem do
+    procesora procesów gotowych
+  \item Planista średnioterminowy - Zajmuje się wymianą procesów
+    pomiędzy pamięcią główną a pamięcią zewnętrzną. Proces w pamięci
+    operacyjnej nazywamy aktywnym a ten w przestrzeni wymiany zawieszonym
+  \item Planista długoterminowy – Zajmuje się ładowaniem nowych
+    programów do pamięci i kontrolą liczby zadań w systemie
+\end{itemize}
+
+\subsection{Wątki}
+
+Wątki to lekkie procesy, znajdujące się w dużym procesie. Współdzielą
+przestrzeń adresową i większość zasobów. Wątki mogą być realizowane
+przez system operacyjny, lub na poziomie procesu, poprzez
+przełączanie egzekucji. Obydwa te rozwiązania mają swoje wady i zalety, gdzie
+realizacja wątków przez system jest bardziej sprawiedliwe, a przez
+proces szybsze.
+
+\section{Przydział procesora}
+
+Procesor to cenny zasób dlatego decyzja który proces będzie
+wykonywany następnie jest niezwykle istotna. Planiści podejmują
+decyzje, a ekspedytor realizuje ich decyzje i przełącza kontekst.
+
+\subsection{Funkcja priorytetu}
+
+To funkcja zwracająca numeryczny priorytet procesu. Może mieć różne
+argumenty w zależności od rodzaju systemu operacyjnego. Argumentami
+mogą być np.: czas oczekiwania, czas obsługi, priorytet zewnętrzny etc.
+
+\subsection{Reguła arbitrażu}
+
+Określa co w przypadku remisu. Istnieje wiele podejść do reguły
+arbitrażu, szczególnie: losowy
+wybór, cykliczne wykonywanie i chronologiczny – wygrywa starszy proces.
+
+\subsection{Tryb decyzji}
+
+Określa czy decyzja jest ostateczna czy nie. Rozróżniamy dwa tryby
+decyzji: wywłaszczeniowy lub nie.
+
+\subsection{Ocena algorytmu planowania przez procesor}
+
+\begin{itemize}
+  \item Wykorzystanie procesora – procent czasu przez który procesor
+    przetwarza dane
+  \item Przepustowość – liczba procesów zakończonych w czasie
+  \item Sprawiedliwość
+  \item Respektowanie priorytetów
+  \item Równoważne obciążenie zasobów
+\end{itemize}
+
+\subsection{Ocena algorytmu planowania przez użytkownika}
+
+\begin{itemize}
+  \item Czas odpowiedzi – czas pomiędzy przedłożeniem zadania a odpowiedzią
+  \item Czas opóźnienia – czas od linii krytycznej do momentu
+    zakończenia wykonywania
+  \item Czas cyklu przetwarzania – ile czasu trwa skończenie konkretnego procesu
+  \item Przewidywalność – czas realizacji żądania niezależnie od obciążenia
+\end{itemize}
+
+\subsection{Podstawowe algorytmy}
+
+\begin{itemize}
+  \item FIFO
+  \item LIFO
+  \item SJF - shortest job first
+  \item RR - round robin - karuzela
+  \item SRT - shortest remaining time
+\end{itemize}
+
+\section{Pamięć}
+
+Pamięć ma wiele rodzajów i typów. Na podstawie tych charakterystyk
+system operuje
+na hierarchii pamięci, z najszybszą, a jednocześnie najmniejszą
+pamięcią jak najbliżej procesora.
+
+\subsection{Przestrzeń adresowa}
+
+Rozróżniamy przestrzeń fizyczną i logiczną. Procesor i system operuje
+na przestrzeni fizycznej. Z kolei system operacyjny wydziela
+fragmenty pamięci fizycznej procesom, tworząc im wirtualne pełne
+przestrzenie adresowe.
+
+\subsection{Fragmentacja}
+
+W wyniku wielokrotnych operacji na pamięci może dochodzić do
+fragmentacji, kiedy pamięć nie jest równomiernie i ciągle
+wykorzystywana, nie pozwalając na nowe alokacje pamięci. Fragmentacja
+może być wewnętrzna, kiedy proces wykorzystuje więcej pamięci niż
+potrzebuje, oraz zewnętrzna, kiedy między blokami są luki.
+
+\subsection{Podział}
+
+Bloki pamięci muszą być jakoś przydzielane procesom. W jaki sposób
+zapamiętywać, i dzielić pamięć aby ten proces minimalizował
+fragmentację, i aby struktura danych wewnętrzna dot. bloków była
+optymalna? Jest kilka głownych strategii:
+
+\begin{itemize}
+  \item Podział pamięci na partycje o stałym rozmiarze
+  \item Podział pamięci na partycje o różnym rozmiarze
+  \item Podział dynamiczny w którym pamięć jest przydzielana z pewną
+    dokładnością (np w blokach 1024 B)
+  \item Podział na bloki bliźniacze, polegający na połowieniu zbyt
+    dużych obszarów pamięci
+\end{itemize}
+
+\subsection{Wybór odpowiedniego bloku}
+
+\begin{itemize}
+  \item First fit – przydziela się pierwszy znaleziony wystarczająco duży obszar
+  \item Best fit – znajduje się najmniejszy pasujący obszar i się
+    przydziela procesowi
+  \item Next fit – przydziela się pierwsze pasujące miejsce po
+    ostatnim przydzieleniu
+  \item Worst fit – przydziela się początkowy fragment największego
+    wolnego obszaru
+\end{itemize}
+
+\subsection{Ładowanie kodu do pamięci}
+
+\begin{itemize}
+  \item Ładowanie absolutne – na etapie tworzenia programu
+    ładowalnego znane było dokładne miejsce w pamięci; zawiązanie
+    adresów fizycznych zostało wykonane na etapie konsolidacji
+  \item Ładowanie relokowalne – fizyczna lokalizacja procesu w
+    pamięci ustalana jest na etapie ładowania. Konieczne jest
+    przeliczenie adresów
+  \item Ładowanie dynamiczne w czasie wykonania – adresy są ustalane
+    przez MMU przy odwołaniu się do pamięci
+\end{itemize}
+
+\subsection{Stronicowanie}
+
+Pamięć fizyczna jest dzielona na ramki o pewnym rozmiarze. Ramkom
+fizycznym odpowiadają logiczne strony. Adres jest podzielony na dwie
+części: adres strony i przesunięcie.
+
+\subsection{Przechowywanie Tablicy Stron}
+
+Może się okazać że tablica stron jest za duża na ramkę. Dlatego
+wprowadza się system hierarchiczny gdzie adres jest dzielony na części.
+Pierwsza część adresu adresuje do strony tablic-tablic stron, itd.
+
+\subsection{Segmentacja}
+
+Segmentacja to dynamiczny wariant stronicowania. Obszar procesu jest
+dzielony na spójne segmenty o określonym rozmiarze. Rozmiar segmentu
+jest dynamiczny. Tak jak przy stronach segmenty też mają swoją tablicę.
+
+\subsection{System hybrydowy}
+
+Aby czerpać zalety stronicowania (małą fragmentacja zewnętrzna i
+szybkość działania) i segmentacji (mniejsza fragmentacja wewnętrzna)
+można zbudować system hybrydowy. Pamięć składa się z segmentów.
+Segmenty te składają się z ramek. W adresie logicznym przesunięcie w
+segmencie jest traktowane jako adres ramki. Zamiast adresu bazowego
+segmentu jest tablica ramek.
+
+\section{Problemy współbieżności}
+
+Jednoczesne działanie kilku procesów, które mogą chcieć mieć dostęp
+do tych samych zasobów, tworzy nową klasę problemów. Można je
+rozwiązać przy pomocy następujących narzędzi:
+
+\begin{itemize}
+  \item Semafor – int który ogranicza ilość procesów mających dostęp
+    do zasobu. 1 zasób 1 semafor
+  \item Algorytm Petersona – algorytm zarządzający dwoma procesami
+    tak aby tylko jeden mógł mieć dostęp
+  \item Monitor – zbiór zmiennych i procedur do których tylko jeden
+    proces ma dostęp. Zmienne widzi każdy proces ale procedury tylko
+    proces wewnątrz. Kolejnością wejścia zarządza kolejka
+\end{itemize}
+
+\section{System plików}
+
+Plik to abstrakcyjny obraz informacji gromadzonej i udostępnianej
+przez system komputerowy. System operacyjny ma zapewnić identyfikację
+pliku, interfejs do pliku oraz zapewnić bezpieczeństwo i efektywność
+operacji na pliku. Struktura fizyczna pliku ma określać jak dane są
+przechowywane i jest narzucana przed nośnik. Struktura logiczna pliku
+z kolei ma określać informację wewnątrz pliku.
+
+\subsection{Dostęp do pliku}
+
+\begin{itemize}
+  \item Sekwencyjny – informacje z pliku są przetwarzane rekord po rekordzie
+  \item Bezpośredni – informacje z pliku są przetwarzane w sposób dowolny
+  \item Indeksowy – rekordy są identyfikowane przez hash, co
+    umożliwia zczytywanie z pliku jak z struktur danych
+\end{itemize}
+
+\subsection{Układ systemu plików na dysku}
+
+Dysk składa się z partycji. Na początku dysku jest MBR i tabela
+partycji. Potem są partycje.Rekord MBR odpowiada za wyszukanie
+aktywnej partycji i odczytanie jej bloku rozruchowego.Za blokiem
+rozruchowym jest superblok który odpowiada za najważniejsze parametry
+systemu plików.Potem występują informacje o blokach wolnych np.
+tabela FAT. Następnie są i-węzły czyli struktury po jednej na plik. I
+na koniec tuż przed samymi danymi plików jest opis katalogu root.
+
 \end{document}
