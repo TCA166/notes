@@ -1,5 +1,7 @@
 # Notatki
 
+To są moje notatki ze studiów informatycznych. Część z nich oryginalnie
+pisana w docx, potem przeniesiona do LaTeXa.
 Zachęcam do pomocy, uzupełniania i poprawiania czytelności.
 
 ## Spis treści
