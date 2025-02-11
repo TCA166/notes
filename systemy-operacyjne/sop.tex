@@ -1,0 +1,139 @@
+\documentclass{../notatki}
+
+\title{Systemy Operacyjne}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\tableofcontents
+
+\section{System Operacyjny}
+
+System operacyjny jest warstwą oprogramowania operującą bezpośrednio
+na sprzęcie, której celem jest zarządzanie zasobami systemu
+komputerowego i stworzenie użytkownikowi środowiska łatwiejszego do
+zrozumienia i wykorzystania.
+
+\subsection{Co robi?}
+
+\begin{itemize}
+  \item Pośredniczy między programami a sprzętem
+  \item Tworzy środowisko w którym operują programy użytkowników (low
+    level interfejsy)
+  \item Steruje komputerem i nadzoruje jego działanie
+  \item Zarządza dostępem do zasobów
+\end{itemize}
+
+\subsection{Jaką rolę pełni system operacyjny?}
+
+\begin{itemize}
+  \item System operacyjny dostarcza abstrakcji programom
+  \item System operacyjny zarządza wszystkimi składnikami złożonego systemu
+  \item System operacyjny zapewnia kontrolowany i uporządkowany
+    przydział zasobów
+\end{itemize}
+
+\subsection{Zasoby}
+
+\begin{itemize}
+  \item Czas procesora
+  \item Pamięć operacyjna
+  \item System plików
+  \item Urządzenia wejścia wyjścia
+  \item $\dots$
+\end{itemize}
+
+\subsection{Wywołania systemowe}
+
+Wywołania systemowe oddają kontrolę systemowi operacyjnemu za prośbą
+procesu i obsługują np.: dostęp do plików, tworzenie wątku itp.
+
+\subsection{Tryb jądra}
+
+Wszystkie współczesne systemy operacyjne rozróżniają tryb jądra i użytkownika.
+W trybie jądra operacje oraz dostęp przez procesor do zasobów nie
+jest ograniczony.
+Jest to w pewnym sensie jak najniższa warstwa jaką może osiągnąć kod.
+Aby operować na tej warstwie kod musi być częścią systemu operacyjnego.
+W trybie użytkownika dostęp kodu do zasobów jest kontrolowany przez
+system operacyjny.
+
+\subsection{Rozruch komputera}
+
+\begin{enumerate}
+  \item BIOS weryfikuje urządzenia i ilość pamięci
+  \item BIOS określa urządzenie rozruchowe z pamięci CMOS
+  \item BIOS wczytuje program rozruchowy
+  \item Program rozruchowy wczytuje system operacyjny
+  \item System operacyjny odczytuje listę urządzeń z konfiguracji
+    BIOS i sterowniki
+\end{enumerate}
+
+\section{Procesor}
+
+Współczesne procesory operują zgodnie z architekturą von Neumanna. Ta
+architektura zakłada:
+
+\begin{itemize}
+  \item Program jak i dane znajdują się w pamięci operacyjnej
+  \item Rozkazy wykonuje się dokładnie w tej kolejności w jakiej
+    znajdują się w pamięci (odstępstwa: instrukcje skoku, wywołania, powroty)
+  \item Procesor przechowuje w rejestrze adres komórki pamięci
+    zawierającej kolejną do wykonania instrukcję. W celu pobrania tej
+    instrukcji, procesor wystawia odpowiedni adres na magistrali adresowej.
+\end{itemize}
+
+\subsection{Cykl rozkazowy}
+
+\begin{enumerate}
+  \item Pobranie kodu rozkazu
+  \item Pobranie operandów
+  \item Składowanie wyniku
+  \item Rozpoznania przerwania
+\end{enumerate}
+
+\subsection{Przerwania}
+
+\begin{itemize}
+  \item Przerwania pozwalają na zatrzymanie cyklu rozkazowego
+    procesora, dzięki czemu system operacyjny może odzyskać kontrolę
+    lub zareagować na zdarzenie asynchroniczne
+  \item Przerwania mogą pochodzić z trzech źródeł:
+    \begin{itemize}
+      \item Zewnętrzne – I/O, zegary, układy bezpośredniego dostępu do pamięci
+      \item Diagnostyczne – w wyniku wykrycia nieoczekiwanego zdarzenia
+      \item Programowe – w wyniku wykonania instrukcji przerwania (
+        niezależnie od trybu)
+    \end{itemize}
+  \item Procesor może decydować czy przyjąć nowe przerwanie podczas
+    obsługi innego, lub wyłączyć obsługę przerwań zupełnie
+  \item Kolejność obsługi przerwań kontroluje kontroler przerwań
+\end{itemize}
+
+\subsubsection{Przerwania zegarowe}
+
+Zwykle czasomierz generuje około 100 przerwań na sekundę. Umożliwiają
+one systemowi operacyjnemu analizę stanu systemu i reakcję na zmiany
+
+\subsection{Rejestry}
+
+Rejestr to znajdująca się niedaleko procesora pamięć. Procesor wykorzystuje je
+do przechowywania danych oraz wyników operacji. W momencie zmiany kontekstu
+system operacyjny zachowuje stan rejestrów w pamięci operacyjnej.
+
+\subsection{Wielowątkowość}
+
+Dzięki wielowątkowości procesor może przechować stan procesora, i
+potem do niego wrócić. W ten sposób możemy przechowywać stan kilku
+procesów (wątków), dając iluzję jednoczesności z wystarczająco
+szybkim przełączaniem. Wielowątkowość też pozwala zachować czas
+procesora w momentach w których jakiś wątek czeka.
+
+\subsection{Potoki}
+
+Współczesne procesory dzięki specjalnych architekturach mogą
+jednocześnie wykonywać etapy cyklu rozkazowego. Np. w trakcie
+wykonywania polecenie pobrać kod nowego polecenia
+
+\end{document}
