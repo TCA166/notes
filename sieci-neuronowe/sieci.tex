@@ -30,9 +30,10 @@ y(\vec{u}, \vec{w}) = f((\sum_{i=1}^{n}w_iu_i) - \theta)
 $$
 \begin{figure*}[h]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[node distance=0.7cm]
     \node[circle, draw=black] (neuron) {$f$};
     \node (u1) [above left=of neuron] {$u_{i + 1}$};
+    \node (dots) [left=of neuron] {$\vdots$};
     \node (u2) [below left=of neuron] {$u_i$};
     \draw[->] (u1) -- (neuron) node[midway, right] {$w_{i + 1}$};
     \draw[->] (u2) -- (neuron) node[midway, right] {$w_i$};
