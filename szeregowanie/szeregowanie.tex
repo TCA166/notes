@@ -1,0 +1,104 @@
+\documentclass{../notatki}
+
+\title{Szeregowanie zadań}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Wprowadzenie}
+
+Teoria szeregowania zadań zajmuje się problemami polegającymi na przydzieleniu
+pewnych zadań do dostępnych maszyn w taki sposób, aby pewne kryterium było
+optymalizowane. Będziemy się zajmować deterministycznymi problemami, czyli
+takimi, w których wszystkie dane są znane z góry.
+
+\section{Postać problemu}
+
+Standardowo, problem jest skonstruowany z następujących składowych:
+
+\begin{itemize}
+  \item zadania $\mathcal{J} = \{J_1, \dots, J_n\}$
+  \item maszyny $\mathcal{P} = \{P_1, \dots, P_m\}$
+  \item zasoby $\mathcal{R} = \{R_1, \dots, R_s\}$ dostępnych w $m_1,
+    \dots, m_s$ jednostkach
+\end{itemize}
+
+\subsection{Maszyny}
+
+W problemie w zależności od wykonywanego zadania i maszyn mogą występować
+różne ograniczenia i różnice między maszynami. Jeśli mamy do
+czynienia z kilkoma maszynami równoległymi to te maszyny mogą być:
+\begin{itemize}
+  \item $P$ - identycznościowe czyli z jednakową szybkością
+  \item $Q$ - jednorodne czyli z różną szybkością między maszynami
+  \item $R$ - dowolne czyli z różniącą się szybkością między
+    zadaniami i maszynami
+\end{itemize}
+Jeśli mamy do czynienia z maszynami dedykowanymi, gdzie każde zadanie składa się
+z operacji wykonywanych na różnych maszynach to maszyny mogą być:
+\begin{itemize}
+  \item $F$ - system przepływowy czyli każde zadanie przechodzi przez
+    maszyny w tej samej kolejności
+  \item $O$ - system otwarty czyli kolejność wykonywania operacji jest dowolna
+  \item $J$ - system gniazdowy czyli każde zadanie ma ustaloną własną
+    kolejność przechodzenia przez maszyny
+\end{itemize}
+
+\subsection{Zadania}
+
+Zadanie $J$ opisują następujące atrybuty:
+
+\begin{itemize}
+  \item $p_j$ - czas wykonania zadania $J_j$
+  \item $r_j$ - czas przygotowania zadania $J_j$
+  \item $d_j$ - pożądany czas zakończenia zadania $J_j$
+  \item $w_j$ - waga zadania $J_j$
+\end{itemize}
+
+\subsection{Parametry zadań}
+
+Zbiór zadań $\mathcal{J}$ jako całość opisują ograniczenia
+kolejnościowe (acykliczny graf skierowany), oraz
+podzielność czyli czy zadania można przerywać i wznawiać.
+
+\subsection{Uszeregowanie}
+
+Uszeregowaniem nazywamy przypisanie każdemu zadaniu maszyny i zasobów w czasie.
+Koniecznym jest aby następujące warunki były spełnione:
+\begin{itemize}
+  \item w każdej chwili maszyna wykonuje tylko jedno zadanie
+  \item w każdej chwili każde zadanie jest wykonywane przez jedną maszynę
+  \item Każde zadanie jest wykonywane w całości
+  \item Spełnione są ograniczenia kolejnościowe
+  \item Jeśli zadania są podzielne to są one przerywane skończoną ilość razy
+\end{itemize}
+
+\subsubsection{Parametry uszeregowania}
+
+\begin{itemize}
+  \item moment rozpoczęcia $S_j$
+  \item moment zakończenia $C_j$
+  \item czas przepływu $F_j = C_j - S_j$
+  \item opóźnienie $L_j = C_j - d_j$
+  \item spóźnienie $T_j = \max(0, L_j)$
+  \item przyspieszenie $E_j = \max(0, d_j - C_j)$
+\end{itemize}
+
+\subsubsection{Kryteria optymalizacji}
+
+Typowo w szeregowaniu optymalizujemy jakąś funkcję składającą się z
+parametrów uszeregowania. Przykładowe funkcje to:
+$C_{max}=\max(C_j)$, $C_{sum} = \sum C_j$ czy $T_{sum} = \sum T_j$.
+
+\subsection{Notacja Trójpolowa}
+
+$$
+\alpha | \beta | \gamma
+$$
+gdzie $\alpha$ określa ograniczenia maszyn, $\beta$ określa ograniczenia
+zadań, a $\gamma$ określa kryterium optymalizacji.
+
+\end{document}
