@@ -19,3 +19,4 @@ Zachęcam do pomocy, uzupełniania i poprawiania czytelności.
 ## Informatyka Kwantowa
 
 - [mechanika.pdf](mechanika/mechanika.pdf) notatki z "Mechanika ogólna"(04-S3INK01-P02139)
+- [elektryczność.pdf](elektryczność/elektryczność.pdf) notatki z "Elektryczność i Magnetyzm"(04-S3INK02-P02144)
