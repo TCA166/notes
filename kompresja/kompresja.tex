@@ -96,6 +96,49 @@ Znajdź dwa najrzadziej występujące elementy i połącz je w jeden element
 o prawdopodobieństwie $p_1 + p_2$. Rozróżnij je $0$ lub $1$. Powtórz
 ten krok na liście $n-1$ długiej aż zostanie jeden element.
 
+\subsection{Kodowanie Shannon-Fano}
+
+Dla symboli $a_1, \dots, a_n$ o prawdopodobieństwach $p_1, \dots, p_n$,
+ustalmy kody długości $l_n = \lceil - \log p_i \rceil$. Następnie
+zdefiniujmy zmienne pomocnicze $w_1, \dots w_n$ jako:
+$$
+w_1 = 0, w_j = \sum_{i=1}^{j-1}2^{l_j - l_i}
+$$
+Jeżeli $\lceil \log w_j \rceil = l_j$ to j-te słowo kodowe jest binarną
+reprezentacją $w_j$. Jeżeli $\lceil \log w_j \rceil < l_j$ to reprezentację
+uzupełniamy zerami z lewej strony.
+
+Dla $P(a) = \frac{1}{3}, P(b) = \frac{1}{4}, P(c) = \frac{1}{4}, P(d)
+= \frac{1}{6}$ mamy:
+$$
+l_a = 2, l_b = 2, l_c = 2, l_d = 3
+$$
+$$
+w_1 = 0, w_2 = 2, w_3 = 2, w_4 = 6
+$$
+$$
+kod(a) = 00, kod(b) = 01, kod(c) = 10, kod(d) = 110
+$$
+
+\subsection{Kodowanie Tunstalla}
+
+Chcemy stworzyć kod na $n$ bitach dla $a_1, \dots, a_m$ symboli o
+prawdopodobieństwach $p_1, \dots, p_m$. Tworzenie kodu Tunstalla polega na
+iteracyjnym wyborze ze zbioru symbolu o największym prawdopodobieństwie $S$
+i łączenie go z wszystkimi innymi symbolami tworząc symbole $Sa_m$, nadając im
+prawdopodobieństwa $P \cdot p_m$. Proces ten powtarzamy aż do uzyskania
+kodu o długości $n$.
+
+\subsection{Kodowanie Golomba}
+
+Kody Golomba są parametryzowane liczbą $m > 0$. Każda liczba $n$ jest zapisywana
+za pomocą $q = \lfloor \frac{n}{m} \rfloor$ oraz $r = n - q \cdot m$ w postaci
+$$
+(q)_1(r)_2
+$$
+
+\subsection{Dynamiczne kodowanie Huffmana}
+
 \section{Teoria informacji}
 
 Teoria informacji to dziedzina zajmująca się przetwarzaniem informacji.
