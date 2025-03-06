@@ -28,14 +28,14 @@ dowolnych danych}
 Wniosek jest taki, że koniecznym jest konstruowanie kompresji bezstratnej na
 podzbiorach danych, takich jak np.: obrazów, dźwięków, tekstów.
 
-\subsection{Kodowanie}
+\section{Kodowania}
 
 Kodowanie to przyporządkowanie elementom jakiegoś alfabetu ciągu binarnych.
 Przykładami kodowania są: ASCII, UTF-8 oraz inne. Typowym jest konstruowanie
 kodowania pod konkretny zestaw danych, optymalizując je pod kątem częstości
 występowania poszczególnych elementów.
 
-\subsubsection{Modelowanie danych}
+\subsection{Modelowanie danych}
 
 Rozważmy ciąg: $a_n=9,11,11,11,14,13,15,17,16,17,20,21$. $\max(a_n)=21$ stąd
 koniecznym jest 5 bitów na element. Ale jeśli wykorzystamy wzór
@@ -43,7 +43,7 @@ $e_n=a_n - n + 8$ do stworzenia nowego ciągu, to ten ciąg przyjmuje postać:
 $0,1,0,-1,1,-1,0,1,-1,-1,1,1$. Teraz wystarczą tylko 2 bity na zakodowanie
 elementu.
 
-\subsubsection{Średnia długość kodu}
+\subsection{Średnia długość kodu}
 
 $$
 I = \sum_{i=1}^{n}p_i \cdot l_i
@@ -51,7 +51,7 @@ $$
 gdzie $p_i$ to prawdopodobieństwo wystąpienia elementu $i$, a $l_i$ to długość
 kodu dla elementu $i$.
 
-\subsubsection{Jednoznaczna dekodowalność}
+\subsection{Jednoznaczna dekodowalność}
 
 Jeśli dla dowolnego ciągu znaków istnieje tylko jedno jego rozkodowanie to
 kod jest jednoznacznie dekodowalny. Aby sprawdzić czy kod jest jednoznacznie
@@ -74,22 +74,33 @@ K(\mathcal{C}) = \sum_{i=1}^{n}2^{-l_i} \leq 1
 $$
 Jest to warunek konieczny bycia kodem jednoznacznie dekodowalnym.
 
-\subsubsection{Kod natychmiastowy}
-
-Jest kodem pozwalającym stwierdzić w którym miejscu zakończone jest
-słowo kodowe w momencie odczytania ostatniej litery.
-
 \subsubsection{Kod prefiksowy}
 
 Kod w którym żadne słowo kodowe nie jest prefiksem innego słowa
 kodowego. Wszystkie kody prefiksowe są jednoznacznie dekodowalne.
 
-\subsubsection{Kod Huffmana}
+\subsection{Kod natychmiastowy}
+
+Jest kodem pozwalającym stwierdzić w którym miejscu zakończone jest
+słowo kodowe w momencie odczytania ostatniej litery.
+
+\subsection{Statyczny Kod Huffmana}
 
 Kod Huffmana to kod prefiksowy o minimalnej średniej długości kodu.
-% TODO dokończyć
+Są one optymalne wśród kodów prefiksowych.
+
+Dla alfabetu $\mathcal{A}$ o długości $n$ i prawdopodobieństwach
+wystąpienia $p_1, \dots, p_n$ algorytm tworzenia kodu Huffmana wygląda
+następująco:
+Znajdź dwa najrzadziej występujące elementy i połącz je w jeden element
+o prawdopodobieństwie $p_1 + p_2$. Rozróżnij je $0$ lub $1$. Powtórz
+ten krok na liście $n-1$ długiej aż zostanie jeden element.
 
 \section{Teoria informacji}
+
+Teoria informacji to dziedzina zajmująca się przetwarzaniem informacji.
+
+\subsection{Miara informacji}
 
 Miarą informacji, którą niesie ze sobą zdarzenie $A$ jest:
 $$
@@ -103,15 +114,104 @@ $$
 
 \subsection{Entropia}
 
-Dla źródła informacji $X$, z zbiorem wiadomości (zdarzeń) $A_1, \dots, A_n$,
-gdzie $P(A_i)$ to prawdopodobieństwo wystąpienia zdarzenia $A_i$ to entropia
-źródła to:
-$$
-H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
-$$
 Entropia to miara średniej informacji przekazywanej przez źródło.
 Kody jednoznacznie dekodowalne w modelu z niezależnymi
 wystąpieniami symboli muszą mieć średnią długość co najmniej
 równą entropii.
+
+\subsubsection{Entropia źródła}
+
+Dla źródła danych $S$ generującego ciąg $X$ nad alfabetem
+$\mathcal{A}=\{1, 2, \dots m\}$
+
+$$
+H(S) = \lim_{n \to \infty} \frac{G_n}{n}
+$$
+$$
+G_n = - \sum_{i} \dots \sum_{j}P(X_1 = i, \dots, X_n = j) \log P(X_1
+= i, \dots, X_n = j)
+$$
+
+\subsubsection{Entropia Pierwszego Rzędu}
+
+Dla źródła informacji $X$, z zbiorem wiadomości (zdarzeń) $A_1, \dots, A_n$,
+gdzie $P(A_i)$ to prawdopodobieństwo wystąpienia zdarzenia $A_i$ i
+zdarzenia są niezależne to entropia źródła to:
+$$
+H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
+$$
+
+\section{Kodowanie uniwersalne}
+
+Szukamy sposobu na kodowanie dowolnej liczby $n \in \mathbb{N}$. Problem polega
+na skonstruowaniu kodu, który będzie jednoznacznie dekodowalny i uniwersalny.
+To oznacza, że ma się skalować w nieskończoność.
+
+\subsection{Kodowanie Eliasa}
+
+Kodowanie Eliasa to kodowanie uniwersalne, które wykorzystuje kodowanie unarne
+do zapisania długości kodu binarnego liczby $n$.
+
+$$
+n = \lfloor \log_2(x) \rfloor + 1
+$$
+
+\subsubsection{\texorpdfstring{$\gamma$}{Gamma}}
+
+Jest to najprostsze z kodowań Eliasa. Polega na zakodowaniu liczby $x$ w
+postaci binarnej, a następnie dodaniu przed nią liczby $n-1$ zer.
+
+$$
+\gamma(x) = 0^{n-1}(x)_2
+$$
+$$
+(13)_{10} = 1101_2 \Rightarrow \gamma(13) = 0001101
+$$
+
+\subsubsection{\texorpdfstring{$\delta$}{Delta}}
+
+Cały trik kodu $\delta$ polega na zakodowaniu długości kodu binarnego liczby
+$x$ przy pomocy kodu $\gamma$.
+Istotnym trikiem jest usunięcie najstarszego bitu z zakodowanej liczby $x$.
+
+$$
+\delta(x) = \gamma(n) + (x)_2
+$$
+$$
+(13)_{10} = 1101_2 \Rightarrow \delta(13) = 00 100 101
+$$
+Jak widać, jest on bardziej efektywny dla większych liczb. Długość kodu
+$\delta$ to $2 \cdot \lceil \log_2(\lceil \log_2x \rceil)\rceil - 1 +
+\lceil \log_2x \rceil - 1$.
+
+\subsubsection{\texorpdfstring{$\omega$}{Omega}}
+
+Jest to kodowanie rekurencyjne, które działa jak kodowanie $\delta$, ale
+w nieskończoność.
+Na koniec umieszczane jest $0$, potem kodowana jest liczba $k=x$. Potem ten
+krok jest powtarzany dla $k=n - 1$ gdzie n to liczba bitów z poprzedniego kroku.
+
+$$
+(13)_{10} = 1101_2 \Rightarrow \omega(13) = 11 1101 0
+$$
+
+\subsection{Kodowanie Fibonacciego}
+
+Liczba Fibonacciego ma postać:
+$$
+f_0=f_1=1
+$$
+$$
+f_n = f_{n-1} + f_{n-2}: n \geq 2
+$$
+Kodowanie fibonacciego polega na reprezentacji liczby $x$ jako sumę liczb
+fibonacciego.
+$$
+x = \sum_{i=0} a_i \cdot f_i, a_i \in \{0,1\}
+$$
+
+$$
+(13)_{10} = f_7 = 1101_2 \Rightarrow Fib(13) = 0000011
+$$
 
 \end{document}
