@@ -92,7 +92,7 @@ $$
 U_- = \{\vec{u_1}, \dots, \vec{u_n}\} \subset \mathbb{R}^n
 $$
 $$
-U_+ = \{\vec{v_{n + 1}}, \dots, \vec{v_{n + m}}\} \subset \mathbb{R}^n
+U_+ = \{\vec{u_{n + 1}}, \dots, \vec{u_{n + m}}\} \subset \mathbb{R}^n
 $$
 $$
 U_- \cap U_+ = \emptyset
@@ -127,5 +127,85 @@ $$
   \end{tikzpicture}
   \caption{Liniowa separowalność dla bramki AND}
 \end{figure*}
+
+\section{Associatron}
+
+Jest to model pamięci asocjacyjnej, skojarzeniowej, który pozwala na kojarzenie
+danych. W tym modelu dane reprezentujemy wektorami binarnymi. Jako, że de facto
+tworzymy macierz, to dowolne dane można asocjować.
+
+\subsection{Liniowy model pamięci}
+
+$$
+U = \{\vec{u_1}, \vec{u_2}, \dots, \vec{u_n}\} \in \mathbb{R}^n
+$$
+
+$$
+\vec{u_t} = (u_{t1}, u_{t2}, \dots, u_{tn}), u_{ti} \in \{0, 1\}
+$$
+
+\subsection{Cel}
+
+Celem modelu jest stworzenie funkcji, która dla danego wektora $\vec{u_t}$
+zwróci wektor $\vec{u_s}$, który jest najbardziej podobny do $\vec{u_t}$.
+
+$$
+\varphi : U \rightarrow Y
+$$
+$$
+U, Y \in \mathbb{R}^n
+$$
+
+\subsection{Macierz wag}
+
+$$
+\vec{y_t} = W \cdot \vec{u_t}
+$$
+$$
+W = [w_{ij}] = \frac{1}{n} \sum_{t = 1}^{N} \vec{y_t} \cdot \vec{u_t}^T
+$$
+Macierz wag jest stała dla danego zbioru wektorów $U$.
+
+\subsection{Liniowa funkcja asocjacyjna}
+
+Zakładając, że wszystke wektory w $U$ są ortogonalne ($\vec{u_t} \bot
+\vec{u_s} \leftrightarrow \vec{u_t} \cdot \vec{u_s} = 0$) to wówczas:
+$$
+\varphi(\vec{u_i}) = W \cdot \vec{u_i} = \frac{1}{n} \sum_{\vec{u_t} \in U}
+\vec{y_t}(\vec{u_t}\cdot \vec{u_i}) = \frac{1}{n} \cdot \vec{y_i}
+\cdot \vec{u_i} \cdot \vec{u_i} = \frac{1}{n} \cdot \vec{y_i} \cdot n
+= \vec{y_i}
+$$
+Czyli dla każdego wektora $\vec{u_i}$ zwracamy wektor $\vec{y_i}$.
+W istocie w powyższym równaniu szukamy takiego wektora w $U$, który
+po pomnożeniu przez wejście, nie będzie ortogonalny, czyli zwróci $n$.
+$$
+\vec{u_t} \cdot \vec{u_t} = u_t^Tu_t =
+\begin{bmatrix}
+  1 \\ 1 \\ \vdots \\ 1
+\end{bmatrix} \cdot
+\begin{bmatrix}
+  1 & 1 & \dots & 1
+\end{bmatrix} = n
+$$
+
+\subsection{Nieliniowa funkcja asocjacyjna}
+
+Ograniczenie, że wektory w $U$ są ortogonalne jest bardzo silne.
+W praktyce nie jesteśmy w stanie tego założyć. Zatem możemy wprowadzić
+funkcję $\varphi'$, która pozwala na pewnego rodzaju błąd.
+$$
+\varphi'(\vec{u_t}) =
+\begin{bmatrix}
+  sgn(x_1) \\ sgn(x_2) \\ \vdots \\ sgn(x_n)
+\end{bmatrix}, \vec{x} = W \cdot \vec{u_t}
+$$
+$$
+sgn(x) =
+\begin{cases}
+  -1 & x < 0\\
+  1 & x \geq 0
+\end{cases}
+$$
 
 \end{document}
