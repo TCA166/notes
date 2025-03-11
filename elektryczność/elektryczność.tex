@@ -30,7 +30,7 @@ mogą być oderwane od atomu, tworząc jon dodatni lub ujemny. Tymczasowy brak
 równowagi, gradient ładunku, w materiale złożonym z kilku cząstek
 jest przyczyną zjawisk elektrycznych.
 
-\section{Przewodniki}
+\subsection{Przewodniki}
 
 Wyróżniamy grupę materiałów, które w wyniku ich struktury atomowej pozwalają na
 swobodny transfer elektronów i powstawanie gradientu ładunku. Są to przewodniki.
@@ -42,7 +42,7 @@ w roztworze. W przeciwieństwie do przewodników, izolatory nie
 pozwalają na swobodny
 transfer elektronów. W wyniku tego nie powstaje gradient ładunku.
 
-\section{Ładunek}
+\subsection{Ładunek}
 
 Ładunek danej dyskretnej cząsteczki jest wielkością skalarną określoną wzorem:
 $$
@@ -52,19 +52,19 @@ gdzie $e$ to ładunek elementarny($1.6 \cdot 10^{-19} C$), a $n$ to liczba
 cząsteczek.
 \textbf{Suma ładunków w układzie izolowanym jest stała.}
 
-\section{Elektryzowanie}
+\subsection{Elektryzowanie}
 
 W wyniku różnych oddziaływań pomiędzy ciałami, mogą one nabrać
 ładunku. Wyróżniamy
 kilka metod elektryzowania ciał. W każdej z nich powstaje gradient ładunku.
 
-\subsection{Elektryzowanie przez tarcie}
+\subsubsection{Elektryzowanie przez tarcie}
 
 W wyniku tarcia między ciałami, elektrony mogą być przenoszone z
 jednego ciała na
 drugie. W wyniku tego jedno ciało nabiera ładunku dodatniego, a drugie ujemnego.
 
-\subsection{Elektryzowanie przez dotyk}
+\subsubsection{Elektryzowanie przez dotyk}
 
 W momencie, w którym dotkniemy dwa ciała o różnym ładunku
 przewodnikiem, elektrony
@@ -72,7 +72,7 @@ przenoszą się z ciała o większym ładunku do ciała o mniejszym
 ładunku. W wyniku tego
 oba ciała nabierają ładunku o wartości pośredniej.
 
-\subsection{Elektryzowanie przez indukcję}
+\subsubsection{Elektryzowanie przez indukcję}
 
 W wyniku zbliżenia ciała o ładunku do ciała obojętnego, ładunek
 w ciele obojętnym jest przemieszczany w wyniku oddziaływań pomiędzy
@@ -147,13 +147,34 @@ E = k \cdot \frac{|q|}{r^2}
 $$
 Obowiązuje zasada superpozycji.
 
+\subsection{Pole elektryczne przewodnika}
+
+Zewnętrzne pole elektryczne powoduje, że ładunki się przemieszczają wewnątrz
+przewodnika. Powstaje w ten sposób pole elektryczne wewnętrzne
+przewodnika, które
+jest przeciwnie skierowane do pola zewnętrznego. W wyniku tego pole elektryczne
+wewnątrz przewodnika jest równe 0.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{scope}
+      \clip (-1.5,1) rectangle (1.5,1.5);
+      \draw (0,0) circle(1.5);
+    \end{scope}
+    \draw[->] (0,1.5) -- (0,2.5) node[above] {$\vec{E_n}$};
+    \draw[->] (0,1.5) -- (1,1.5) node[above] {$\vec{E_t}$};
+    \node at (3, 3) {$\vec{E_n} \ne 0, \vec{E_t} = 0$};
+  \end{tikzpicture}
+  \caption{Pole elektryczne na powierzchni przewodnika}
+\end{figure}
+
 \section{Dipol elektryczny}
 
 Dipol elektryczny to układ dwóch ładunków o równych wartościach, lecz
 przeciwnych znakach. W wyniku tego układu powstaje pole elektryczne, które
 jest zależne od odległości między ładunkami. W wyniku tego dipol elektryczny
 jest zawsze zorientowany w kierunku od ładunku dodatniego do ujemnego.
-
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}
@@ -162,5 +183,87 @@ jest zawsze zorientowany w kierunku od ładunku dodatniego do ujemnego.
     \draw[-] (q1) -- (q2) node[midway,above] {$d$};
   \end{tikzpicture}
 \end{figure}
+
+Poszczególne bieguny dipola elektrycznego oddziałują na inne ciała osobno.
+Przez to, np.: ciała pozytywnie naładowane będą doświadczały różnej siły
+działającej ze strony dipola, w zależności od pozycji ciała względem dipola.
+Energia dipola elektrycznego to:
+$$
+E = E_+ + E_-
+$$
+Co za tym idzie, dla $d \rightarrow 0$ dipol zaczyna zachowywać się jak
+punktowy ładunek.
+
+Dla dipola mamy moment dipolowy $p = qd$. Gdy dipol o moment dipolowym $p$ jest
+umieszczony w jednorodnym polu elektrycznym $\vec{E}$, to na dipol działa moment
+siły $\vec{\tau} = \vec{p} \times \vec{E}$.
+
+\section{Ciągłe rozkłady ładunków}
+
+Nie zawsze ciała mają dyskretne ładunki. W takich przypadkach rozważamy rozkłady
+powierzchniowe, liniowe i objętościowe ładunków, w zależności co dzielimy
+na infinitesimalne elementy.
+
+\subsection{Gęstość liniowa ładunku}
+
+$$
+\lambda = \lim_{\Delta s \rightarrow 0} \frac{\Delta q}{\Delta s} =
+\frac{dq}{ds}
+$$
+$$
+q = \int \lambda ds
+$$
+
+\subsection{Gęstość powierzchniowa ładunku}
+
+$$
+\sigma = \lim_{\Delta A \rightarrow 0} \frac{\Delta q}{\Delta A} =
+\frac{dq}{dA}
+$$
+$$
+q = \int \sigma dA
+$$
+
+\subsection{Gęstość objętościowa ładunku}
+
+$$
+\rho = \lim_{\Delta V \rightarrow 0} \frac{\Delta q}{\Delta V} =
+\frac{dq}{dV}
+$$
+$$
+q = \int \rho dV
+$$
+
+\subsection{Natężenie pola elektrycznego}
+
+$$
+\vec{E} = k \cdot \int \frac{dq}{r^2} \cdot \vec{r}
+$$
+$$
+dq =
+\begin{cases}
+  \lambda ds & \text{dla ładunku liniowego} \\
+  \sigma dA & \text{dla ładunku powierzchniowego} \\
+  \rho dV & \text{dla ładunku objętościowego}
+\end{cases}
+$$
+
+\section{Strumień}
+
+$$
+\Phi_E = \vec{E} \cdot \vec{A}
+$$
+gdzie $\vec{A}$ to wektor powierzchni, a $\vec{E}$ to pole elektryczne, które
+przechodzi przez tę powierzchnię.
+
+\subsection{Prawo Gaussa}
+
+Strumień pola elektrycznego przez dowolną zamkniętą powierzchnię jest
+proporcjonalny do ładunku znajdującego się wewnątrz tej powierzchni.
+$$
+\Phi_E = \oint \vec{E} \cdot d\vec{A} = \frac{q_{wewn}}{\epsilon_0}
+$$
+
+\subsection{Dywergencja}
 
 \end{document}
