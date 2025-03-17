@@ -31,6 +31,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{diagbox}
+\RequirePackage{colortbl}
 
 %tłumaczenie nazw
 \renewcommand{\figurename}{Diagram}

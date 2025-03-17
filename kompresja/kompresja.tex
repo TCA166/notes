@@ -96,6 +96,30 @@ Znajdź dwa najrzadziej występujące elementy i połącz je w jeden element
 o prawdopodobieństwie $p_1 + p_2$. Rozróżnij je $0$ lub $1$. Powtórz
 ten krok na liście $n-1$ długiej aż zostanie jeden element.
 
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}
+    \node (d) at (0, 0) {d};
+    \node (c) at (0, 1) {c};
+    \node (c_d) at (1, 0.5) {$0.25$};
+    \node (b) at (1, 2) {b};
+    \node (b_c_d) at (2, 1.5) {$0.5$};
+    \node (a) at (2, 3) {a};
+    \node (a_b_c_d) at (3, 2.5) {$1.0$};
+
+    \draw[-] (d) -| (c_d) node[midway, right] {0};
+    \draw[-] (c) -| (c_d) node[midway, right] {1};
+
+    \draw[-] (b) -| (b_c_d) node[midway, right] {0};
+    \draw[-] (c_d) -| (b_c_d) node[midway, right] {1};
+
+    \draw[-] (a) -| (a_b_c_d) node[midway, right] {0};
+    \draw[-] (b_c_d) -| (a_b_c_d) node[midway, right] {1};
+  \end{tikzpicture}
+  \caption{Przykład kodu Huffmana dla $P(a) = 0.5, P(b) = 0.25, P(c)
+  = 0.15, P(d) = 0.1$}
+\end{figure*}
+
 \subsection{Kodowanie Shannon-Fano}
 
 Dla symboli $a_1, \dots, a_n$ o prawdopodobieństwach $p_1, \dots, p_n$,
@@ -138,6 +162,52 @@ $$
 $$
 
 \subsection{Dynamiczne kodowanie Huffmana}
+
+Głównym problemem kodowania Huffmana jest konieczność znania całego ciągu
+danych przed rozpoczęciem kodowania. Rozwiązaniem tego problemu jest
+dynamiczne kodowanie, gdzie stosujemy kodowanie Huffmana dla $k + 1$ symbolu
+na podstawie kodowania dla $k$ symboli. W tym celu tworzymy dynamicznie drzewo,
+gdzie każdy liść ma wagę równą ilości wystąpień danego symbolu. Drzewo zaczyna
+się od liścia z symbolem \texttt{EOF} o wadze $0$.
+
+\newcommand{\drawNode}[3]{
+  \node[draw] (#1) at (#3) {#2};
+  \node[below] at (#1.south) {\texttt{#1}};
+}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{
+    \begin{minipage}{0.25\textwidth}
+      \begin{tikzpicture}
+        \drawNode{EOF}{0}{0,0}
+      \end{tikzpicture}
+    \end{minipage}
+    \begin{minipage}{0.25\textwidth}
+      \begin{tikzpicture}
+        \drawNode{EOF}{0}{0,0}
+        \drawNode{a}{1}{1,0}
+        \node[circle, draw] (root) at (0.5, 1) {1};
+        \draw[-] (root) -- (a);
+        \draw[-] (root) -- (EOF);
+      \end{tikzpicture}
+    \end{minipage}
+    \begin{minipage}{0.25\textwidth}
+      \begin{tikzpicture}
+        \drawNode{EOF}{0}{0,0}
+        \drawNode{r}{1}{1,0}
+        \node[circle, draw] (root2) at (0.5, 1) {1};
+        \draw[-] (root2) -- (r);
+        \draw[-] (root2) -- (EOF);
+        \drawNode{a}{1}{2,1}
+        \node[circle, draw] (root) at (1.25, 2) {2};
+        \draw[-] (root) -- (root2);
+        \draw[-] (root) -- (a);
+      \end{tikzpicture}
+    \end{minipage}
+  }
+  \caption{Przykład kodowania dynamicznego}
+\end{figure}
 
 \section{Teoria informacji}
 
@@ -256,5 +326,133 @@ $$
 $$
 (13)_{10} = f_7 = 1101_2 \Rightarrow Fib(13) = 0000011
 $$
+
+\section{Kodowanie arytmetyczne}
+
+Kodowanie arytmetyczne to kodowanie, które odwzorowywuje dowolny ciąg wejściowy
+na liczbę z zakresu $[0, 1)$. Głównym pomysłem stojącym za algorytmem, jest
+iteracyjne przypisywanie coraz to mniejszych przedziałów do kolejnych symboli
+ciągu wejściowego.
+
+\subsection{Algorytm}
+
+Dla zakresu początkowego $[l, p)=[0, 1)$, ciągu symboli wejściowych $a_j$,
+dystrybuanty $F(j)$ i prawdopodobieństw $p_j$ algorytm wygląda następująco:
+\begin{itemize}
+  \item $d = p - l$
+  \item $p = l + d \cdot F(j + 1)$
+  \item $l = l + F(j)d$
+\end{itemize}
+Powyższe kroki wykonujemy dla każdego symbolu ciągu wejściowego. Na koniec
+dostajemy zakres, z którego potem możemy wybrać dowolną liczbę jako wynik
+kodowania.
+
+\subsection{Wizualizacja}
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw [|-|,thick] (0,0) node[left] {$0$} -- (7,0) node[midway,
+    above] {$A$} node[above] {$0.7$};
+    \draw [-|,thick] (7,0) -- (9,0) node[midway, above] {$B$} node[above]
+    {$0.9$};
+    \draw [-|,thick] (9,0) -- (10,0) node[midway, above] {$C$} node[right]
+    {$1$};
+
+    \draw [|-|, thick] (0,-1) node[left] {$0$} -- (4.9,-1) node[midway,
+    below] {$AA$} node[above] {$0.49$};
+    \draw [-|, thick] (4.9,-1) -- (6.3,-1) node[midway, below] {$AB$}
+    node[above] {$0.63$};
+    \draw [-|, thick] (6.3,-1) -- (7, -1) node[midway, below] {$AC$}
+    node[above] {$0.7$};
+  \end{tikzpicture}
+  \caption{Wizualizacja kodowania arytmetycznego}
+\end{figure}
+
+\section{Kodowanie Słownikowe}
+
+\subsection{Statyczne kodowanie słownikowe}
+
+Zawczasu określamy jakiś słownik słów. Następnie przypisujemy każdemu słowu
+kod binarny. W ten sposób kodujemy cały tekst. Takie kodowanie ma sporo wad,
+głównie związanych z koniecznością przesyłania słownika oraz z słabą
+odpornością na błędy i zmienność danych wejściowych.
+
+\subsection{LZ77}
+
+Słownikiem jest zakodowana/odkodowana część tekstu. W ten sposób jesteśmy bardzo
+elastyczni w zakresie zmiany danych wejściowych, oraz nie musimy przesyłać
+słownika. Kodem jest trójka $(o, l, k)$ gdzie $o$ to przesunięcie, $l$ to
+długość, a $k$ to kolejny znak. W ten sposób $(0, 0, n),(1, 1, k)$ dekoduje się
+jako "nnk". Proces kodowania jest parametryzowany $n$ i $m$, gdzie $o < n$ i
+$l < m$.
+
+\subsection{LZ78}
+
+Istnieje osobny słownik, do którego trafiają kolejne słowa. Podczas kodowania
+kolejno szukamy w słowniku najdłuższego słowa, które jest prefiksem ciągu
+wejściowego. Jeśli nic nie znajdziemy to dodajemy pierwszą literę do słownika,
+lecz jeśli znajdziemy taki prefiks, to kodujemy go jako indeks w słowniku,
+wraz z kodem następnej litery. Zatem kod $(0,k),(1,a)(2,b)$ oznacza "kkakab",
+a słownik $s$ zawiera $s(1)=k,s(2)=ka,s(3)=kab$.
+
+\subsection{LZW}
+
+Ta wersja algorytmu pozbywa się drugiego elementu pary z kodowania LZ78.
+Z kolei potrzebny jest słownik początkowy zawierający wszystkie możliwe
+symbole. Poza tą mała różnicą, algorytm jest identyczny z LZ78.
+Zatem ze słownikiem $s$ gdzie $s(1)=a,s(2)=b,s(3)=c$, kod:
+$34$ znaczy "cbcb", ponieważ $s(4)=cb$ po pierwszym kroku.
+
+\section{bzip2}
+
+Mając blok danych o długości $n$, tworzymy wszystkie $n$ rotacji tego bloku.
+Następnie sortujemy je leksykograficznie. W ten sposób otrzymujemy blok
+transformowany.
+
+\newcolumntype{g}{>{\columncolor{gray!50}}c}
+
+\begin{table*}[h]
+  \centering
+  \begin{tabular}{|g|c|c|c|c|c|}
+    \hline
+    0 & e & l & l & o & h \\
+    \hline
+    1 & h & e & l & l & o \\
+    \hline
+    2 & l & l & o & h & e \\
+    \hline
+    3 & l & o & h & e & l \\
+    \hline
+    4 & o & h & e & l & l \\
+    \hline
+  \end{tabular}
+  \caption{Przykład bloku transformowanego dla słowa "hello"}
+\end{table*}
+
+Na podstawie tej tabeli zapisujemy numer wiersza, w którym znajduje się
+oryginalne słowo, oraz ostatnią kolumnę. W ten sposób uzyskujemy kod
+$1$, "hoell". Mając tylko te dane, jesteśmy bardzo łatwo w stanie odtworzyć
+oryginalne słowo. Najpierw sortujemy nasz kod leksykograficznie, zapamiętując
+indeksy.
+\begin{table*}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \rowcolor{gray!50}
+    0 & 1 & 2 & 3 & 4 \\
+    \hline
+    e & h & l & l & o \\
+    \hline
+    2 & 0 & 3 & 4 & 1 \\
+    \hline
+  \end{tabular}
+  \caption{Tabela dekodowania dla kodu $1$, "hoell"}
+\end{table*}
+
+Mając taką tabelę, następnie konstruujemy ciąg, traktując tabelę jak
+permutację, zaczynając od indeksu zawartego w kodzie.
+W naszym przypadku powstaje permutacja cykliczna $(1, 0, 2, 3, 4)$.
+Wykorzystując tę permutację, odtwarzamy oryginalne słowo.
 
 \end{document}

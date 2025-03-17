@@ -208,4 +208,60 @@ sgn(x) =
 \end{cases}
 $$
 
+\section{Gradient Descent}
+
+Metoda gradient descent pozwala na znalezienie lokalnego minimum funkcji.
+Gradient funkcji to wektor pochodnych cząstkowych
+funkcji po każdej zmiennej. Dla funkcji jednej zmiennej gradient to pochodna
+funkcji po tej zmiennej.
+$$
+\nabla F = \left(\frac{\partial F}{\partial x_1}, \frac{\partial F}{\partial
+x_2}, \dots, \frac{\partial F}{\partial x_n}\right)
+$$
+
+W metodzie gradient descent zaczynamy od pewnego punktu (wektora) i iteracyjnie
+zmieniamy ten wektor w kierunku przeciwnym do gradientu funkcji. Można
+to sobie wyobrazić jako stanie na górce i chodzenie w kierunku największego
+spadku.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (-2, 0) -- (3, 0) node[right] {$x$};
+    \draw[->] (0, -0.5) -- (0, 4) node[above] {$y$};
+    \draw[domain=-1:2, smooth, variable=\x, red] plot ({\x}, {(\x)^3 - (\x
+    )^2 -(\x) + 1.5}) node[right] {$F(x)$};
+
+    \draw[blue] (0.7, 0.5) -- (1.3, 0.5) node[right] {$\frac{\partial
+    F}{\partial x}F(x)=0$};
+    \node[fill=blue, minimum size=2pt, inner sep=0pt] at (1, 0.5) {};
+
+  \end{tikzpicture}
+  \caption{Przykład działania metody gradient descent}
+\end{figure}
+
+\subsection{Algorytm}
+
+Instancję algorytmu określa wektor początkowy $\vec{x_0}$, stała $c$ oraz stała
+$\epsilon$.
+Dla wektora początkowego $\vec{x} = (x_1, x_2, \dots x_n)$, oraz wyjściowego
+po jednym kroku $\vec{x'}$ tak długo jak $\max_{1 \ge i \ge n}|x'_i -
+x_i| > \epsilon$ wykonujemy następującą operację:
+$$
+\vec{x'} = \vec{x} - c \nabla F(\vec{x})
+$$
+lub równoważnie:
+$$
+x'_i = x_i - c \frac{\partial F}{\partial x_i}F(x)
+$$
+
+\subsection{Problemy}
+
+Największym problemem tej metody, jest określenie odpowiednich wartości stałych
+$c$ oraz $\epsilon$. Wartość $c$ nie może być zbyt mała, bo wtedy algorytm
+będzie działał bardzo wolno, ale też nie może być zbyt duża, bo wtedy algorytm
+może nie zbiegać. Wartość $\epsilon$ określa dokładność, z jaką chcemy znaleźć
+minimum. Im mniejsza wartość, tym dokładniejsze minimum, ale też dłuższy czas
+działania algorytmu. Z kolei wartość $\vec{x_0}$ jest bardzo ważna, bo od niej
+zależy, czy algorytm zbiegnie do minimum lokalnego czy globalnego.
+
 \end{document}
