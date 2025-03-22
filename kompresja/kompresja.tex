@@ -28,7 +28,57 @@ dowolnych danych}
 Wniosek jest taki, że koniecznym jest konstruowanie kompresji bezstratnej na
 podzbiorach danych, takich jak np.: obrazów, dźwięków, tekstów.
 
-\section{Kodowania}
+\section{Teoria informacji}
+
+Teoria informacji to dziedzina zajmująca się przetwarzaniem informacji.
+W teorii informacji mamy do czynienia z podstawowym założeniem, że zdarzenia
+niosą ze sobą pewną ilość informacji. Im rzadsze zdarzenie, tym bardziej
+informacyjne. Można to sobie wyobrazić jako zaskoczenie, jakie niesie ze sobą
+dane zdarzenie. Zaskoczenie wynikające, z tego że wstało słońce, jest mniejsze
+niż zaskoczenie wynikające z tego, że konkretny autobus się spóźnił.
+
+\subsection{Miara informacji}
+
+Miarą informacji, którą niesie ze sobą zdarzenie $A$ jest:
+$$
+I(A) = -\log_xP(A)
+$$
+gdzie $x$ to baza systemu liczbowego. Jeśli miarą informacji jest bit to $x=2$.
+Jeśli zdarzenia $A$ i $B$ są niezależne to:
+$$
+I(AB) = I(A) + I(B)
+$$
+
+\subsection{Entropia}
+
+Entropia to miara średniej informacji przekazywanej przez źródło.
+Kody jednoznacznie dekodowalne w modelu z niezależnymi
+wystąpieniami symboli muszą mieć średnią długość co najmniej
+równą entropii.
+
+\subsubsection{Entropia źródła}
+
+Dla źródła danych $S$ generującego ciąg $X$ nad alfabetem
+$\mathcal{A}=\{1, 2, \dots m\}$
+
+$$
+H(S) = \lim_{n \to \infty} \frac{G_n}{n}
+$$
+$$
+G_n = - \sum_{i} \dots \sum_{j}P(X_1 = i, \dots, X_n = j) \log P(X_1
+= i, \dots, X_n = j)
+$$
+
+\subsubsection{Entropia Pierwszego Rzędu}
+
+Dla źródła informacji $X$, z zbiorem wiadomości (zdarzeń) $A_1, \dots, A_n$,
+gdzie $P(A_i)$ to prawdopodobieństwo wystąpienia zdarzenia $A_i$ i
+zdarzenia są niezależne to entropia źródła to:
+$$
+H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
+$$
+
+\section{Kodowanie}
 
 Kodowanie to przyporządkowanie elementom jakiegoś alfabetu ciągu binarnych.
 Przykładami kodowania są: ASCII, UTF-8 oraz inne. Typowym jest konstruowanie
@@ -83,6 +133,12 @@ kodowego. Wszystkie kody prefiksowe są jednoznacznie dekodowalne.
 
 Jest kodem pozwalającym stwierdzić w którym miejscu zakończone jest
 słowo kodowe w momencie odczytania ostatniej litery.
+
+\section{Kompresja bezstratna}
+
+Z reguły kompresja bezstratna opiera się na stworzeniu kodu, który
+pozwala na zakodowanie będące krótsze niż oryginalne dane. W tym celu
+wykorzystuje się różne techniki kodowania.
 
 \subsection{Statyczny Kod Huffmana}
 
@@ -209,58 +265,13 @@ się od liścia z symbolem \texttt{EOF} o wadze $0$.
   \caption{Przykład kodowania dynamicznego}
 \end{figure}
 
-\section{Teoria informacji}
-
-Teoria informacji to dziedzina zajmująca się przetwarzaniem informacji.
-
-\subsection{Miara informacji}
-
-Miarą informacji, którą niesie ze sobą zdarzenie $A$ jest:
-$$
-I(A) = -\log_xP(A)
-$$
-gdzie $x$ to baza systemu liczbowego. Jeśli miarą informacji jest bit to $x=2$.
-Jeśli zdarzenia $A$ i $B$ są niezależne to:
-$$
-I(AB) = I(A) + I(B)
-$$
-
-\subsection{Entropia}
-
-Entropia to miara średniej informacji przekazywanej przez źródło.
-Kody jednoznacznie dekodowalne w modelu z niezależnymi
-wystąpieniami symboli muszą mieć średnią długość co najmniej
-równą entropii.
-
-\subsubsection{Entropia źródła}
-
-Dla źródła danych $S$ generującego ciąg $X$ nad alfabetem
-$\mathcal{A}=\{1, 2, \dots m\}$
-
-$$
-H(S) = \lim_{n \to \infty} \frac{G_n}{n}
-$$
-$$
-G_n = - \sum_{i} \dots \sum_{j}P(X_1 = i, \dots, X_n = j) \log P(X_1
-= i, \dots, X_n = j)
-$$
-
-\subsubsection{Entropia Pierwszego Rzędu}
-
-Dla źródła informacji $X$, z zbiorem wiadomości (zdarzeń) $A_1, \dots, A_n$,
-gdzie $P(A_i)$ to prawdopodobieństwo wystąpienia zdarzenia $A_i$ i
-zdarzenia są niezależne to entropia źródła to:
-$$
-H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
-$$
-
-\section{Kodowanie uniwersalne}
+\subsection{Problem kodowania uniwersalnego}
 
 Szukamy sposobu na kodowanie dowolnej liczby $n \in \mathbb{N}$. Problem polega
 na skonstruowaniu kodu, który będzie jednoznacznie dekodowalny i uniwersalny.
 To oznacza, że ma się skalować w nieskończoność.
 
-\subsection{Kodowanie Eliasa}
+\subsubsection{Kodowanie Eliasa}
 
 Kodowanie Eliasa to kodowanie uniwersalne, które wykorzystuje kodowanie unarne
 do zapisania długości kodu binarnego liczby $n$.
@@ -269,7 +280,7 @@ $$
 n = \lfloor \log_2(x) \rfloor + 1
 $$
 
-\subsubsection{\texorpdfstring{$\gamma$}{Gamma}}
+\paragraph{$\gamma$}
 
 Jest to najprostsze z kodowań Eliasa. Polega na zakodowaniu liczby $x$ w
 postaci binarnej, a następnie dodaniu przed nią liczby $n-1$ zer.
@@ -281,7 +292,7 @@ $$
 (13)_{10} = 1101_2 \Rightarrow \gamma(13) = 0001101
 $$
 
-\subsubsection{\texorpdfstring{$\delta$}{Delta}}
+\paragraph{$\delta$}
 
 Cały trik kodu $\delta$ polega na zakodowaniu długości kodu binarnego liczby
 $x$ przy pomocy kodu $\gamma$.
@@ -297,7 +308,7 @@ Jak widać, jest on bardziej efektywny dla większych liczb. Długość kodu
 $\delta$ to $2 \cdot \lceil \log_2(\lceil \log_2x \rceil)\rceil - 1 +
 \lceil \log_2x \rceil - 1$.
 
-\subsubsection{\texorpdfstring{$\omega$}{Omega}}
+\paragraph{$\omega$}
 
 Jest to kodowanie rekurencyjne, które działa jak kodowanie $\delta$, ale
 w nieskończoność.
@@ -308,7 +319,7 @@ $$
 (13)_{10} = 1101_2 \Rightarrow \omega(13) = 11 1101 0
 $$
 
-\subsection{Kodowanie Fibonacciego}
+\subsubsection{Kodowanie Fibonacciego}
 
 Liczba Fibonacciego ma postać:
 $$
@@ -327,14 +338,14 @@ $$
 (13)_{10} = f_7 = 1101_2 \Rightarrow Fib(13) = 0000011
 $$
 
-\section{Kodowanie arytmetyczne}
+\subsection{Kodowanie arytmetyczne}
 
 Kodowanie arytmetyczne to kodowanie, które odwzorowywuje dowolny ciąg wejściowy
 na liczbę z zakresu $[0, 1)$. Głównym pomysłem stojącym za algorytmem, jest
 iteracyjne przypisywanie coraz to mniejszych przedziałów do kolejnych symboli
 ciągu wejściowego.
 
-\subsection{Algorytm}
+\subsubsection{Kodowanie zmiennoprzecinkowe}
 
 Dla zakresu początkowego $[l, p)=[0, 1)$, ciągu symboli wejściowych $a_j$,
 dystrybuanty $F(j)$ i prawdopodobieństw $p_j$ algorytm wygląda następująco:
@@ -346,8 +357,6 @@ dystrybuanty $F(j)$ i prawdopodobieństw $p_j$ algorytm wygląda następująco:
 Powyższe kroki wykonujemy dla każdego symbolu ciągu wejściowego. Na koniec
 dostajemy zakres, z którego potem możemy wybrać dowolną liczbę jako wynik
 kodowania.
-
-\subsection{Wizualizacja}
 
 \begin{figure}[h]
   \centering
@@ -364,21 +373,35 @@ kodowania.
     \draw [-|, thick] (4.9,-1) -- (6.3,-1) node[midway, below] {$AB$}
     node[above] {$0.63$};
     \draw [-|, thick] (6.3,-1) -- (7, -1) node[midway, below] {$AC$}
-    node[above] {$0.7$};
+    node[right] {$0.7$};
   \end{tikzpicture}
   \caption{Wizualizacja kodowania arytmetycznego}
 \end{figure}
 
-\section{Kodowanie Słownikowe}
+\subsubsection{Kodowanie całkowitoliczbowe}
 
-\subsection{Statyczne kodowanie słownikowe}
+Liczbę z kodowania zmiennoprzecinkowego, można zakodować jako zbiór $2^m$
+wartości binarnych.
+$$
+kod(0) = \stackrel{m}{\overbrace{00 \dots 0}}
+$$
+$$
+kod(1) = \stackrel{m}{\overbrace{11 \dots 1}}
+$$
+$$
+kod(0.5) = 1\stackrel{m-1}{\overbrace{00 \dots 0}}
+$$
+
+\subsection{Kodowanie Słownikowe}
+
+\subsubsection{Statyczne kodowanie słownikowe}
 
 Zawczasu określamy jakiś słownik słów. Następnie przypisujemy każdemu słowu
 kod binarny. W ten sposób kodujemy cały tekst. Takie kodowanie ma sporo wad,
 głównie związanych z koniecznością przesyłania słownika oraz z słabą
 odpornością na błędy i zmienność danych wejściowych.
 
-\subsection{LZ77}
+\subsubsection{LZ77}
 
 Słownikiem jest zakodowana/odkodowana część tekstu. W ten sposób jesteśmy bardzo
 elastyczni w zakresie zmiany danych wejściowych, oraz nie musimy przesyłać
@@ -387,7 +410,7 @@ długość, a $k$ to kolejny znak. W ten sposób $(0, 0, n),(1, 1, k)$ dekoduje 
 jako "nnk". Proces kodowania jest parametryzowany $n$ i $m$, gdzie $o < n$ i
 $l < m$.
 
-\subsection{LZ78}
+\subsubsection{LZ78}
 
 Istnieje osobny słownik, do którego trafiają kolejne słowa. Podczas kodowania
 kolejno szukamy w słowniku najdłuższego słowa, które jest prefiksem ciągu
@@ -396,7 +419,7 @@ lecz jeśli znajdziemy taki prefiks, to kodujemy go jako indeks w słowniku,
 wraz z kodem następnej litery. Zatem kod $(0,k),(1,a)(2,b)$ oznacza "kkakab",
 a słownik $s$ zawiera $s(1)=k,s(2)=ka,s(3)=kab$.
 
-\subsection{LZW}
+\subsubsection{LZW}
 
 Ta wersja algorytmu pozbywa się drugiego elementu pary z kodowania LZ78.
 Z kolei potrzebny jest słownik początkowy zawierający wszystkie możliwe
@@ -404,7 +427,7 @@ symbole. Poza tą mała różnicą, algorytm jest identyczny z LZ78.
 Zatem ze słownikiem $s$ gdzie $s(1)=a,s(2)=b,s(3)=c$, kod:
 $34$ znaczy "cbcb", ponieważ $s(4)=cb$ po pierwszym kroku.
 
-\section{bzip2}
+\subsection{bzip2}
 
 Mając blok danych o długości $n$, tworzymy wszystkie $n$ rotacji tego bloku.
 Następnie sortujemy je leksykograficznie. W ten sposób otrzymujemy blok
@@ -454,5 +477,124 @@ Mając taką tabelę, następnie konstruujemy ciąg, traktując tabelę jak
 permutację, zaczynając od indeksu zawartego w kodzie.
 W naszym przypadku powstaje permutacja cykliczna $(1, 0, 2, 3, 4)$.
 Wykorzystując tę permutację, odtwarzamy oryginalne słowo.
+
+\subsection{V.42bis}
+
+To jest standard, głównie wykorzystywany w modemach, do kompresji i korekcji
+błędów w sieciach telefonicznych. Może działać w dwóch trybach: przezroczystym
+(bez kompresji) i z kompresją (LZW).
+
+Zaczynamy z słownikiem, o wcześniej ustalonej, negocjowalnej, wielkości.
+Wyróżniamy w komunikacji trzy specjalne kody:
+\begin{enumerate}
+  \item \texttt{ETM} - przejście do trybu przezroczystego
+  \item \texttt{FLUSH} - oczyszczenie danych
+  \item \texttt{STEPUP} - zwiększenie rozmiaru słownika $\times 2$
+\end{enumerate}
+Gdy liczba elementów w słowniku przekroczy wartość dozwoloną, wysyłany jest
+kod \texttt{STEPUP}. Gdy słownik jest pełny, wysyłany jest kod \texttt{FLUSH}.
+W ten sposób, mamy zmienny, dynamiczny słownik, który dostosowuje się do
+danych wejściowych po stronie nadawcy i odbiorcy.
+
+\subsection{Kodowanie predykcyjne}
+
+W tekstach naturalnych symbole bardzo często zależą od siebie. Można wykorzystać
+informację o prawdopodobieństwach wystąpienia symboli, pod warunkiem wystąpienia
+poprzednich symboli. Dla dłuższego okna kontekstowego, kodowanie predykcyjne
+jest bardziej skuteczne, lecz wymaga większej ilości pamięci.
+
+\subsubsection{PPM}
+
+Dla kontekstu długości $n$, algorytm PPM polega na stworzeniu drzewa
+kontekstowego, które przechowuje informacje o prawdopodobieństwach wystąpienia
+poszczególnych symboli. Sczególnym symbolem w tym drzewie jest \texttt{ESC},
+który oznacza brak wystąpienia symbolu w danym kontekście. W ten sposób
+możemy zbudować drzewo, które pozwala na przewidywanie kolejnych symboli,
+które potem można wykorzystać do zbudowania dynamicznego kodowania Huffmana.
+
+\begin{table*}[h]
+  \centering
+  \begin{tabular}{c|c|c}
+    Kontekst & Symbol & Licznik \\
+    \hline
+    th & \texttt{ESC} & 1 \\
+    & i & 1 \\
+    \hline
+    hi & \texttt{ESC} & 1 \\
+    & s & 1 \\
+    \hline
+    is & \texttt{ESC} & 1 \\
+    & - & 1 \\
+    \hline
+    s- & \texttt{ESC} & 1 \\
+    & i & 1 \\
+    \hline
+    -i & \texttt{ESC} & 1 \\
+    & s & 1 \\
+  \end{tabular}
+  \caption{Przykład drzewa kontekstowego dla słowa "this-is"}
+\end{table*}
+
+\subsubsection{CALIC}
+
+Algorytm CALIC jest algorytmem kompresji obrazów, który wykorzystuje
+kodowanie predykcyjne. Dla każdego piksela obrazu, wykorzystuje się kontekst
+pikseli wokół niego, aby przewidzieć wartość piksela. Chcemy wiedzieć czy w
+sąsiedztwie piksela są krawędzie pionowe lub poziome.
+\begin{figure*}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    & & NN & NNE \\
+    \hline
+    & NW & N & NE \\
+    \hline
+    WW & W & \color{red} X & E \\
+    \hline
+  \end{tabular}
+  \caption{Kontekst dla algorytmu CALIC}
+\end{figure*}
+$$
+d_h = |W - WW| + |N - NW| + |NE - N|
+$$
+$$
+d_v = |W - NW| + |N - NN| + |NE - NNE|
+$$
+Następnie na podstawie tych dwóch wartości, tworzymy $\widehat{X}$ i kodujemy
+różnicę między $X$ a $\widehat{X}$.
+
+\subsubsection{JPEG-LS}
+
+JPEG-LS to standard kompresji obrazów, podobny do CALIC, który też wykorzystuje
+kodowanie predykcyjne.
+\begin{figure*}[h]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    NW & N \\
+    \hline
+    W & \color{red} X \\
+    \hline
+  \end{tabular}
+  \caption{Kontekst dla algorytmu JPEG-LS}
+\end{figure*}
+\begin{enumerate}
+  \item $\widehat{X} = W$
+  \item $\widehat{X} = N$
+  \item $\widehat{X} = NW$
+  \item $\widehat{X} = N + W - NW$
+  \item $\widehat{X} = N + \frac{W - NW}{2}$
+  \item $\widehat{X} = W + \frac{N - NW}{2}$
+  \item $\widehat{X} = \frac{N + W}{2}$
+\end{enumerate}
+Wśród tych siedmiu możliwości, wybieramy tę, która daje najmniejszą różnicę
+między $X$ a $\widehat{X}$ i podobnie jak dla CALIC kodujemy ciąg różnic.
+
+\subsubsection{Poziomy rozdzielczości}
+
+Kodujemy obraz wysyłając średni kolor kwadratów o rozmiarze $2^k \times 2^k$
+a następnie różnice między tą średnią a średnią kwadratow $2^{k-1}
+\times 2^{k-1}$. Kończymy na pojedynczych pikselach. Różnice między tymi
+kwadratami łatwo się kompresuje bo są małe.
 
 \end{document}
