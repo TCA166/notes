@@ -153,12 +153,14 @@ $$
   \begin{tikzpicture}
     \node[circle, fill, inner sep=2pt, label=above:$P$] (p) at (0,0) {};
     \node[circle, fill, inner sep=2pt, label=above:$q_1$] (q1) at (2,0) {};
-    \draw[->] (p) -- (q1) node[midway, above] {$\vec{r}$};
-    \draw[->] (q1) -- (3,0) node[above] {$\vec{E}$};
+    \draw[->] (p) -- (q1) node[midway, above] {$\vec{r_1}$};
+    \draw[->] (q1) -- (3,0) node[above] {$\vec{E_1}$};
     \node[circle, fill, inner sep=2pt, label=above:$q_2$] (q2) at (1,1) {};
-    \draw[->] (q2) -- (2.5,2.5) node[above] {$\vec{E}$};
-
+    \draw[->] (q2) -- (2.5,2.5) node[above] {$\vec{E_2}$};
+    \draw[->] (p) -- (q2) node[midway, above] {$\vec{r_2}$};
   \end{tikzpicture}
+  \caption{Ilustracja natężenia pola elektrycznego, $|\vec{r_1}| <
+  |\vec{r_2}| \rightarrow |\vec{E_1}| > |\vec{E_2}|$}
 \end{figure*}
 
 \subsection{Pole elektryczne przewodnika}
@@ -305,11 +307,43 @@ przechodzi przez tę powierzchnię.
 
 Potencjał elektryczny to wielkość skalarna, która opisuje pracę wykonaną nad
 jednostkowym ładunkiem, aby przenieść go z nieskończoności do danego punktu.
+
+\subsection{Własności sił zachowawczych}
+
+Siły zdefiniowane przez potencjał są siłami zachowawczymi.
 $$
-V = \frac{W}{q}
+\vec{F} = - \nabla U = - (\frac{\partial U}{\partial x}, \dots)
+$$
+Oznacza to, że praca wykonana nad ładunkiem w zamkniętym obwodzie jest równa 0.
+Również to oznacza, że $U_1 - U_2 = - \oint F$
+
+\subsection{Potencjał pola elektrycznego}
+
+$$
+V = V_1 - V_2 = - \int_{r_1}^{r_2} E(r) \cdot dr
 $$
 $$
-V = U_1 - U_2 = \int_{1}^{2} \nabla U \cdot dr
+E = - \nabla V
 $$
+Zatem pole elektryczne jest gradientem potencjału elektrycznego. I na odwrót,
+potencjał elektryczny jest całką pola elektrycznego.
+$$
+V(r) = \frac{q}{4\pi\epsilon_0 r}
+$$
+Co za tym idzie siła pola elektrycznego jest gradientem potencjału
+energii elektrycznego.
+$$
+U = q \cdot V
+$$
+$$
+F_E = q \cdot E = - \nabla U
+$$
+
+\section{Kondensatory}
+
+Kondensatory to układy elektryczne, które przechowują elektryczną energię
+potencjalną. Składają się z dwóch przewodników, oddzielonych dielektrykiem.
+Dla kondensatora mamy pojemność $C = \frac{Q}{V}$, gdzie $Q$ to ładunek, a $V$
+to napięcie między przewodnikami.
 
 \end{document}
