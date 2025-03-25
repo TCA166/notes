@@ -125,11 +125,8 @@ $$
 \section{Pole elektryczne}
 
 Pole elektryczne jest polem wektorowym, które opisuje siłę działającą na
-naelektryzowane ciało. Pole elektryczne jest zdefiniowane jako:
-$$
-\vec{E} = \frac{\vec{F_E}}{q}
-$$
-gdzie $\vec{F_E}$ to siła działająca na ciało o ładunku $q$.
+naelektryzowane ciało. Siła pola elektrycznego zależy od ładunku,
+tworzącego pole elektryczne, oraz od odległości od ładunku.
 
 \subsection{Linia pola elektrycznego}
 
@@ -143,13 +140,26 @@ linie, lecz w rzeczywistości pole elektryczne jest ciągłe.
 Natężenie pola elektrycznego to wielkość wektorowa, która opisuje siłę
 działającą na jednostkowy ładunek w danym punkcie pola elektrycznego.
 $$
-E(r) = k \cdot \frac{|q|}{r^2}
+\vec{E}(r) = k \cdot \frac{|q|}{r^2} \cdot \vec{r}
 $$
 Gdzie $r$ to odległość od ładunku, a $q$ to ładunek, tworzący pole
 elektryczne.
 $$
-F_E = q \cdot E(r)
+\vec{F_E} = q \cdot \vec{E}(r)
 $$
+
+\begin{figure*}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[circle, fill, inner sep=2pt, label=above:$P$] (p) at (0,0) {};
+    \node[circle, fill, inner sep=2pt, label=above:$q_1$] (q1) at (2,0) {};
+    \draw[->] (p) -- (q1) node[midway, above] {$\vec{r}$};
+    \draw[->] (q1) -- (3,0) node[above] {$\vec{E}$};
+    \node[circle, fill, inner sep=2pt, label=above:$q_2$] (q2) at (1,1) {};
+    \draw[->] (q2) -- (2.5,2.5) node[above] {$\vec{E}$};
+
+  \end{tikzpicture}
+\end{figure*}
 
 \subsection{Pole elektryczne przewodnika}
 
