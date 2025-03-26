@@ -31,7 +31,7 @@ $$
 
 Niech $X_1, X_2, \ldots, X_n$ będą niezależnymi zmiennymi losowymi o rozkładzie
 normalnym $N(0, 1)$. Wtedy zmienna losowa $X = \sum_{i = 1}^{n} X_i^2$ ma
-rozkład chi-kwadrat z $n$ stopniami swobody.
+rozkład chi-kwadrat ($X \sim \chi(n)$) z $n$ stopniami swobody.
 $$
 f(x) =  \frac{1}{2^{n/2} \Gamma(n/2)} x^{n/2 - 1} e^{-x/2}
 $$
@@ -48,6 +48,32 @@ f(x, \lambda) =
   0 & \text{dla } x < 0
 \end{cases}
 $$
+
+\subsection{Rozkład t-Studenta}
+
+Niech $X \sim N(0, 1) oraz Y \sim \chi^2(n)$ będą niezależnymi
+zmiennymi losowymi.
+Wtedy zmienna losowa:
+$$
+\frac{X}{\sqrt{Y/n}}
+$$
+ma rozkład t-Studenta z $n$ stopniami swobody. Funkcja gęstości
+rozkładu t-Studenta
+jest dana wzorem:
+$$
+f(x, n) = \frac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi} \Gamma(\frac{n}{2})}
+(1 + \frac{x^2}{n})^{-\frac{n+1}{2}}
+$$
+
+\subsection{F-Snedecora}
+
+Niech $X \sim \chi^2(n)$, $Y \sim \chi^2(m)$ będą niezależnymi zmiennymi
+losowymi. Wtedy zmienna losowa:
+$$
+\frac{X/n}{Y/m}
+$$
+ma rozkład F-Snedecora z $n$ i $m$ stopniami swobody. Funkcja gęstości
+rozkładu F-Snedecora jest oznacza przez $F(n, m)$.
 
 \section{Statystyka Opisowa}
 
@@ -152,7 +178,7 @@ $$
 \stackrel{\wedge}{\sigma^2} = S^2
 $$
 
-\section{Metoda monte carlo}
+\subsection{Metoda monte carlo}
 
 Niech $X'$ będzie próbą populacji o rozkładzie $P_\theta$, oraz niech
 $\stackrel{\wedge}{\theta}$ będzie estymatorem parametru $\theta$. Załóżmy też,
@@ -160,7 +186,7 @@ $\stackrel{\wedge}{\theta}$ będzie estymatorem parametru $\theta$. Załóżmy t
 wartości $\stackrel{\wedge}{x_n}: n \in [1, k]$ jest przybliżeniem rozkładu
 $\stackrel{\wedge}{\theta}$.
 
-\section{Metoda bootstrap}
+\subsection{Metoda bootstrap}
 
 Dystrybuanta empiryczna to statystyka o następującej postaci:
 $$
@@ -180,5 +206,130 @@ przybliżyć rozkład statystyki $\stackrel{\wedge}{\theta} - \theta$, poprzez
 stworzenie histogramu $\stackrel{\wedge}{\theta}*_n: n\in [0,k]$
 
 \section{Przedziały ufności}
+
+Przedział ufności to przedział $[L, R]$ określony parą statystyk, takich, że:
+$$
+P_\theta(L < \theta < R) = 1 - \alpha
+$$
+gdzie $\alpha$ to poziom ufności, a $\theta$ to parametr modelu.
+
+Funkcję $Q(X, \theta)$ nazywamy funkcją centralną dla parametru $\theta$, jeżeli
+rozkład prawdopodobieństwa zmiennej $Q$ jest absolutnie ciągły i nie zależy od
+parametru $\theta$, oraz funkcja $Q$ jest ciągła i ściśle monotoniczna względem
+$\theta$.
+
+Obieranie przedziału ufności następuje poprzez rozwiązanie nierówności:
+$$
+a < Q(X, \theta) < b
+$$
+gdzie $a$ i $b$ się z reguły dobiera tak aby:
+$$
+P(Q \le a) = P(Q \ge b) = \frac{\alpha}{2}
+$$
+
+\section{Test t-Studenta}
+
+\subsection{Dla jednej próby}
+
+\begin{itemize}
+  \item \textbf{Hipoteza zerowa}: $H_0: \mu = \mu_0$
+  \item Hipotezy alternatywne: $H_1: \mu \neq \mu_0$, $H_1: \mu >
+    \mu_0$, $H_1: \mu < \mu_0$
+  \item Statystyka testowa:
+    $$
+    t = \frac{\overline{X} - \mu_0}{S} \sqrt{n}
+    $$
+  \item Rozkład statystyki testowej: $t|_{H_0} \sim t(n-1)$
+\end{itemize}
+
+\subsection{Dla dwóch prób}
+
+Posiadamy obserwacje jednej zmiennej (cechy) na jednostkach
+eksperymentalnych pochodzących z dwóch populacji (grup) lub
+posiadamy dwukrotne obserwacje tej samej zmiennej na tych samych
+jednostkach eksperymentalnych jednej populacji. Wyróżniamy dwa
+rodzaje prób: niezależne oraz zależne.
+
+\subsubsection{Błąd}
+
+Błąd to różnica między wartością zmiennej a wartością przewidywaną przez
+model. Zakładamy, że błąd:
+\begin{itemize}
+  \item ma rozkład normalny
+  \item jest niezależny od zmiennej
+  \item ma wartość oczekiwaną równą 0
+  \item ma stałą wariancję
+\end{itemize}
+
+\subsubsection{Próby niezależne z jednorodnymi wariancjami}
+
+$$
+\stackrel{\wedge}{\mu_1} = \overline{X}_1
+$$
+$$
+\stackrel{\wedge}{\mu_2} = \overline{X}_2
+$$
+$$
+\stackrel{\wedge}{\sigma^2} = S^2 = \frac{(n_1 - 1)S_1^2 + (n_2 -
+1)S_2^2}{n_1 + n_2 - 2}
+$$
+$$
+S_i^2 = \frac{1}{n_i - 1} \sum_{j=1}^{n_i} (x_{ij} - \overline{X}_i)^2
+$$
+
+\begin{itemize}
+  \item \textbf{Hipoteza zerowa}: $H_0: \mu_1 = \mu_2$
+  \item Hipotezy alternatywne: $H_1: \mu_1 \neq \mu_2$, $H_1: \mu_1 >
+    \mu_2$, $H_1: \mu_1 < \mu_2$
+  \item Statystyka testowa:
+    $$
+    t = \frac{\overline{X}_1 - \overline{X}_2}{S}
+    \sqrt{\frac{n_1n_2}{n_1 + n_2}}
+    $$
+  \item Rozkład statystyki testowej: $t|_{H_0} \sim t(n_1 + n_2 - 2)$
+\end{itemize}
+
+\subsubsection{Próby niezależne z różnymi wariancjami}
+
+$$
+\stackrel{\wedge}{\mu_1} = \overline{X}_1
+$$
+$$
+\stackrel{\wedge}{\mu_2} = \overline{X}_2
+$$
+$$
+\stackrel{\wedge}{\sigma_1^2} = S_1^2 = \frac{1}{n_1 - 1}
+\sum_{i=1}^{n_1} (x_{1i} - \overline{X}_1)^2
+$$
+$$
+\stackrel{\wedge}{\sigma_2^2} = S_2^2
+$$
+
+\begin{itemize}
+  \item \textbf{Hipoteza zerowa}: $H_0: \mu_1 = \mu_2$
+  \item Hipotezy alternatywne: $H_1: \mu_1 \neq \mu_2$, $H_1: \mu_1 >
+    \mu_2$, $H_1: \mu_1 < \mu_2$
+  \item Statystyka testowa:
+    $$
+    t = \frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{S_1^2}{n_1} +
+    \frac{S_2^2}{n_2}}}
+    $$
+  \item Rozkład statystyki testowej: $t|_{H_0} \sim t(m)$ (test Welch)
+\end{itemize}
+
+\section{Test F}
+
+Będziemy zakładać dwie różne wariancje dla dwóch prób.
+
+\begin{itemize}
+  \item \textbf{Hipoteza zerowa}: $H_0: \sigma_1^2 = \sigma_2^2$
+  \item Hipotezy alternatywne: $H_1: \sigma_1^2 \neq \sigma_2^2$, $H_1:
+    \sigma_1^2 > \sigma_2^2$, $H_1: \sigma_1^2 < \sigma_2^2$
+  \item Statystyka testowa:
+    $$
+    F = \frac{S_1^2}{S_2^2}
+    $$
+  \item Rozkład statystyki testowej: $F|_{H_0} \sim F(n_1 - 1, n_2 - 1)$
+\end{itemize}
 
 \end{document}

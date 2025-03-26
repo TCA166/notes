@@ -52,5 +52,6 @@ height=1cm, text centered, draw=black, fill=green!30]
   angle=110, minimum width=3cm, minimum height=1cm, text centered,
 draw=black, fill=blue!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
+\RequirePackage{circuitikz}
 
 \newcommand{\divider}{\noindent\rule{\textwidth}{0.4pt}\\}

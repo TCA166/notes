@@ -345,5 +345,30 @@ Kondensatory to układy elektryczne, które przechowują elektryczną energię
 potencjalną. Składają się z dwóch przewodników, oddzielonych dielektrykiem.
 Dla kondensatora mamy pojemność $C = \frac{Q}{V}$, gdzie $Q$ to ładunek, a $V$
 to napięcie między przewodnikami.
+\begin{figure*}[h]
+  \centering
+  \resizebox{0.8\textwidth}{!}{
+    \begin{minipage}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \draw (0,0) to[battery] (0,4);
+        \draw (0,4) -- (2,4) to[C, l=$C_1$] (2,0) -- (0,0);
+        \draw (2,4) -- (4,4) to[C, l=$C_2$] (4,0) -- (2,0);
+      \end{tikzpicture}
+      \caption{Kondensatory połączone równolegle.}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \draw (0,0) to[battery] (0,4);
+        \draw (0,4) -- (2,4) to[C, l=$C_1$] (2,2) to[C, l=$C_2$] (2,0) -- (0,0);
+      \end{tikzpicture}
+      \caption{Kondensatory połączone szeregowo.}
+    \end{minipage}
+  }
+\end{figure*}
+Kondensatory połączone równolegle mają sumaryczną pojemność $C_{tot}
+= C_1 + C_2$. Z kolei kondensatory połączone szeregowo mają sumaryczną pojemność
+$C_{tot} = \frac{1}{\frac{1}{C_1} + \frac{1}{C_2}}$.
 
 \end{document}
