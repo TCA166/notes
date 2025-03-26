@@ -1,0 +1,184 @@
+\documentclass{../notatki}
+
+\title{Statystyka}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Rozkłady}
+
+\subsection{Rozkład dwumianowy}
+
+Rozkład dwumianowy to rozkład sumy $n$ zmiennych losowych o rozkładzie
+Bernoulliego. Zmienna losowa $X$ ma rozkład dwumianowy z parametrami $n$ i $p$,
+zatem:
+$$
+P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}
+$$
+gdzie $\binom{n}{k}$ to liczba kombinacji $k$ sukcesów w $n$ próbach.
+
+\subsection{Rozkład normalny}
+
+Rozkład normalny (Gaussa) jest jednym z najważniejszych rozkładów
+statystycznych. Jest on określony przez dwa parametry: wartość oczekiwaną
+$\mu$ i wariancję $\sigma^2$. Gęstość rozkładu normalnego jest dana wzorem:
+$$
+f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
+
+\subsection{Rozkład chi-kwadrat}
+
+Niech $X_1, X_2, \ldots, X_n$ będą niezależnymi zmiennymi losowymi o rozkładzie
+normalnym $N(0, 1)$. Wtedy zmienna losowa $X = \sum_{i = 1}^{n} X_i^2$ ma
+rozkład chi-kwadrat z $n$ stopniami swobody.
+$$
+f(x) =  \frac{1}{2^{n/2} \Gamma(n/2)} x^{n/2 - 1} e^{-x/2}
+$$
+
+\subsection{Rozkład wykładniczy}
+
+Jest to rozkład zmiennej, która opisuje czas między zdarzeniami w procesie
+Poissona. Zmienna losowa $X$ ma rozkład wykładniczy z parametrem $\lambda$,
+zatem:
+$$
+f(x, \lambda) =
+\begin{cases}
+  \lambda e^{-\lambda x} & \text{dla } x \geq 0 \\
+  0 & \text{dla } x < 0
+\end{cases}
+$$
+
+\section{Statystyka Opisowa}
+
+Niech $X' = \{x_1, x_2, \ldots, x_n\}$ będzie zbiorem $n$ obserwacji zmiennej
+losowej $X$. Zadaniem statystyki opisowej jest prezentacja rozkładu zmiennej
+losowej $X$ w próbce $X'$.
+
+\subsection{Rodzaje statystyk opisowe}
+
+\begin{itemize}
+  \item Klasyczne - uśredniające wartość próbki. Na przykład momenty
+    zwykłe $r$-tego rzędu:
+    $$
+    m_r = \frac{1}{n} \sum_{i=1}^n x_i^r
+    $$
+  \item Pozycyjne - oparte na pozycjach obserwacji w próbce. Na przykład
+    mediana, kwartyle, percentyle.
+\end{itemize}
+
+\subsection{Tendencja centralnej rozkładu empirycznego}
+
+\begin{itemize}
+  \item Średnia arytmetyczna:
+    $$
+    \overline{X'} = \frac{1}{n} \sum_{i=1}^n x_i
+    $$
+  \item Mediana
+\end{itemize}
+
+\subsection{Charakterystyki rozrzutu rozkładu empirycznego}
+
+\begin{itemize}
+  \item Odchylenie standardowe:
+    $$
+    s = \sqrt{\frac{1}{n - 1} \sum_{i=1}^n (x_i - \overline{X'})^2}
+    $$
+  \item Współczynnik zmienności:
+    $$
+    v = \frac{s}{\overline{X'}} \cdot 100\%
+    $$
+\end{itemize}
+
+\section{Model statystyczny}
+
+Jeżeli próba $X'$ jest reprezentatywna, to można na jej podstawie
+wnioskować na temat populacji z której pochodzi. Aby określić zachowanie
+zmiennej losowej $X$ w populacji, stosuje się model statystyczny.
+Zatem traktujemy wektor $X'$ jako realizację zmiennej losowej $X$.
+
+\section{Estymacja Punktowa}
+
+Niech $X'$ będzie próba populacji o rozkładzie $P_\theta$ gdzie
+$\theta \in \Theta$ jest parametrem. Estymatorem parametru $\theta$
+nazywamy statystykę $\stackrel{\wedge}{\theta}: X' \rightarrow
+\Theta$ która pozwala na
+oszacowanie wartości parametru $\theta$.
+
+\subsection{Metoda momentów}
+
+Metoda momentów polega na przyrównaniu kolejnych $d$ momentów $m_1, \dots, m_d$
+do odpowiednich momentów rozkładu populacji $E(X^i): i \in [1, d]$
+
+\subsection{Metoda największej wiarygodności}
+
+Funkcję $L(\theta, x) = p_\theta(x)$ nazywamy funkcją wiarygodności. Estymatorem
+największej wiarygodności parametru $\theta$ nazywamy nazywamy statystykę
+$\stackrel{\wedge}{\theta}$ która maksymalizuje funkcję wiarygodności.
+$$
+\forall_{x \in X} L(\stackrel{\wedge}{\theta}, x) = \sup_{\theta \in
+\Theta} L(\theta, x)
+$$
+
+\subsection{Przykład}
+
+Estymatorem największej wiarygodności oraz metody momentów dla rozkładu
+wykładniczego z parametrem $\lambda$ jest:
+$$
+\stackrel{\wedge}{\lambda} = \frac{1}{\overline{X}}
+$$
+
+\subsection{Estymatory nieobciążone}
+
+Estymator $\stackrel{\wedge}{\theta}$ nazywamy nieobciążonym, jeżeli
+$E(\stackrel{\wedge}{\theta}) = \theta$
+
+\subsection{Estymator modelu wykładniczego}
+
+Dla modelu wykładniczego, parametryzowanego przez $\lambda$, estymatorem
+nieobciążonym jest:
+$$
+\stackrel{\wedge}{\lambda} = \frac{n - 1}{n} \frac{1}{\overline{X}}
+$$
+
+\subsection{Estymator modelu normalnego}
+
+Dla modelu normalnego, parametryzowanego przez $\mu$ i $\sigma^2$, estymatorem
+nieobciążonym jest:
+$$
+\stackrel{\wedge}{\mu} = \overline{X}
+$$
+$$
+\stackrel{\wedge}{\sigma^2} = S^2
+$$
+
+\section{Metoda monte carlo}
+
+Niech $X'$ będzie próbą populacji o rozkładzie $P_\theta$, oraz niech
+$\stackrel{\wedge}{\theta}$ będzie estymatorem parametru $\theta$. Załóżmy też,
+że mamy $k$ niezależnych realizacji próby $x_1, \dots x_k$. Wtedy histogram
+wartości $\stackrel{\wedge}{x_n}: n \in [1, k]$ jest przybliżeniem rozkładu
+$\stackrel{\wedge}{\theta}$.
+
+\section{Metoda bootstrap}
+
+Dystrybuanta empiryczna to statystyka o następującej postaci:
+$$
+\stackrel{\wedge}{F}(x) = \frac{\#\{k: X_k \le x\}}{n}
+$$
+Dla takiej dystrybuanty i próby $X'$ zachodzi:
+$$
+\sup_{x \in \mathbb{R}} |\stackrel{\wedge}{F}(x) - F(x)| \xrightarrow{1} 0
+$$
+Próba bootstrapową $X^*$ to próba losowa z rozkładu empirycznego. Ta próba musi
+powstać w wyniku $n$-krotnego losowania z zwracaniem. Rozkład statystyki
+$T(X^*) - \stackrel{\wedge}{\theta}$ jest bliski rozkładowi statystyki
+$T(X) - \theta$.
+
+Mając $k$ realizacji prób bootstrapowych $X_1^*, \dots, X_k^*$, możemy
+przybliżyć rozkład statystyki $\stackrel{\wedge}{\theta} - \theta$, poprzez
+stworzenie histogramu $\stackrel{\wedge}{\theta}*_n: n\in [0,k]$
+
+\section{Przedziały ufności}
+
+\end{document}
