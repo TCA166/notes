@@ -429,12 +429,12 @@ $34$ znaczy "cbcb", ponieważ $s(4)=cb$ po pierwszym kroku.
 
 \subsection{bzip2}
 
+\subsubsection{Kodowanie tabelą}
+
 Mając blok danych o długości $n$, tworzymy wszystkie $n$ rotacji tego bloku.
 Następnie sortujemy je leksykograficznie. W ten sposób otrzymujemy blok
 transformowany.
-
 \newcolumntype{g}{>{\columncolor{gray!50}}c}
-
 \begin{table*}[h]
   \centering
   \begin{tabular}{|g|c|c|c|c|c|}
@@ -453,9 +453,38 @@ transformowany.
   \caption{Przykład bloku transformowanego dla słowa "hello"}
 \end{table*}
 
+\subsubsection{Kodowanie szybkie}
+
+Alternatywnie zamiast tworzenia ogromnej tabeli, wystarczy stworzyć pierwszą
+i ostatnią kolumnę. Pierwszą kolumnę tworzy się przez posortowanie słowa
+leksykograficznie (w przypadku konfliktu patrzymy na kolejne litery). Ostatnią
+kolumnę tworzymy poprzez zapisanie litery poprzedzającej daną literę w
+oryginalnym słowie.
+\begin{table*}[h]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    e & h \\
+    \hline
+    \rowcolor{gray!50}
+    h & o \\
+    \hline
+    ll & e \\
+    \hline
+    lo & l \\
+    \hline
+    o & l \\
+    \hline
+  \end{tabular}
+  \caption{Wygenerowana pierwsza i ostatnia kolumna dla słowa "hello"}
+\end{table*}
 Na podstawie tej tabeli zapisujemy numer wiersza, w którym znajduje się
 oryginalne słowo, oraz ostatnią kolumnę. W ten sposób uzyskujemy kod
-$1$, "hoell". Mając tylko te dane, jesteśmy bardzo łatwo w stanie odtworzyć
+$1$, "hoell".
+
+\subsubsection{Dekodowanie}
+
+Mając tylko te dane, jesteśmy bardzo łatwo w stanie odtworzyć
 oryginalne słowo. Najpierw sortujemy nasz kod leksykograficznie, zapamiętując
 indeksy.
 \begin{table*}[h]
@@ -472,11 +501,18 @@ indeksy.
   \end{tabular}
   \caption{Tabela dekodowania dla kodu $1$, "hoell"}
 \end{table*}
-
 Mając taką tabelę, następnie konstruujemy ciąg, traktując tabelę jak
 permutację, zaczynając od indeksu zawartego w kodzie.
 W naszym przypadku powstaje permutacja cykliczna $(1, 0, 2, 3, 4)$.
 Wykorzystując tę permutację, odtwarzamy oryginalne słowo.
+
+\subsubsection{Move to Front}
+
+Zaczynamy od tabeli liter posortowanych z słowa wejściowego. Następnie
+dla każdej litery w słowie, kodujemy ją jako jej indeks w tabeli, a
+następnie literę w tabeli przesuwamy na początek. W ten sposób
+kodujemy słowo "hello" jako "11203". Taki kod ma mniejszą entropię i
+jest łatwiej kompresowalny.
 
 \subsection{V.42bis}
 
