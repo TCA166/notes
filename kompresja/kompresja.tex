@@ -633,4 +633,72 @@ a następnie różnice między tą średnią a średnią kwadratow $2^{k-1}
 \times 2^{k-1}$. Kończymy na pojedynczych pikselach. Różnice między tymi
 kwadratami łatwo się kompresuje bo są małe.
 
+\section{Macierzowa notacja kodów}
+
+Macierz generująca, to macierz przez którą mnożymy wektor danych, aby uzyskać
+kod. Macierz parzystości to macierz, przez którą mnożymy kod, aby uzyskać
+wektor zer. Macierz generująca i parzystości są ze sobą powiązane.
+Syndrom to niezerowy wynik mnożenia wektora kodu przez macierz parzystości.
+
+\section{Korekcja błędów}
+
+\subsection{Kody parzystości}
+
+Do każdego bloku danych dodawany jest bit parzystości, który przyjmuje wartość
+1, gdy liczba jedynek w bloku jest nieparzysta. W przeciwnym razie
+przyjmuje wartość 0. W ten sposób jesteśmy w stanie wykryć jeden błąd w bloku
+danych.
+
+\subsection{Algorytm Luhna}
+
+Jest to algorytm wykorzystywany do weryfikacji poprawności numerów z cyfrą
+kontrolną. Polega on na pomnożeniu co drugiej cyfry przez 2, wyeliminowaniu
+wszystkich liczb dwucyfrowych przez dodanie ich cyfr, a następnie
+dodaniu wszystkich cyfr. Na koniec dobierana jest cyfra kontrolna, tak aby
+suma wszystkich cyfr była podzielna przez 10.
+
+\subsection{Kod powtórzeniowy}
+
+Kod powtórzeniowy polega na powtórzeniu bloku danych $k$ razy. W ten sposób
+jesteśmy w stanie wykryć $k-1$ błędów. Kod powtórzeniowy jest bardzo
+nieskuteczny, ponieważ wymaga $k$ razy więcej miejsca na przechowywanie
+danych.
+
+\subsection{Współczynnik informacji}
+
+Dla kodu $K$ długości $n$ współczynnikiem informacji nazywamy:
+$$
+\frac{1}{n}\log|K|
+$$
+Dla kodu powtórzeniowego $k$ współczynnik informacji wynosi: $\frac{1}{n}$.
+Dla kodów parzystości współczynnik informacji wynosi $\frac{n}{n+1}$.
+
+\subsection{Odległość Hamminga}
+
+$$
+d(a, b) = \sum_{i = 1}^{n} a_i\ XOR\ b_i
+$$
+
+Dla kodu $K$ minimalną odległością tego kodu nazywamy minimalną odległość
+Hamminga tego kodu. Kod $K$ wykrywa $t$ błędów jeśli jego minimalna odległość
+jest mniejsza niż $t$. Z kolei ten sam kod koryguje te błedy jeśli jego
+minimalna odległość jest większa niż $2t$.
+
+\subsection{Kody Hamminga}
+
+Kody doskonałe dla korekcji jednego błędu.
+Dla długości kodu $2^m - 1$, zapisującego liczby od $1$ do $2^m-1$ dla $m=3$:
+$$
+G(K) =
+\begin{bmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1 \\
+  0 & 1 & 1 & 1 \\
+  1 & 0 & 1 & 1 \\
+  1 & 1 & 0 & 1 \\
+\end{bmatrix}
+$$
+
 \end{document}
