@@ -676,7 +676,7 @@ Dla kodów parzystości współczynnik informacji wynosi $\frac{n}{n+1}$.
 \subsection{Odległość Hamminga}
 
 $$
-d(a, b) = \sum_{i = 1}^{n} a_i\ XOR\ b_i
+d(a, b) = \sum_{i = 1}^{n} a_i \ne b_i
 $$
 
 Dla kodu $K$ minimalną odległością tego kodu nazywamy minimalną odległość
@@ -700,5 +700,50 @@ G(K) =
   1 & 1 & 0 & 1 \\
 \end{bmatrix}
 $$
+Dla wektora informacji $x$, kod liczymy jako: $k(x) = G(K)x$
+
+\subsection{Kody cykliczne}
+
+Kod liniowy nazywamy cyklicznym wtedy i tylko wtedy, jeśli dla każdego słowa
+kodowego $v_0v_1 \dots v_n$ cykliczne przesunięcie $v_{n}v_0v_1\dots v_{n + 1}$.
+Kod parzystości i powtórzeniowy są kodami cyklicznymi.
+
+Kody cykliczne można reprezentować przy pomocy wielomianów. W takiej
+reprezentacji, dodawanie słów kodowych jest równoważne dodawaniu
+reprezentujących wielomianów.
+$$
+a_0a_1\dots a_n \Rightarrow a(x) = a_0 + a_1x + \dots + a_nx^n \in \mathbb{Z}_2
+$$
+
+Każdy nietrywialny $(n, k)$-kod cykliczny (kod długości $n$ z $k$ bitami)
+zawiera słowo kodowe $g(x)$ stopnia $n - k$. Dla takiego kodu:
+$$
+G(k) =
+\begin{bmatrix}
+  g(x) \\
+  xg(x) \\
+  \vdots \\
+  x^{k - 1}g(x) \\
+\end{bmatrix}
+$$
+
+\subsection{Kody doskonałe}
+
+Binarny $(n, k)$-kod jest doskonały dla $t$ błędów, jeśli ma minimalną odległość
+równą $2t + 1$ oraz spełniona jest:
+$$
+2^{n - k} = \sum_{i = 0}^{t} \binom{n}{i}
+$$
+
+Przykładem kodu doskonałego jest kod Golay. Jest to $(23, 12)$-kod.
+$$
+g(x) = 1 + x^2 + x^4 + x^5 + x^6 + x^10 + x^11
+$$
+Odległość minimalna tego kodu to $7$ i koryguje $3$ błędy.
+
+\subsection{Burst Error}
+
+Burst error to ciąg błędów, długości $t$. Kod dualny do kodu Hamminga z
+$g(x)=1 + x^2 + x^3 + x^4$ jest $(7,3)$-kodem korygującym 2 burst errors.
 
 \end{document}
