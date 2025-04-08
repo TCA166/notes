@@ -214,13 +214,30 @@ Dla dipola mamy moment dipolowy $p = qd$. Gdy dipol o moment dipolowym $p$ jest
 umieszczony w jednorodnym polu elektrycznym $\vec{E}$, to na dipol działa moment
 siły $\vec{\tau} = \vec{p} \times \vec{E}$.
 
-\section{Ciągłe rozkłady ładunków}
+\section{Prawo Gaussa}
+
+$$
+\Phi_E = \oint \vec{E} \cdot d\vec{s} = \frac{q}{\epsilon_0}
+$$
+gdzie $\vec{s}$ to wektor powierzchni, a $\vec{E}$ to pole elektryczne, które
+przechodzi przez tę powierzchnię. Przy pomocy prawa Gaussa możemy
+obliczyć pole elektryczne w przypadku symetrycznych rozkładów ładunków.
+
+Kluczowym konceptem w takich obliczeniach, jest tak zwana powierzchnia
+Gaussa. Powierzchnia Gaussa to zamknięta powierzchnia, która otacza
+ładunek. Dla naładowanej kuli, powierzchnia Gaussa jest większą kulą, która
+otacza naładowaną kulę. Dla nieskończonej linii ładunkowej, powierzchnia Gaussa
+jest walcem, który otacza linię ładunkową. Dla nieskończonej płaszczyzny
+ładunkowej, powierzchnia Gaussa jest prostopadłościanem, który otacza
+płaszczyznę ładunkową.
+
+\subsection{Ciągłe rozkłady ładunków}
 
 Nie zawsze ciała mają dyskretne ładunki. W takich przypadkach rozważamy rozkłady
 powierzchniowe, liniowe i objętościowe ładunków, w zależności co dzielimy
 na infinitesimalne elementy.
 
-\subsection{Gęstość liniowa ładunku}
+\subsubsection{Gęstość liniowa ładunku}
 
 $$
 \lambda = \lim_{\Delta s \rightarrow 0} \frac{\Delta q}{\Delta s} =
@@ -230,7 +247,7 @@ $$
 q = \int \lambda ds
 $$
 
-\subsection{Gęstość powierzchniowa ładunku}
+\subsubsection{Gęstość powierzchniowa ładunku}
 
 $$
 \sigma = \lim_{\Delta A \rightarrow 0} \frac{\Delta q}{\Delta A} =
@@ -240,7 +257,7 @@ $$
 q = \int \sigma dA
 $$
 
-\subsection{Gęstość objętościowa ładunku}
+\subsubsection{Gęstość objętościowa ładunku}
 
 $$
 \rho = \lim_{\Delta V \rightarrow 0} \frac{\Delta q}{\Delta V} =
@@ -250,7 +267,7 @@ $$
 q = \int \rho dV
 $$
 
-\subsection{Natężenie pola elektrycznego}
+\subsubsection{Natężenie pola elektrycznego}
 
 $$
 \vec{E} = k \cdot \int \frac{dq}{r^2} \cdot \vec{r}
@@ -264,13 +281,7 @@ dq =
 \end{cases}
 $$
 
-\section{Prawo Gaussa}
-
-$$
-\Phi_E = \oint \vec{E} \cdot d\vec{s} = \frac{q}{\epsilon_0}
-$$
-gdzie $\vec{s}$ to wektor powierzchni, a $\vec{E}$ to pole elektryczne, które
-przechodzi przez tę powierzchnię.
+\subsection{Pole elektryczne dla nieskończonej linii ładunkowej}
 
 \begin{figure*}[h]
   \centering
@@ -296,12 +307,18 @@ przechodzi przez tę powierzchnię.
       \frac{q}{\epsilon_0} = E \cdot 2 \pi rl
       $$
       $$
-      E = \frac{\lambda}{2\pi\epsilon_0 r}
+      E(r) = \frac{\lambda}{2\pi\epsilon_0 r}
       $$
     \end{minipage}
   }
   \caption{Prawo Gaussa dla ładunku liniowego w nieskończonej linii}
 \end{figure*}
+
+\subsection{Pole elektryczne dla nieskończonej płaszczyzny ładunkowej}
+
+$$
+E = \frac{\sigma}{2\epsilon_0}
+$$
 
 \section{Potencjał elektryczny}
 
@@ -370,5 +387,55 @@ to napięcie między przewodnikami.
 Kondensatory połączone równolegle mają sumaryczną pojemność $C_{tot}
 = C_1 + C_2$. Z kolei kondensatory połączone szeregowo mają sumaryczną pojemność
 $C_{tot} = \frac{1}{\frac{1}{C_1} + \frac{1}{C_2}}$.
+
+\subsection{Energia kondensatora}
+
+Energia kondensatora to energia zgromadzona w kondensatorze. Można ją
+obliczyć jako pracę wykonaną nad ładunkiem, aby go przesunąć od jednej płytki
+kondensatora do drugiej.
+$$
+W = \int_{0}^{Q} \frac{Q}{C} dQ = \frac{Q^2}{2C} = \frac{1}{2} C V^2
+$$
+
+\section{Opór elektryczny}
+
+Dla danego materiału, mamy określoną przewodność elektryczną $\sigma$.
+Zakładając prosty kabel długości $L$ i polem przekroju $A$ z przewodnością
+$\sigma$ z znaną różnicą potencjałów $V$, wtedy wiemy, że: $V = EL$. Również
+wiemy, że $I = jA$, gdzie $j$ to gęstość prądu. Przewodnictwo prądu określamy
+jako $G = \frac{\sigma A}{L}$, oraz $I = GV$. Na podstawie tego wszystkiego
+możemy okreslić, że:
+$$
+R = \frac{V}{I}
+$$
+gdzie $R$ to opór elektryczny. Opór
+elektryczny jest wielkością skalarna, która określa opór elektryczny danego
+materiału. Widać na podstawie powyższego, jak opór elektryczny zależy od:
+materiału, długości i pola przekroju.
+
+\begin{figure*}[h]
+  \centering
+  \resizebox{0.8\textwidth}{!}{
+    \begin{minipage}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \draw (0,0) to[battery] (0,4);
+        \draw (0,4) -- (2,4) to[R, l=$R_1$] (2,0) -- (0,0);
+        \draw (2,4) -- (4,4) to[R, l=$R_2$] (4,0) -- (2,0);
+      \end{tikzpicture}
+      \caption{Oporniki połączone równolegle.}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \draw (0,0) to[battery] (0,4);
+        \draw (0,4) -- (2,4) to[R, l=$R_1$] (2,2) to[R, l=$R_2$] (2,0) -- (0,0);
+      \end{tikzpicture}
+      \caption{Oporniki połączone szeregowo.}
+    \end{minipage}
+  }
+\end{figure*}
+Dla połączenia równoległego mamy $I_{1+2} = I_1 + I_2$. Z kolei dla
+połączenia szeregowego mamy $I_1 = I_2$.
 
 \end{document}
