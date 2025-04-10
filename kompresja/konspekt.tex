@@ -1,6 +1,6 @@
 \documentclass{../notatki}
 \geometry{margin=1.5cm}
-\usepackage[fontsize=5pt]{scrextend}
+\usepackage[fontsize=7pt]{scrextend}
 \usepackage{multicol}
 
 \title{Konspekt kompresja}
@@ -15,7 +15,7 @@
   $$
   I(A) = -\log_xP(A)
   $$
-  Entropia zdarzenia $A$:
+  Entropia źródła $X$ ze zdarzeniami $A_1, \dots, A_n$:
   $$
   H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
   $$
@@ -27,6 +27,10 @@
   $$
   K(\mathcal{C}) = \sum_{i=1}^{n}2^{-l_i} \leq 1
   $$
+  Współczynnik informacji kodu $\mathcal{C}$:
+  $$
+  \frac{1}{n}\log|\mathcal{C}|
+  $$
 
   \section{Kod Huffmana}
 
@@ -37,6 +41,27 @@
   Jeśli nie znamy prawdopodobieństw, to możemy drzewo tworzyć
   dynamicznie, traktując
   ilość wystąpień jako wagę, które łączymy tworząc poddrzewa.
+
+  \section{Kod Shannon-Fano}
+
+  Dla symboli $a_1, \dots, a_n$ o prawdopodobieństwach $p_1, \dots, p_n$,
+  ustalmy kody długości $l_n = \lceil - \log p_i \rceil$. Następnie
+  zdefiniujmy zmienne pomocnicze $w_1, \dots w_n$ jako:
+  $$
+  w_1 = 0, w_j = \sum_{i=1}^{j-1}2^{l_j - l_i}
+  $$
+  Jeżeli $\lceil \log w_j \rceil = l_j$ to j-te słowo kodowe jest binarną
+  reprezentacją $w_j$. Jeżeli $\lceil \log w_j \rceil < l_j$ to reprezentację
+  uzupełniamy zerami z lewej strony.
+
+  \section{Kod Tunstalla}
+
+  Chcemy stworzyć kod na $n$ bitach dla $a_1, \dots, a_m$ symboli o
+  prawdopodobieństwach $p_1, \dots, p_m$. Tworzenie kodu Tunstalla polega na
+  iteracyjnym wyborze ze zbioru symbolu o największym prawdopodobieństwie $S$
+  i łączenie go z wszystkimi innymi symbolami tworząc symbole $Sa_m$, nadając im
+  prawdopodobieństwa $P \cdot p_m$. Proces ten powtarzamy aż do uzyskania
+  kodu o długości $n$.
 
   \section{Kodowanie Eliasa}
 
@@ -100,6 +125,8 @@
     \item Szukaj w słowniku najdłuższy prefiks aktualnego okna, jeśli
       nie znajdziesz to użyj $\epsilon$.
     \item Dodaj prefiks $+$ znak do słownika.
+    \item Zakoduj symbol jako $(i, k)$, gdzie $i$ to numer
+      prefiksu w słowniku, a $k$ to symbol.
   \end{enumerate}
 
   $$
@@ -154,6 +181,56 @@
   ze słowa posortowanych alfabetycznie. Następnie dla każdej litery ze słowa
   kodujemy jej pozycję w tabeli, a następnie przesuwamy ją na początek
   tabeli. W ten sposób hello to 11203.
+
+  \section{PPM}
+
+  Poprzez zbudowanie drzewa kontekstowego, które wyraża prawdopodobieństwo
+  wystąpienia symbolu w danym kontekście, można potem zbudować bardzo dobry
+  kod. W tym przypadku mamy kontekst o długości $2$.
+
+  \begin{center}
+    \begin{tabular}{c|c|c}
+      Kontekst & Symbol & Licznik \\
+      \hline
+      th & \texttt{ESC} & 1 \\
+      & i & 1 \\
+      \hline
+      hi & \texttt{ESC} & 1 \\
+      & s & 1 \\
+      \hline
+      is & \texttt{ESC} & 1 \\
+      & - & 1 \\
+      \hline
+      s- & \texttt{ESC} & 1 \\
+      & i & 1 \\
+      \hline
+      -i & \texttt{ESC} & 1 \\
+      & s & 1 \\
+    \end{tabular}
+  \end{center}
+
+  \section{Kody Hamminga}
+
+  $$
+  G_H(3) =
+  \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1 \\
+    0 & 1 & 1 & 1 \\
+    1 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 1 \\
+  \end{bmatrix}
+  $$
+  $$
+  H_H(3) =
+  \begin{bmatrix}
+    0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+    0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+    1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+  \end{bmatrix}
+  $$
 
 \end{multicols}
 

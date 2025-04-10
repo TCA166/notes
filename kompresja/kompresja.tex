@@ -654,6 +654,26 @@ Do każdego bloku danych dodawany jest bit parzystości, który przyjmuje warto�
 przyjmuje wartość 0. W ten sposób jesteśmy w stanie wykryć jeden błąd w bloku
 danych.
 
+$$
+G(n) =
+\underbrace{
+  \begin{bmatrix}
+    1 & 0 & 0 & \dots & 0 \\
+    0 & 1 & 0 & \dots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & 1 & 1 & \dots & 1 \\
+  \end{bmatrix}
+}_{\times n}
+\Bigg \} \times n + 1
+$$
+$$
+H(n) = \underbrace{
+\begin{bmatrix}
+  1 & \dots & 1 \\
+\end{bmatrix}
+}_{\times n + 1}
+$$
+
 \subsection{Algorytm Luhna}
 
 Jest to algorytm wykorzystywany do weryfikacji poprawności numerów z cyfrą
@@ -669,11 +689,34 @@ jesteśmy w stanie wykryć $k-1$ błędów. Kod powtórzeniowy jest bardzo
 nieskuteczny, ponieważ wymaga $k$ razy więcej miejsca na przechowywanie
 danych.
 
+$$
+G(n) =
+\begin{bmatrix}
+1 \\
+\vdots \\
+1 \\
+\end{bmatrix}
+\Bigg \} \times n
+$$
+
+$$
+H(n) =
+\underbrace{
+\begin{bmatrix}
+1 & 1 & 0 & \dots & 0 \\
+1 & 0 & 1 & \dots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & 0 & 0 & \dots & 1 \\
+\end{bmatrix}
+}_{\times n}
+\Bigg \} \times n - 1
+$$
+
 \subsection{Współczynnik informacji}
 
-Dla kodu $K$ długości $n$ współczynnikiem informacji nazywamy:
+Dla kodu $\mathcal{C}$ długości $n$ współczynnikiem informacji nazywamy:
 $$
-\frac{1}{n}\log|K|
+\frac{1}{n}\log|\mathcal{C}|
 $$
 Dla kodu powtórzeniowego $k$ współczynnik informacji wynosi: $\frac{1}{n}$.
 Dla kodów parzystości współczynnik informacji wynosi $\frac{n}{n+1}$.
@@ -692,17 +735,43 @@ minimalna odległość jest większa niż $2t$.
 \subsection{Kody Hamminga}
 
 Kody doskonałe dla korekcji jednego błędu.
-Dla długości kodu $2^m - 1$, zapisującego liczby od $1$ do $2^m-1$ dla $m=3$:
+Dla długości kodu $n = 2^m - 1$, mają liczbę bitów informacji $k = n - m$.
+Najprostszą macierzą Hamminga dla $n$ powyższego, jest taka kodująca kolejne
+liczby binarne od $1$ do $n$. Dla $m = 3$:
 $$
-G(K) =
+H_H(3) =
 \begin{bmatrix}
-  1 & 0 & 0 & 0 \\
-  0 & 1 & 0 & 0 \\
-  0 & 0 & 1 & 0 \\
-  0 & 0 & 0 & 1 \\
-  0 & 1 & 1 & 1 \\
-  1 & 0 & 1 & 1 \\
-  1 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+\end{bmatrix}
+$$
+To jest macierz parzystości dla kodu Hamminga dla $m = 3$.
+Taką macierz można następnie zamienić na macierz generującą, poprzez
+potraktowanie jej jako macierzy z metody Gaussowskiej, w tym wypadku równoważnej
+z:
+$$
+x_5 = x_2 + x_3 + x_4
+$$
+$$
+x_6 = x_1 + x_3 + x_4
+$$
+$$
+x_7 = x_1 + x_2 + x_4
+$$
+Następnie wystarczy potraktować ten układ równań jako macierz, z $7$ wierszami,
+z czego pierwsze $4$ (ilość kolumn) są jednostkowe, a ostatnie $3$ odpowiadają
+układowi równań.
+$$
+G_H(3) =
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 1 & 1 & 1 \\
+1 & 0 & 1 & 1 \\
+1 & 1 & 0 & 1 \\
 \end{bmatrix}
 $$
 Dla wektora informacji $x$, kod liczymy jako: $k(x) = G(K)x$
@@ -725,10 +794,10 @@ zawiera słowo kodowe $g(x)$ stopnia $n - k$. Dla takiego kodu:
 $$
 G(k) =
 \begin{bmatrix}
-  g(x) \\
-  xg(x) \\
-  \vdots \\
-  x^{k - 1}g(x) \\
+g(x) \\
+xg(x) \\
+\vdots \\
+x^{k - 1}g(x) \\
 \end{bmatrix}
 $$
 
