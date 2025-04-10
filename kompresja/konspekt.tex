@@ -113,6 +113,48 @@
   (i) = s(i)
   $$
 
+  \section{bzip2/BWT}
+
+  Układamy tabelę z dwoma kolumnami. Pierwsza kolumna to słowo posortowane
+  leksykograficznie. Druga kolumna to poprzedni znak. Na podstawie tej tabeli
+  zapisujemy ostatnią kolumnę, i numer wiersza w którym w pierwszej kolumnie
+  znajduje się początek słowa, a w drugiej kolumnie jego koniec.
+
+  \begin{center}
+
+    \begin{tabular}{|c|c|}
+      \hline
+      e & h \\
+      \hline
+      \rowcolor{gray!50}
+      h & o \\
+      \hline
+      ll & e \\
+      \hline
+      lo & l \\
+      \hline
+      o & l \\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \rowcolor{gray!50}
+      0 & 1 & 2 & 3 & 4 \\
+      \hline
+      e & h & l & l & o \\
+      \hline
+      2 & 0 & 3 & 4 & 1 \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  \section{Move To Front}
+
+  Jest to transformacja zmniejszająca entropię. Zaczynamy od tabeli liter
+  ze słowa posortowanych alfabetycznie. Następnie dla każdej litery ze słowa
+  kodujemy jej pozycję w tabeli, a następnie przesuwamy ją na początek
+  tabeli. W ten sposób hello to 11203.
+
 \end{multicols}
 
 \end{document}
