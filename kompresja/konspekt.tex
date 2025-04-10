@@ -1,0 +1,118 @@
+\documentclass{../notatki}
+\geometry{margin=1.5cm}
+\usepackage[fontsize=5pt]{scrextend}
+\usepackage{multicol}
+
+\title{Konspekt kompresja}
+
+\begin{document}
+
+\begin{multicols}{2}
+
+  \section{Wzory}
+
+  Informacja zdarzenia $A$:
+  $$
+  I(A) = -\log_xP(A)
+  $$
+  Entropia zdarzenia $A$:
+  $$
+  H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
+  $$
+  Średnia długość kodu $\mathcal{C}$:
+  $$
+  I(\mathcal{C}) = \sum_{i=1}^{n}P(\mathcal{C}_i) \cdot l_i
+  $$
+  Nierówność Krafta (warunek konieczny jednoznacznej dekodowalności):
+  $$
+  K(\mathcal{C}) = \sum_{i=1}^{n}2^{-l_i} \leq 1
+  $$
+
+  \section{Kod Huffmana}
+
+  Znajdź dwa najrzadziej występujące elementy i połącz je w jeden element
+  o prawdopodobieństwie $p_1 + p_2$. Rozróżnij je $0$ lub $1$. Powtórz
+  ten krok na liście $n-1$ długiej aż zostanie jeden element.
+
+  Jeśli nie znamy prawdopodobieństw, to możemy drzewo tworzyć
+  dynamicznie, traktując
+  ilość wystąpień jako wagę, które łączymy tworząc poddrzewa.
+
+  \section{Kodowanie Eliasa}
+
+  $$
+  n = \lfloor \log_2(x) \rfloor + 1
+  $$
+
+  \subsection{\texorpdfstring{$\gamma$}{Gamma}}
+
+  $$
+  \gamma(x) = 0^{n-1}(x)_2
+  $$
+
+  \subsection{\texorpdfstring{$\delta$}{Delta}}
+
+  $$
+  \delta(x) = \gamma(n) + (x)_2
+  $$
+
+  \subsection{\texorpdfstring{$\omega$}{Omega}}
+
+  Na koniec umieszczane jest $0$, potem kodowana jest liczba $k=x$. Potem ten
+  krok jest powtarzany dla $k=n - 1$ gdzie n to liczba bitów z
+  poprzedniego kroku.
+  $$
+  \omega(x) = \omega(n - 1) + (x)_2 + 0
+  $$
+
+  \section{Kodowanie Fibonacciego}
+
+  $$
+  f_0=f_1=1
+  $$
+  $$
+  f_n = f_{n-1} + f_{n-2}: n \geq 2
+  $$
+  $$
+  x = \sum_{i=0} a_i \cdot f_i, a_i \in \{0,1\}
+  $$
+
+  \section{Kodowanie arytmetyczne}
+
+  \begin{itemize}
+    \item $[l, p)=[0, 1)$
+    \item $d = p - l$
+    \item $p = l + d \cdot F(j + 1)$
+    \item $l = l + F(j)d$
+  \end{itemize}
+
+  \section{Kodowanie słownikowe}
+
+  \subsection{LZ77}
+
+  $$
+  (o, l, k) = \mathcal{C}_{i - o} \cdots \mathcal{C}_{i - o + l} k
+  $$
+
+  \subsection{LZ78}
+
+  \begin{enumerate}
+    \item Szukaj w słowniku najdłuższy prefiks aktualnego okna, jeśli
+      nie znajdziesz to użyj $\epsilon$.
+    \item Dodaj prefiks $+$ znak do słownika.
+  \end{enumerate}
+
+  $$
+  (i, k) = s(i) + k
+  $$
+
+  \subsection{LZW}
+
+  Podobne do LZ78, tylko że zaczynamy ze słownikiem.
+  $$
+  (i) = s(i)
+  $$
+
+\end{multicols}
+
+\end{document}

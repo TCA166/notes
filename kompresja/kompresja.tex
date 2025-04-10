@@ -408,7 +408,12 @@ elastyczni w zakresie zmiany danych wejściowych, oraz nie musimy przesyłać
 słownika. Kodem jest trójka $(o, l, k)$ gdzie $o$ to przesunięcie, $l$ to
 długość, a $k$ to kolejny znak. W ten sposób $(0, 0, n),(1, 1, k)$ dekoduje się
 jako "nnk". Proces kodowania jest parametryzowany $n$ i $m$, gdzie $o < n$ i
-$l < m$.
+$l < m$. W oknie długości $n$ szukamy najdłuższego prefiksu, który jest
+w części zakodowanej długości $m$.
+
+Na przykład, w stanie w którym mamy zakodowane "abcdefgh", trójka $(4, 3, i)$
+oznacza "efgi", ponieważ cofamy się o $4$ litery do tyłu, bierzemy $3$ kolejne
+litery i dodajemy na koniec kolejną literę $i$.
 
 \subsubsection{LZ78}
 
@@ -425,7 +430,7 @@ Ta wersja algorytmu pozbywa się drugiego elementu pary z kodowania LZ78.
 Z kolei potrzebny jest słownik początkowy zawierający wszystkie możliwe
 symbole. Poza tą mała różnicą, algorytm jest identyczny z LZ78.
 Zatem ze słownikiem $s$ gdzie $s(1)=a,s(2)=b,s(3)=c$, kod:
-$34$ znaczy "cbcb", ponieważ $s(4)=cb$ po pierwszym kroku.
+$3245$ znaczy "cbcbbc", ponieważ $s(4)=cb$ po pierwszym kroku.
 
 \subsection{bzip2}
 
