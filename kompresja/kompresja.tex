@@ -352,7 +352,7 @@ dystrybuanty $F(j)$ i prawdopodobieństw $p_j$ algorytm wygląda następująco:
 \begin{itemize}
   \item $d = p - l$
   \item $p = l + d \cdot F(j + 1)$
-  \item $l = l + F(j)d$
+  \item $l = l + d \cdot F(j)$
 \end{itemize}
 Powyższe kroki wykonujemy dla każdego symbolu ciągu wejściowego. Na koniec
 dostajemy zakres, z którego potem możemy wybrać dowolną liczbę jako wynik
@@ -377,6 +377,16 @@ kodowania.
   \end{tikzpicture}
   \caption{Wizualizacja kodowania arytmetycznego}
 \end{figure}
+
+Takie kodowanie jest dekodowane, poprzez iteracyjne zmniejszanie zakresu.
+Podobnie jak z kodowaniem, zaczynamy od zakresu $[0, 1)$ i iteracyjnie
+zmniejszamy go.
+\begin{itemize}
+  \item $d = p - l$
+  \item Wybieramy takie $j$, że $F(j) \leq \frac{x - l}{d} < F(j + 1)$
+  \item $p = l + d \cdot F(j + 1)$
+  \item $l = l + d \cdot F(j)$
+\end{itemize}
 
 \subsubsection{Kodowanie całkowitoliczbowe}
 
@@ -424,13 +434,28 @@ lecz jeśli znajdziemy taki prefiks, to kodujemy go jako indeks w słowniku,
 wraz z kodem następnej litery. Zatem kod $(0,k),(1,a)(2,b)$ oznacza "kkakab",
 a słownik $s$ zawiera $s(1)=k,s(2)=ka,s(3)=kab$.
 
+Odkodowywanie wygląda podobnie jak kodowanie. Zaczynamy od pustego słownika,
+i wraz z kolejnymi krokami dodajemy nowe elementy do słownika. Zatem
+$(0,k)$ oznacza dodanie $k$ do słownika, $(1,a)$ oznacza dodanie $s(1)a$, czyli
+$ka$, a $(2,b)$ oznacza dodanie $s(2)b$, czyli $kab$.
+
 \subsubsection{LZW}
 
 Ta wersja algorytmu pozbywa się drugiego elementu pary z kodowania LZ78.
 Z kolei potrzebny jest słownik początkowy zawierający wszystkie możliwe
 symbole. Poza tą mała różnicą, algorytm jest identyczny z LZ78.
-Zatem ze słownikiem $s$ gdzie $s(1)=a,s(2)=b,s(3)=c$, kod:
-$3245$ znaczy "cbcbbc", ponieważ $s(4)=cb$ po pierwszym kroku.
+
+Odkodowywanie znacznie się różni od kodowania. Mając ciąg $3245$ i
+słownik $s(1)=a,s(2)=b,s(3)=c$, zaczynamy od pierwszego znaku.
+Przy drugim znaku do słownika dodajemy $s(4)=s(3)s(2)$. Ogólnie bierzemy
+poprzedni symbol bez pierwszego znaku i dodajemy do niego pierwszy znak
+z aktualnego symbolu.
+
+Może wystąpić sytuacja, kiedy nie mamy w słowniku symbolu którego potrzebujemy.
+Np.: słowo to "abababa", $s(1)=a,s(2)=b$, a kod to: $1235$. W takim
+przypadku, w momencie dekodowania $5$ mamy w słowniku:
+$s(3)=ab,s(4)=ba,s(5)=ab?$. Nie mamy $s(5)$, więc dodajemy $ab$ i pierwszą
+literę z $ab$, czyli $s(5)=aba$.
 
 \subsection{bzip2}
 
@@ -546,15 +571,58 @@ jest bardziej skuteczne, lecz wymaga większej ilości pamięci.
 
 \subsubsection{PPM}
 
-Dla kontekstu długości $n$, algorytm PPM polega na stworzeniu drzewa
-kontekstowego, które przechowuje informacje o prawdopodobieństwach wystąpienia
-poszczególnych symboli. Szczególnym symbolem w tym drzewie jest \texttt{ESC},
-który oznacza brak wystąpienia symbolu w danym kontekście. W ten sposób
-możemy zbudować drzewo, które pozwala na przewidywanie kolejnych symboli,
-które potem można wykorzystać do zbudowania dynamicznego kodowania Huffmana.
+Dla każdej litery, określamy maksymalną długość kontekstu $k$ i zapisujemy
+w tym kontekście daną literę. Kod jest parametryzowany przez maksymalną długość
+kontekstu. Jeśli symbol pojawia się po raz
+pierwszy, to zapisujemy w specjalnym kontekście o długości $-1$.
+Zatem dla przykładowego słowa dłuższego niż $3$ i
+maksymalnej długości kontekstu $2$, będziemy mieli konteksty
+długości: $\{-1, 0, 1, 2\}$.
+Szczególnym symbolem w tym drzewie jest
+\texttt{ESC}, który oznacza brak wystąpienia symbolu w danym
+kontekście. W ten sposób możemy zbudować drzewo, które pozwala na
+przewidywanie kolejnych symboli, które potem można wykorzystać do
+zbudowania dynamicznego kodowania Huffmana.
 
 \begin{table*}[h]
   \centering
+  \begin{tabular}{|c|}
+    \hline
+    Symbol \\ \hline
+    t \\ \hline
+    h \\ \hline
+    i \\ \hline
+    s \\ \hline
+    - \\ \hline
+
+  \end{tabular}
+  \begin{tabular}{c|c}
+    Symbol & Licznik \\ \hline
+    \texttt{ESC} & 1 \\ \hline
+    t & 1 \\ \hline
+    h & 1 \\ \hline
+    i & 1 \\ \hline
+    s & 2 \\ \hline
+    - & 1 \\
+  \end{tabular}
+  \begin{tabular}{c|c|c}
+    Kontekst & Symbol & Licznik \\
+    \hline
+    t & \texttt{ESC} & 1 \\
+    & h & 1 \\
+    \hline
+    h & \texttt{ESC} & 1 \\
+    & i & 1 \\
+    \hline
+    i & \texttt{ESC} & 1 \\
+    & s & 2 \\
+    \hline
+    s & \texttt{ESC} & 1 \\
+    & - & 1 \\
+    \hline
+    - & \texttt{ESC} & 1 \\
+    & i & 1 \\
+  \end{tabular}
   \begin{tabular}{c|c|c}
     Kontekst & Symbol & Licznik \\
     \hline
@@ -573,7 +641,8 @@ które potem można wykorzystać do zbudowania dynamicznego kodowania Huffmana.
     -i & \texttt{ESC} & 1 \\
     & s & 1 \\
   \end{tabular}
-  \caption{Przykład drzewa kontekstowego dla słowa "this-is"}
+  \caption{Przykład drzew kontekstowych z maksymalną długością $2$
+  dla słowa "this-is"}
 \end{table*}
 
 \subsubsection{CALIC}

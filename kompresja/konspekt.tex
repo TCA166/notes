@@ -1,6 +1,6 @@
 \documentclass{../notatki}
 \geometry{margin=1.5cm}
-\usepackage[fontsize=7pt]{scrextend}
+\usepackage[fontsize=6pt]{scrextend}
 \usepackage{multicol}
 
 \title{Konspekt kompresja}
@@ -103,13 +103,20 @@
   $$
 
   \section{Kodowanie arytmetyczne}
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $d = p - l$
+      \item $p = l + d \cdot F(j + 1)$
+      \item $l = l + d \cdot F(j)$
+    \end{itemize}
 
-  \begin{itemize}
-    \item $[l, p)=[0, 1)$
-    \item $d = p - l$
-    \item $p = l + d \cdot F(j + 1)$
-    \item $l = l + F(j)d$
-  \end{itemize}
+    \begin{itemize}
+      \item $d = p - l$
+      \item Wybieramy takie $j$, że $F(j) \leq \frac{x - l}{d} < F(j + 1)$
+      \item $p = l + d \cdot F(j + 1)$
+      \item $l = l + d \cdot F(j)$
+    \end{itemize}
+  \end{multicols}
 
   \section{Kodowanie słownikowe}
 
@@ -139,6 +146,8 @@
   $$
   (i) = s(i)
   $$
+  Jeśli napotkasz symbol, którego nie ma w słowniku, ale masz jego prefiks,
+  np.: $s(5) = ab?$, to $?$ to pierwsza litera $s(5)$.
 
   \section{bzip2/BWT}
 
@@ -184,33 +193,89 @@
 
   \section{PPM}
 
-  Poprzez zbudowanie drzewa kontekstowego, które wyraża prawdopodobieństwo
-  wystąpienia symbolu w danym kontekście, można potem zbudować bardzo dobry
-  kod. W tym przypadku mamy kontekst o długości $2$.
+  Dla każdego symbolu z tekstu, sprawdzamy jego kontekst, zakładając daną
+  maksymalną długość kontekstu. Kolejno sprawdzamy drzewa kontekstowe dla
+  długości $n$, $n-1$, $\dots$, $0$ gdzie interesuje nas tylko to ile razy
+  dany symbol występuje w tekście, aż dojdziemy do kontekstu $-1$ gdzie
+  zaznaczamy tylko czy symbol występuje czy nie. Następnie na podstawie
+  takiej serii drzew, można zbudować solidny kod, chociażby Huffmana.
 
-  \begin{center}
-    \begin{tabular}{c|c|c}
-      Kontekst & Symbol & Licznik \\
-      \hline
-      th & \texttt{ESC} & 1 \\
-      & i & 1 \\
-      \hline
-      hi & \texttt{ESC} & 1 \\
-      & s & 1 \\
-      \hline
-      is & \texttt{ESC} & 1 \\
-      & - & 1 \\
-      \hline
-      s- & \texttt{ESC} & 1 \\
-      & i & 1 \\
-      \hline
-      -i & \texttt{ESC} & 1 \\
-      & s & 1 \\
-    \end{tabular}
-  \end{center}
+  \resizebox{0.9\columnwidth}{!}{
+    \begin{minipage}{0.7\textwidth}
+      \centering
+      \begin{tabular}{|c|}
+        \hline
+        Symbol \\ \hline
+        t \\ \hline
+        h \\ \hline
+        i \\ \hline
+        s \\ \hline
+        - \\ \hline
+      \end{tabular}
+      \begin{tabular}{c|c}
+        Symbol & Licznik \\ \hline
+        \texttt{ESC} & 1 \\ \hline
+        t & 1 \\ \hline
+        h & 1 \\ \hline
+        i & 1 \\ \hline
+        s & 2 \\ \hline
+        - & 1 \\
+      \end{tabular}
+      \begin{tabular}{c|c|c}
+        Kontekst & Symbol & Licznik \\
+        \hline
+        t & \texttt{ESC} & 1 \\
+        & h & 1 \\
+        \hline
+        h & \texttt{ESC} & 1 \\
+        & i & 1 \\
+        \hline
+        i & \texttt{ESC} & 1 \\
+        & s & 2 \\
+        \hline
+        s & \texttt{ESC} & 1 \\
+        & - & 1 \\
+        \hline
+        - & \texttt{ESC} & 1 \\
+        & i & 1 \\
+      \end{tabular}
+      \begin{tabular}{c|c|c}
+        Kontekst & Symbol & Licznik \\
+        \hline
+        th & \texttt{ESC} & 1 \\
+        & i & 1 \\
+        \hline
+        hi & \texttt{ESC} & 1 \\
+        & s & 1 \\
+        \hline
+        is & \texttt{ESC} & 1 \\
+        & - & 1 \\
+        \hline
+        s- & \texttt{ESC} & 1 \\
+        & i & 1 \\
+        \hline
+        -i & \texttt{ESC} & 1 \\
+        & s & 1 \\
+      \end{tabular}
+    \end{minipage}
+  }
 
   \section{Kody Hamminga}
 
+  Dla długości kodu $n = 2^m - 1$, mają liczbę bitów informacji $k = n - m$.
+  Macierz parzystości, powstaje poprzez zapis binarnych reprezentacji liczb
+  $1, \dots, n$ w postaci kolumn.
+  $$
+  H_H(3) =
+  \begin{bmatrix}
+    0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+    0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+    1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+  \end{bmatrix}
+  $$
+  Aby stworzyć macierz generującą, musimy potraktować $H_H$ jako
+  macierz równania, gdzie pierwsze $k$ wierszy to macierz identyczności,
+  a pozostałe to przekształcone równania z macierzy parzystości.
   $$
   G_H(3) =
   \begin{bmatrix}
@@ -221,14 +286,6 @@
     0 & 1 & 1 & 1 \\
     1 & 0 & 1 & 1 \\
     1 & 1 & 0 & 1 \\
-  \end{bmatrix}
-  $$
-  $$
-  H_H(3) =
-  \begin{bmatrix}
-    0 & 0 & 0 & 1 & 1 & 1 & 1 \\
-    0 & 1 & 1 & 0 & 0 & 1 & 1 \\
-    1 & 0 & 1 & 0 & 1 & 0 & 1 \\
   \end{bmatrix}
   $$
 
