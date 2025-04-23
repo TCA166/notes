@@ -1,7 +1,15 @@
-\documentclass{../notatki}
+\documentclass{notatki}
 \geometry{margin=1.5cm}
 \usepackage[fontsize=6pt]{scrextend}
 \usepackage{multicol}
+\fancyhead[C]{\href{https://github.com/TCA166/notes}{TCA166, Jager72}}
+
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+  {-5pt plus -1pt minus -1pt}% space before
+  {2pt plus 1pt minus 1pt}% space after
+  {\normalfont\large\bfseries}} % style
+\makeatother
 
 \title{Konspekt kompresja}
 
@@ -9,286 +17,384 @@
 
 \begin{multicols}{2}
 
-  \section{Wzory}
+    \section*{Wzory}
 
-  Informacja zdarzenia $A$:
-  $$
-  I(A) = -\log_xP(A)
-  $$
-  Entropia źródła $X$ ze zdarzeniami $A_1, \dots, A_n$:
-  $$
-  H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
-  $$
-  Średnia długość kodu $\mathcal{C}$:
-  $$
-  I(\mathcal{C}) = \sum_{i=1}^{n}P(\mathcal{C}_i) \cdot l_i
-  $$
-  Nierówność Krafta (warunek konieczny jednoznacznej dekodowalności):
-  $$
-  K(\mathcal{C}) = \sum_{i=1}^{n}2^{-l_i} \leq 1
-  $$
-  Współczynnik informacji kodu $\mathcal{C}$:
-  $$
-  \frac{1}{n}\log|\mathcal{C}|
-  $$
+    \begin{multicols}{2}
+    
+    \begin{itemize}
+      \item \textbf{Informacja:} $I(x) = -\log_2 P(x)$
+      \item \textbf{Entropia:} $H(X) = \sum P(x) \cdot I(x)$
+      \item \textbf{Śr. długość kodu:} $L = \sum P_i \cdot l_i$
+      \item \textbf{Nierówność Krafta:} $\sum 2^{-l_i} \leq 1$
+      \item \textbf{Wydajność:} $r = \frac{1}{n} \log |\mathcal{C}|$
+    \end{itemize}
+    
+    \columnbreak
+    
+    \begin{itemize}
+      \item \textbf{Hamming:} $d$ = liczba różnic
+      \item \textbf{Wykrywanie:} $d - 1$, \textbf{Korekcja:} $\lfloor (d - 1)/2 \rfloor$
+      \item \textbf{Wsp. informacji:} $\eta = k/n$
+      \item \textbf{Kod doskonały:} $\sum_{i=0}^{t} \binom{n}{i} \leq 2^{n-k}$
+      \item \textbf{Cykliczność:} przesunięcie $\Rightarrow$ w kodzie
+      \item \textbf{Wielomian $g(x)$:} $g(x) \mid x^n + 1$ w $\mathbb{Z}_2[x]$
+    \end{itemize}
+    
+    \end{multicols}
+    
+    \vspace{-1em}
+    \textbf{Przykłady:}
+    {\small
+    \[
+    I(1/2)=1, \quad H(\{1/2,1/2\})=1, \quad L=0.5\cdot1+0.5\cdot2=1.5, \quad \sum 2^{-l_i} = 0.75
+    \]
+    }
+    
 
-  \section{Kod Huffmana}
+    
 
-  Znajdź dwa najrzadziej występujące elementy i połącz je w jeden element
-  o prawdopodobieństwie $p_1 + p_2$. Rozróżnij je $0$ lub $1$. Powtórz
-  ten krok na liście $n-1$ długiej aż zostanie jeden element.
+    \section*{Kod Huffmana}
 
-  Jeśli nie znamy prawdopodobieństw, to możemy drzewo tworzyć
-  dynamicznie, traktując
-  ilość wystąpień jako wagę, które łączymy tworząc poddrzewa.
+    \begin{multicols}{2}
+    
+    \textbf{Algorytm:}
+    \begin{itemize}
+      \setlength{\itemsep}{1pt}
+      \item Symbole $a_i$ z wagami ($P_i$ lub liczba wystąpień)
+      \item Połącz 2 najmniejsze wagi $\rightarrow$ nowe drzewo
+      \item Krawędzie: lewa = 0, prawa = 1
+      \item Powtarzaj aż zostanie jedno drzewo
+      \item Kody = ścieżki z korzenia
+    \end{itemize}
+    
+    
+    \columnbreak
+    
+    \textbf{Wariant dynamiczny:}
+    \begin{itemize}
+      \setlength{\itemsep}{1pt}
+      \item Drzewo budowane w trakcie odczytu
+      \item Nowe symbole $\Rightarrow$ użycie \texttt{NYT} (Not Yet Transmitted)
+      \item Nowy symbol dodany do drzewa, reszta aktualizowana
+      \item Znane symbole: kod z aktualnego drzewa
+    \end{itemize}
+    \textit{Kod prefiksowy, jednoznaczny, optymalny (min. $L$)}
+    
+    \end{multicols}
+    
 
-  \section{Kod Shannon-Fano}
+\vspace{-2em}
+  \section*{Kod Shannon-Fano}
 
-  Dla symboli $a_1, \dots, a_n$ o prawdopodobieństwach $p_1, \dots, p_n$,
-  ustalmy kody długości $l_n = \lceil - \log p_i \rceil$. Następnie
-  zdefiniujmy zmienne pomocnicze $w_1, \dots w_n$ jako:
-  $$
-  w_1 = 0, w_j = \sum_{i=1}^{j-1}2^{l_j - l_i}
-  $$
-  Jeżeli $\lceil \log w_j \rceil = l_j$ to j-te słowo kodowe jest binarną
-  reprezentacją $w_j$. Jeżeli $\lceil \log w_j \rceil < l_j$ to reprezentację
-  uzupełniamy zerami z lewej strony.
+  \begin{itemize}
+    \item Dla $a_i$ z $p_i$: oblicz $l_i = \lceil -\log_2 p_i \rceil$
+    \item Oblicz $w_j$: \quad $w_1 = 0$, \quad $w_j = \sum_{i=1}^{j-1} 2^{l_j - l_i}$
+    \item Kod $a_j$: binarna postać $w_j$ dopełniona zerami z lewej do $l_j$ bitów
+  \end{itemize}
+  
+  \textit{Kod prefiksowy, nie zawsze optymalny.}
+  
+  \textbf{Przykład:} $p = [0.5, 0.25, 0.25] \Rightarrow l = [1, 2, 2]$ \\
+  $w = [0, 2, 3] \Rightarrow$ \quad kody: 0, 10, 11
 
-  \section{Kod Tunstalla}
+  \section*{Kod Golomba/Rice}
+    Dla liczby $n$ i parametru $M$:
 
-  Chcemy stworzyć kod na $n$ bitach dla $a_1, \dots, a_m$ symboli o
-  prawdopodobieństwach $p_1, \dots, p_m$. Tworzenie kodu Tunstalla polega na
-  iteracyjnym wyborze ze zbioru symbolu o największym prawdopodobieństwie $S$
-  i łączenie go z wszystkimi innymi symbolami tworząc symbole $Sa_m$, nadając im
-  prawdopodobieństwa $P \cdot p_m$. Proces ten powtarzamy aż do uzyskania
-  kodu o długości $n$.
+    $q = \lfloor \frac{n}{M} \rfloor$, $r = n \bmod M$
 
-  \section{Kodowanie Eliasa}
+    \textbf{Golomb:} kod = $q$ w unarnym + $r$ w binarnym (długość zależna od $M$)  
+    \textbf{Rice:} Golomb z $M = 2^k$ $\Rightarrow$ $r$ = $k$-bitowy binarny
 
-  $$
-  n = \lfloor \log_2(x) \rfloor + 1
-  $$
+  \section*{Kod Tunstalla}
 
-  \subsection{\texorpdfstring{$\gamma$}{Gamma}}
+  Kompresja bezstratna o stałej długości wyjściowej (kod: $n$ bitów):
+  
+  \begin{itemize}
+    \item Dla alfabetu $a_i$ z $p_i$ budujemy drzewo od najczęstszych symboli.
+    \item Rozwijaj liść $S$: twórz ciągi $Sa_1, \dots, Sa_m$ z wagą $P \cdot p_i$.
+    \item Powtarzaj aż liczba liści (kodów) $= 2^n$.
+    \item Kody to indeksy liści (słowa) $\Rightarrow$ długość kodu = $n$.
+  \end{itemize}
+  
+  \textit{Kod nieprefiksowy, ale jednoznaczny przy stałej długości.}
+  
+  \vspace{0.5em}
+  \textbf{Przykład:} $p(a)=0.6$, $p(b)=0.4$ $\Rightarrow$ start: $a$, $b$ \\
+  Rozwijaj $a$: $aa$, $ab$ itd. aż do np. 4 słów (dla $n=2$)
 
-  $$
-  \gamma(x) = 0^{n-1}(x)_2
-  $$
+  \section*{Kodowanie Eliasa}
 
-  \subsection{\texorpdfstring{$\delta$}{Delta}}
+  Dla liczby całkowitej $x$, nieznanej długości binarnej:
+  \begin{itemize}
+    \item $n = \lfloor \log_2 x \rfloor + 1$
+    \item $\gamma(x) = 0^{n-1} \, (x)_2$
+    \item $\delta(x) = \gamma(n) + (x)_2$ bez pierwszego bitu
+    \item $\omega(x) = \omega(n-1) + (x)_2 + 0$ (rekurencja)
+  \end{itemize}
+  
+  \textbf{Przykład:} $x = 9$, $(x)_2 = 1001$, $n = 4$ \\
+  $\gamma(9) = 0001001$ \quad $\delta(9) = \gamma(4) + 001$ \\
+  $\omega(9) = \omega(3) + 1001 + 0$
+  \section*{Kodowanie Fibonacciego}
 
-  $$
-  \delta(x) = \gamma(n) + (x)_2
-  $$
+  \begin{itemize}
+    \item Ciąg: $f_0 = f_1 = 1$, $f_n = f_{n-1} + f_{n-2}$ dla $n \geq 2$
+    \item Reprezentacja liczby $x$: $x = \sum a_i f_i$, $a_i \in \{0,1\}$
+    \item Warunek: brak dwóch jedynek obok siebie (Zeckendorfa)
+    \item Na końcu dodajemy dodatkowe $1$ jako znacznik końca
+  \end{itemize}
+  
+  \textbf{Przykład:} $x = 6$, $6 = 5 + 1 = f_4 + f_1$ $\Rightarrow$ $100100$ + 1 = \texttt{1001001}
+  
+  \section*{Kodowanie arytmetyczne}
 
-  \subsection{\texorpdfstring{$\omega$}{Omega}}
-
-  Na koniec umieszczane jest $0$, potem kodowana jest liczba $k=x$. Potem ten
-  krok jest powtarzany dla $k=n - 1$ gdzie n to liczba bitów z
-  poprzedniego kroku.
-  $$
-  \omega(x) = \omega(n - 1) + (x)_2 + 0
-  $$
-
-  \section{Kodowanie Fibonacciego}
-
-  $$
-  f_0=f_1=1
-  $$
-  $$
-  f_n = f_{n-1} + f_{n-2}: n \geq 2
-  $$
-  $$
-  x = \sum_{i=0} a_i \cdot f_i, a_i \in \{0,1\}
-  $$
-
-  \section{Kodowanie arytmetyczne}
   \begin{multicols}{2}
-    \begin{itemize}
-      \item $d = p - l$
-      \item $p = l + d \cdot F(j + 1)$
-      \item $l = l + d \cdot F(j)$
-    \end{itemize}
-
-    \begin{itemize}
-      \item $d = p - l$
-      \item Wybieramy takie $j$, że $F(j) \leq \frac{x - l}{d} < F(j + 1)$
-      \item $p = l + d \cdot F(j + 1)$
-      \item $l = l + d \cdot F(j)$
-    \end{itemize}
+  \textbf{Kodowanie:}
+  \begin{itemize}
+    \item $d = p - l$
+    \item $l \gets l + d \cdot F(j)$
+    \item $p \gets l + d \cdot F(j+1)$
+  \end{itemize}
+  
+  \columnbreak
+  
+  \textbf{Dekodowanie:}
+  \begin{itemize}
+    \item $d = p - l$
+    \item Znajdź $j$: $F(j) \leq \dfrac{x - l}{d} < F(j+1)$
+    \item $l \gets l + d \cdot F(j)$
+    \item $p \gets l + d \cdot F(j+1)$
+  \end{itemize}
   \end{multicols}
+  
+  \vspace{0.5em}
+  \textbf{Przykład:} $F = [0, 0.5, 1]$, dla ciągu \texttt{AB}, $A=0$–$0.5$, $B=0.5$–$1$ \\
+  Koniec przedziału: liczba z zakresu $(0.25, 0.75)$ reprezentuje słowo \texttt{AB}
 
-  \section{Kodowanie słownikowe}
+\section*{Kodowanie słownikowe}
 
-  \subsection{LZ77}
+\begin{multicols}{3}
+\subsection*{LZ77}
+\[
+(o, l, k) = \mathcal{C}_{i - o} \dots \mathcal{C}_{i - o + l} \, k
+\]
+\footnotesize
+$o$ — przesunięcie, $l$ — długość, $k$ — nowy znak \\
+\textbf{Przykład:} \texttt{aabcaabc} \\
+(0,0,a), (0,0,a), (0,0,b), (0,0,c), (4,3,c)
 
-  $$
-  (o, l, k) = \mathcal{C}_{i - o} \cdots \mathcal{C}_{i - o + l} k
-  $$
+\vfill\null
+\columnbreak
 
-  \subsection{LZ78}
+\subsection*{LZ78}
+\footnotesize
+Znajdź najdłuższy prefiks (lub $\epsilon$) \\
+Dodaj: prefiks + nowy znak \\
+Zakoduj: $(i,k)$ \\
+\textbf{Przykład:} \texttt{ababcbababaaaaaaa} \\
+(0,a), (0,b), (1,b), (0,c), (2,a), (4,a), (6,a), (7,a)
 
-  \begin{enumerate}
-    \item Szukaj w słowniku najdłuższy prefiks aktualnego okna, jeśli
-      nie znajdziesz to użyj $\epsilon$.
-    \item Dodaj prefiks $+$ znak do słownika.
-    \item Zakoduj symbol jako $(i, k)$, gdzie $i$ to numer
-      prefiksu w słowniku, a $k$ to symbol.
-  \end{enumerate}
+\vfill\null
+\columnbreak
 
-  $$
-  (i, k) = s(i) + k
-  $$
+\subsection*{LZW}
+\footnotesize
+Startowy słownik = alfabet \\
+Kodujemy indeksy ciągów $(i)$ \\
+Dodaj nowy ciąg gdy brak \\
+\textbf{Przykład:} \texttt{abababa} \\
+a (97), b (98), ab (256), ba (257), aba (258) \\
+Kody: 97, 98, 256, 257, 258
+\end{multicols}
 
-  \subsection{LZW}
+\vspace{-3em}
+  
+  \section*{BWT / bzip2}
 
-  Podobne do LZ78, tylko że zaczynamy ze słownikiem.
-  $$
-  (i) = s(i)
-  $$
-  Jeśli napotkasz symbol, którego nie ma w słowniku, ale masz jego prefiks,
-  np.: $s(5) = ab?$, to $?$ to pierwsza litera $s(5)$.
-
-  \section{bzip2/BWT}
-
-  Układamy tabelę z dwoma kolumnami. Pierwsza kolumna to słowo posortowane
-  leksykograficznie. Druga kolumna to poprzedni znak. Na podstawie tej tabeli
-  zapisujemy ostatnią kolumnę, i numer wiersza w którym w pierwszej kolumnie
-  znajduje się początek słowa, a w drugiej kolumnie jego koniec.
-
+    1. Dla słowa tworzymy wszystkie rotacje cykliczne.
+    2. Sortujemy je leksykograficznie.
+    3. Zapisujemy ostatnią kolumnę (BWT) i numer wiersza, gdzie znajduje się oryginalne słowo.
+    4. Odwracanie: znając BWT i indeks, możemy odzyskać oryginalne słowo.
+  
   \begin{center}
-
-    \begin{tabular}{|c|c|}
-      \hline
-      e & h \\
-      \hline
-      \rowcolor{gray!50}
-      h & o \\
-      \hline
-      ll & e \\
-      \hline
-      lo & l \\
-      \hline
-      o & l \\
-      \hline
-    \end{tabular}
-    \begin{tabular}{|c|c|c|c|c|}
-      \hline
-      \rowcolor{gray!50}
-      0 & 1 & 2 & 3 & 4 \\
-      \hline
-      e & h & l & l & o \\
-      \hline
-      2 & 0 & 3 & 4 & 1 \\
-      \hline
-    \end{tabular}
+  \begin{tabular}{|c|c|}
+    \hline
+    e & h \\
+    \hline
+    \rowcolor{gray!25}
+    h & o \\
+    \hline
+    ll & e \\
+    \hline
+    lo & l \\
+    \hline
+    o & l \\
+    \hline
+  \end{tabular}
+  \quad
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \rowcolor{gray!25}
+    0 & 1 & 2 & 3 & 4 \\
+    \hline
+    e & h & l & l & o \\
+    \hline
+    2 & 0 & 3 & 4 & 1 \\
+    \hline
+  \end{tabular}
   \end{center}
 
-  \section{Move To Front}
+  \section*{Move-To-Front (MTF)}
 
-  Jest to transformacja zmniejszająca entropię. Zaczynamy od tabeli liter
-  ze słowa posortowanych alfabetycznie. Następnie dla każdej litery ze słowa
-  kodujemy jej pozycję w tabeli, a następnie przesuwamy ją na początek
-  tabeli. W ten sposób hello to 11203.
+  Transformacja zmniejszająca entropię (często po BWT).
+  
+  \begin{itemize}
+    \item Start: tabela liter w porządku alfabetycznym
+    \item Dla każdej litery: zapisz jej pozycję, przesuń ją na początek
+  \end{itemize}
+  
+  \textbf{Przykład:} \texttt{hello}  
+  Alfabet: \texttt{[e, h, l, o]}  
+  \begin{tabular}{ll}
+  h $\rightarrow$ 1 & tabela: [h, e, l, o] \\
+  e $\rightarrow$ 1 & tabela: [e, h, l, o] \\
+  l $\rightarrow$ 2 & tabela: [l, e, h, o] \\
+  l $\rightarrow$ 0 & tabela: [l, e, h, o] \\
+  o $\rightarrow$ 3 & tabela: [o, l, e, h]
+  \end{tabular}
+  
+  \textbf{Wynik:} \texttt{11203}
+  \section*{PPM}
 
-  \section{PPM}
+  \begin{itemize}
+    \item Dla symbolu sprawdzamy jego kontekst (max długość $n$).
+    \item Przeglądamy konteksty: $n \to 0 \to -1$
+    \item Dla $n \geq 0$: zliczamy wystąpienia; dla $-1$: tylko obecność.
+    \item Budujemy model prawdopodobieństw — np. do Huffmana.
+  \end{itemize}
+  \textbf{!:} szukaj symbolu w najdłuższym kontekście. Jeśli nie ma – wypisz ESC i przejdź do krótszego.
+  \vspace{-1.5em}
+  
+  \begin{center}
+    \resizebox{0.9\linewidth}{!}{
+    \begin{tabular}{|c|}
+      \hline
+      Symbol \\ \hline
+      t \\ h \\ i \\ s \\ - \\
+      \hline
+    \end{tabular}
+    \quad
+    \begin{tabular}{|c|c|}
+      \hline
+      Symbol & Licznik \\ \hline
+      ESC & 1 \\ t & 1 \\ h & 1 \\ i & 1 \\ s & 2 \\ - & 1 \\
+      \hline
+    \end{tabular}
+    \quad
+    \begin{tabular}{|c|c|c|}
+      \hline
+      Kontekst & Symbol & Licznik \\ \hline
+      t & ESC & 1 \\ & h & 1 \\ \hline
+      h & ESC & 1 \\ & i & 1 \\ \hline
+      i & ESC & 1 \\ & s & 2 \\ \hline
+      s & ESC & 1 \\ & - & 1 \\ \hline
+      - & ESC & 1 \\ & i & 1 \\
+      \hline
+    \end{tabular}
+    \quad
+    \begin{tabular}{|c|c|c|}
+      \hline
+      Kontekst & Symbol & Licznik \\ \hline
+      th & ESC & 1 \\ & i & 1 \\ \hline
+      hi & ESC & 1 \\ & s & 1 \\ \hline
+      is & ESC & 1 \\ & - & 1 \\ \hline
+      s- & ESC & 1 \\ & i & 1 \\ \hline
+      -i & ESC & 1 \\ & s & 1 \\
+      \hline
+    \end{tabular}
+    }
+    \end{center}
+    \vspace{-1em}
 
-  Dla każdego symbolu z tekstu, sprawdzamy jego kontekst, zakładając daną
-  maksymalną długość kontekstu. Kolejno sprawdzamy drzewa kontekstowe dla
-  długości $n$, $n-1$, $\dots$, $0$ gdzie interesuje nas tylko to ile razy
-  dany symbol występuje w tekście, aż dojdziemy do kontekstu $-1$ gdzie
-  zaznaczamy tylko czy symbol występuje czy nie. Następnie na podstawie
-  takiej serii drzew, można zbudować solidny kod, chociażby Huffmana.
+    \section*{Kody Hamminga}
 
-  \resizebox{0.9\columnwidth}{!}{
-    \begin{minipage}{0.7\textwidth}
-      \centering
-      \begin{tabular}{|c|}
-        \hline
-        Symbol \\ \hline
-        t \\ \hline
-        h \\ \hline
-        i \\ \hline
-        s \\ \hline
-        - \\ \hline
-      \end{tabular}
-      \begin{tabular}{c|c}
-        Symbol & Licznik \\ \hline
-        \texttt{ESC} & 1 \\ \hline
-        t & 1 \\ \hline
-        h & 1 \\ \hline
-        i & 1 \\ \hline
-        s & 2 \\ \hline
-        - & 1 \\
-      \end{tabular}
-      \begin{tabular}{c|c|c}
-        Kontekst & Symbol & Licznik \\
-        \hline
-        t & \texttt{ESC} & 1 \\
-        & h & 1 \\
-        \hline
-        h & \texttt{ESC} & 1 \\
-        & i & 1 \\
-        \hline
-        i & \texttt{ESC} & 1 \\
-        & s & 2 \\
-        \hline
-        s & \texttt{ESC} & 1 \\
-        & - & 1 \\
-        \hline
-        - & \texttt{ESC} & 1 \\
-        & i & 1 \\
-      \end{tabular}
-      \begin{tabular}{c|c|c}
-        Kontekst & Symbol & Licznik \\
-        \hline
-        th & \texttt{ESC} & 1 \\
-        & i & 1 \\
-        \hline
-        hi & \texttt{ESC} & 1 \\
-        & s & 1 \\
-        \hline
-        is & \texttt{ESC} & 1 \\
-        & - & 1 \\
-        \hline
-        s- & \texttt{ESC} & 1 \\
-        & i & 1 \\
-        \hline
-        -i & \texttt{ESC} & 1 \\
-        & s & 1 \\
-      \end{tabular}
-    \end{minipage}
-  }
-
-  \section{Kody Hamminga}
-
-  Dla długości kodu $n = 2^m - 1$, mają liczbę bitów informacji $k = n - m$.
-  Macierz parzystości, powstaje poprzez zapis binarnych reprezentacji liczb
-  $1, \dots, n$ w postaci kolumn.
-  $$
-  H_H(3) =
-  \begin{bmatrix}
+    \begin{itemize}
+      \item Długość kodu: $n = 2^m - 1$, dane: $k = n - m$
+      \item Macierz parzystości $H$: kolumny = binarne zapisy $1, \dots, n$
+    \end{itemize}
+    \vspace{-0.5em}
+    \[
+    H_H(3) =
+    \begin{bmatrix}
     0 & 0 & 0 & 1 & 1 & 1 & 1 \\
     0 & 1 & 1 & 0 & 0 & 1 & 1 \\
-    1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-  \end{bmatrix}
-  $$
-  Aby stworzyć macierz generującą, musimy potraktować $H_H$ jako
-  macierz równania, gdzie pierwsze $k$ wierszy to macierz identyczności,
-  a pozostałe to przekształcone równania z macierzy parzystości.
-  $$
-  G_H(3) =
-  \begin{bmatrix}
+    1 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}
+    \]
+    
+    \begin{itemize}
+      \item Macierz generująca $G$: $[I_k \mid P]$, gdzie $P$ pochodzi z $H$
+    \end{itemize}
+    \vspace{-0.5em}
+    \[
+    G_H(3) =
+    \begin{bmatrix}
     1 & 0 & 0 & 0 \\
     0 & 1 & 0 & 0 \\
     0 & 0 & 1 & 0 \\
     0 & 0 & 0 & 1 \\
     0 & 1 & 1 & 1 \\
     1 & 0 & 1 & 1 \\
-    1 & 1 & 0 & 1 \\
-  \end{bmatrix}
-  $$
+    1 & 1 & 0 & 1
+    \end{bmatrix}
+    \]
 
+    \textbf{Rozszerzony kod Hamminga:} dodany bit parzystości – długość $n + 1$  
+    \textbf{Cykliczny kod Hamminga:} generowany przez $g(x)$, który dzieli $x^n + 1$ w $\mathbb{Z}_2[x]$
+\textbf{Kod Hamminga (7,4)} jest kodem doskonałym dla $d = 3$
+
+    \begin{multicols}{2}
+
+    \begin{center}
+        \includegraphics[width=17em]{emotionalSupportMiku.png} % Adjust width as needed
+        \vspace{-1em}
+
+        \begin{center}
+            Fig. 1: Exam Emotional Support System (przykład: jpeg-ls) \\
+            \textbf{Hatsune przypomina:} Nie da się skompresować wszystkich możliwych słów — zbiór skompresowanych musi być mniejszy => nie istnieje bijekcja.
+
+        \end{center}
+    \end{center}
+    \columnbreak
+    \begin{quote}
+        \textbf{Lew:} Twoja pewność siebie jest jak kod Huffmana — konkretna i skuteczna.  
+        
+        \textbf{Ryby:} Chaos w danych? Nie szkodzi — PPM poradzi sobie nawet z tobą.  
+        
+        \textbf{Wodnik:} BWT to twoja dusza — nieoczywista, ale piękna w dekodowaniu.  
+        
+        \textbf{Koziorożec:} Twoja determinacja przypomina kod Hamminga — wykrywa, poprawia i nie odpuszcza.  
+    \end{quote}
+
+    \end{multicols}
+
+    \begin{center}
+        \fbox{\phantom{\rule{1em}{1em}}}
+        \fbox{\phantom{\rule{1em}{1em}}}
+        \fbox{\phantom{\rule{1em}{1em}}}
+        \fbox{\phantom{\rule{1em}{1em}}}
+        \fbox{\phantom{\rule{1em}{1em}}}
+        \end{center}
+        \vspace{-0.8em}
+        \begin{center}
+        \footnotesize Fig. 2: Zakreśl, jeśli: \textit{Błąd w obliczeniach? Brak pomysłu? Nie rozumiesz pytania?}
+        \end{center}
+        \begin{center}
+            \vspace{-0.5em}
+            \textit{“Wszystko da się skompresować. Poza czasem na egzaminie.”} \\
+            -- autor nieznany, ale na pewno sfrustrowany
+        \end{center}
 \end{multicols}
+
 
 \end{document}
