@@ -30,3 +30,5 @@ repozytorium znajdują się skompilowane pliki ```.pdf```.
   ogólna"(04-S3INK01-P02139)
 - [elektryczność.pdf](elektryczność/elektryczność.pdf) notatki z "Elektryczność
   i Magnetyzm"(04-S3INK02-P02144)
+- [eatl.pdf](eatl/eatl.pdf) notatki z "Elementy Algebry i Teorii
+  Liczb"(04INKS.32P.04802.24)
