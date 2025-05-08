@@ -243,4 +243,63 @@ $f(x) = g_1(x)g_2(x)$.
 Dla każdego $n \in \mathbb{N}$ i każdej liczby pierwszej $p$ istnieje wielomian
 stopnia $n$ w $\mathbb{Z}_p[x]$ który jest nierozkładalny.
 
+\section{Rozszerzony algorytm Euklidesa}
+
+Dla $a, b \in \mathbb{Z}$ wyznacza $NWD(a, b)$ oraz $x, y \in
+\mathbb{Z} : ax + by = NWD(a, b)$. Jest on zdefiniowany w następujący sposób:
+$$
+(r_0, s_0, t_0) = (a, 1, 0), (r_1, s_1, t_1) = (b, 0, 1)
+$$
+$$
+(r_{i + 1}, s_{i + 1}, t_{i + 1}) = (r_{i - 1}, s_{i - 1}, t_{i - 1}) - \lfloor
+\frac{r_{i - 1}}{r_i} \rfloor (r_i, s_i, t_i)
+$$
+Równanie $ax + by = c$ ma rozwiązanie w $\mathbb{Z}$ tylko jeśli
+$NWD(a, b) | c$.
+Na przykład: dla $30, 45$ mamy:
+\begin{enumerate}
+  \item (45, 1, 0), (30, 0, 1)
+  \item (45, 1, 0) - 1 * (30, 0, 1) = (15, \textcolor{red}{1, -1})
+  \item (30, 0, 1) - 2 * (15, 1, -1) = (0, -2, 3)
+  \item $NWD(30, 45) = 15$
+  \item $15 = -1 * 30 + 1 * 45$
+\end{enumerate}
+Albo inaczej: $61^{-1} \in \mathbb{Z}_{130} = ?$
+$$
+61^{-1} \in \mathbb{Z}_{130} \rightarrow 61x \equiv 1 \mod 130
+\rightarrow 61x + 130y = 1
+$$
+\begin{enumerate}
+  \item (130, 1, 0), (61, 0, 1)
+  \item (130, 1, 0) - 2 * (61, 0, 1) = (8, 1, -2)
+  \item (61, 0, 1) - 7 * (8, 1, -2) = (5, -7, 15)
+  \item (8, 1, -2) - 1 * (5, -7, 15) = (3, 8, -17)
+  \item (5, -7, 15) - 1 * (3, 8, -17) = (2, -15, 32)
+  \item (3, 8, -17) - 1 * (2, -15, 32) = (1, \textcolor{red}{23, -49})
+  \item (2, -15, 32) - 2 * (1, 23, -49) = (0, -61, 130)
+  \item $NWD(61, 130) = 1$
+  \item $1 = (-49) * 61 + 23 * 130$
+\end{enumerate}
+
+\section{Problem logarytmu dyskretnego}
+
+Dane: $a, c \in \mathbb{Z}, n \in \mathbb{N}$. Cel: znaleźć $x \in
+\mathbb{Z}_n$ takie, że $a^x = c \in \mathbb{Z}_n$. Alternatywnie można
+zdefiniować postać ogólną, gdzie mamy grupę $G$ oraz $|G| \in \mathbb{P}$,
+i chcemy znaleźć $x \in G : g^x = h$.
+
+\section{Test na pierwszość Fermata}
+
+Jeśli $p \in \mathbb{P}$ to $\forall_{a \in \mathbb{Z}_p \setminus
+\{0\}} a^{p - 1} = 1 \in \mathbb{Z}_p$.
+
+\section{Chińskie twierdzenie o resztach}
+
+Niech $m_1, \dots m_k \in \mathbb{N}$ będą parami względnie pierwsze
+($NWD = 1$), oraz $M = \prod m$. Wtedy dla dowolnych $a_1, \dots a_k
+\in \mathbb{Z}$ istnieje $x < M$ takie, że:
+$$
+x \equiv a_i \mod m_i
+$$
+
 \end{document}
