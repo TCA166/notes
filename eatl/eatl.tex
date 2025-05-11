@@ -80,6 +80,17 @@ $rz(4) = |\langle 4 \rangle|$. Z kolei $\langle 1 \rangle = \mathbb{Z}_{12}$
 zatem $\mathbb{12}$ jest grupą cykliczną. Jeżeli $p$ jest liczbą pierwszą
 to $\mathbb{Z}_p^\times$ jest grupą cykliczną.
 
+\subsection{Przystawanie}
+
+Jeśli dwa elementy $a, b$ są przystające w Grupie $G$ to $a \equiv b$. Na
+przykład $32 \equiv 4$ w $\mathbb{Z}_7$, ponieważ $32 \mod 7 = 4$.
+Przystawanie ($\mod n$) implikuje:
+\begin{itemize}
+  \item że $a$ i $b$ przy dzieleniu przez $n$ mają tę samą resztę
+  \item $n$ dzieli $a - b$
+  \item $a = b + nk$ dla pewnego $k \in \mathbb{Z}$
+\end{itemize}
+
 \section{Funkcja Eulera}
 
 $$
@@ -293,6 +304,26 @@ i chcemy znaleźć $x \in G : g^x = h$.
 Jeśli $p \in \mathbb{P}$ to $\forall_{a \in \mathbb{Z}_p \setminus
 \{0\}} a^{p - 1} = 1 \in \mathbb{Z}_p$.
 
+\begin{enumerate}
+  \item Losujemy $a \in \mathbb{Z}_p \setminus \{0\}$
+  \item Obliczamy $a^{p - 1} \mod p$
+  \item Jeśli $a^{p - 1} \ne 1$ to $p$ nie jest liczbą pierwszą
+\end{enumerate}
+
+\noindent
+Na przykład: $p = 7$, $a = 2$:
+$$
+2^{7 - 1} = 2^6 = 64 \mod 7 = 1
+$$
+Zatem $7$ może być liczbą pierwszą.
+
+\noindent
+Albo $p = 4$, $a = 2$:
+$$
+2^{4 - 1} = 2^3 = 8 \mod 4 = 0
+$$
+Zatem $4$ nie jest liczbą pierwszą.
+
 \section{Chińskie twierdzenie o resztach}
 
 Niech $m_1, \dots m_k \in \mathbb{N}$ będą parami względnie pierwsze
@@ -301,5 +332,35 @@ Niech $m_1, \dots m_k \in \mathbb{N}$ będą parami względnie pierwsze
 $$
 x \equiv a_i \mod m_i
 $$
+
+\section{Wspólne miejsca zerowe wielomianów jednej zmiennej}
+
+Mając wielomiany $f_1 \dots f_s \in \mathbb{F}[x]$ o współczynnikach
+z ciała $\mathbb{F}$, chcemy znaleźć $V = \{x \in \mathbb{F}: f_{1
+\dots s}(x) = 0 \}$.
+$$
+f(a) = 0 \leftrightarrow x - a | f(x)
+$$
+Aby znaleźć $V$ musimy obliczyć $NWD(f_1, \dots, f_s)$.
+
+\section{Wielomiany wielu zmiennych}
+
+$$
+\mathbb{F}[x_1, \dots, x_n] = \text{zbiór wielomianów zmiennych }
+x_1, \dots, x_n
+$$
+
+$$
+f(x_1, \dots, x_n) \in \mathbb{F}[x_1, \dots, x_n] = \sum_{i_1, \dots,
+i_n} a_{i_1, \dots, i_n} x_1^{i_1} \cdots x_n^{i_n}
+$$
+
+Konstrukcje typu $x_1^{i_1} \dots x_n^{i_n}$ można utożsamić z
+wektorami $(i_1, \dots, i_n)$, a te z kolei uporządkować. Na przykład można użyć
+porządku leksykograficznego gdzie $i \prec j \leftrightarrow
+\text{pierwszy niezerowy współczynnik } j - a \text{ jest dodatni}$
+
+Mając ustalony porządek, można zdefiniować dzielenie wielomianów
+wielu zmiennych.
 
 \end{document}
