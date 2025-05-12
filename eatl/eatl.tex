@@ -333,6 +333,20 @@ $$
 x \equiv a_i \mod m_i
 $$
 
+\section{Faktoryzacja wielomianu nad ciałem skończonym}
+
+\subsection{Distinct-degree factorization}
+
+Wielomian $f(x) = a_0 + a_1x^1 \dots$ nazywamy unormowanym jeśli $a_n = 1$.
+Współczynniki $a_n$ nazywamy wiodącym. Ponieważ dla każdego $a \in
+\mathbb{F}_q \setminus \{0\}$ mamy $a^{q-1}$ więc:
+$$
+x^q - x = \prod_{a \in \mathbb{F}_q} (x - a)
+$$
+Dla każdego $d \ge 1$, $x^{q^d} - x \in \mathbb{F}_q[x]$ jest
+iloczynem wszystkich
+nierozkładalnych unormowanych wielomianów w $\mathbb{F}_q[x]$ stopnia $k|d$.
+
 \section{Wspólne miejsca zerowe wielomianów jednej zmiennej}
 
 Mając wielomiany $f_1 \dots f_s \in \mathbb{F}[x]$ o współczynnikach
@@ -361,6 +375,28 @@ porządku leksykograficznego gdzie $i \prec j \leftrightarrow
 \text{pierwszy niezerowy współczynnik } j - a \text{ jest dodatni}$
 
 Mając ustalony porządek, można zdefiniować dzielenie wielomianów
-wielu zmiennych.
+wielu zmiennych. Każdy wielomian $f \in \mathbb{F}[x_1, \dots x_n]$
+można przedstawić w postaci:
+$$
+f = a_1f_1 + \dots + a_kf_k + r
+$$
+Na przykład dla $f(x, y) = x^2y + xy^2 + y^2$:
+$$
+f(x, y) = (x + y)(xy) + (y^2 - 1) + x + y + 1
+$$
+
+\section{Bazy Gröbnera}
+
+Dla porządku $\prec$ na $\mathbb{Z^n}$ oraz $f_1 \dots f_n \in
+\mathbb{F}[x_1, \dots x_n]$ to:
+$$
+\langle f_1, \dots, f_n \rangle = \{a_1f_1 + \dots + a_nf_n : a_i \in
+\mathbb{F}[x_1, \dots, x_n]\}
+$$
+nazywamy idealem generowanym przez $f_1, \dots, f_n$. Skończony podzbiór ideału,
+względem porządku $\prec$ nazywamy bazą Gröbnera, jeśli:
+$$
+\langle LT(g) : g \in G \rangle = \langle LT(f) : f \in I \rangle
+$$
 
 \end{document}
