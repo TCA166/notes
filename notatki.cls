@@ -6,6 +6,7 @@
 \RequirePackage[T1]{fontenc}
 
 \RequirePackage{float}
+\RequirePackage{multicol}
 
 %zmiana marginesów
 \RequirePackage{geometry}[a4paper]
