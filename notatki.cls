@@ -34,6 +34,30 @@
 \RequirePackage{diagbox}
 \RequirePackage{colortbl}
 
+% code blocki
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+\lstset{
+  basicstyle=\ttfamily,
+  breaklines=true,
+  showstringspaces=false,
+  numbers=left,
+  backgroundcolor=\color{lightgrey},
+}
+
+\lstset{language=R,
+  basicstyle=\small\ttfamily,
+  stringstyle=\color{darkgreen},
+  otherkeywords={0,1,2,3,4,5,6,7,8,9},
+  morekeywords={TRUE,FALSE},
+  deletekeywords={data,frame,length,as,character},
+  keywordstyle=\color{blue},
+  commentstyle=\color{darkgreen},
+}
+
 %tłumaczenie nazw
 \renewcommand{\figurename}{Diagram}
 \renewcommand{\tablename}{Tabela}

@@ -1,0 +1,159 @@
+\documentclass{../notatki}
+
+\title{Konspekt do kolokwium z statystyki}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Rozkłady używane w statystyce}
+
+\subsection{Rozkład normalny}
+
+$$
+X \sim N(\mu, \sigma^2)
+$$
+gdzie $\mu$ to wartość oczekiwana, a $\sigma^2$ to
+wariancja. Rozkład normalny jest rozkładem ciągłym, który jest symetryczny
+względem średniej. Wartość oczekiwana i mediana są równe.
+
+\begin{lstlisting}[language=R, caption=gęstość w punkcie x]
+dnorm(x, mean = 0, sd = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=dystrybuanta]
+pnorm(q, mean = 0, sd = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=kwantyl p-tego percentyla]
+qnorm(p, mean = 0, sd = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=n losowych zmiennych z rozkładu normalnego]
+rnorm(n, mean = 0, sd = 1)
+\end{lstlisting}
+
+\subsection{Rozkład \texorpdfstring{$\chi^2$}{chi-kwadrat}}
+
+Jeśli $X_1,\dots, X_n$ są niezależne i $X_{1..n} \sim N(0, 1)$ to:
+$$
+Z = X_1^2 + X_2^2 + \dots + X_n^2 \sim \chi^2(n)
+$$
+$$
+\mathbb{E} Z = n \quad Var(Z) = 2n
+$$
+
+Jeśli zmienne niezależne $X_1, \dots, X_n \sim N(m_n, 1)$ to zmienna losowa też
+ma rozkład $\chi^2$, lecz z parametrem niecentralności $m =
+\sqrt{m_1^2 + \dots m_n^2}$.
+Wtedy $\mathbb{E} Z = n + m \quad Var(Z) = 2(k + 2m)$.
+
+\begin{lstlisting}[language=R, caption=gęstość w punkcie x]
+dchisq(x, df = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=dystrybuanta]
+pchisq(q, df = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=kwantyl p-tego percentyla]
+qchisq(p, df = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=n losowych zmiennych z rozkładu chi-kwadrat]
+rchisq(n, df = 1)
+\end{lstlisting}
+
+\subsection{Rozkład t-Studenta}
+
+Jeżeli $Z \sim N(0,1), X \sim \chi^2(k)$ to wtedy zmienna:
+$$
+Y = \frac{Z}{\sqrt{\frac{X}{k}}} \sim t(k)
+$$
+
+\begin{lstlisting}[language=R, caption=gęstość w punkcie x]
+dt(x, df = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=dystrybuanta]
+pt(q, df = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=kwantyl p-tego percentyla]
+qt(p, df = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=n losowych zmiennych z rozkładu t-Studenta]
+rt(n, df = 1)
+\end{lstlisting}
+
+\subsection{Rozkład F-Snedecora}
+
+Jeżeli $X \sim \chi^2(k_1)$ i $Y \sim \chi^2(k_2)$ to wtedy zmienna:
+$$
+Z = \frac{X/k_1}{Y/k_2} \sim F(k_1, k_2)
+$$
+$$
+\mathbb{E} Z = \frac{k_2}{k_2 - 2} \quad Var(Z) = \frac{2k_2^2(k_1 +
+k_2 - 2)}{k_1(k_2 - 2)^2(k_2 - 4)}
+$$
+
+\begin{lstlisting}[language=R, caption=gęstość w punkcie x]
+df(x, df1 = 1, df2 = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=dystrybuanta]
+pf(q, df1 = 1, df2 = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=kwantyl p-tego percentyla]
+qf(p, df1 = 1, df2 = 1)
+\end{lstlisting}
+\begin{lstlisting}[language=R, caption=n losowych zmiennych z rozkładu F]
+rf(n, df1 = 1, df2 = 1)
+\end{lstlisting}
+
+\section{Metoda estymacji punktowej}
+
+Jak dopasować rozkład i parametry do danych?
+
+\begin{enumerate}
+  \item Wybieramy $n$ próbek z danych ($X_1 \dots X_n$)
+  \item Patrzymy na histogram i oceniamy vibe
+  \item Dla parametrów wybieramy estymator, i przy pomocy estymatorów
+    obliczamy parametry rozkładu
+  \item Sprawdzamy, czy rozkład pasuje do danych
+\end{enumerate}
+
+Każdy estymator ma swój zakres ufności, z reguły określany przy pomocy wzoru.
+Mając obliczony zakres ufności, możemy określić poziom ufności, czyli błąd
+estymacji. Jeśli realna wartość parametru leży poza przedziałem ufności, to
+sugeruje wadę w estymacji. Poziom ufności to procent prób, w których przedział
+ufności zawiera prawdziwą wartość parametru.
+
+\section{Metoda Monte Carlo}
+
+Metoda Monte Carlo to metoda numeryczna, która polega na symulacji losowych
+próbek z rozkładu i obliczeniu wartości funkcji na podstawie tych próbek. W
+estymacji, na przykład, wystarczająco duża liczba próbek danych,
+pozwala stworzyć
+wykres wartości estymatora, który przybliża dystrybucje estymatora, co może
+pozwolić na lepsze oszacowanie wartości parametru.
+
+\textbf{Każda metoda, w której wykorzystujemy losowe próbki do
+obliczenia wartości funkcji, to metoda Monte Carlo.}
+
+\section{Bootstrapping}
+
+Mając próbkę danych, możemy stworzyć wiele próbek z tej samej
+populacji, z reguły poprzez losowanie z zwracaniem. Dla wystarczająco dużej
+próbki początkowej w ten sposób możemy stworzyć wiele próbek, które
+będą miały podobny rozkład do oryginalnej próbki. Próba stworzona w ten sposób
+nazywana jest próbą bootsrapową.
+
+\section{Testowanie hipotez}
+
+Hipoteza statystyczne, to przypuszczenie dotyczące danych. Do weryfikacji
+hipotez korzystamy z testów. Dla konkretnego testu wyznacza się poziom
+istotności $\alpha$, który określa prawdopodobieństwo odrzucenia hipotezy
+zerowej. Wielkość $1-\beta$ dla układu hipotez prostych nazywa się mocą testu
+hipotezy zerowej wobec (prostej) hipotezy alternatywnej. Testy również są
+parametryzowane przez $c$ czyli wartość krytyczną testu. W obecnie używanych
+implementacjach komputerowych wartości krytyczne zastępowane są tzw.
+p-wartościami (p-value), według pomysłu Ronalda Fishera. Jest to
+prawdopodobieństwo wylosowania próby takiej lub bardziej skrajnej, jak
+zaobserwowana przy założeniu, że hipoteza zerowa jest prawdziwa. Inaczej mówiąc,
+jest to prawdopodobieństwo, że zależność, jaką otrzymaliśmy w próbie z populacji
+mogła wystąpić przypadkowo, wskutek losowej zmienności, chociaż w populacji nie
+występuje.
+
+\end{document}
