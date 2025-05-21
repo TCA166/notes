@@ -120,6 +120,10 @@ estymacji. Jeśli realna wartość parametru leży poza przedziałem ufności, t
 sugeruje wadę w estymacji. Poziom ufności to procent prób, w których przedział
 ufności zawiera prawdziwą wartość parametru.
 
+\begin{lstlisting}[language=R, caption=estymuj parametry rozkładu normalnego]
+  enorm(x, method = "mle", ci=TRUE, ci.type="two-sided", conf.level = 0.95)
+\end{lstlisting}
+
 \section{Metoda Monte Carlo}
 
 Metoda Monte Carlo to metoda numeryczna, która polega na symulacji losowych
@@ -155,5 +159,108 @@ zaobserwowana przy założeniu, że hipoteza zerowa jest prawdziwa. Inaczej mów
 jest to prawdopodobieństwo, że zależność, jaką otrzymaliśmy w próbie z populacji
 mogła wystąpić przypadkowo, wskutek losowej zmienności, chociaż w populacji nie
 występuje.
+
+\section{Testy}
+
+Konkretne algorytmy mające na celu weryfikację hipotez statystycznych.
+
+\subsection{Test t-Studenta}
+
+Test t-Studenta jest testem statystycznym, który służy do porównania
+średnich dwóch grup, aby sprawdzić, czy są one statystycznie
+różne.
+
+\subsection{ANOVA}
+
+ANOVA (analiza wariancji) jest testem statystycznym, który służy do
+porównania średnich więcej niż dwóch grup, aby sprawdzić, czy są one
+statystycznie różne. ANOVA jest rozszerzeniem testu t-Studenta, który
+służy do porównania średnich dwóch grup.
+
+\subsection{Test Shapiro-Wilka}
+
+Test Shapiro-Wilka jest testem statystycznym, który służy do
+sprawdzenia, czy dane pochodzą z rozkładu normalnego.
+
+\subsection{F test}
+
+F test jest testem statystycznym, który służy do porównania
+wariancji dwóch grup, aby sprawdzić, czy są one
+statystycznie różne.
+
+\subsection{Testy statystycznej różności}
+
+Wszystkie te testy służą do porównania średnich więcej niż dwóch grup, aby
+sprawdzić, czy są one statystycznie różne. Różnią się one tym jak bardzo
+są dokładne i konserwatywne.
+
+\begin{itemize}
+  \item HSD Tukeya
+  \item LSD Fishera
+  \item Test Studenta-Newmana-Keulsa
+  \item Test Scheffego
+  \item Test Duncana
+  \item Test Dunnetta dla porównania z kontrolą
+\end{itemize}
+
+\section{Reference}
+
+Kilka powszechnych celów oraz jak je osiągnąć w R.
+
+\subsection{Korelacja}
+
+Zupełnie jak $cov(x, y)$.
+
+\begin{lstlisting}[language=R, caption=oblicz korelację]
+cor(x, y, method = c("pearson", "kendall", "spearman"))
+\end{lstlisting}
+
+\subsection{Regresja}
+
+Klasyczna regresja liniowa, czyli przyporządkowanie danym prostej, która
+najlepiej je opisuje.
+
+\begin{lstlisting}[language=R, caption=regresja liniowa]
+lm(y ~ x, data = data.frame(x, y))
+\end{lstlisting}
+
+\begin{lstlisting}[language=R, caption=regresja wielomianowa]
+lm(y ~ poly(x, degree = 2), data = data.frame(x, y))
+\end{lstlisting}
+
+\begin{lstlisting}[language=R, caption=różnice pomiędzy danymi a ich
+  regresją]
+residuals(lm(y ~ x, data = data.frame(x, y)))
+\end{lstlisting}
+
+\subsection{Szybka analiza danych}
+
+Zwróci nam podsumowanie dot. danych, ich strukturę, pierwsze i ostatnie
+wiersze oraz ich wymiary.
+\begin{lstlisting}[language=R, caption=szybka analiza danych]
+summary(data)
+str(data)
+head(data)
+tail(data)
+dim(data)
+\end{lstlisting}
+
+\subsection{Wizualizacja danych}
+
+\begin{lstlisting}[language=R, caption=wykresy]
+plot(x, y)
+hist(x)
+boxplot(x)
+barplot(x)
+pairs(data)
+\end{lstlisting}
+
+\subsection{Podział danych na k grup}
+
+Przyporządkuje dane do k grup, w których każda grupa ma
+jak najbliżej siebie elementy.
+\begin{lstlisting}[language=R, caption=podział danych na k grup]
+kmeans(data, centers = k)
+\end{lstlisting}
 
 \end{document}
