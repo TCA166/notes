@@ -193,7 +193,7 @@ mnożenia oraz $A \ne \emptyset$
 
 \subsection{Pierścień przemienny}
 
-Pierścień przemienny to pierścień, w którym mnożenie jest przemienna
+Pierścień przemienny to pierścień, w którym mnożenie jest przemienne
 
 \section{Ciało}
 
@@ -240,6 +240,9 @@ Zbiór $\{0, 1, x, x+1\}$ z dodawaniem i mnożeniem modulo $f(x) = x^2
   \caption{Dodawanie w wyżej zdefiniowanym ciele}
 \end{table*}
 
+Zbiór $\mathbb{Z}_n[x] / (f(x))$ jest ciałem wtedy i tylko wtedy gdy $f(x)$
+jest nierozkładalny w $\mathbb{Z}_n[x]$.
+
 \subsection{Rozkładalność a ciała}
 
 Dlaczego zbiór $\{0, 1, x, x + 1\}$ z dodawaniem i mnożeniem modulo
@@ -253,6 +256,17 @@ $f(x) = g_1(x)g_2(x)$.
 
 Dla każdego $n \in \mathbb{N}$ i każdej liczby pierwszej $p$ istnieje wielomian
 stopnia $n$ w $\mathbb{Z}_p[x]$ który jest nierozkładalny.
+
+\subsection{Ciała wielomianowe skończone}
+
+Dla ciała $\mathbb{Z}_2[x]$, możemy wybrać dowolny nierozkładalny wielomian
+stopnia $n$ i zdefiniować zbiór $\mathbb{Z}_2[x] / (f(x))$. Zbiór ten
+będzie ciałem, ponieważ $f(x)$ jest nierozkładalny. Co więcej będzie miał
+$2^n$ elementów, ponieważ $f(x)$ ma $n$ współczynników, a każdy z nich
+może przyjąć $2$ wartości. Zbiór $\mathbb{Z}_2[x] / (f(x))$ nazywamy
+\textbf{ciałem wielomianowym} i oznaczamy $\mathbb{F}_{2^n}$.
+
+Na przykład $\mathbb{F}_8 = \mathbb{Z}_2[x]/(x^3 + x + 1)$.
 
 \section{Rozszerzony algorytm Euklidesa}
 
