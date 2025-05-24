@@ -281,12 +281,48 @@ dq =
 \end{cases}
 $$
 
-\subsection{Pole elektryczne dla nieskończonej linii ładunkowej}
+\subsection{Pole elektryczne dla naładowanej kuli}
 
 \begin{figure*}[h]
   \centering
   \resizebox{0.8\textwidth}{!}{
     \begin{minipage}{0.5\textwidth}
+      \begin{tikzpicture}
+        \draw[dotted] (0,0) circle(1.5);
+        \draw (0,0) circle(0.7);
+        \node at (0.0,0) {$\sigma$};
+        \node[circle,fill,inner sep=2pt] (s) at (1.5,0) {};
+        \draw[->] (s) -- (3, 0) node[above] {$\vec{s}$};
+        \draw[dotted] (0.7, 0) -- (s) node[midway, above] {$r$};
+      \end{tikzpicture}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+      Kula jest naładowana równomiernie ładunkiem z gęstością $\sigma$.
+      W przypadku kuli, powierzchnia Gaussa jest kulą o promieniu $r$.
+      Powierzchnia Gaussa jest prostopadła do pola elektrycznego.
+      $$
+      \phi = \int_{0}^{4 \pi r^2} \vec{E} \cdot \vec{dS} = \oint E \cdot dS
+      $$
+      $$
+      \frac{q}{\epsilon_0} = E \cdot 4 \pi r^2
+      $$
+      $$
+      \sigma = \frac{q}{4 \pi R^2}
+      $$
+      $$
+      E(r) = \frac{\sigma R^2}{\epsilon_0 r^2}
+      $$
+    \end{minipage}
+  }
+  \caption{Prawo Gaussa dla naładowanej kuli}
+\end{figure*}
+
+\subsection{Pole elektryczne dla nieskończonej linii ładunkowej}
+
+\begin{figure*}[h]
+  \centering
+  \resizebox{0.8\textwidth}{!}{
+    \begin{minipage}{0.3\textwidth}
       \begin{tikzpicture}
         \node (start) at (0,0) {$-\infty$};
         \node (end) at (0,4) {$\infty$};
@@ -296,16 +332,30 @@ $$
         \draw[dotted] (0, 2) -- (s) node[midway, above] {$r$};
       \end{tikzpicture}
     \end{minipage}
-    \begin{minipage}{0.5\textwidth}
+    \begin{minipage}{0.6\textwidth}
       Linia jest nieskończona, jako uproszczenie. Jeśli linia byłaby skończona,
       to trzeba by brać pod uwagę zmienne pole elektryczne na końcach linii.
       \\\\
       Aby ułatwić obliczenia tworzymy przestrzeń zamkniętą, która zawiera linię.
-      Ta przestrzeń otacza linię, tak aby $\vec{E} \| d\vec{s}$. Następnie
-      obliczamy pole elektryczne w każdym punkcie przestrzeni zamkniętej.
+      Ta przestrzeń otacza linię, tak aby $\vec{E} \| d\vec{s}$.
+      W przypadku nieskończonej linii ładunkowej, powierzchnia Gaussa jest
+      walcem o promieniu $r$ i wysokości $l$. Powierzchnia Gaussa jest
+      prostopadła do linii ładunkowej. W wyniku tego, pole elektryczne jest
+      prostopadłe do powierzchni Gaussa.
+      Następnie obliczamy pole elektryczne w każdym punkcie
+      przestrzeni zamkniętej.
+      $$
+      \phi = \int_{0}^{2\pi r l} \vec{E} \cdot \vec{dS} = \oint E \cdot dS
+      $$
       $$
       \frac{q}{\epsilon_0} = E \cdot 2 \pi rl
       $$
+      $$
+      \lambda = \frac{q}{l}
+      $$
+      Na szczęście w przypadku nieskończonej linii ładunkowej, $l$ znika z
+      równania, zatem wynik jest niezależny od naszego schizofrenicznego
+      tworu.
       $$
       E(r) = \frac{\lambda}{2\pi\epsilon_0 r}
       $$
@@ -316,6 +366,17 @@ $$
 
 \subsection{Pole elektryczne dla nieskończonej płaszczyzny ładunkowej}
 
+Powierzchnia Gaussa jest prostopadłościanem, który otacza płaszczyznę
+ładunkową. Powierzchnia Gaussa jest prostopadła do płaszczyzny ładunkowej.
+$$
+\phi = \int_{0}^{2A} \vec{E} \cdot \vec{dS} = \oint E \cdot dS
+$$
+$$
+\frac{q}{\epsilon_0} = E \cdot 2A
+$$
+$$
+\sigma = \frac{q}{2A}
+$$
 $$
 E = \frac{\sigma}{2\epsilon_0}
 $$

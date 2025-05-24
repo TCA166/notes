@@ -20,6 +20,14 @@
   $$
   gdzie $k$ to stała elektrostatyczna($\frac{1}{4\pi\epsilon_0}$,
   $\epsilon_0\approx8.854\cdot10^{-12}\frac{E}{m}$) a $q$ to ładunki.
+  $\vec{r}$ to wektor jednostkowy, więc w sytuacjach gdzie nas zwrot
+  nie interesuje, możemy pominąć $\vec{r}$ i użyć tylko wartości bezwzględnej.
+
+  Dla dipola o ładunkach $q$ i $-q$ w odległości $d$, moment dipolowy
+  $p$ jest równy:
+  $$
+  p = q \cdot d
+  $$
 
   \section{Pole elektryczne}
 
@@ -49,7 +57,19 @@
   Ładunek na skutek nieskończonej linii naładowanej równomiernie
   ładunkiem $\lambda$ jest równy:
   $$
-  E(a) = \frac{\lambda}{2\pi\epsilon_0 a}
+  E(r) = \frac{\lambda}{2\pi\epsilon_0 r}
+  $$
+
+  Ładunek na skutek nieskończonej płaszczyzny naładowanej równomiernie
+  ładunkiem $\sigma$ jest równy:
+  $$
+  E = \frac{\sigma}{2\epsilon_0}
+  $$
+
+  Ładunek na skutek nieskończonej kuli naładowanej równomiernie
+  ładunkiem $\sigma$ jest równy:
+  $$
+  E(r) = \frac{\sigma R^2}{\epsilon_0 r^2}
   $$
 
   \section{Potencjał elektryczny}
@@ -58,23 +78,24 @@
   E = - \nabla V
   $$
   czyli pole elektryczne jest równe gradientowi potencjału
-  elektrycznego.
+  elektrycznego. $V(r) = k\frac{q}{r}$
   $$
   F_E = qE = -q \nabla V = - \nabla U
   $$
   $U$ to energia potencjalna, a $V$ to potencjał elektryczny.
   $$
-  U = qV
+  U = qV = k \frac{q_1 q_2}{r}
   $$
 
   \section{Kondensatory}
 
   $$
-  C = \frac{Q}{V}
+  C = \frac{Q}{U} = \frac{S \cdot \epsilon_0}{d}
   $$
   gdzie $C$ to pojemność kondensatora, $Q$ to ładunek na
-  kondensatorze, a $V$ to napięcie na kondensatorze. Kondensatory połączone
-  równolegle mają pojemności sumowane:
+  kondensatorze, a $U$ to napięcie na kondensatorze. Dla kondensatora
+  płaskiego $S$ to powierzchnia płytki, a $d$ to odległość między
+  nimi. Kondensatory połączone równolegle mają pojemności sumowane:
   $$
   C_{eq} = C_1 + C_2 + \ldots
   $$
@@ -90,13 +111,10 @@
   \section{Opór elektryczny}
 
   $$
-  R = \frac{V}{I}
+  I = \frac{Q}{t} = \frac{U}{R} = \frac{P}{U}
   $$
-  $$
-  I = \frac{Q}{t}
-  $$
-  $R$ to opór elektryczny, $V$ to napięcie, $I$ to prąd,
-  $Q$ to ładunek.
+  $R$ to opór elektryczny, $U$ to napięcie, $I$ to natężenie prądu,
+  $Q$ to ładunek a $P$ to moc.
 
   \section{Siła Lorentza}
 
@@ -111,17 +129,21 @@
   \frac{\mu_0 I q v}{2\pi a}
   $$
 
-  \section{Cewka}
+  \section{Pole magnetyczne}
 
   $$
   B = \frac{\mu_0 I}{2\pi r}
   $$
   dla cewki o promieniu $r$ i prądzie $I$.
+  $$
+  B = \frac{\mu_0 I}{2\pi R}
+  $$
+  dla nieskończonej linii naładowanej równomiernie ładunkiem $I$.
 
   \section{SEM}
 
   $$
-  \text{SEM} = \mathcal{E} = -N \frac{d \Phi}{dt}
+  \text{SEM} = \mathcal{E} = -N \frac{d \Phi}{dt} = Blv
   $$
   gdzie SEM to siła elektromagnetyczna, $N$ to liczba zwojów, a $\Phi$
   to strumień magnetyczny.
