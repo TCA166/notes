@@ -6,7 +6,7 @@
 
 \tableofcontents
 
-\noindent Kazali mi to zdawać, choć algebrę miałem jakbym nie miał ciekawszych
+\noindent Kazali mi to zdawać choć algebrę miałem, jakbym nie miał ciekawszych
 rzeczy do roboty i potrzebował tej powtórki. Fun times.
 
 \section{Operacje}
@@ -90,6 +90,18 @@ Przystawanie ($\mod n$) implikuje:
   \item $n$ dzieli $a - b$
   \item $a = b + nk$ dla pewnego $k \in \mathbb{Z}$
 \end{itemize}
+
+\noindent
+Ogólnym rozwiązaniem kongruencji $x \equiv a \mod n$ jest:
+$$
+x = a + nk \text{ dla pewnego } k \in \mathbb{Z}
+$$
+$$
+(9x \equiv 6 \mod 15) \stackrel{\div 3}{\rightarrow} (3 \equiv 2 \mod 5)
+\stackrel{3^{-1}}{\rightarrow} 1 \equiv 4 \mod 5
+$$
+Dla $x^y \mod z$, gdzie $t$ jest długością cyklu: $x^y \mod z = y \mod t$.
+Na przykład: $522^{2024} \mod 65 = 2^{2024} \mod 65 = 2024 \mod 7$.
 
 \section{Funkcja Eulera}
 
@@ -266,7 +278,46 @@ $2^n$ elementów, ponieważ $f(x)$ ma $n$ współczynników, a każdy z nich
 może przyjąć $2$ wartości. Zbiór $\mathbb{Z}_2[x] / (f(x))$ nazywamy
 \textbf{ciałem wielomianowym} i oznaczamy $\mathbb{F}_{2^n}$.
 
-Na przykład $\mathbb{F}_8 = \mathbb{Z}_2[x]/(x^3 + x + 1)$.
+Na przykład $\mathbb{F}_8 = \mathbb{Z}_2[x]/(x^3 + x + 1)$, gdzie
+$x^3 + x + 1$ jest nierozkładalny w $\mathbb{Z}_2[x]$. $\mathbb{F}_2$ to
+
+\subsection{Wspólne miejsca zerowe wielomianów jednej zmiennej}
+
+Mając wielomiany $f_1 \dots f_s \in \mathbb{F}[x]$ o współczynnikach
+z ciała $\mathbb{F}$, chcemy znaleźć $V = \{x \in \mathbb{F}: f_{1
+\dots s}(x) = 0 \}$.
+$$
+f(a) = 0 \leftrightarrow x - a | f(x)
+$$
+Aby znaleźć $V$ musimy obliczyć $NWD(f_1, \dots, f_s)$.
+
+\subsection{Wielomiany wielu zmiennych}
+
+$$
+\mathbb{F}[x_1, \dots, x_n] = \text{zbiór wielomianów zmiennych }
+x_1, \dots, x_n
+$$
+
+$$
+f(x_1, \dots, x_n) \in \mathbb{F}[x_1, \dots, x_n] = \sum_{i_1, \dots,
+i_n} a_{i_1, \dots, i_n} x_1^{i_1} \cdots x_n^{i_n}
+$$
+
+Konstrukcje typu $x_1^{i_1} \dots x_n^{i_n}$ można utożsamić z
+wektorami $(i_1, \dots, i_n)$, a te z kolei uporządkować. Na przykład można użyć
+porządku leksykograficznego gdzie $i \prec j \leftrightarrow
+\text{pierwszy niezerowy współczynnik } j - a \text{ jest dodatni}$
+
+Mając ustalony porządek, można zdefiniować dzielenie wielomianów
+wielu zmiennych. Każdy wielomian $f \in \mathbb{F}[x_1, \dots x_n]$
+można przedstawić w postaci:
+$$
+f = a_1f_1 + \dots + a_kf_k + r
+$$
+Na przykład dla $f(x, y) = x^2y + xy^2 + y^2$:
+$$
+f(x, y) = (x + y)(xy) + (y^2 - 1) + x + y + 1
+$$
 
 \section{Rozszerzony algorytm Euklidesa}
 
@@ -342,7 +393,13 @@ Zatem $4$ nie jest liczbą pierwszą.
 
 Niech $\mathbb{Z}_n^\times = \{a \in \mathbb{Z}_n : NWD(a,n) = 1\}$,
 $\varphi(n) = |\mathbb{Z}_n^\times|$. Dla każdego $a \in \mathbb{Z}_n^\times$:
-$a^{\varphi(n)} \equiv 1 (\mod n)$
+$a^{\varphi(n)} \equiv 1 (\mod n)$.
+
+Jeśli $n = p_1^{\alpha_1}p_2^{\alpha_2} \dots p_k^{\alpha_k}$ jest rozkładem
+na czynniki pierwsze to:
+$$
+\varphi(n) = \prod_{i = 1}^k p_i^{\alpha_i - 1}(p_i - 1)
+$$
 
 \section{Chińskie twierdzenie o resztach}
 
@@ -353,7 +410,33 @@ $$
 x \equiv a_i \mod m_i
 $$
 
+Innymi słowy, układ kongruencji, gdzie kolejne $m_i$ są parami
+względnie pierwsze, ma dokładnie jedno rozwiązanie w przedziale $[0, M)$.
+Na przykład:
+$$
+\begin{cases}
+  x \equiv 2 \mod 3\\
+  x \equiv 3 \mod 4\\
+  x \equiv 2 \mod 5
+\end{cases}
+$$
+\begin{enumerate}
+  \item Rozwiązaniem ogólnym pierwszej kongruencji jest: $2 + 3t$.
+  \item $2 + 3t$ dla $t = 3$ rozwiązuje drugą kongruencję:
+    $2 + 3 \cdot 3 =  \textcolor{red}{11} \equiv 3 \mod 4$.
+  \item Zatem dwie powyższe kongruencje możemy zapisać jako $x \equiv
+    \textcolor{red}{11} \mod 3 \cdot 4$ i jej rozwiązaniem jest $11 + 12t$.
+  \item Wracamy teraz do kroku 2, czyli znajdujemy rozwiązanie
+    trzeciej kongruencji: $11 + 12t \equiv 2 \mod 5$. $t = 3$ rozwiązuje tę
+    kongruencję.
+\end{enumerate}
+Czyli $x = 11 + 12 \cdot 3 = 47$ jest rozwiązaniem wszystkich trzech
+kongruencji.
+
 \section{Faktoryzacja wielomianu nad ciałem skończonym}
+
+Faktoryzacja danej liczby lub wielomianu to znalezienie takich
+czynników, że ich iloczyn daje tę liczbę lub wielomian.
 
 \subsection{Distinct-degree factorization}
 
@@ -367,43 +450,25 @@ Dla każdego $d \ge 1$, $x^{q^d} - x \in \mathbb{F}_q[x]$ jest
 iloczynem wszystkich
 nierozkładalnych unormowanych wielomianów w $\mathbb{F}_q[x]$ stopnia $k|d$.
 
-\section{Wspólne miejsca zerowe wielomianów jednej zmiennej}
+\noindent
+\textbf{Przykład:} Niech
+$f(x) = x^{10} + x^8 + 2x^6 + 6x^5 + 5x^3 + 2x^2 + 6x + 4 \in \mathbb{Z}_7$.
+\begin{enumerate}
+  \item $h_0 = x, f_0 = f, q = 7$
+  \item $h_1 = x^q = x^7, g_1 = NWD(h_1 - h_0, f_0) = NWD(x^7 - x,
+    f_0) = \textcolor{green}{x^2 + 3x + 2}, f_1 = f_0 / g_1 = x^8 +
+    4x^7 + x^6 + 3x^5 +
+    5x^4 + 6x^3 + 2$
+  \item $h_2 = h_1^q = 4x^6 + x^4 + 6x^3 + 3, g_2 = NWD(h_2 - x, f_1)
+    = \textcolor{green}{x^2 + 1}, f_2 = f_1 / g_2 = x^6 + 4x^5 + 6x^3
+    + 5x^2 + 2$
+  \item $h_3 = x, g_3 = \textcolor{green}{x^6 + 4x^5 + 6x^3 + 5x^2 +
+    2}, f_3 = \textcolor{red}{1}$
+\end{enumerate}
+Zatem $f(x) = g_1 \cdot g_2 \cdot g_3 = (x^2 + 3x + 2)(x^2 + 1)(x^6 +
+4x^5 + 6x^3 + 5x^2 + 2)$.
 
-Mając wielomiany $f_1 \dots f_s \in \mathbb{F}[x]$ o współczynnikach
-z ciała $\mathbb{F}$, chcemy znaleźć $V = \{x \in \mathbb{F}: f_{1
-\dots s}(x) = 0 \}$.
-$$
-f(a) = 0 \leftrightarrow x - a | f(x)
-$$
-Aby znaleźć $V$ musimy obliczyć $NWD(f_1, \dots, f_s)$.
-
-\section{Wielomiany wielu zmiennych}
-
-$$
-\mathbb{F}[x_1, \dots, x_n] = \text{zbiór wielomianów zmiennych }
-x_1, \dots, x_n
-$$
-
-$$
-f(x_1, \dots, x_n) \in \mathbb{F}[x_1, \dots, x_n] = \sum_{i_1, \dots,
-i_n} a_{i_1, \dots, i_n} x_1^{i_1} \cdots x_n^{i_n}
-$$
-
-Konstrukcje typu $x_1^{i_1} \dots x_n^{i_n}$ można utożsamić z
-wektorami $(i_1, \dots, i_n)$, a te z kolei uporządkować. Na przykład można użyć
-porządku leksykograficznego gdzie $i \prec j \leftrightarrow
-\text{pierwszy niezerowy współczynnik } j - a \text{ jest dodatni}$
-
-Mając ustalony porządek, można zdefiniować dzielenie wielomianów
-wielu zmiennych. Każdy wielomian $f \in \mathbb{F}[x_1, \dots x_n]$
-można przedstawić w postaci:
-$$
-f = a_1f_1 + \dots + a_kf_k + r
-$$
-Na przykład dla $f(x, y) = x^2y + xy^2 + y^2$:
-$$
-f(x, y) = (x + y)(xy) + (y^2 - 1) + x + y + 1
-$$
+\subsection{Algorytm Cantora i Zassenhausa}
 
 \section{Bazy Gröbnera}
 
