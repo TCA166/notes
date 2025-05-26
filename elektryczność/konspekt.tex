@@ -128,24 +128,29 @@
   F = q \cdot v \cdot B \cdot \sin(\alpha) = q \cdot v \cdot B =
   \frac{\mu_0 I q v}{2\pi a}
   $$
+  gdzie $a$ to odległość od przewodnika, $I$ to prąd w przewodniku,
+  a $\alpha$ to kąt między wektorem prędkości a polem magnetycznym.
 
   \section{Pole magnetyczne}
 
   $$
-  B = \frac{\mu_0 I}{2\pi r}
+  B = \frac{\mu_0 I}{2 R}
   $$
-  dla cewki o promieniu $r$ i prądzie $I$.
+  w środku kołowej pętli o promieniu $R$ z prądem $I$.
   $$
-  B = \frac{\mu_0 I}{2\pi R}
+  B(R) = \frac{\mu_0 I}{2\pi R}
   $$
   dla nieskończonej linii naładowanej równomiernie ładunkiem $I$.
+  $$
+  \oint_{C} B \cdot dl = \mu_0 I
+  $$
 
   \section{SEM}
 
   $$
-  \text{SEM} = \mathcal{E} = -N \frac{d \Phi}{dt} = Blv
+  \mathcal{E} = -N \frac{d \Phi}{dt} = Blv
   $$
-  gdzie SEM to siła elektromagnetyczna, $N$ to liczba zwojów, a $\Phi$
+  SEM to siła elektromagnetyczna, $N$ to liczba zwojów, a $\Phi$
   to strumień magnetyczny.
   $$
   \Phi = BS \cos(\alpha)
@@ -170,16 +175,6 @@
       \draw[thick] (0.93,1.07) -- (1.07,0.93);
     \end{tikzpicture}
   \end{center}
-
-  \section{Równania Maxwella}
-
-  $$
-  \oint_{S = \partial V} E \cdot dS = \frac{q_{enc}}{\epsilon_0} =
-  \frac{1}{\epsilon_0} \int_V \rho(r) dr
-  $$
-  $$
-  \oint_{C = \partial S} B \cdot dr = \mu_0 I_{enc} = \mu_0 \int_S J dS
-  $$
 
 \end{multicols}
 
