@@ -6,12 +6,29 @@
 
 \begin{multicols}{2}
 
-  \section{Ładunek}
+  \begin{multicols}{2}
 
-  $$
-  q = n \cdot e
-  $$
-  n - liczba ładunków elementarnych, $e = 1.6 \cdot 10^{-19} C$
+    \section{Trygonometria}
+
+    \begin{tikzpicture}
+      \coordinate (A) at (0.5,1);
+      \coordinate (B) at (3,3);
+      \draw [->] (A) -- (B) node [midway, above] {$\vec{v}$};
+      \draw [dashed] (A) -- (3,1) node [midway, below] {$\vec{v}_x =
+      |\vec{v}| \cos \alpha$};
+      \draw [dashed] (3,1) -- (3,3) node [midway, right] {$\vec{v}_y
+      = |\vec{v}| \sin \alpha$};
+      \draw[draw=blue] (A) ++(0:10mm) arc (0:39:10mm) node[midway,
+      left]{$\alpha$};
+    \end{tikzpicture}
+    \section{Ładunek}
+
+    $$
+    q = n \cdot e
+    $$
+    n - liczba ładunków elementarnych, $e = 1.6 \cdot 10^{-19} C$
+
+  \end{multicols}
 
   \section{Prawo Coulomba}
 
@@ -20,9 +37,7 @@
   $$
   gdzie $k$ to stała elektrostatyczna($\frac{1}{4\pi\epsilon_0}$,
   $\epsilon_0\approx8.854\cdot10^{-12}\frac{E}{m}$) a $q$ to ładunki.
-  $\vec{r}$ to wektor jednostkowy, więc w sytuacjach gdzie nas zwrot
-  nie interesuje, możemy pominąć $\vec{r}$ i użyć tylko wartości bezwzględnej.
-
+  $\vec{r}$ to wektor jednostkowy ($|\vec{r}|=1$).
   Dla dipola o ładunkach $q$ i $-q$ w odległości $d$, moment dipolowy
   $p$ jest równy:
   $$
@@ -46,32 +61,27 @@
   \frac{Q}{\epsilon_0} = \oint_S E \cdot dS = \frac{1}{\epsilon_0}
   \int_V \rho(r) dr
   $$
-  Całka po zamkniętej powierzchni $S$(gaussowskiej) z pola
-  elektrycznego $E$ jest równa całce po gęstości ładunku $\rho$ w
-  objętości $V$ podzielonej przez $\epsilon_0$.
-
   Typowo podczas rozwiązywania zadań, znajdujemy infitisemalnie małą jednostkę
   ciała $dS$ i całkujemy po powierzchni $S$ aby znaleźć całkowite pole
   elektryczne.
 
-  Ładunek na skutek nieskończonej linii naładowanej równomiernie
-  ładunkiem $\lambda$ jest równy:
+  Na skutek nieskończonej linii naładowanej równomiernie
+  ładunkiem $\lambda$ mamy:
   $$
   E(r) = \frac{\lambda}{2\pi\epsilon_0 r}
   $$
 
-  Ładunek na skutek nieskończonej płaszczyzny naładowanej równomiernie
-  ładunkiem $\sigma$ jest równy:
+  Na skutek nieskończonej płaszczyzny naładowanej równomiernie
+  ładunkiem $\sigma$ mamy:
   $$
   E = \frac{\sigma}{2\epsilon_0}
   $$
 
-  Ładunek na skutek kuli o promieniu $R$ naładowanej równomiernie
-  ładunkiem $\sigma$ jest równy:
+  Na skutek kuli o promieniu $R$ naładowanej równomiernie
+  ładunkiem $\sigma$ mamy:
   $$
   E(r) = \frac{\sigma R^2}{\epsilon_0 r^2}
   $$
-
   \section{Potencjał elektryczny}
 
   $$
@@ -85,6 +95,9 @@
   $U$ to energia potencjalna, a $V$ to potencjał elektryczny.
   $$
   U = qV = k \frac{q_1 q_2}{r}
+  $$
+  $$
+  E_k = \frac{1}{2} m v^2 = qV
   $$
 
   \section{Kondensatory}
@@ -114,7 +127,9 @@
   I = \frac{Q}{t} = \frac{U}{R} = \frac{P}{U}
   $$
   $R$ to opór elektryczny, $U$ to napięcie, $I$ to natężenie prądu,
-  $Q$ to ładunek a $P$ to moc.
+  $Q$ to ładunek a $P$ to moc. W kablu o długości $l$ i przekroju $S$,
+  opór elektryczny jest równy $R = \rho \frac{l}{S}$, gdzie $\rho$ to
+  oporność elektryczna materiału.
 
   \section{Siła Lorentza}
 
@@ -126,20 +141,21 @@
 
   $$
   F = q \cdot v \cdot B \cdot \sin(\alpha) = q \cdot v \cdot B =
-  \frac{\mu_0 I q v}{2\pi a}
+  IlB \cdot \sin(\alpha)
   $$
-  gdzie $a$ to odległość od przewodnika, $I$ to prąd w przewodniku,
+  gdzie $I$ to prąd w przewodniku,
   a $\alpha$ to kąt między wektorem prędkości a polem magnetycznym.
+  Ostatni wzór dotyczy przewodnika o długości $l$ w polu magnetycznym.
 
   \section{Pole magnetyczne}
 
-  $$
+  $
   B = \frac{\mu_0 I}{2 R}
-  $$
+  $
   w środku kołowej pętli o promieniu $R$ z prądem $I$.
-  $$
+  $
   B(R) = \frac{\mu_0 I}{2\pi R}
-  $$
+  $
   dla nieskończonej linii naładowanej równomiernie ładunkiem $I$.
   $$
   \oint_{C} B \cdot dl = \mu_0 I
@@ -163,14 +179,16 @@
       \draw[thick,->] (0,0) -- (1,0) node[anchor=north] {$v$};
       \draw[thick,->] (0,0) -- (0,1) node[anchor=east] {$B$};
 
-      \draw[thick] (1,1) circle (0.2);
+      \draw[thick] (1,1) circle (0.2) node[anchor=south,
+      xshift=0.2cm, yshift=0.2cm] {$F$};
       \fill (1,1) circle (0.07);
     \end{tikzpicture}
     \begin{tikzpicture}
       \draw[thick,->] (0,0) -- (1,0) node[anchor=north] {$B$};
       \draw[thick,->] (0,0) -- (0,1) node[anchor=east] {$v$};
 
-      \draw[thick] (1,1) circle (0.2);
+      \draw[thick] (1,1) circle (0.2) node[anchor=south,
+      xshift=0.2cm, yshift=0.2cm] {$F$};
       \draw[thick] (0.93,0.93) -- (1.07,1.07);
       \draw[thick] (0.93,1.07) -- (1.07,0.93);
     \end{tikzpicture}
