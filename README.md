@@ -7,28 +7,28 @@ repozytorium znajdują się skompilowane pliki ```.pdf```.
 
 ## Informatyka
 
-- [asd.pdf](asd/asd.pdf) notatki z "Algorytmy i struktury danych"(06-DASDLI0)
-- [sop.pdf](systemy-operacyjne/sop.pdf) notatki z "Systemów
-  Operacyjnych"(06-DSOPLI0)
-- [ltm.pdf](ltm/ltm.pdf) notatki z "Logiki i Teorii Mnogości"(06-DLTMLI0)
-- [algebra.pdf](algebra/algebra.pdf) notatki z "Algebry Liniowej i
-  Geometrii"(06-DAGELI0)
-- [jezyki.pdf](jezyki-formalne/jezyki.pdf) notatki z "Języki formalne i
+- [asd.pdf](asd/asd.pdf) "Algorytmy i struktury danych"(06-DASDLI0)
+- [sop.pdf](systemy-operacyjne/sop.pdf) "Systemy
+  Operacyjne"(06-DSOPLI0)
+- [ltm.pdf](ltm/ltm.pdf) "Logika i Teorii Mnogości"(06-DLTMLI0)
+- [algebra.pdf](algebra/algebra.pdf) "Algebra Liniowa i
+  Geometria"(06-DAGELI0)
+- [jezyki.pdf](jezyki-formalne/jezyki.pdf) "Języki formalne i
   złożoność obliczeniowa"(06-DJFZLI0)
-- [grafika.pdf](grafika/grafika.pdf) notatki z "Grafika komputerowa"(06-DGKOLI0)
-- [sieci.pdf](sieci-neuronowe/sieci.pdf) notatki z "Wprowadzenie do teorii sieci
+- [grafika.pdf](grafika/grafika.pdf) "Grafika komputerowa"(06-DGKOLI0)
+- [sieci.pdf](sieci-neuronowe/sieci.pdf) "Wprowadzenie do teorii sieci
   neuronowych"(06-DSNELI0)
-- [szeregowanie.pdf](szeregowanie/szeregowanie.pdf) notatki z "Szeregowanie
+- [szeregowanie.pdf](szeregowanie/szeregowanie.pdf) "Szeregowanie
   zadań"(06-DSZZLI0)
-- [kompresja.pdf](kompresja/kompresja.pdf) notatki z "Kompresja
+- [kompresja.pdf](kompresja/kompresja.pdf) "Kompresja
   danych"(06-DKDALI0)
-- [statystyka.pdf](statystyka/statystyka.pdf) notatki z "Statystyka"(06-DSTTLI0)
+- [statystyka.pdf](statystyka/statystyka.pdf) "Statystyka"(06-DSTTLI0)
 
 ## Informatyka Kwantowa
 
-- [mechanika.pdf](mechanika/mechanika.pdf) notatki z "Mechanika
+- [mechanika.pdf](mechanika/mechanika.pdf) "Mechanika
   ogólna"(04-S3INK01-P02139)
-- [elektryczność.pdf](elektryczność/elektryczność.pdf) notatki z "Elektryczność
+- [elektryczność.pdf](elektryczność/elektryczność.pdf) "Elektryczność
   i Magnetyzm"(04-S3INK02-P02144)
-- [eatl.pdf](eatl/eatl.pdf) notatki z "Elementy Algebry i Teorii
+- [eatl.pdf](eatl/eatl.pdf) "Elementy Algebry i Teorii
   Liczb"(04INKS.32P.04802.24)
