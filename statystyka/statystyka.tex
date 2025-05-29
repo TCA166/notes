@@ -227,7 +227,49 @@ $$
 P(Q \le a) = P(Q \ge b) = \frac{\alpha}{2}
 $$
 
+\section{Testy statystyczne}
+
+\subsection{Hipotezy statystyczne}
+
+Mając do czynienia z daną hipotezą ($H$), np: parametr $\theta$ jest równy
+$\theta_0$, chcemy sprawdzić, czy hipoteza jest prawdziwa. W tym celu
+stosujemy test statystyczny, który jest funkcją $T(X')$ z próby $X'$.
+Pierwsza utworzona hipoteza to hipoteza zerowa($H_0$), podczas kolejnych
+testów tworzymy hipotezy alternatywne, lub przyjmujemy, że hipoteza
+zerowa jest prawdziwa.
+
+\subsection{Obszar krytyczny}
+
+Podczas wyznaczania procedury testowej danej hipotezy, określamy jej obszar
+krytyczny, czyli zbiór wartości statystyki testowej, dla których
+odrzucamy hipotezę. Najbardziej typowy jest prawostronny obszar krytyczny,
+zdefiniowany jako:
+$$
+\mathcal{R} = \{x: T(x) \ge k\}
+$$
+
+\subsection{Błędy}
+
+Rozróżniamy dwa rodzaje błędów:
+\begin{itemize}
+  \item \textbf{Błąd I rodzaju}: Odrzucenie hipotezy zerowej, gdy jest ona
+    prawdziwa. Prawdopodobieństwo popełnienia błędu I rodzaju to $\alpha$.
+  \item \textbf{Błąd II rodzaju}: Nieodrzucenie hipotezy zerowej, gdy jest ona
+    fałszywa. Prawdopodobieństwo popełnienia błędu II rodzaju to $\beta$.
+\end{itemize}
+
+\subsection{p-wartość}
+
+p-wartość to najmniejsza wartość poziomu istotności $\alpha$, dla której
+odrzucamy hipotezę zerową. Jest to prawdopodobieństwo uzyskania wartości
+statystyki testowej, która jest równa lub bardziej ekstremalna niż
+obserwowana wartość statystyki testowej, zakładając, że hipoteza zerowa jest
+prawdziwa.
+
 \section{Test t-Studenta}
+
+Test t-Studenta jest testem statystycznym, który służy do porównywania średnich
+wartości dwóch prób lub jednej próby z wartością oczekiwaną.
 
 \subsection{Dla jednej próby}
 
@@ -319,6 +361,9 @@ $$
 
 \section{Test F}
 
+Test F jest testem statystycznym, który służy do porównywania wariancji
+dwóch prób. Jest to test parametryczny, który zakłada, że dane mają
+rozkład normalny. Test F jest często stosowany w analizie wariancji (ANOVA).
 Będziemy zakładać dwie różne wariancje dla dwóch prób.
 
 \begin{itemize}
@@ -331,5 +376,63 @@ Będziemy zakładać dwie różne wariancje dla dwóch prób.
     $$
   \item Rozkład statystyki testowej: $F|_{H_0} \sim F(n_1 - 1, n_2 - 1)$
 \end{itemize}
+
+\section{Analiza wariancji (ANOVA)}
+
+Analiza wariancji (ANOVA) jest techniką statystyczną służącą do porównywania
+średnich wartości więcej niż dwóch grup. ANOVA w istocie jest generalizacją
+testu t-Studenta dla więcej niż dwóch grup. ANOVA pozwala na sprawdzenie,
+czy istnieją istotne różnice między średnimi wartościami grup, a także
+określenie, które grupy różnią się między sobą.
+
+\subsection{Jednoczynnikowa ANOVA}
+
+\begin{itemize}
+  \item \textbf{Hipoteza zerowa}: $H_0: \mu_1 = \mu_2 = \ldots = \mu_k$
+  \item Hipotezy alternatywne: $H_1: \mu_i \neq \mu_j$ dla co najmniej
+    jednej pary $(i, j)$
+  \item Statystyka testowa:
+    $$
+    F = \frac{n - k}{k - 1} \frac{\sum_{i=k}^k n_i(\overline{X}_i -
+    \overline{X})^2}{\sum_{i=k}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{X}_i)^2}
+    $$
+    $$
+    \overline{X} = \frac{1}{n} \sum_{i=1}^k n_i \overline{X}_i
+    $$
+    $$
+    \overline{X}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij}
+    $$
+  \item Założenia:
+    \begin{itemize}
+      \item dane są niezależne
+      \item dane mają rozkład normalny
+      \item wariancje są jednorodne (homogeniczne)
+    \end{itemize}
+\end{itemize}
+
+\section{Test Barletta}
+
+Test Barletta jest testem statystycznym służącym do porównywania
+średnich wartości dwóch prób, gdy nie możemy założyć, że wariancje
+są jednorodne. Jest to test nieparametryczny, który nie zakłada
+rozkładu normalnego danych.
+
+\begin{itemize}
+  \item \textbf{Hipoteza zerowa}: $H_0: \mu_1^2 = \mu_2^2 = \ldots = \mu_k^2$
+  \item Hipotezy alternatywne: $H_1: \mu_i^2 \neq \mu_j^2$ dla co najmniej
+    jednej pary $(i, j)$
+  \item Statystyka testowa:
+    $$
+    B = \frac{1}{C} (n - k) \ln MSE - \sum_{i=1}^k (n_i - 1) \ln S_i^2
+    $$
+    $$
+    C = 1 + \frac{1}{3(k - 1)}(\sum_{i=1}^k \frac{1}{n_i - 1} - \frac{1}{n - k})
+    $$
+\end{itemize}
+
+% Ok po tym punkcie na wykładzie po prostu mieliśmy nauczanie
+% maszynowe, więc nie ma sensu tego opisywać. Kto układał sylabusy
+% tak, że NN oraz nauczanie maszynowe mi się powtórzyły W TYM SAMYM
+% SEMESTRZE idk
 
 \end{document}
