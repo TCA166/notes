@@ -470,6 +470,19 @@ Zatem $f(x) = g_1 \cdot g_2 \cdot g_3 = (x^2 + 3x + 2)(x^2 + 1)(x^6 +
 
 \subsection{Algorytm Cantora i Zassenhausa}
 
+Algorytm Cantora i Zassenhausa jest algorytmem probabilistycznym, który
+służy do faktoryzacji wielomianów nad ciałami skończonymi. Dla wejściowego
+wielomianu $f$ zwraca zbiór wielomianów $g_1, g_2, \dots, g_k$ takich, że
+$$
+f(x) = g_1(x)g_2(x) \dots g_k(x)
+$$
+Algorytm ten działa w następujący sposób:
+\begin{enumerate}
+  \item Losujemy $a \in \mathbb{F}_q$ i obliczamy $g = NWD(f, x^q - a)$.
+  \item Jeśli $g$ jest nierozkładalny to zwracamy $g$.
+  \item W przeciwnym razie dzielimy $f$ przez $g$ i powtarzamy krok 1.
+\end{enumerate}
+
 \section{Bazy Gröbnera}
 
 Dla porządku $\prec$ na $\mathbb{Z^n}$ oraz $f_1 \dots f_n \in
