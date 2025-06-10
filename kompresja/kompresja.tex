@@ -78,6 +78,48 @@ $$
 H(X) = \sum_{i=1}^{n}P(A_i)I(A_i)
 $$
 
+\subsection{Entropia warunkowa}
+
+Dla alfabetu $\mathcal{A} = \{x_0, x_1, \dots x_n\}$ i $\mathcal{B} =
+\{y_0, y_1, \dots y_m\}$
+rekonstrukcji, oraz zmiennych
+losowych $X \in \mathcal{A}$ i $Y \in \mathcal{B}$, entropia warunkowa
+to:
+$$
+H(X|Y) = - \sum_{i = 0}^{n} \sum_{j =
+0}^{m}P(x_i|y_j)P(y_j) \log P(y_j | x_i)
+$$
+
+$$
+H(X|Y) \le H(X)
+$$
+
+\subsection{Wspólna informacja wzajemna}
+
+$$
+I(X; Y) = \sum_{i = 0}^{n} \sum_{j =
+0}^{m} P(x_i | y_j)P(y_i) \log(\frac{P(x_i| y_j)}{P(x_i)})
+$$
+
+$$
+I(X; Y) = H(X) - H(X|Y)
+$$
+
+\subsection{Entropia różniczkowa}
+
+Dla zmiennej losowej $X$ z funkcją gęstości rozkładu $f_X(x)$ dzielimy
+zakres wartości $X$ na podprzedziały o rozmiarze $\Delta$. Dla każdego
+przedziału $[(i - 1) \Delta, i \Delta)$ istnieje liczba $x_i$, taka, że
+$$
+f_X(x_i)\Delta = \int_{(i - 1)\Delta}^{i\Delta} f_X(x) dx
+$$
+
+$$
+h(X) = - \int_{-\infty}^{\infty} f_X(x) \log f_X(x) dx
+$$
+
+Jeśli $X \sim U(a, b)$, to $h(X) = \log(b - a)$
+
 \section{Kodowanie}
 
 Kodowanie to przyporządkowanie elementom jakiegoś alfabetu ciągu binarnych.
@@ -211,7 +253,8 @@ kodu o długości $n$.
 
 \subsection{Kodowanie Golomba}
 
-Kody Golomba są parametryzowane liczbą $m > 0$. Każda liczba $n$ jest zapisywana
+Kody Golomba są parametryzowane liczbą $m > 0$. Każda liczba $n$
+jest zapisywana
 za pomocą $q = \lfloor \frac{n}{m} \rfloor$ oraz $r = n - q \cdot m$ w postaci
 $$
 (q)_1(r)_2
@@ -222,7 +265,8 @@ $$
 Głównym problemem kodowania Huffmana jest konieczność znania całego ciągu
 danych przed rozpoczęciem kodowania. Rozwiązaniem tego problemu jest
 dynamiczne kodowanie, gdzie stosujemy kodowanie Huffmana dla $k + 1$ symbolu
-na podstawie kodowania dla $k$ symboli. W tym celu tworzymy dynamicznie drzewo,
+na podstawie kodowania dla $k$ symboli. W tym celu tworzymy
+dynamicznie drzewo,
 gdzie każdy liść ma wagę równą ilości wystąpień danego symbolu. Drzewo zaczyna
 się od liścia z symbolem \texttt{EOF} o wadze $0$.
 
@@ -267,7 +311,8 @@ się od liścia z symbolem \texttt{EOF} o wadze $0$.
 
 \subsection{Problem kodowania uniwersalnego}
 
-Szukamy sposobu na kodowanie dowolnej liczby $n \in \mathbb{N}$. Problem polega
+Szukamy sposobu na kodowanie dowolnej liczby $n \in \mathbb{N}$.
+Problem polega
 na skonstruowaniu kodu, który będzie jednoznacznie dekodowalny i uniwersalny.
 To oznacza, że ma się skalować w nieskończoność.
 
@@ -313,7 +358,8 @@ $\delta$ to $2 \cdot \lceil \log_2(\lceil \log_2x \rceil)\rceil - 1 +
 Jest to kodowanie rekurencyjne, które działa jak kodowanie $\delta$, ale
 w nieskończoność.
 Na koniec umieszczane jest $0$, potem kodowana jest liczba $k=x$. Potem ten
-krok jest powtarzany dla $k=n - 1$ gdzie n to liczba bitów z poprzedniego kroku.
+krok jest powtarzany dla $k=n - 1$ gdzie n to liczba bitów z
+poprzedniego kroku.
 
 $$
 (13)_{10} = 1101_2 \Rightarrow \omega(13) = 11 1101 0
@@ -340,7 +386,8 @@ $$
 
 \subsection{Kodowanie arytmetyczne}
 
-Kodowanie arytmetyczne to kodowanie, które odwzorowywuje dowolny ciąg wejściowy
+Kodowanie arytmetyczne to kodowanie, które odwzorowywuje dowolny
+ciąg wejściowy
 na liczbę z zakresu $[0, 1)$. Głównym pomysłem stojącym za algorytmem, jest
 iteracyjne przypisywanie coraz to mniejszych przedziałów do kolejnych symboli
 ciągu wejściowego.
@@ -413,10 +460,12 @@ odpornością na błędy i zmienność danych wejściowych.
 
 \subsubsection{LZ77}
 
-Słownikiem jest zakodowana/odkodowana część tekstu. W ten sposób jesteśmy bardzo
+Słownikiem jest zakodowana/odkodowana część tekstu. W ten sposób
+jesteśmy bardzo
 elastyczni w zakresie zmiany danych wejściowych, oraz nie musimy przesyłać
 słownika. Kodem jest trójka $(o, l, k)$ gdzie $o$ to przesunięcie, $l$ to
-długość, a $k$ to kolejny znak. W ten sposób $(0, 0, n),(1, 1, k)$ dekoduje się
+długość, a $k$ to kolejny znak. W ten sposób $(0, 0, n),(1, 1, k)$
+dekoduje się
 jako "nnk". Proces kodowania jest parametryzowany $n$ i $m$, gdzie $o < n$ i
 $l < m$. W oknie długości $n$ szukamy najdłuższego prefiksu, który jest
 w części zakodowanej długości $m$.
@@ -436,7 +485,8 @@ a słownik $s$ zawiera $s(1)=k,s(2)=ka,s(3)=kab$.
 
 Odkodowywanie wygląda podobnie jak kodowanie. Zaczynamy od pustego słownika,
 i wraz z kolejnymi krokami dodajemy nowe elementy do słownika. Zatem
-$(0,k)$ oznacza dodanie $k$ do słownika, $(1,a)$ oznacza dodanie $s(1)a$, czyli
+$(0,k)$ oznacza dodanie $k$ do słownika, $(1,a)$ oznacza dodanie
+$s(1)a$, czyli
 $ka$, a $(2,b)$ oznacza dodanie $s(2)b$, czyli $kab$.
 
 \subsubsection{LZW}
@@ -451,7 +501,8 @@ Przy drugim znaku do słownika dodajemy $s(4)=s(3)s(2)$. Ogólnie bierzemy
 poprzedni symbol bez pierwszego znaku i dodajemy do niego pierwszy znak
 z aktualnego symbolu.
 
-Może wystąpić sytuacja, kiedy nie mamy w słowniku symbolu którego potrzebujemy.
+Może wystąpić sytuacja, kiedy nie mamy w słowniku symbolu którego
+potrzebujemy.
 Np.: słowo to "abababa", $s(1)=a,s(2)=b$, a kod to: $1235$. W takim
 przypadku, w momencie dekodowania $5$ mamy w słowniku:
 $s(3)=ab,s(4)=ba,s(5)=ab?$. Nie mamy $s(5)$, więc dodajemy $ab$ i pierwszą
@@ -564,15 +615,18 @@ danych wejściowych po stronie nadawcy i odbiorcy.
 
 \subsection{Kodowanie predykcyjne}
 
-W tekstach naturalnych symbole bardzo często zależą od siebie. Można wykorzystać
-informację o prawdopodobieństwach wystąpienia symboli, pod warunkiem wystąpienia
+W tekstach naturalnych symbole bardzo często zależą od siebie.
+Można wykorzystać
+informację o prawdopodobieństwach wystąpienia symboli, pod
+warunkiem wystąpienia
 poprzednich symboli. Dla dłuższego okna kontekstowego, kodowanie predykcyjne
 jest bardziej skuteczne, lecz wymaga większej ilości pamięci.
 
 \subsubsection{PPM}
 
 Dla każdej litery, określamy maksymalną długość kontekstu $k$ i zapisujemy
-w tym kontekście daną literę. Kod jest parametryzowany przez maksymalną długość
+w tym kontekście daną literę. Kod jest parametryzowany przez
+maksymalną długość
 kontekstu. Jeśli symbol pojawia się po raz
 pierwszy, to zapisujemy w specjalnym kontekście o długości $-1$.
 Zatem dla przykładowego słowa dłuższego niż $3$ i
@@ -675,7 +729,8 @@ różnicę między $X$ a $\widehat{X}$.
 
 \subsubsection{JPEG-LS}
 
-JPEG-LS to standard kompresji obrazów, podobny do CALIC, który też wykorzystuje
+JPEG-LS to standard kompresji obrazów, podobny do CALIC, który też
+wykorzystuje
 kodowanie predykcyjne.
 \begin{figure*}[h]
   \centering
@@ -888,5 +943,21 @@ Odległość minimalna tego kodu to $7$ i koryguje $3$ błędy.
 
 Burst error to ciąg błędów, długości $t$. Kod dualny do kodu Hamminga z
 $g(x)=1 + x^2 + x^3 + x^4$ jest $(7,3)$-kodem korygującym 2 burst errors.
+
+\section{Kwantyzacja}
+
+Kwantyzacja to proces przekształcenia danych wejściowych przez
+funkcję kwantyzującą,
+która oprócz dyskretyzowania wartości wejściowych, odwzorowywuje je na mniejszy
+zbiór.
+
+\noindent
+Dwa odwzorowania:
+\begin{itemize}
+\item kodujące: dzieli zbiór wartości na pewną liczbę podprzedziałów,
+przypisuje każdemu podprzedziałowi
+odpowiedni symbol
+\item dekodujące: przyjmuje symbol i zwraca odpowiedni podprzedział
+\end{itemize}
 
 \end{document}
