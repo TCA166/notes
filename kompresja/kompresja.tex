@@ -960,4 +960,138 @@ odpowiedni symbol
 \item dekodujące: przyjmuje symbol i zwraca odpowiedni podprzedział
 \end{itemize}
 
+Z reguły w kwantyzacji mierzymy błąd, jako różnicę między wartością wejściową
+i wartością rekonstruowaną. Tutaj zwykle stosuje się metryki podobne do tych
+w nauczaniu maszynowym, takich jak błąd średniokwadratowy (MSE). Inną metryką
+jest odległość Hamminga między dwoma słówami kodowymi.
+
+\subsection{Kwantyzatory skalarne}
+
+Kwantyzatory skalarne przekształcają skalary na przedziały pewnego zakresu.
+Na przykład, kwantyzator z zakresu $[0, 1]$ dzieli ten przedział na $n$ równych
+podprzedziałów i przypisuje każdemu podprzedziałowi symbol $i$, gdzie $i$ jest
+liczbą całkowitą od $0$ do $n - 1$.
+
+Wyróżniamy dwa rodzaje kwantyzatorów skalarnych:
+\begin{itemize}
+\item równomierne
+\item nierównomierne
+\end{itemize}
+również kwantyzator może mieć krok w zerze lub nie, zależy od charakterystyki
+sygnału wejściowego.
+
+\subsection{Kwantyzatory adaptacyjne}
+
+Kwantyzatory adaptacyjne są takie, które zmieniają swoje parametry w czasie
+w zależności od sygnału wejściowego. Na przykład, kwantyzator adaptacyjny
+może zmieniać swoje granice podprzedziałów w zależności od histogramu sygnału
+wejściowego.
+
+\subsection{Kwatyzacja wektorowa}
+
+Idea jest taka, że zamiast kwanyzować pojedyncze skalary, można kwantyzować
+bloki skalarów (wektory). W zależności od rodzaju danych, może to przynosić
+lepsze wyniki niż kwantyzacja pojedynczych skalarów. Na przykład, w przypadku
+obrazów, kwantyzacja bloków może być bardziej efektywna niż
+kwantyzacja pojedynczych
+skalarów, ponieważ bloki są bardziej skorelowane.
+
+\subsection{Algorytm LBG}
+
+Algorytm LBG (Linde-Buzo-Gray) jest algorytmem adaptacyjnym, który wykorzystuje
+technikę grupowania (clustering) do znajdowania optymalnych granic
+podprzedziałów
+w kwantyzatorze wektorowym. Algorytm ten jest wykorzystywany w kompresji obrazów
+i audio.
+
+\begin{enumerate}
+\item Ustal dowolnie zbiór $Y$ wartości rekonstruowanych
+\item Znajdź zbiory $V_i$, takie, że każdy ich element jest najbliżej $i$-tej
+wartości rekonstruowanej
+\item Jeśli zmiana zniekształcenia w porównaniu z poprzednią iteracją
+jest mniejsza
+niż $\epsilon$, zakończ algorytm.
+\item W przeciwnym razie, zaktualizuj granice podprzedziałów na podstawie
+średniej wartości elementów w każdym zbiorze $V_i$.
+\end{enumerate}
+
+\section{Kodowanie różnicowe}
+
+Dla ciągu skalarów, zamiast kodować wartości, można kodować różnicę między
+kolejnymi wartościami. To samo w sobie nie jest kompresją, lecz po kwantyzacji
+wartości wejściowych można uzyskać efektywną kompresję. Trzbea tylko uważać,
+aby najpierw kwantyzować potem odejmować, bo inaczej błąd będzie rosnął liniowo.
+
+\section{DPCM}
+
+Metoda DPCM konceptowo jest bardzo podobna do kodowania różnicowego, ale zamiast
+kodować różnicę między kolejnymi wartościami, koduje różnicę między funkcją
+predykcyjną $f$ a wartością wejściową $x_n$.
+$$
+k_n = x_n -f(x_{n-1}, x_{n-2}, \dots, x_{0})
+$$
+Wtedy trzeba jedynie sprytnie wybrać funkcję predykcyjną $f$, taką, aby
+błąd kwantyzacji był minimalny.
+
+Dla uproszczenia można założyć, że $f$ to $p_n = \sum_{i=0}^{N} a_i x_{i - 1}$
+gdzie $N$ określa rząd predyktora.
+
+\subsection{Modulacja delta}
+
+Jest to bardzo uproszczona wersja DPCM. W modulacji delta $p_n$ jest to
+prosta predykcja poprzedniej wartości, gdzie $p_n = x_{n-1} + s_n$.
+$$
+s_n =
+\begin{cases}
+1 & \text{jeśli } x_n > x_{n-1} \\
+-1 & \text{jeśli } x_n < x_{n-1} \\
+0 & \text{jeśli } x_n = x_{n-1}
+\end{cases}
+$$
+
+\section{Kodowanie transformujące}
+
+Z reguły kodowanie transformujące opiera się na następujacych czterech krokach:
+\begin{enumerate}
+\item Podziel sygnał wejściowy na bloki
+\item oblicz przekształcenie każdego bloku
+\item kwantyzuj przekształcenie
+\item koduj kwantyzację
+\end{enumerate}
+
+\subsection{Przekształcenie Karhunena-Loevego}
+
+Przekształcenie KLT opiera sie na macierzy przekształcenia.
+Wiersze tej macierzy są wektorami własnymi macierzy kowariancji sygnału
+wejściowego. Macierz korelacji ma postać $[R]_{i,j} = E[X_nX_{n + |i - j|}]$.
+
+\subsection{Dyskretne przekształcenie kosinusowe}
+
+Przekształcenie DCT opiera się na macierzy przekształcenia $N \times N$.
+$$
+[C]_{i,j} =
+\begin{cases}
+\sqrt{\frac{1}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i = 0 \\
+\sqrt{\frac{4}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i \neq 0
+\end{cases}
+$$
+Jest łatwiejsza do policzenia i lepiej się sprawdza niż dyskretna
+transformata Fouriera.
+
+\subsection{Dyskretne przekształcenie sinusowe}
+
+Przekształcenie DST opiera się na macierzy przekształcenia $N \times N$.
+$$
+[S]_{i,j} = \sqrt{\frac{2}{N + 1}} \sin \frac{\pi(i + 1)(j + 1)}{N + 1}
+$$
+Lepiej stosować niż kosinusowe gdy wspołczynnik korelacji jest niższy.
+Ogólnie jest to transformacja uzupełniająca do transformacji kosinusowej.
+
+\subsection{Dyskretne przekształcenie Walsha-Hadamarda}
+
+Macierz Hadamard rzędu $N$ jest zdefiniowana wzorem $HH^T = NI$. Macierz
+przekształcenia uzyskujemy przez normalizację i ustawienie kolumn w porządku
+ilości zmian znaków. Ta transformacja jest prosta do implementacji oraz
+minimalizuje ilość obliczeń.
+
 \end{document}
