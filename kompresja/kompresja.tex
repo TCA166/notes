@@ -1094,4 +1094,62 @@ przekształcenia uzyskujemy przez normalizację i ustawienie kolumn w porządku
 ilości zmian znaków. Ta transformacja jest prosta do implementacji oraz
 minimalizuje ilość obliczeń.
 
+\section{Kompresja wideo}
+
+Cała kompresja wideo opiera się na prostej obserwacji, że wideo jest
+złożone z wielu klatek, które są bardzo podobne do siebie. W ten sposób
+można zredukować ilość danych, które musimy przechowywać i przesyłać.
+
+\subsection{Rodzaje ramek}
+
+Mimo to, aby zapobiec akumulacji błędu, nie możemy się opierać tylko na
+rekonstrukcji klatek. Co którąś klatkę musimy przesłać w całości, lub
+minimalnie skompresowaną. Z reguły rozróżniamy zatem trzy rodzaje ramek(klatek):
+\begin{itemize}
+\item Typ I: obraz zakodowany jak JPEG
+\item Typ P: obraz zakodowany jako różnica od ostaniej klatki P lub I
+\item Typ B: obraz zakodowany jako różnica od dwóch ostatnich klatek P lub I
+\end{itemize}
+Z reguły zatem różne formaty mają różne schematy i sekwencje typów klatek.
+
+\subsection{Kompensacja ruchu}
+
+Aby określić transformację, jaką należy zastosować do klatki aby
+uzyskać kolejną,
+należy podzielić klatkę na mniejsze bloki, znaleźć podobny blok w poprzedniej
+klatce i zakodować wektor przesunięcia oraz różnicę kolorów między blokami.
+
+\section{Kodowanie podpasmowe}
+
+Poprzez transformację jednego sygnału na różne podpasma, możemy
+osiagnąć wyższy stopień kompresji. Podstawowy schemat kodowania ma 4 kroki:
+\begin{enumerate}
+\item Wybierz zbiór filtrów do rozkładu źródła
+\item Używając filtrów oblicz sygnały podpasm
+\item Zdziesiątkuj wyjście filtra
+\item Zakoduj zdziesiątkowane wyjście
+\item Zakoduj zakodowane wyjście
+\end{enumerate}
+
+Na przykład, na sygnale możemy zastosować filtr $y_n = \frac{x_n +
+x_{n - 1}}{2}$, oraz $z_n = x_n - y_n$.
+
+\subsection{Reguła Nyquista}
+
+Jeśli sygnały mają tylko składowe o częstotliwościach między $f_1$ a $f_2$, to
+aby odtworzyć sygnał musimy próbkować z częstością co najmniej $2(f_2 - f_1)$.
+
+\subsection{Filtrowanie cyfrowe}
+
+Dla
+$$
+y_n =\sum_{i=0}^{N} a_i x_{n-i} + \sum_{i=0}^{M} b_i y_{n-i}
+$$
+$a_i$ i $b_i$ są współczynnikami filtru.
+
+\section{Schematy synteza\-analiza}
+
+Zamiast przesyłać sygnał, opracowywujemy model, będący w stanie sytezować go.
+Następnie przesyłamy tylko parametry modelu.
+
 \end{document}

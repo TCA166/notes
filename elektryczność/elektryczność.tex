@@ -217,11 +217,14 @@ siły $\vec{\tau} = \vec{p} \times \vec{E}$.
 \section{Prawo Gaussa}
 
 $$
-\Phi_E = \oint \vec{E} \cdot d\vec{s} = \frac{q}{\epsilon_0}
+\Phi_E = \frac{Q}{\epsilon_0} = \oint_S E \cdot dS = \frac{1}{\epsilon_0}
+\int_V \rho(r) dr
 $$
 gdzie $\vec{s}$ to wektor powierzchni, a $\vec{E}$ to pole elektryczne, które
 przechodzi przez tę powierzchnię. Przy pomocy prawa Gaussa możemy
 obliczyć pole elektryczne w przypadku symetrycznych rozkładów ładunków.
+Ogólna idea za prawem Gaussa, jest taka, że ładunek w zamkniętej powierzchni
+Gaussa jest równy sumie ładunków wewnątrz powierzchni.
 
 Kluczowym konceptem w takich obliczeniach, jest tak zwana powierzchnia
 Gaussa. Powierzchnia Gaussa to zamknięta powierzchnia, która otacza
@@ -400,6 +403,8 @@ Również to oznacza, że $U_1 - U_2 = - \oint F$
 $$
 U = V_1 - V_2 = - \int_{r_1}^{r_2} E(r) \cdot dr
 $$
+gdzie $U$ to energia elektryczna, którą musimy wydać, aby przenieść ładunek z
+punktu $r_1$ do punktu $r_2$.
 $$
 E = - \nabla V
 $$
@@ -411,18 +416,21 @@ $$
 Co za tym idzie siła pola elektrycznego jest gradientem potencjału
 energii elektrycznego.
 $$
-U = q \cdot V
+U = qV = k \frac{q_1 q_2}{r}
 $$
 $$
-F_E = q \cdot E = - \nabla U
+F_E = qE = -q \nabla V = - \nabla U
 $$
 
 \section{Kondensatory}
 
 Kondensatory to układy elektryczne, które przechowują elektryczną energię
 potencjalną. Składają się z dwóch przewodników, oddzielonych dielektrykiem.
-Dla kondensatora mamy pojemność $C = \frac{Q}{V}$, gdzie $Q$ to ładunek, a $V$
-to napięcie między przewodnikami.
+Dla kondensatora mamy pojemność $C$.
+$$
+C = \frac{Q}{U} = \frac{S \cdot \epsilon_0}{d}
+$$
+gdzie $Q$ to ładunek, a $V$ to napięcie między przewodnikami.
 \begin{figure*}[h]
   \centering
   \resizebox{0.8\textwidth}{!}{
@@ -467,7 +475,7 @@ wiemy, że $I = jA$, gdzie $j$ to gęstość prądu. Przewodnictwo prądu okreś
 jako $G = \frac{\sigma A}{L}$, oraz $I = GV$. Na podstawie tego wszystkiego
 możemy okreslić, że:
 $$
-R = \frac{V}{I}
+R = \frac{U}{I}
 $$
 gdzie $R$ to opór elektryczny. Opór
 elektryczny jest wielkością skalarna, która określa opór elektryczny danego
@@ -498,5 +506,50 @@ materiału, długości i pola przekroju.
 \end{figure*}
 Dla połączenia równoległego mamy $I_{1+2} = I_1 + I_2$. Z kolei dla
 połączenia szeregowego mamy $I_1 = I_2$.
+
+$$
+I = \frac{Q}{t} = \frac{U}{R} = \frac{P}{U}
+$$
+
+\section{Magnetyzm}
+
+Magnetyzm, w swojej esencji to zjawisko, które występuje w materiale, gdy
+przepływa przez niego prąd elektryczny. W wyniku tego ruchu powstaje pole
+magnetyczne $B$. Siła na ładunek w polu magnetycznym jest równa:
+$$
+F_{mag} =q(E + v \times B)
+$$
+gdzie $E$ to pole elektryczne i $v$ to prędkość ładunku.
+Warto też zauważyć:
+$$
+P = vF = qvE
+$$
+
+\subsection{Zasada prawej ręki}
+
+Ponieważ, w równaniu $P = F_{mag}$, $v \times B = 0$, siła
+magnetyczna jest zawsze prostopadła do prędkości ładunku.
+Co za tym idzie, można sformalizować relatywne zwroty sił w polu magnetycznym.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw[thick,->] (0,0) -- (-1,0) node[anchor=north] {$B$};
+    \draw[thick,->] (0,0) -- (0,1) node[anchor=east] {$v$};
+
+    \draw[thick] (1,1) circle (0.2) node[anchor=south,
+    xshift=0.2cm, yshift=0.2cm] {$F$};
+    \fill (1,1) circle (0.07);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \draw[thick,->] (0,0) -- (1,0) node[anchor=north] {$B$};
+    \draw[thick,->] (0,0) -- (0,1) node[anchor=east] {$v$};
+
+    \draw[thick] (1,1) circle (0.2) node[anchor=south,
+    xshift=0.2cm, yshift=0.2cm] {$F$};
+    \draw[thick] (0.93,0.93) -- (1.07,1.07);
+    \draw[thick] (0.93,1.07) -- (1.07,0.93);
+  \end{tikzpicture}
+  \caption{Siła magnetyczna na ładunku w polu magnetycznym}
+\end{figure}
 
 \end{document}
