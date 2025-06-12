@@ -1152,4 +1152,52 @@ $a_i$ i $b_i$ są współczynnikami filtru.
 Zamiast przesyłać sygnał, opracowywujemy model, będący w stanie sytezować go.
 Następnie przesyłamy tylko parametry modelu.
 
+\subsection{Wyznaczanie bezdzwięczności}
+
+Aby określić czy próbka dźwięku (z reguły krótka) jest bezdźwięczna, należy
+użyć funkcji autokorelacji lub AMDF. Funkcja autokorelacji wygląda
+następująco:
+$$
+r(k) = \sum_{n=0}^{N-k} s(n)s(n + k) \quad s(n) = (\sum_{k=0}^{M -
+1}h(k)x(n - k)) \cdot (0.54 - 0.46 \cos(\frac{2\pi n}{N - 1}))
+$$
+$s(n)$ to sygnał mowy po nałożeniu dolnoprzepustowego filtru oraz okna Hamminga.
+Aby określić, czy fragment jest bezdzwięczny, wystarczy znaleźć globalne optimum
+$r(k)$. Jeżeli to optimum jest większe od $0.3 \cdot r(0)$ to fragment jest
+dźwięczny. W przeciwnym razie jest bezdźwięczny.
+
+\section{EZW}
+
+Głównym założeniem za algorytmem jest to, że po podziale sygnału na
+podpasma, to współczynniki tych podpasm mogą być od siebie zależne, tworząc
+drzewo. W takim drzewie można wyróżnić cztery rodzaje współczynników:
+\begin{itemize}
+\item korzeń drzewa zerowego (ZR)
+\item izolowane zero (IZ)
+\item znacząco dodatni (SP)
+\item znacząco ujemny (SN)
+\end{itemize}
+
+EZW ma dwa kroki: dominujący i podrzędny. Na początku $C_{max} = \max_m |w(m)|$,
+$T_0 = 2^{\lfloor \log_2(C_{max})\rfloor}$. Lista dominująca zawiera wszystkie
+wierzchołki, podrzędna jest pusta. Po każdym kroku $T_i = \frac{T_{i-1}}{2}$.
+
+Krok dominujący: Dla każdego wierzchołka $w[m]$:
+\begin{itemize}
+\item Jeśli $|w[m]| > T_k$:
+przenieś na listę podrzędną oraz
+\begin{itemize}
+\item SP jeśli $|w[m]| > 0$
+\item SN jeśli $|w[m]| < 0$
+\end{itemize}
+\item W przeciwnym razie:
+\begin{itemize}
+\item ZR jeśli dalej nie ma istotnych współczynników
+\item IZ jeśli jest nieistotny, ale ma istotne potomstwo
+\item \texttt{NIL} w przeciwnym razie
+\end{itemize}
+\end{itemize}
+
+Krok podrzędny:
+
 \end{document}
