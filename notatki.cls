@@ -80,3 +80,23 @@ draw=black, fill=blue!30]
 \RequirePackage{circuitikz}
 
 \newcommand{\divider}{\noindent\rule{\textwidth}{0.4pt}\\}
+
+\newcommand{\forceawayat}[3]{%
+  \draw[thick] (#1,#2) circle (0.15);
+  \draw[thick] (#1-0.10,#2-0.10) -- (#1+0.10,#2+0.10);
+  \draw[thick] (#1-0.10,#2+0.10) -- (#1+0.10,#2-0.10);
+  \node[right, anchor=south,
+  xshift=0.1cm, yshift=0.1cm] at (#1+0.2,#2) {#3};
+}
+
+\newcommand{\forcetowardat}[3]{%
+  \draw[thick] (#1,#2) circle (0.15);
+  \fill[thick] (#1,#2) circle (0.06);
+  \node[right, anchor=south,
+  xshift=0.1cm, yshift=0.1cm] at (#1+0.2,#2) {#3};
+}
+
+\newcommand{\comment}[1]{
+  {\tiny
+  \textit{#1}}
+}

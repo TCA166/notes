@@ -101,4 +101,84 @@ $$
 gdzie $\alpha$ określa ograniczenia maszyn, $\beta$ określa ograniczenia
 zadań, a $\gamma$ określa kryterium optymalizacji.
 
+\section{Problemy na jednej maszynie}
+
+Poniżej są opisane raczej trywialne problemy z minimalnymi utrudnieniami.
+
+\subsection{1||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$.
+Każde uszeregowanie bez przestojów jest optymalne. $C_{max} = \sum_{j=1}^n C_j$.
+
+\subsection{
+1|\texorpdfstring{$r_j$}{rj}|\texorpdfstring{$C_{max}$}{Cmax}}
+
+Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$ i
+czasami, od których są dostępne $r_j$. Tutaj możliwe, że przestoje są
+nieuniknione. Aby rozwiązać ten problem, sortujemy zadania po $r$, po czym
+kolejno je szeregujemy.
+
+\subsection{1||\texorpdfstring{$\sum C_j$}{sum Cj}}
+
+Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$.
+Chcemy minimalizować sumę ich czasów zakończeń, więc lepiej najpierw wykonać
+najkrótsze zadania. Nazywamy to SPT.
+
+\subsubsection{1||\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
+
+Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$ i wagami $w_j$.
+Chcemy minimalizować ważoną sumę ich zakończeń, co za tym idzie najwyżej ważone
+zadania chcemy wykonywać jako pierwsze. Aby to osiągnąć wystarczy posortować
+zadania po $\frac{p_j}{w_j}$. Nazywamy to WSPT i jest to ogólniejszy przypadek
+SPT.
+
+\subsubsection{1|\texorpdfstring{$pmtn, r_j$}{pmtn,
+rj}|\texorpdfstring{$\sum C_j$}{sum Cj}}
+
+Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$, z
+czasami gotowości
+$r_j$, które \textbf{są podzielne}. Tutaj ponownie stosujemy algorytm SPT,
+ale w momencie, gdy skończymy zadanie, lub zadanie stanie się dostępne,
+zmieniamy wykonywane zadanie na to o najkrótszym czasie przetwarzania.
+Nazywamy to SRPT.
+
+\section{Problemy kolejnościowe}
+
+W momencie dodania ograniczeń kolejnościowych, z reguły opisanych grafem
+kolejności, złożoność problemu znacznie rośnie. Załóżmy, że graf
+jest reprezentowany przez listę sąsiedztwa.
+
+\subsection{1|prec|\texorpdfstring{$\sum C_j$}{sum Cj}}
+
+W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywanlnych z
+czasami przetwarzania $p_j$.
+Próba rozwiązania tego problemu tylko przy pomocy DFS nie wystarczy.
+Konieczny jest algorytm Kahna, który sortuje topologicznie graf.
+Algorytm Kahna jest bardzo podobny do DFS, ale zamiast używania stosu,
+używamy kolejki priorytetowej, czyli najpierw zwiedzamy te wierzchołki o
+najkrótszym czasie przetwarzania.
+
+\subsection{1|prec|\texorpdfstring{$f_{max}$}{fmax}}
+
+W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywalnych z
+czasami przetwarzania $p_j$.
+Wystarczy rozważać szeregowania bez przestojów. Problem ten rozwiązuje
+algorytm Lawler'a, w którym budujemy uszeregowanie od końca. W każdym kroku
+algorytmu rozważamy te zadania, bez uszeregowanych następników, i wybieramy
+te które w danym momencie generuje najmniejszy koszt.
+
+\subsection{1|out-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
+
+W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywalnych z
+czasami przetwarzania $p_j$ oraz wagami.
+Trik aby rozwiązać ten problem, to łączyć kolejno zadania o
+najmniejszej wartości
+kryterium ($\frac{w_j}{p_j}$) z swoimi poprzednikami, pamiętając w poprzednikach
+o kolejności łączenia.
+
+\subsection{1|in-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
+
+Ten problem mapuje się 1-1 do problemu poprzedniego, wystarczy tylko
+odwrócić krawędzie i nadać zadaniom wagi przeciwne.
+
 \end{document}
