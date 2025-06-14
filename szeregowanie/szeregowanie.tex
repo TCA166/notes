@@ -85,6 +85,7 @@ Koniecznym jest aby następujące warunki były spełnione:
   \item opóźnienie $L_j = C_j - d_j$
   \item spóźnienie $T_j = \max(0, L_j)$
   \item przyspieszenie $E_j = \max(0, d_j - C_j)$
+  \item liczbę spóźnionych zadań $U_j = |\{i : C_i > d_i\}|$
 \end{itemize}
 
 \subsubsection{Kryteria optymalizacji}
@@ -124,7 +125,7 @@ Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$.
 Chcemy minimalizować sumę ich czasów zakończeń, więc lepiej najpierw wykonać
 najkrótsze zadania. Nazywamy to SPT.
 
-\subsubsection{1||\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
+\subsection{1||\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
 
 Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$ i wagami $w_j$.
 Chcemy minimalizować ważoną sumę ich zakończeń, co za tym idzie najwyżej ważone
@@ -132,7 +133,7 @@ zadania chcemy wykonywać jako pierwsze. Aby to osiągnąć wystarczy posortowa�
 zadania po $\frac{p_j}{w_j}$. Nazywamy to WSPT i jest to ogólniejszy przypadek
 SPT.
 
-\subsubsection{1|\texorpdfstring{$pmtn, r_j$}{pmtn,
+\subsection{1|\texorpdfstring{$pmtn, r_j$}{pmtn,
 rj}|\texorpdfstring{$\sum C_j$}{sum Cj}}
 
 Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$, z
@@ -142,13 +143,13 @@ ale w momencie, gdy skończymy zadanie, lub zadanie stanie się dostępne,
 zmieniamy wykonywane zadanie na to o najkrótszym czasie przetwarzania.
 Nazywamy to SRPT.
 
-\section{Problemy kolejnościowe}
+\subsection{Problemy kolejnościowe}
 
 W momencie dodania ograniczeń kolejnościowych, z reguły opisanych grafem
 kolejności, złożoność problemu znacznie rośnie. Załóżmy, że graf
 jest reprezentowany przez listę sąsiedztwa.
 
-\subsection{1|prec|\texorpdfstring{$\sum C_j$}{sum Cj}}
+\subsubsection{1|prec|\texorpdfstring{$\sum C_j$}{sum Cj}}
 
 W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywanlnych z
 czasami przetwarzania $p_j$.
@@ -158,27 +159,223 @@ Algorytm Kahna jest bardzo podobny do DFS, ale zamiast używania stosu,
 używamy kolejki priorytetowej, czyli najpierw zwiedzamy te wierzchołki o
 najkrótszym czasie przetwarzania.
 
-\subsection{1|prec|\texorpdfstring{$f_{max}$}{fmax}}
+\subsubsection{1|prec|\texorpdfstring{$f_{max}$}{fmax}}
 
 W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywalnych z
 czasami przetwarzania $p_j$.
 Wystarczy rozważać szeregowania bez przestojów. Problem ten rozwiązuje
 algorytm Lawler'a, w którym budujemy uszeregowanie od końca. W każdym kroku
 algorytmu rozważamy te zadania, bez uszeregowanych następników, i wybieramy
-te które w danym momencie generuje najmniejszy koszt.
+te które w danym momencie generuje najmniejszy koszt. Wybrane zadanie
+trafia na początek uszeregowania.
 
-\subsection{1|out-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
+\subsubsection{1|out-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
 
 W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywalnych z
-czasami przetwarzania $p_j$ oraz wagami.
+czasami przetwarzania $p_j$ oraz wagami. Graf kolejnościowy jest podany
+jako out-tree, czyli korzeń nie ma poprzedników.
 Trik aby rozwiązać ten problem, to łączyć kolejno zadania o
 najmniejszej wartości
 kryterium ($\frac{w_j}{p_j}$) z swoimi poprzednikami, pamiętając w poprzednikach
 o kolejności łączenia.
 
-\subsection{1|in-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
+\subsubsection{1|in-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
 
+Graf kolejnościowy jest podany jako in-tree, czyli korzeń ma
+poprzedników, zgodnie z tym ile ma dzieci.
 Ten problem mapuje się 1-1 do problemu poprzedniego, wystarczy tylko
 odwrócić krawędzie i nadać zadaniom wagi przeciwne.
+
+\subsection{Problemy z opóźnieniem}
+
+W tych problemach, optymalizujemy opóźnienie, czyli $C_j - d_j$.
+
+\subsubsection{1||\texorpdfstring{$L_{max}$}{Lmax}}
+
+Mamy jedną maszynę i $n$ zadań nieprzerywalnych z czasami przetwarzania $p_j$
+i czasami oczekiwanymi $d_j$. Aby rozwiązać ten problem, wystarczy zastosować
+algorytm EDD (regułę Jacksona), w którym wybieramy najpierw zadanie o
+najwcześniejszym czasie oczekiwania.
+
+\subsubsection{1|prec|\texorpdfstring{$L_{max}$}{Lmax}}
+
+Mamy jedną maszynę i $n$ zadań nieprzerywalnych oraz graf kolejności.
+Ten problem rozwiązuje algorytm analogiczny do problemu 1|prec|$C_{max}$, czyli
+sortujemy topologicznie, ale tym raze po $d_j$ a nie $p_j$.
+
+\subsubsection{1|\texorpdfstring{$r_j$}{rj}|\texorpdfstring{$L_{max}$}{Lmax}}
+
+To jest problem silnie NP-trudny, trudność wynika z niepodzielności zadań.
+Warto wspomnieć, że ten problem nie jest NP-trudny, jeśli $r_j = 1$, i wtedy
+rozwiązuje go EDD.
+
+\subsubsection{1|pmtn,\texorpdfstring{$r_j$}{rj}|\texorpdfstring{$L_{max}$}{Lmax}}
+
+W odróżnieniu od poprzedniego problemu, tutaj zadania są podzielne.
+Aby rozwiązać
+ten problem wystarczy zastosować regułę EDD, pamiętając o podzielności zadań.
+Zawsze jak zadanie kończy wykonywanie, lub nowe zadanie jest dostępne, to
+wybieramy zadanie o najmniejszym $d_j$.
+
+\subsection{1||\texorpdfstring{$\sum U_j$}{sum Uj}}
+
+Tutaj optymalizujemy ilość spóźnionych zadań. W pewnym sensie nie interesuje
+nas ile jesteśmy spóźnieni, ale czy jesteśmy spóźnieni. Czyli mamy $n$ zadań
+o czasie przetwarzania $p_j$ i czasie oczekiwania $d_j$. Aby
+rozwiązać ten problem,
+wybieramy niespóźnione zadania w porządku EDD, potem robimy te
+spóźnione w dowolnym porządku. Czyli dobierasz do zbioru zadania, jeśli
+dodanie kolejnego zadania spowoduje, że zadanie jest spóźnione to usuń
+z zbioru zadanie o największym czasie wykonania.
+
+\subsection{1||\texorpdfstring{$\sum T_j$}{sum Tj}}
+
+Problem ten jest słabo NP-trudny, generalizacja z wagami ($\sum w_j T_j$)
+jest silnie NP-trudna. Wersja z przerywaniem też jest silnie NP-trudna.
+Z kolei $p_j = 1$ znacznie ułatwia obydwa problemy i powoduje że należą
+do klasy P.
+
+\subsection{1||\texorpdfstring{$\sum w_jE_j$}{sum wjEj}}
+
+Problem ten jest równoważny z problemem 1||$\sum w_jT_j$.
+
+\section{Problemy wielu maszyn}
+
+Problemy wielu maszyn mają okropną tendencję bycia NP-trudnymi. Problem
+$2||C_{max}$ jest NP-trudny. Problemy wielu maszyn często aproksymują algorytmy
+listowe, w których do $n$ wolnych maszyn przyporządkowujemy kolejno zadania
+z \textit{jakiejś} kolejki. Im większa jest różnica między
+najdłuższym a najkrótszym czasem wykonania zadania, tym bardziej
+mylne rozwiązania dają algorytmy listowe.
+
+\subsection{P||\texorpdfstring{$\sum C_j$}{sum Cj}}
+
+Ten problem rozwiązuje algorytm LPT, czyli sortujemy zadania nierosnąco
+wobec $p_j$ i przypisujemy je kolejno do maszyn. Jest to algorytm
+listowy, w którym zadania w liście są posortowane nierosnąco
+wobec $p_j$.
+
+\subsection{P|prec|\texorpdfstring{$C_{max}$}{Cmax}}
+
+Ten problem może rozwiązać LPT, z modyfikacją w której jeśli zadanie nie ma
+spełnionych wymagań to nie może być zdjęte z kolejki. Niestety, ten problem
+jest szczególnie podatny na anomalie szeregowania listowego, gdzie wejścia
+"łatwiejsze" mogą dawać gorsze rezultaty niż "trudniejsze".
+
+\subsection{P|in-tree,\texorpdfstring{$p_j =
+1$}{pj=1}|\texorpdfstring{$C_{max}$}{Cmax}}
+
+Mamy $m$ identycznych maszyn równoległych
+Poziom zadania to jego odległość od korzenia. Problem ten może rozwiązać
+algorytm Hu, gdzie w każdej chwili $t$, wybieramy $m$ zadań z najwyższymi
+poziomami.
+
+\subsection{P|pmtn|\texorpdfstring{$C_{max}$}{Cmax}}
+
+Mamy $m$ identycznych maszyn równoległych i $n$ podzielnych zadań.
+$$
+C^*_{max} = \max\{\frac{1}{m}\sum_{j=1}^n p_j, \max_{j=1}^n p_j\}
+$$
+Optymalne uszeregowanie konstruuje algorytm McNaughton'a. Zadania są
+przypisywane do kolejnych maszyn w przedziale $[0, C^*_{max})$. Jeśli zadanie
+miałoby się kończyć w czasie $> C^*_{max}$, to jego "overflow" trafia na
+następną maszynę.
+
+\subsection{P|\texorpdfstring{$p_j=1,r_j$}{pj=1,rj}|\texorpdfstring{$L_{max}$}{Lmax}}
+
+Jako, że zadania są równej długości, to jest to zdecydowanie prostszy
+problem. Kolejno wybieramy $m$ zadań do wykonania w "turze", najpierw wykonując
+te, które mają najwcześniejsze terminy zakończenia.
+
+\subsection{P|in-tree,\texorpdfstring{$p_j =
+1$}{pj=1}|\texorpdfstring{$L_{max}$}{Lmax}}
+
+Mamy $m$ identycznych maszyn równoległych. Aby rozwiązać ten problem,
+wystarczy zmodyfkować $d_i = \min\{d_i, d_{i - 1}\}$, a następnie
+szeregować zgodnie z EDD.
+
+\subsection{P|\texorpdfstring{$p_j=1$}{pj=1}|\texorpdfstring{$\sum
+w_jU_j$}{sum wjUj}}
+
+Problem sprowadza się do wybrania zbioru zadań, które zostaną wykonane na czas.
+Zadania nie spóźnione można przydzielić do maszyn LPT z porządkiem EDD.
+Czyli najpierw sortujemy zadania według $d_j$, potem dodajemy do zbioru zadania
+zgodnie z tym porządkiem. Jeśli dodanie zadania powoduje przekroczenie limitu
+czasu, oraz to zadanie ma wagę wiekszą niż najmniejsza waga zadania w
+zbiorze, to usuwamy zadanie o najmniejszej wadze.
+
+\subsection{Maszyny nie-identyczne}
+
+Maszyny niekoniecznie muszą być identyczne, ale jednorodne. Mogą być
+różne w pojemnościach
+przetwarzania. Prędkość oznaczamy $v_i$. Czas wykonywania zadania $j$
+na maszynie $i$ wynosi $\frac{p_j}{v_i}$.
+
+\subsubsection{Q||\texorpdfstring{$\sum C_j$}{sum Cj}}
+
+Zadania sortujemy i wykonujemy z porządkiem SPT. Jeśli $t_j = \frac{k}{v_i}$, to
+zadanie $J_j$ należy uszeregować na maszynie $M_i$ jako $k$-te od końca.
+Niech $w_i = \frac{1}{v_i}: i < m$. Następnie dla każdego zadania
+znajdujemy najmniejsze $w_i$ w liście, umieszczamy zadanie na
+początek uszeregowania
+$i$-tej maszyny, po czym $w_i += \frac{1}{v_i}$.
+
+\subsubsection{Q|pmtn|\texorpdfstring{$\sum C_j$}{sum Cj}}
+
+Najktótsze zadanie chcemy wykonywać na maszynie o najwyższej
+prędkości. W momencie
+wykonania zadania, przerzucamy drugie najkrótsze zadanie na tą maszynę, itd.
+
+\section{Programowanie dynamiczne}
+
+Programowanie dynamiczne, to technika w której algorytm rozwiązuje problem
+rekurencyjnie na podstawie ogromnej tablicy w której wyniki tymczasowe są
+przechowywane.
+
+\subsection{Problem plecakowy}
+
+Mamy $n$ przedmiotów o wagach $w_i$ i cenach $c_i$. Mamy też daną maksymalny
+łączny rozmiar $B$.
+Maksymalna łączna cena podzbioru przedmiotów o numerach nieprzekraczających
+$i$ mieszczących się w plecaku o pojemności $j$:
+$$
+A[i, j] =
+\begin{cases}
+  0 & i = 0 \lor j = 0 \\
+  A[i - 1,j] & i,j > 0 \land w_i > j_j \\
+  \max\{A[i - 1,j], A[i - 1,j - w_i] + c_i\} & i,j > 0 \land w_i \leq j
+\end{cases}
+$$
+Tworzymy tablicę $A$ o rozmiarach $n + 1 \times B + 1$ i zwracamy $A[n,B]$.
+Aby stworzyć rozwiązanie, dla $j = B$, oraz $i = n$, jeśli $A[i, j]
+\neq A[i - 1, j]$ wkładamy
+przedmiot $i$ do plecaka, $j -= w_i$ oraz $i -= 1$.
+
+\subsection{P2||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Mamy problem plecakowy, gdzie $w_j = c_j = p_j$, oraz $B = \lfloor
+\sum_{j=1}^{n} \frac{p_j}{2} \rfloor$.
+
+\subsection{Pm||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Wykorzystujemy tablicę $m + 1$ wymiarową. W komórce $A[j, t_1, \dots,
+t_m]$ zapisujemy informację czy zadania o numerach
+nieprzekraczających $j$ można przypisać w taki sposób, że czas
+działania maszyny $P_i = t_i$.
+
+\begin{enumerate}
+  \item $$
+    A[0, t_1, \dots, t_m] = false
+    $$
+  \item $$
+    A[0, 0, \dots, 0] = true
+    $$
+  \item $$
+    A[1..n, t_1, \dots, t_m] =
+    \bigvee_{i=1}^{n} A[j - 1, t_1, \dots, t_{i - 1}, t_i - p_j, t_{i
+    + 1}, \dots, t_m]
+    $$
+  \item return $\min\{\max\{t_1, \dots, t_m\} | A[n, t_1, \dots, t_m] = true\}$
+\end{enumerate}
 
 \end{document}
