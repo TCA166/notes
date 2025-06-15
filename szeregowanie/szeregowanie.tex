@@ -364,18 +364,82 @@ nieprzekraczających $j$ można przypisać w taki sposób, że czas
 działania maszyny $P_i = t_i$.
 
 \begin{enumerate}
-  \item $$
-    A[0, t_1, \dots, t_m] = false
-    $$
-  \item $$
-    A[0, 0, \dots, 0] = true
-    $$
-  \item $$
+  \item $A[0, t_1, \dots, t_m] = false$
+  \item $A[0, 0, \dots, 0] = true$
+  \item $
     A[1..n, t_1, \dots, t_m] =
     \bigvee_{i=1}^{n} A[j - 1, t_1, \dots, t_{i - 1}, t_i - p_j, t_{i
     + 1}, \dots, t_m]
-    $$
+    $
   \item return $\min\{\max\{t_1, \dots, t_m\} | A[n, t_1, \dots, t_m] = true\}$
 \end{enumerate}
+
+\section{System otwarty}
+
+Jeśli maszyny nie są jednorodne, to mogą być podzielone na grupy maszyn, które
+wykonują różne zadania. Każde zadanie $J_j$ składa się z ciągu
+operacji $O_{1j}, \dots O_{mj}$. Operację $O_{ij}$ wykonuje maszyna
+$P_i$ z czasem $p_{ij}$. W systemie otwartym zadania mogą być przypisane
+do dowolnej maszyny, która jest wolna. Nie ma kolejności w jakiej zadania
+mają być przypisane do maszyn.
+
+\subsection{O2||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Mamy 2 maszynynowy system otwarty. To znaczy, że każde zadanie składa się
+z dwóch operacji, bez określonej kolejności. Problem ten rozwiązuje
+LAPT, gdzie za każdym razem gdy maszyna jest wolna, wybieramy do niej
+dostępne zadanie o najdłuższym czasie wykonania na alternatywnej maszynie.
+$$
+C_{max} = \max\{\max_{j=1}^{n}\{p_{1j} + p_{2j}\},
+\sum_{j=1}^{n}p_{1j}, \sum_{j=1}^{n} p_{2j}\}
+$$
+
+\subsection{Inne problemy}
+
+Wielomianowe:
+\begin{itemize}
+  \item O|pmtn|$C_{max}$
+  \item O|$r_j$,pmtn|$L_{max}$
+\end{itemize}
+NP-trudne:
+\begin{itemize}
+  \item O||$C_{max}$
+  \item O2||$\sum C_j$
+  \item O2|$r_j$|$C_{max}$
+  \item O2||$L_{max}$
+\end{itemize}
+
+\section{Flow Shop}
+
+System przepływowy to system podobny do systemu otwartego, ale z dodatkową
+warunkiem, że zadania muszą być przeprowadzone w określonej kolejności.
+Z reguły zgodnie z numerowaniem maszyn.
+
+\subsection{F2||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Mamy 2 maszyny, gdzie najpierw zadanie musi trafić na pierwszą maszynę,
+a potem na drugą. Problem ten rozwiązuje algorytm Johnsona. Dzielimy
+zadania na dwa podzbiory: $\mathcal{A} = \{J_j \in J : p_{1j} \le p_{2j}\}$
+oraz $\mathcal{B} =\{J_j \in J: p_{1j} > p_{2j}\}$. Wykonaj najpierw zadania
+ze zbioru $\mathcal{A}$, w porządku niemalejących $p_{1j}$ a potem
+zadania ze zbioru $\mathcal{B}$ w porządku niemalejących $p_{2j}$.
+
+\subsection{F3||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Ten problem jest NP-trudny. Jeśli maszyna $P_2$ jest zdominowana to optymalne
+rozwiązanie tego problemu to algorytm Johnsona, gdzie $p'_{1j} =
+p_{1j} + p_{2j}$ oraz $p'_{2j} = p_{2j} + p_{3j}$. Maszyna $P_2$ jest
+zdominowana jeśli
+$\min p_{1j} \ge \max p_{2j} \vee \min p_{3j} \ge \max p_{2j} \vee
+\min\{p_{1j},p_{3j}\} \ge p_{2j}$.
+
+\subsection{F||\texorpdfstring{$C_{max}$}{Cmax}}
+
+Jako, że ten problem jest NP-trudny, z reguły w kontekście tego problemu
+mówi się o heurystykach. W kontekście tego problemu z reguły używa
+się heurystyki NEH. Najpierw sortujemy zadania według nierosnących wartości
+$\sum_{i=1}^m p_{ij}$. Następnie, dla każdego zadania, rozważamy zbiór
+powstały z dodania tego zadania do najlepszego dotychczasowego rozwiązania na
+każdym miejscu. Wynikiem jest najlepsze rozwiązanie.
 
 \end{document}
