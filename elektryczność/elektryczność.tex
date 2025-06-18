@@ -432,7 +432,7 @@ Kondensatory to układy elektryczne, które przechowują elektryczną energię
 potencjalną. Składają się z dwóch przewodników, oddzielonych dielektrykiem.
 Dla kondensatora mamy pojemność $C$.
 $$
-C = \frac{Q}{U} = \frac{S \cdot \epsilon_0}{d}
+C = \frac{Q}{U} = \frac{S \cdot \epsilon_0}{d} = \frac{q}{\Delta V}
 $$
 gdzie $Q$ to ładunek, a $V$ to napięcie między przewodnikami.
 \begin{figure*}[h]
@@ -470,7 +470,7 @@ $$
 W = \int_{0}^{Q} \frac{Q}{C} dQ = \frac{Q^2}{2C} = \frac{1}{2} C V^2
 $$
 
-\subsection{Opór elektryczny}
+\subsection{Opór elektryczny (Prawo Ohma)}
 
 Dla danego materiału, mamy określoną przewodność elektryczną $\sigma$.
 Zakładając prosty kabel długości $L$ i polem przekroju $A$ z przewodnością
@@ -641,20 +641,66 @@ $$
 
 \subsection{Siła elektromotoryczna}
 
+Siła elektromotoryczna jest definiowana jako:
 $$
-\epsilon = \oint E \cdot dr = \oint (E + v \times B) \cdot dl =  -
-\frac{d \phi}{dt}
+\epsilon = \frac{dW}{dq}
 $$
+Prawo Faradaya określa zależność między siłą elektromotoryczną
+$\epsilon$, a polem elektrycznym i przepływem pola magnetycznego. Dla
+przepływu $\phi_B = \vec{B} \cdot \vec{A}$:
+$$\epsilon = \oint E \cdot dr = -
+\frac{d \phi_B}{dt}$$
 
 Ruszając magnetyczną pętlę o długości $L$ i grubości $w$ w stałym
-polu magnetycznym, przepływ wynosi:
+polu magnetycznym, zmiana przepływu wynosi:
 $$
-\phi = BwL
+\Delta \phi = BwL
 $$
 Wtedy:
 $$
 \epsilon = - Bvw
 $$
 gdzie $v$ to prędkość pętli.
+
+$$
+Q = W = P \cdot t = I^2 Rt
+$$
+
+\subsection{Prawa Kirchoffa}
+
+Zgodnie z prawem Kirchoffa, suma przepływów prądu w każdym węźle jest
+równa zero.
+$$
+\sum_{i=1}^{n} I_i = 0
+$$
+Równocześnie, zgodnie z drugim prawem Kirchoffa, suma napięć w obwodzie
+jest równa sumie sił elektromotorycznych.
+$$
+\sum_{i=1}^{n} \epsilon_i = \sum_{j=1}^{m} U_j
+$$
+
+\subsection{Indukcyjność}
+
+Sytuacja, w której własne pole magnetyczne obwodu stawia opór zmianom
+natężenia nazywamy samoindukcją. Indukcyjność obwodu $L$ wyraża:
+$$
+L = \frac{\phi_B}{I}
+$$
+
+$$
+\epsilon = - L \frac{dI}{dt}
+$$
+
+\subsection{Prąd przemienny}
+
+W prądzie przemiennym, chwilowe wartości natężenia i napięcia
+zmieniają się w czasie.
+$$
+\epsilon = \epsilon_0 \sin(\omega t) \quad I = I_0 \sin(\omega t - \phi)
+$$
+
+$$
+Q = \frac{\omega_0 L}{R}
+$$
 
 \end{document}
