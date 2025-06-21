@@ -92,6 +92,7 @@ $$
 $$
 gdzie $k$ to stała elektrostatyczna($\frac{1}{4\pi\epsilon_0}$,
 $\epsilon_0\approx8.854\cdot10^{-12}\frac{E}{m}$).
+To zjawisko, to źródło większości makroskopowych efektów elektrostatycznych.
 
 \subsubsection{Zasada superpozycji}
 
@@ -130,7 +131,8 @@ $$
 
 Pole elektryczne jest polem wektorowym, które opisuje siłę działającą na
 naelektryzowane ciało. Siła pola elektrycznego zależy od ładunku,
-tworzącego pole elektryczne, oraz od odległości od ładunku.
+tworzącego pole elektryczne, oraz od odległości od ładunku. Wynika
+ona ze stosowania prawa Coulumba w przestrzeni wielowymiarowej.
 
 \subsubsection{Linia pola elektrycznego}
 
@@ -220,6 +222,8 @@ siły $\vec{\tau} = \vec{p} \times \vec{E}$.
 
 \subsection{Prawo Gaussa}
 
+Prawo Gaussa określa relację strumienia pola elektrycznego z
+ładunkiem wewnątrz zamkniętej powierzchni.
 $$
 \Phi_E = \frac{Q}{\epsilon_0} = \oint_S E \cdot dS = \frac{1}{\epsilon_0}
 \int_V \rho(r) dr
@@ -390,8 +394,8 @@ $$
 
 \subsection{Potencjał elektryczny}
 
-Potencjał elektryczny to wielkość skalarna, która opisuje pracę wykonaną nad
-jednostkowym ładunkiem, aby przenieść go z nieskończoności do danego punktu.
+Potencjał elektryczny to wielkość skalarna, która opisuje energię
+potencjalną na jednostkę ładunku.
 
 \subsubsection{Własności sił zachowawczych}
 
@@ -405,10 +409,10 @@ Również to oznacza, że $U_1 - U_2 = - \oint F$
 \subsubsection{Potencjał pola elektrycznego}
 
 $$
-U = V_1 - V_2 = - \int_{r_1}^{r_2} E(r) \cdot dr
+U = k\frac{qQ}{r} = V_1 - V_2 = - \int_{r_1}^{r_2} E(r) \cdot dr
 $$
 gdzie $U$ to energia elektryczna, którą musimy wydać, aby przenieść ładunek z
-punktu $r_1$ do punktu $r_2$.
+punktu $r_1$ do punktu $r_2$, a $V$ to potencjał elektryczny.
 $$
 E = - \nabla V
 $$
@@ -469,6 +473,13 @@ kondensatora do drugiej.
 $$
 W = \int_{0}^{Q} \frac{Q}{C} dQ = \frac{Q^2}{2C} = \frac{1}{2} C V^2
 $$
+
+\subsubsection{Kondensator z dielektrykiem}
+
+Co się stanie jak między płytki kondensatora wstawić \textit{coś}?
+Dla przenikalności dielektryka $\epsilon_r$, pojemność kondensatora zwiększa się
+o czynnik $\epsilon_r$, a energia kondensatora zmniejsza się o
+czynnik $\epsilon_r$.
 
 \subsection{Opór elektryczny (Prawo Ohma)}
 
@@ -580,6 +591,12 @@ $$
 Siła elektromotoryczna:
 $$
 \epsilon = Blv
+$$
+
+Na skutek effektu Halla, cząstka może zostać zmuszona do ruchu po okręgu
+o promieniu $r = \frac{mv}{qB}$.
+$$
+qvB = \frac{mv^2}{r}
 $$
 
 \subsection{Silnik elektryczny}
