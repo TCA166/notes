@@ -1,0 +1,254 @@
+\documentclass{../konspekt}
+\usepackage[fontsize=5pt]{scrextend}
+% \fancyhead[C]{\href{https://github.com/TCA166/notes}{TCA166, Jager72}}
+
+\title{Konspekt kompresja 2}
+
+\begin{document}
+
+\begin{multicols}{2}
+
+  \section*{Kwantyzacja}
+
+  Kwantyzacja to proces odwzorowania danych wejściowych na mniejszy
+  zbiór wartości wyjściowych. Zawsze mamy odwzorowanie kodujące i dekodujące.
+  Podczas kwantyzacji mierzymy błąd przy pomocy jakiejś metryki.
+  Najczęściej używa się błędu średniokwadratowego (MSE):
+  $$
+  \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2
+  $$
+  lub odległości Hamminga. Dla $\mathbb{Z}_2$:
+  $$
+  D_H = \sum_{i=1}^{n} |x_i - \hat{x}_i|
+  $$
+
+  \subsection*{Kwantyzacja skalarna}
+
+  Na wejściu mamy skalar na wyjściu $n$ przedziałów. Najprostszym
+  kwantyzatorem skalarnym jest
+  taki, dzielący dany zakres na $n$ przedziałów. Te przedziały mogą
+  być równomierne, lub nie. Podobnie, kwantyzator może mieć krok w
+  zerze lub nie.
+
+  \subsection*{Kwantyzatory adaptacyjne}
+
+  Kwantyzatory adaptacyjne są takie, które zmieniają swoje parametry w czasie
+  w zależności od sygnału wejściowego. Na przykład, kwantyzator adaptacyjny
+  może zmieniać swoje granice podprzedziałów w zależności od histogramu sygnału
+  wejściowego.
+
+  \subsection*{Kwatyzacja wektorowa}
+
+  Idea jest taka, że zamiast kwanyzować pojedyncze skalary, można kwantyzować
+  bloki skalarów (wektory). W zależności od rodzaju danych, może to przynosić
+  lepsze wyniki niż kwantyzacja pojedynczych skalarów. Na przykład, w przypadku
+  obrazów, kwantyzacja bloków może być bardziej efektywna niż
+  kwantyzacja pojedynczych
+  skalarów, ponieważ bloki są bardziej skorelowane.
+
+  \subsection*{Algorytm LBG}
+
+  Algorytm LBG (Linde-Buzo-Gray) jest algorytmem adaptacyjnym, który
+  wykorzystuje
+  technikę grupowania (clustering) do znajdowania optymalnych granic
+  podprzedziałów
+  w kwantyzatorze wektorowym. Algorytm ten jest wykorzystywany w
+  kompresji obrazów
+  i audio.
+
+  \section*{Kodowanie różnicowe}
+
+  Dla ciągu skalarów, zamiast kodować wartości, można kodować różnicę między
+  kolejnymi wartościami. To samo w sobie nie jest kompresją, lecz po kwantyzacji
+  wartości wejściowych można uzyskać efektywną kompresję. Trzeba tylko uważać,
+  aby najpierw kwantyzować potem odejmować, bo inaczej błąd będzie
+  rosnął liniowo.
+
+  \section*{DPCM}
+
+  Metoda DPCM konceptowo jest bardzo podobna do kodowania
+  różnicowego, ale zamiast
+  kodować różnicę między kolejnymi wartościami, koduje różnicę między funkcją
+  predykcyjną $f$ a wartością wejściową $x_n$.
+  $$
+  k_n = x_n -f(x_{n-1}, x_{n-2}, \dots, x_{0})
+  $$
+  Dla uproszczenia można założyć, że $f$ to $p_n = \sum_{i=0}^{N} a_i x_{i - 1}$
+  gdzie $N$ określa rząd predyktora.
+
+  \subsection*{Modulacja delta}
+
+  Jest to bardzo uproszczona wersja DPCM. W modulacji delta $p_n$ jest to
+  prosta predykcja poprzedniej wartości, gdzie $p_n = x_{n-1} + s_n$.
+  $$
+  s_n =
+  \begin{cases}
+    1 & \text{jeśli } x_n > x_{n-1} \\
+    -1 & \text{jeśli } x_n < x_{n-1} \\
+    0 & \text{jeśli } x_n = x_{n-1}
+  \end{cases}
+  $$
+
+  \section*{Kodowanie transformujące}
+
+  Z reguły kodowanie transformujące opiera się na następujacych
+  czterech krokach:
+  \begin{enumerate}
+    \item Podziel sygnał wejściowy na bloki
+    \item oblicz przekształcenie każdego bloku
+    \item kwantyzuj przekształcenie
+    \item koduj kwantyzację
+  \end{enumerate}
+
+  \subsection*{Przekształcenie Karhunena-Loevego}
+
+  Przekształcenie KLT opiera sie na macierzy przekształcenia.
+  Wiersze tej macierzy są wektorami własnymi macierzy kowariancji sygnału
+  wejściowego. Macierz korelacji ma postać $[R]_{i,j} = E[X_nX_{n + |i - j|}]$.
+
+  \subsection*{Dyskretne przekształcenie kosinusowe}
+
+  Przekształcenie DCT opiera się na macierzy przekształcenia $N \times N$.
+  $$
+  [C]_{i,j} =
+  \begin{cases}
+    \sqrt{\frac{1}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i = 0 \\
+    \sqrt{\frac{4}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i \neq 0
+  \end{cases}
+  $$
+  Jest łatwiejsza do policzenia i lepiej się sprawdza niż dyskretna
+  transformata Fouriera.
+
+  \subsection*{Dyskretne przekształcenie sinusowe}
+
+  Przekształcenie DST opiera się na macierzy przekształcenia $N \times N$.
+  $$
+  [S]_{i,j} = \sqrt{\frac{2}{N + 1}} \sin \frac{\pi(i + 1)(j + 1)}{N + 1}
+  $$
+  Lepiej stosować niż kosinusowe gdy wspołczynnik korelacji jest niższy.
+  Ogólnie jest to transformacja uzupełniająca do transformacji kosinusowej.
+
+  \subsection*{Dyskretne przekształcenie Walsha-Hadamarda}
+
+  Macierz Hadamarda rzędu $N$ jest zdefiniowana wzorem $HH^T = NI$. Macierz
+  przekształcenia uzyskujemy przez normalizację i ustawienie kolumn w porządku
+  ilości zmian znaków. Ta transformacja jest prosta do implementacji oraz
+  minimalizuje ilość obliczeń.
+
+  \section*{Kompresja wideo}
+
+  Cała kompresja wideo opiera się na prostej obserwacji, że wideo jest
+  złożone z wielu klatek, które są bardzo podobne do siebie. W ten sposób
+  można zredukować ilość danych, które musimy przechowywać i przesyłać.
+
+  \subsection*{Rodzaje ramek}
+
+  Mimo to, aby zapobiec akumulacji błędu, nie możemy się opierać tylko na
+  rekonstrukcji klatek. Co którąś klatkę musimy przesłać w całości, lub
+  minimalnie skompresowaną. Z reguły rozróżniamy zatem trzy rodzaje
+  ramek(klatek):
+  \begin{itemize}
+    \item Typ I: obraz zakodowany jak JPEG
+    \item Typ P: obraz zakodowany jako różnica od ostaniej klatki P lub I
+    \item Typ B: obraz zakodowany jako różnica od dwóch ostatnich klatek P lub I
+  \end{itemize}
+  Z reguły zatem różne formaty mają różne schematy i sekwencje typów klatek.
+
+  \subsection*{Kompensacja ruchu}
+
+  Aby określić transformację, jaką należy zastosować do klatki aby
+  uzyskać kolejną,
+  należy podzielić klatkę na mniejsze bloki, znaleźć podobny blok w poprzedniej
+  klatce i zakodować wektor przesunięcia oraz różnicę kolorów między blokami.
+
+  \section*{Kodowanie podpasmowe}
+
+  Poprzez transformację jednego sygnału na różne podpasma, możemy
+  osiagnąć wyższy stopień kompresji. Podstawowy schemat kodowania ma 4 kroki:
+  \begin{enumerate}
+    \item Wybierz zbiór filtrów do rozkładu źródła
+    \item Używając filtrów oblicz sygnały podpasm
+    \item Zdziesiątkuj wyjście filtra
+    \item Zakoduj zdziesiątkowane wyjście
+    \item Zakoduj zakodowane wyjście
+  \end{enumerate}
+
+  Na przykład, na sygnale możemy zastosować filtr $y_n = \frac{x_n +
+  x_{n - 1}}{2}$, oraz $z_n = x_n - y_n$.
+
+  \subsection*{Reguła Nyquista}
+
+  Jeśli sygnały mają tylko składowe o częstotliwościach między $f_1$ a $f_2$, to
+  aby odtworzyć sygnał musimy próbkować z częstością co najmniej $2(f_2 - f_1)$.
+
+  \subsection{Filtrowanie cyfrowe}
+
+  Dla
+  $$
+  y_n =\sum_{i=0}^{N} a_i x_{n-i} + \sum_{i=0}^{M} b_i y_{n-i}
+  $$
+  $a_i$ i $b_i$ są współczynnikami filtru.
+
+  \section*{Synteza-analiza}
+
+  Zamiast kodować dane, możemy zamodelować sygnał za pomocą funkcji
+  znanej na wejściu i wyjściu, a potem kodować tylko parametry tej funkcji.
+  Z reguły jest to stosowane w kompresji mowy, gdzie bardzo ciężko dobrze
+  skompresować mowę.
+
+  \subsection*{Wyznaczanie bezdzwięczności}
+
+  Aby określić czy próbka dźwięku (z reguły krótka) jest bezdźwięczna, należy
+  użyć funkcji autokorelacji lub AMDF. Funkcja autokorelacji wygląda
+  następująco:
+  $$
+  r(k) = \sum_{n=0}^{N-k} s(n)s(n + k) \quad s(n) = (\sum_{k=0}^{M -
+  1}h(k)x(n - k)) \cdot (0.54 - 0.46 \cos(\frac{2\pi n}{N - 1}))
+  $$
+  $s(n)$ to sygnał mowy po nałożeniu dolnoprzepustowego filtru oraz
+  okna Hamminga.
+  Aby określić, czy fragment jest bezdzwięczny, wystarczy znaleźć
+  globalne optimum
+  $r(k)$. Jeżeli to optimum jest większe od $0.3 \cdot r(0)$ to fragment jest
+  dźwięczny. W przeciwnym razie jest bezdźwięczny.
+
+  \section*{EZW}
+
+  Głównym założeniem za algorytmem jest to, że po podziale sygnału na
+  podpasma, to współczynniki tych podpasm mogą być od siebie zależne, tworząc
+  drzewo. W takim drzewie można wyróżnić cztery rodzaje współczynników:
+  \begin{itemize}
+    \item korzeń drzewa zerowego (ZR)
+    \item izolowane zero (IZ)
+    \item znacząco dodatni (SP)
+    \item znacząco ujemny (SN)
+  \end{itemize}
+
+  EZW ma dwa kroki: dominujący i podrzędny. Na początku $C_{max} =
+  \max_m |w(m)|$,
+  $T_0 = 2^{\lfloor \log_2(C_{max})\rfloor}$. Lista dominująca zawiera wszystkie
+  wierzchołki, podrzędna jest pusta. Po każdym kroku $T_i = \frac{T_{i-1}}{2}$.
+
+  Krok dominujący: Dla każdego wierzchołka $w[m]$:
+  \begin{itemize}
+    \item Jeśli $|w[m]| > T_k$:
+      przenieś na listę podrzędną oraz
+      \begin{itemize}
+        \item SP jeśli $|w[m]| > 0$
+        \item SN jeśli $|w[m]| < 0$
+      \end{itemize}
+    \item W przeciwnym razie:
+      \begin{itemize}
+        \item ZR jeśli dalej nie ma istotnych współczynników
+        \item IZ jeśli jest nieistotny, ale ma istotne potomstwo
+        \item \texttt{NIL} w przeciwnym razie
+      \end{itemize}
+  \end{itemize}
+
+  Krok podrzędny:
+  \textbf{Kurwa nie wiem i nie chcieliście mi pomóc jak to
+  opracowywałem 2 tyg temu <3}
+
+\end{multicols}
+
+\end{document}
