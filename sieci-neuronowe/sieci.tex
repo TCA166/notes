@@ -264,4 +264,44 @@ minimum. Im mniejsza wartość, tym dokładniejsze minimum, ale też dłuższy c
 działania algorytmu. Z kolei wartość $\vec{x_0}$ jest bardzo ważna, bo od niej
 zależy, czy algorytm zbiegnie do minimum lokalnego czy globalnego.
 
+\section{Backpropagation}
+
+Backpropagation (backprop) to metoda trenowania sieci neuronowych. Jest to
+w istocie zastosowanie optymalizacji gradientowej do determinowania wag sieci
+neuronowej.
+
+Najpierw obliczamy wynik sieci neuronowej. Dla wektora wejściowego $\vec{x}$,
+czynnika bias $b$
+oraz macierzy początkowej wag $\vec{W_0}$ wykonujemy następujące operacje:
+$$
+\vec{y} = \sigma(\vec{x} \cdot \vec{W_0} + b)
+$$
+gdzie $\sigma$ to funkcja aktywacji. $W_0 \in \mathbb{R}^{n \times m}$ gdzie $n$
+to liczba wejść, a $m$ to liczba neuronów w warstwie.
+
+Następnie określamy metrykę błędu $F$. Klasycznym błędem jest MSE
+($\frac{1}{n} \sum_{i=1}^{n} (y_i - t_i)^2$). Następnie mając
+określoną metrykę, dla każdej warstwy obliczamy gradient błędu i to jak każda
+waga się przczyniła do błędu. Zakładając, optymalizację SGD, obliczamy gradient
+błędu dla każdej warstwy i aktualizujemy wagi za pomocą wzoru:
+$$
+W_{i+1} = W_i - c \frac{\partial F}{\partial W_i} = W_i - c
+\frac{\partial F}{\partial \hat{y}} \cdot \sigma'(W_i x_i + b_i)
+$$
+gdzie $c$ to współczynnik uczenia.
+
+\begin{enumerate}
+  \item Forward pass
+    \begin{enumerate}
+      \item $a = f(W_1x + b_1)$ - pierwsza warstwa
+      \item $\hat{y} = f(W_2a + b_2)$ - druga warstwa
+      \item $\mathcal{L} = MSE(\hat{y}, y) = \frac{1}{n} \sum_{i=1}^{n}
+        (\hat{y}_i - y_i)^2$ - obliczamy błąd
+    \end{enumerate}
+  \item Backprop
+    \begin{enumerate}
+      \item $\frac{\partial \mathcal{L}}{\partial \mathcal{W_2}}$
+    \end{enumerate}
+\end{enumerate}
+
 \end{document}
