@@ -130,8 +130,8 @@ najkrótsze zadania. Nazywamy to SPT.
 Jest jedna maszyna i $n$ zadań z czasami przetwarzania $p_j$ i wagami $w_j$.
 Chcemy minimalizować ważoną sumę ich zakończeń, co za tym idzie najwyżej ważone
 zadania chcemy wykonywać jako pierwsze. Aby to osiągnąć wystarczy posortować
-zadania po $\frac{p_j}{w_j}$. Nazywamy to WSPT i jest to ogólniejszy przypadek
-SPT.
+zadania po $\frac{p_j}{w_j}$. Nazywamy to WSPT (reguła Smitha) i jest
+to ogólniejszy przypadek SPT ($w_j = 1$).
 
 \subsection{1|\texorpdfstring{$pmtn, r_j$}{pmtn,
 rj}|\texorpdfstring{$\sum C_j$}{sum Cj}}
@@ -147,17 +147,41 @@ Nazywamy to SRPT.
 
 W momencie dodania ograniczeń kolejnościowych, z reguły opisanych grafem
 kolejności, złożoność problemu znacznie rośnie. Załóżmy, że graf
-jest reprezentowany przez listę sąsiedztwa.
+jest reprezentowany przez listę sąsiedztwa. Rozróżniamy następujące
+rodzaje ograniczeń kolejnościowych:
+
+\begin{itemize}
+  \item \textit{prec}: dowolne
+  \item \textit{chains}: zadania są w liniach
+  \item \textit{in-tree}: zadania są w drzewie, gdzie rodzice muszą
+    być wykonane przed dziećmi
+  \item \textit{out-tree}: zadania są w drzewie, gdzie dzieci muszą
+    być wykonane przed rodzicem
+\end{itemize}
+
+\subsubsection{1|prec|\texorpdfstring{$C_{max}$}{Cmax}}
+
+W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywalnych z
+czasami przetwarzania $p_j$ oraz dowolnymi ograniczeniami kolejnościowymi.
+$$
+C_{max} = \sum_{j=1}^n p_j
+$$
+Problemem nie jest optymalizacja czasu wykonania, albowiem dowolne szeregowanie
+dot. tego problemu rozwiązuje też problem bez ograniczeń kolejnościowych.
+Koniecznym jest sortowanie topologiczne grafu zależności.
+
+W tym problemie wystarczy DFS, którego jedno przejście po grafie stworzy ścieżkę
+która będzie optymalnym szeregowaniem
 
 \subsubsection{1|prec|\texorpdfstring{$\sum C_j$}{sum Cj}}
 
-W tym problemie mamy jedną maszynę i $n$ zadań nieprzerywanlnych z
-czasami przetwarzania $p_j$.
 Próba rozwiązania tego problemu tylko przy pomocy DFS nie wystarczy.
 Konieczny jest algorytm Kahna, który sortuje topologicznie graf.
 Algorytm Kahna jest bardzo podobny do DFS, ale zamiast używania stosu,
 używamy kolejki priorytetowej, czyli najpierw zwiedzamy te wierzchołki o
-najkrótszym czasie przetwarzania.
+najkrótszym czasie przetwarzania. Można sobie wyobrazić pracę algorytmu Kahna
+jako usuwanie węzłów z grafu, które nie mają żadnych następników, najpierw
+tego, które mają najmniejszy czas przetwarzania.
 
 \subsubsection{1|prec|\texorpdfstring{$f_{max}$}{fmax}}
 
@@ -166,8 +190,8 @@ czasami przetwarzania $p_j$.
 Wystarczy rozważać szeregowania bez przestojów. Problem ten rozwiązuje
 algorytm Lawler'a, w którym budujemy uszeregowanie od końca. W każdym kroku
 algorytmu rozważamy te zadania, bez uszeregowanych następników, i wybieramy
-te które w danym momencie generuje najmniejszy koszt. Wybrane zadanie
-trafia na początek uszeregowania.
+te które w danym momencie (odliczając czas od końca $p = \sum p_j$)
+generuje najmniejszy koszt. Wybrane zadanie trafia na początek uszeregowania.
 
 \subsubsection{1|out-tree|\texorpdfstring{$\sum w_jC_j$}{sum wjCj}}
 
@@ -186,6 +210,15 @@ poprzedników, zgodnie z tym ile ma dzieci.
 Ten problem mapuje się 1-1 do problemu poprzedniego, wystarczy tylko
 odwrócić krawędzie i nadać zadaniom wagi przeciwne.
 
+\subsubsection{Trudne jednomaszynowe problemy szeregowania zadań}
+
+\begin{itemize}
+  \item \textbf{1|prec|$\sum w_j C_j$}
+  \item \textbf{1|$r_j$|$\sum C_j$} $\rightarrow$
+    \textbf{1|$r_j$|$\sum w_j C_j$}
+  \item \textbf{1|pmtn, $r_j$|$\sum w_j C_j$}
+\end{itemize}
+
 \subsection{Problemy z opóźnieniem}
 
 W tych problemach, optymalizujemy opóźnienie, czyli $C_j - d_j$.
@@ -195,7 +228,8 @@ W tych problemach, optymalizujemy opóźnienie, czyli $C_j - d_j$.
 Mamy jedną maszynę i $n$ zadań nieprzerywalnych z czasami przetwarzania $p_j$
 i czasami oczekiwanymi $d_j$. Aby rozwiązać ten problem, wystarczy zastosować
 algorytm EDD (regułę Jacksona), w którym wybieramy najpierw zadanie o
-najwcześniejszym czasie oczekiwania.
+najwcześniejszym czasie oczekiwania. EDD to sczególny przypadek
+algorytmu lawlera, gdzie $f = L_j(t) = t - d_j$.
 
 \subsubsection{1|prec|\texorpdfstring{$L_{max}$}{Lmax}}
 
@@ -213,9 +247,22 @@ rozwiązuje go EDD.
 
 W odróżnieniu od poprzedniego problemu, tutaj zadania są podzielne.
 Aby rozwiązać
-ten problem wystarczy zastosować regułę EDD, pamiętając o podzielności zadań.
+ten problem wystarczy zastosować regułę EDD, pamiętając o
+podzielności zadań (algorytm Horna).
 Zawsze jak zadanie kończy wykonywanie, lub nowe zadanie jest dostępne, to
 wybieramy zadanie o najmniejszym $d_j$.
+
+\subsubsection{1|prec,\texorpdfstring{$r_j,p_j =
+1$}{rj,pj=1}|\texorpdfstring{$L_{max}$}{Lmax}}
+
+W każdej całkowitej chwili czasu $t$, wybieramy zadanie o
+najmniejszym $d_j$, bez niewykonanych poprzedników.
+
+\subsubsection{1|prec,pmtn,\texorpdfstring{$r_j$}{rj}|\texorpdfstring{$L_{max}$}{Lmax}}
+
+W każdym momencie decyzji (zakończenia zadania lub pojawienia się
+nowego zadania)
+dostępne zadanie o najmniejszym $d_j$ bez niewykonanych poprzedników.
 
 \subsection{1||\texorpdfstring{$\sum U_j$}{sum Uj}}
 
@@ -238,26 +285,31 @@ do klasy P.
 \subsection{1||\texorpdfstring{$\sum w_jE_j$}{sum wjEj}}
 
 Problem ten jest równoważny z problemem 1||$\sum w_jT_j$.
+$E_j = \max(0, L_j - d_j)$, co oznacza, że dla równoważnego problemu
+i $C = \sum_{i=1}^n p_i$ czasy oczekiwania $d'_j = C - d_j + p_j$.
+Optymalne uszeregowanie to odwrotność optymalnego uszeregowania $S'$.
 
 \section{Problemy wielu maszyn}
 
 Problemy wielu maszyn mają okropną tendencję bycia NP-trudnymi. Problem
-$2||C_{max}$ jest NP-trudny. Problemy wielu maszyn często aproksymują algorytmy
-listowe, w których do $n$ wolnych maszyn przyporządkowujemy kolejno zadania
-z \textit{jakiejś} kolejki. Im większa jest różnica między
-najdłuższym a najkrótszym czasem wykonania zadania, tym bardziej
-mylne rozwiązania dają algorytmy listowe.
+$P_2||C_{max}$ jest NP-trudny. Problemy wielu maszyn często
+aproksymują algorytmy listowe, w których do $n$ wolnych maszyn
+przyporządkowujemy kolejno zadania z \textit{jakiejś} kolejki. Im
+większa jest różnica między najdłuższym a najkrótszym czasem
+wykonania zadania, tym bardziej mylne rozwiązania dają algorytmy listowe.
 
-\subsection{P||\texorpdfstring{$\sum C_j$}{sum Cj}}
+\subsection{P||\texorpdfstring{$C_{max}$}{Cmax}}
 
-Ten problem rozwiązuje algorytm LPT, czyli sortujemy zadania nierosnąco
+Jest to problem silnie NP-trudny.
+Ten problem aproksymuje algorytm LPT, czyli sortujemy zadania nierosnąco
 wobec $p_j$ i przypisujemy je kolejno do maszyn. Jest to algorytm
 listowy, w którym zadania w liście są posortowane nierosnąco
-wobec $p_j$.
+wobec $p_j$. Współczynnik aproksymacji LPT dla tego problemu wynosi
+$\frac{4}{3} - \frac{1}{3m}$.
 
 \subsection{P|prec|\texorpdfstring{$C_{max}$}{Cmax}}
 
-Ten problem może rozwiązać LPT, z modyfikacją w której jeśli zadanie nie ma
+Ten problem może aproksymować LPT, z modyfikacją w której jeśli zadanie nie ma
 spełnionych wymagań to nie może być zdjęte z kolejki. Niestety, ten problem
 jest szczególnie podatny na anomalie szeregowania listowego, gdzie wejścia
 "łatwiejsze" mogą dawać gorsze rezultaty niż "trudniejsze".
@@ -268,7 +320,7 @@ jest szczególnie podatny na anomalie szeregowania listowego, gdzie wejścia
 Mamy $m$ identycznych maszyn równoległych
 Poziom zadania to jego odległość od korzenia. Problem ten może rozwiązać
 algorytm Hu, gdzie w każdej chwili $t$, wybieramy $m$ zadań z najwyższymi
-poziomami.
+poziomami. Poziom zadania to jego odległość od korzenia.
 
 \subsection{P|pmtn|\texorpdfstring{$C_{max}$}{Cmax}}
 
@@ -326,11 +378,21 @@ Najktótsze zadanie chcemy wykonywać na maszynie o najwyższej
 prędkości. W momencie
 wykonania zadania, przerzucamy drugie najkrótsze zadanie na tą maszynę, itd.
 
+\section{Maszyny dowolne}
+
+Czas wykonywania zadania $j$ na maszynie $i$ wynosi $p_{ij}$. Czasy wykonywania
+zadań są zapisane w macierzy $n \times m$. Problem R|pmtn|$C_{max} \in P$,
+i rozwiązuje go algorytm na znajdowanie optymalnego przepływu w sieci. Problem
+R||$\sum C_j \in P$, ponieważ można go sprowadzić do problemu przydziału zadań.
+Problem R|pmtn|$\sum C_j \in NP$.
+
 \section{Programowanie dynamiczne}
 
 Programowanie dynamiczne, to technika w której algorytm rozwiązuje problem
 rekurencyjnie na podstawie ogromnej tablicy w której wyniki tymczasowe są
-przechowywane.
+przechowywane. Programowanie dynamiczne jest idealne, w momencie kiedy
+problemy można podzielić na podproblemy, idealnie powtarzające się. Największym
+problemem z programowaniem dynamicznym jest złożoność pamięciowa.
 
 \subsection{Problem plecakowy}
 
@@ -378,7 +440,10 @@ działania maszyny $P_i = t_i$.
 
 Zwiedzamy drzewo rozwiązań problemu. Koniecznym jest określenie strategii
 wybierania gałęzi, oraz strategii ograniczenia aby uniknąć zwiedzania
-poddrzew, które nie mogą zawierać rozwiązania.
+poddrzew, które nie mogą zawierać rozwiązania. Ogólnie ta metoda jest gorsza od
+programowania dynamicznego, ale potrafi osiągać lepszą złożoność
+pamięciową, ponieważ nie wymaga przechowywania wszystkich podproblemów.
+Dodatkowo nie zawsze można stosować programowanie dynamiczne.
 
 \section{System otwarty}
 
