@@ -321,4 +321,66 @@ $$
     \end{enumerate}
 \end{enumerate}
 
+\section{CNN}
+
+\subsection{Konwolucja}
+
+Wejściem jest macierz $u_{i,j}$ o wymiarach $N \times N$. Rdzeniem jest macierz
+$w_{i,j}$ o wymiarach $2H + 1 \times 2H + 1$. Operacja konwolucji zwraca nam
+macierz $x_{i, j}$ o wymiarach $N \times N$. W konwolucji stosuje się funkcję
+aktywacji $f$, tutaj:
+$$
+f(x) =
+\begin{cases}
+  1 & \text{if } x \geq 0 \\
+  0 & \text{otherwise}
+\end{cases}
+$$
+
+$$
+x_{i,j} = f(\sum_{k=-H}^{H} \sum_{l=-H}^{H} u_{i+k,j+l} w_{k,l} - \theta)
+$$
+
+\subsection{Pooling}
+
+Wejściem jest zkonwolucjonowana macierz $x_{i, j}$ o wymiarach $N \times N$.
+Wyjściem jest macierz $y_{i, j}$ o identycznych wymiarach.
+
+$$
+y_{i, j} = f(\frac{1}{(2K + 1)^2} \sum_{k=-K}^{K} \sum_{l=-K}^{K}
+x_{i+k,j+l} - \theta)
+$$
+
+\section{MB}
+
+Mamy wektor wejściowy $x$ o wymiarach $N$. Wektor jest inicjalizowany losowo.
+
+$$
+u_i(t) = \sum_{j=1}^{n} w_{i,j} x_j(t) - \theta_i
+$$
+$$
+f(u_i(t)) = \frac{1}{1 + e^{-u_i(t) / T}}
+$$
+$$
+x_i(t + 1) =
+\begin{cases}
+  1 & \text{if } f(u_i(t)) \geq U(0, 1) \\
+  0 & \text{otherwise}
+\end{cases}
+$$
+
+\section{Transformer}
+
+Dla każdego słowa mamy wektor wejściowy $x_1$, $x_2$, \dots, $x_n$.
+Tworzymy trzy projekcje wektorów wejściowych:
+$$
+q_i = W_q x_i \\
+k_i = W_k x_i \\
+v_i = W_v x_i
+$$
+
+$$
+y_i = \sum_{j=1} \frac{q_i \cdot k_j}{\sqrt{d_k}} \cdot v_j
+$$
+
 \end{document}
