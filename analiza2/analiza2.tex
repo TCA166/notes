@@ -1,0 +1,29 @@
+\documentclass{../notatki}
+
+\title{Analiza Matematyczna z Zastosowaniami 2}
+
+\begin{document}
+
+\section{Szereg Funkcyjny}
+
+Dla ciągu funkcji rzeczywistych $f_n$, gdzie $D \subset \mathbb{R}$ i
+$f_n: D \to \mathbb{R}$; to:
+$$
+S = \sum_{n=1}^{\infty} f_n(x) = \lim_{N \to \infty} \sum_{n=1}^{N} f_n(x)
+$$
+jest szeregiem funkcyjnym, na podstawie ciągu funkcyjnego $f_n(x)$.
+
+Ciąg funkcyjny może na podzbiorze $E \subseteq D$ może być:
+\begin{itemize}
+  \item zbieżny punktowo, czyli zbieżny dla każdego $x \in E$
+  \item zbieżny punktowo bezwględnie, to znaczy zbieżny punktowo dla $|f_n(x)|$
+  \item zbieżny jednostajnie, to znaczy $a_n = \sup_{x \in E} f_n(x)$
+    jest zbieżny
+  \item zbieżny jednostajnie bezwględnie, to znaczy $a_n = \sup_{x
+    \in E} |f_n(x)|$ jest zbieżny
+\end{itemize}
+
+Przykładem ciągu funkcyjnego, który jest zbieżny to $f_n(x) =
+\frac{\sin(nx)}{n}$
+
+\end{document}
