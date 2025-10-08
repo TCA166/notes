@@ -1,0 +1,112 @@
+\documentclass{../notatki}
+
+\title{Wstęp do Fizyki Kwantowej}
+
+\begin{document}
+
+\section{Wstęp}
+
+\subsection{Fizyka Klasyczna}
+
+Zwyczajowo, określa się, że fizyka klasyczna jest całym korpusem fizyki,
+opracowanym przed pojawieniem się fizyki kwantowej. Historycznie zatem,
+jest to fizyka opracowana przed XX wiekiem, opracowana przez Newtona, Leibniza,
+Maxwella, et. al.
+
+\begin{itemize}
+  \item Mechanika - Newton + Leibniz + Lagrange + Hamilton
+  \item Elektrodynamika - Maxwell
+  \item Termodynamika
+  \item Fizyka statystyczna
+\end{itemize}
+
+\subsubsection{Mechanika}
+
+Cała mechanika opiera sie na trzech prawach Newtona:
+\begin{enumerate}
+  \item $
+    \vec{F} = m\vec{a}
+    $
+  \item $
+    \frac{\vec{dp}}{dt} = \vec{F}
+    $
+  \item Każda akcja ma przeciwną i równą reakcję.
+\end{enumerate}
+
+Z tych praw wynika cała mechanika, wraz z alternatywnymi ujęciami, takimi jak
+równania Lagrange'a i Hamiltona.
+
+\subsubsection{Elektrodynamika}
+
+Cała elektrodynamika wywodzi się z równań Maxwella:
+\begin{enumerate}
+  \item $\nabla \vec{E} = \frac{q}{\epsilon_0}$
+  \item $\nabla \vec{B} = 0$
+  \item $\nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}$
+  \item $\nabla \times \vec{B} = \mu_0 \vec{J} + \mu_0 \epsilon_0
+    \frac{\partial \vec{E}}{\partial t}$
+\end{enumerate}
+
+\subsection{Widmo absorpcji}
+
+W momencie, gdy światło przechodzi przez gazową postać pierwiastka, a następnie
+pryzmat, światło zamiast rozszczepić się na wszystkie kolory, rozszczepia się
+na prawie wszystkie kolorym, pozostawiając luki w spektrum. To zjawisko
+nazywane jest widmem absorpcji.
+
+Wynika ono z zachowania elektronów w atomach pierwiastka, które po trafieniu
+przez foton, zmieniają swój stan energii, co powoduje zmianę długości fali
+światła i co za tym idzie luki w spektrum.
+
+$$
+\frac{1}{\lambda} = R \left( \frac{1}{n_1^2} - \frac{1}{n_2^2} \right)
+$$
+
+To zjawisko dowodzi tego, że poziomy energetyczne elektronów są skwantyzowane,
+czyli dyskretne. Na podstawie tego zjawiska opracowano model atomu Bohra, w
+którym atomy znajdują się na dyskretnych orbitalach dookoła jądra atomu.
+Przejście między tymi stanami energii kosztuje energię.
+
+Dla atomu i elektronu na orbitalu w odległości $r$ od jądra atomu:
+$$
+m \frac{v^2}{r} = \frac{1}{4 \pi \epsilon_0} \frac{e^2}{r^2}
+$$
+$$
+mvr = n\hbar \rightarrow \text{promieniowanie jest absorbowane}
+$$
+$$
+\text{promieniowanie} \leftrightarrow \text{zmiana orbity}
+$$
+
+\subsection{Katastrofa w ultrafiolecie}
+
+Poszukiwania zdolności emisyjnej ciał, doprowadziły do powstania
+prawa Rayleigha-Jeansa:
+$$
+f(\nu, T) = 2 \frac{\nu^2}{c^2} kT
+$$
+$$
+f(\lambda, T) = 2 \frac{ckT}{\lambda^4}
+$$
+Zcałkowanie tego prawa, po całym zakresie częstości, daje nam nieskończenie dużą
+energię. To jest niemożliwe. Co więcej, w komorze, będącej ciałem
+doskonale czarnym, promieniowanie ultrafioletowe zgodnie z tym prawem
+powinno w nieskończoność wydzielać energię. To oczywiście nie było
+zgodne z obserwacjami. Tą sprzeczność nazwano katastrofą w ultrafiolecie.
+
+$$
+U_e = E_{k \text{max}} = h \nu
+$$
+$$
+h\nu = h \frac{c}{\lambda} = pc
+$$
+
+$$
+E^2 = p^2c^2 + m^2c^4
+$$
+
+$$
+\frac{hr}{\lambda} = n \frac{h}{2 \pi}
+$$
+
+\end{document}
