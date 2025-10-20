@@ -4,20 +4,15 @@
 
 \begin{document}
 
-\section{Szereg Funkcyjny}
+\section{Ciąg Funkcyjny}
 
-Dla ciągu funkcji rzeczywistych $f_n$, gdzie $D \subset \mathbb{R}$ i
-$f_n: D \to \mathbb{R}$; to:
+Ciąg funkcyjny, to ciąg funkcji $f_n(x)$ określonych na pewnym zbiorze $A$.
+Przykład:
 $$
-S = \sum_{n=1}^{\infty} f_n(x) = \lim_{N \to \infty} \sum_{n=1}^{N} f_n(x)
+f_n(x) = \frac{x}{n}
 $$
-jest szeregiem funkcyjnym, na podstawie ciągu funkcyjnego $f_n(x)$.
 
 \subsection{Zbieżność}
-
-Dla ciągu funkcyjnego $f_n$ określonym na zbiorze $A$, mówimy, że jest
-punktowo zbieżny do funkcji $f$ określonej w $A$ gdy $\lim_{n \to
-\infty} f_n(x) = f(x)$.
 
 Ciąg funkcyjny może na podzbiorze $E \subseteq D$ może być:
 \begin{itemize}
@@ -47,7 +42,7 @@ Ciąg funkcyjny może na podzbiorze $E \subseteq D$ może być:
     $$
     Geometrycznie: w pasie o brzegach $y = f(x) \pm \epsilon$ leżą wszystkie
     krzywe $y = f_n(x)$. Zbieżność jednostajna implikuje punktową, oraz
-    wymaga ciągłość $f$.
+    wymaga ciągłość $f$. Granica ciągu jednostajnie zbieżnego jest ciągła.
   \item zbieżny jednostajnie bezwględnie, to znaczy $a_n = \sup_{x
     \in E} |f_n(x)|$ jest zbieżny
 \end{itemize}
@@ -58,42 +53,18 @@ $0 \le x < 1$ nie jest zbieżny jednostajnie dp (dowolnej) funkcji f, bo w
 pobliżu punktu $x - 1$ krzywe $y - x^n$ nie leżą dowolnie blisko prostej
 $y - 0$.
 
-\subsection{Kryterium zbieżności jednostajnej}
+\subsection{Szereg Funkcyjny}
 
-Granicą ciągu funkcyjnego jest jakaś funkcja. Ciąg $f_n$ jest ciągiem funkcji
-określonych na niepustym zbiorze $A$ i o wartościach rzeczywistych lub
-zespolonych. Ciąg $f_n$ jest jednostajnie zbieżny w $A$ do $f$ wtedy i tylko
-wtedy gdy $\sup_{x \in A} |f_n(x) - f(x)| \to 0: n \to \infty$.
+Niech $f_n(x)$ będzie ciągiem funkcji określonych na zbiorze $E$. Jeżeli dla
+każdego $x \in E$ szereg liczbowy $\sum_{k=0}^\infty f_n(x)$ jest zbieżny, to
+funkcja $f(x) = \sum_{k=0}^\infty f_n(x)$ jest sumą szeregu funkcyjnego.
 
-$$
-f_n(x) = x^3 + \frac{x^2}{n}
-$$
-$$
-\lim_{n \to \infty} f_n(x) = x^3
-$$
-$$
-\lim_{n \to \infty} \sup_{x \in \mathbb{R}} |f_n(x) - f(x)| = \lim_{n
-\to \infty} \sup_{x \in \mathbb{R}} | \frac{x^2}{n}| = \infty
-$$
-$$
-\lim_{n \to \infty} \sup_{x \in [a, b]} |f_n(x) - f(x)| = \lim_{n \to
-\infty} |\frac{\max \{a^2, b^2\}}{n}| = 0
-$$
+Jeżeli $f_n$ jest zbieżnym ciągiem funkcji, to mówimy, że szereg tworzony
+przez ten ciąg jest zbieżny i ma sumę $f(x)$.
 
-\subsection{Kryterium Cauchy'ego}
-
-Ciąg funkcji $f_n$ jest jednostajnie zbieżny w zbiorze $A$ wtedy i tylko wtedy
-gdy dla każdego $\epsilon > 0$ istnieje wskaźnik $N(\epsilon)$, taki że dla
-$x \in A$
-$$
-|f_n(x) - f_m(x)| \le \epsilon : n,m \ge N(\epsilon)
-$$
-
-\subsection{Zbieżność niemal jednostajna}
-
-Szereg funkcyjny na zbiorze $E$ jest zbieżny niemal jednostajnie, jeśli dla
-dowolnego właściwego przedziału domkniętego $I = <a, b>$, $I \subset E$ jest
-zbieżny jednostajnie na $I$.
+Jeżeli ciąg sum częściowych $S_n(x) = \sum_{k=0}^n f_k(x)$ jest zbieżny
+jednostajnie, to mówimy, że szereg tworzony przez ten ciąg jest zbieżny
+jednostajnie. Suma szeregu jednostajnie zbieżnego jest ciągła.
 
 \subsection{Twierdzenie Arzeli-Ascoli'ego}
 
@@ -112,7 +83,22 @@ Jeżeli ciąg $f_n(x)$ jest jednostajnie zbieżny w $A$ i funkcje $f_n(x)$ są
 funkcjami ciągłymi w punkcie $x_0 \in A$, to funkcja graniczna $f(x)
 = \lim_{n \to \infty} f_n(x)$ jest ciągła w punkcie $x_0$.
 
-\subsection{Kryteria zbieżności jednostajnej szeregów}
+\subsection{Ciągłość a całka}
+
+Jeśli $f_n$ jest ciągiem funkcji ciągłych, to:
+\begin{itemize}
+  \item Dla zbieżnego jednostajnie ciągłego ciągu $f_n(x)$:
+    $$
+    \int_E f(x) dx = \lim_{n \to \infty} \int_E f_n(x) dx
+    $$
+  \item Dla zbieżnego jednostajnie ciągłego $\sum_{n=1}^\infty f_n(x)$:
+    $$
+    \int_E \sum_{n=1}^\infty f_n(x) dx = \lim_{n \to \infty} \int_E
+    \sum_{k=1}^n f_k(x) dx
+    $$
+\end{itemize}
+
+\subsection{Kryteria zbieżności}
 
 \subsubsection{Kryterium porównawcze Weierstrassa}
 
@@ -123,10 +109,9 @@ zbieżny na $E$.
 
 \subsubsection{Kryterium Dirichleta}
 
-Jeśli ciąg sum częściowych $S_n$ utworzony z ciągu funkcyjnego $f_n$ jest
-wspólnie ograniczony ($S_n(x) < M : x \in E, n \in \mathbb{N}$), oraz jeśli
-ciąg funkcyjny zbiega do zera monotonicznie i jednostajnie to szereg
-$\sum_{n=1}^\infty f_n g_n$
+Jeżeli $b_n \to 0$ i jeśli sumy częściowe $\sum_{n=1}^\infty a_n$ są
+ograniczone,
+to $\sum_{n=1}^\infty a_n b_n$ jest zbieżny.
 
 \subsubsection{Kryterium Abela}
 
@@ -144,10 +129,29 @@ $$
 
 \subsection{Twierdzenie Cauchy'ego-Hadamarda}
 
-Niech $\lambda = \limsup_{n \to \infty} \sqrt[n]{|a_n|}$. Wtedy
-promieniem zbieżności szeregu potęgowego jest $r =
-\frac{1}{\lambda}$. Za wyjątkiem $\lambda = 0$, gdzie $r = \infty$,
-oraz $\lambda = \infty$, gdzie $r = 0$.
+Dla szeregu potęgowego $\sum_{n=0}^\infty a_n (z - z_0)^n$, niech
+$\lambda = \limsup_{n \to \infty} \sqrt[n]{|a_n|}$. Wtedy promieniem
+zbieżności szeregu potęgowego jest $R = \frac{1}{\lambda}$. Za wyjątkiem
+$\lambda = 0$, gdzie $R = \infty$, oraz $\lambda = \infty$, gdzie $R = 0$.
+Szereg jest zbieżny dla $|z - z_0| < R$ i rozbieżny dla $|z - z_0| > R$.
+Zbieżność w punkcie $z = z_0$ zależy od ciągu $a_n$.
+
+Jeśli granica $\lim_{n \to \infty} |\frac{a_{n+1}}{a_n}|$ istnieje,
+to jest równa $\lambda$.
+
+\subsection{Wzór Eulera}
+
+$$
+e^{ix} = \cos x + i \sin x
+$$
+Możemy też ten wzór dalej rozwijać, więdząc, że:
+$$
+\cos x = \frac{e^{ix} + e^{-ix}}{2}
+$$
+
+$$
+\sin x = \frac{e^{ix} - e^{-ix}}{2i}
+$$
 
 \subsection{Szeregi Taylora}
 
