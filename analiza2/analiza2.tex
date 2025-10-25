@@ -57,10 +57,12 @@ $y - 0$.
 
 Niech $f_n(x)$ będzie ciągiem funkcji określonych na zbiorze $E$. Jeżeli dla
 każdego $x \in E$ szereg liczbowy $\sum_{k=0}^\infty f_n(x)$ jest zbieżny, to
-funkcja $f(x) = \sum_{k=0}^\infty f_n(x)$ jest sumą szeregu funkcyjnego.
-
-Jeżeli $f_n$ jest zbieżnym ciągiem funkcji, to mówimy, że szereg tworzony
-przez ten ciąg jest zbieżny i ma sumę $f(x)$.
+funkcja $f(x) = \sum_{k=0}^\infty f_n(x)$ jest sumą szeregu
+funkcyjnego. Zbieżność ciągu $a_n$ jest warunkiem koniecznym, ale nie
+wystarczającym dla zbieżności szeregu, lub inaczej, zbieżność szeregu
+implikuje zbieżność ciągu $a_n$. W sprawdzaniu zbieżności szeregu, bardzo
+przydaje się wzór na sumę szeregu geometrycznego, gdzie $|q| < 1$:
+$\frac{a_1}{1-q}$.
 
 Jeżeli ciąg sum częściowych $S_n(x) = \sum_{k=0}^n f_k(x)$ jest zbieżny
 jednostajnie, to mówimy, że szereg tworzony przez ten ciąg jest zbieżny
@@ -136,8 +138,9 @@ $\lambda = 0$, gdzie $R = \infty$, oraz $\lambda = \infty$, gdzie $R = 0$.
 Szereg jest zbieżny dla $|z - z_0| < R$ i rozbieżny dla $|z - z_0| > R$.
 Zbieżność w punkcie $z = z_0$ zależy od ciągu $a_n$.
 
-Jeśli granica $\lim_{n \to \infty} |\frac{a_{n+1}}{a_n}|$ istnieje,
-to jest równa $\lambda$.
+$$
+\lambda = \lim_{n \to \infty} \frac{|a_{n+1}|}{|a_n|}
+$$
 
 \subsection{Wzór Eulera}
 
