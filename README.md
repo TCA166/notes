@@ -1,9 +1,9 @@
 # Notatki
 
 To są moje notatki ze studiów. Część z nich oryginalnie pisana w Wordzie, potem
-przeniesiona do LaTeXa, stąd daty mogą się nie zgadzać. Zachęcam do pomocy,
-uzupełniania i poprawiania czytelności. W celu zapewnienia pełnej dostępności w
-repozytorium znajdują się skompilowane pliki ```.pdf```.
+przeniesiona do LaTeXa. Zachęcam do pomocy, uzupełniania i poprawiania
+czytelności. W celu zapewnienia pełnej dostępności w repozytorium znajdują się
+skompilowane pliki `.pdf`.
 
 ## Informatyka
 
@@ -32,3 +32,7 @@ repozytorium znajdują się skompilowane pliki ```.pdf```.
   i Magnetyzm"(04-S3INK02-P02144)
 - [eatl.pdf](eatl/eatl.pdf) "Elementy Algebry i Teorii
   Liczb"(04INKS.32P.04802.24)
+- [analiza2.pdf](analiza2/analiza2.pdf) "Analiza matematyczna z zastosowaniami
+  2"(04-S3INK03-P04804)
+- [kwantowa.pdf](fizyka-kwantowa/kwantowa.pdf) "Podstawy fizyki kwantowej"
+  (04-S3INK03-P02166)
