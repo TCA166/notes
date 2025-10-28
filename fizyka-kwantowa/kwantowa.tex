@@ -94,19 +94,82 @@ doskonale czarnym, promieniowanie ultrafioletowe zgodnie z tym prawem
 powinno w nieskończoność wydzielać energię. To oczywiście nie było
 zgodne z obserwacjami. Tą sprzeczność nazwano katastrofą w ultrafiolecie.
 
-$$
-U_e = E_{k \text{max}} = h \nu
-$$
-$$
-h\nu = h \frac{c}{\lambda} = pc
-$$
+\subsection{Energia relatywistyczna}
 
+Energia cząsteczki w ruchu to:
 $$
 E^2 = p^2c^2 + m^2c^4
 $$
 
+\section{Efekt Fotoelektryczny}
+
+W wyniku promieniowania fotonami, elektrony atomów pierwiastka są
+wyrzucane z atomu. Efekt ten jest wykorzystywany w praktyce w
+napędzaniu fotodiod i fotokomórek.
+
+Energia fotonu zależy od charakterystyk fali, w tym długości fali $\lambda$:
 $$
-\frac{hr}{\lambda} = n \frac{h}{2 \pi}
+E_f = h\nu = \hbar \omega = \frac{hc}{\lambda} = pc
+$$
+Foton padając na materiał powoduje wyrzucenie elektronu naładowanego
+$U$ z energią kinetyczną $E_{k \text{max}}$. W wyniku tego procesu
+utracona zostaje energia w postaci pracy wyjścia $W$:
+$$
+E_{k \text{max}} = E_f - W = eU
+$$
+Częstością progową nazywamy najniższą częstość $\omega_0$, dla której
+$E_{k \text{max}} = 0$.
+
+\section{Zjawisko Comptona}
+
+W zjawisku Comptona foton padający na elektron zmienia kierunek i
+częstość. Efekt ten jest wykorzystywany w praktyce w analizie struktury
+atomów i molekuł.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw[->,thick,blue] (-2,0) -- (0,0) node[midway,above] {$E_f$};
+    \draw[blue] (-2,0) node[left] {$f$};
+
+    \draw[fill=black] (0,0) circle (0.08);
+    \draw (0,-0.2) node[below] {$e$};
+
+    \draw[->,thick,red] (0,0) -- (1.5,1) node[midway,above] {$E_f'$};
+    \draw[red] (1.5,1) node[right] {$f'$};
+
+    \draw[->,thick,green!70!black] (0,0) -- (1.2,-0.7)
+    node[midway,below] {$E_e'$};
+    \draw[green!70!black] (1.2,-0.7) node[right] {$e'$};
+
+    \draw[thick] (0.5,0) arc (0:34:0.5);
+    \draw (0.6,0.2) node[right] {$\theta$};
+
+    \draw[thick] (0.6,0) arc (0:-34:0.5);
+    \draw (0.7,-0.2) node[right] {$\varphi$};
+
+    \draw[dashed] (0,0) -- (1.5,0);
+  \end{tikzpicture}
+  \caption{Ilustracja zjawiska Comptona. Foton $f$ ma długość fali $\lambda$.}
+\end{figure}
+
+W zjawisku zachowanny jest pęd oraz energia, co wraz z równaniem Comptona:
+$$
+(\lambda' - \lambda) \frac{m_ec}{h} = 1 - \cos\theta
+$$
+Pozwala nam w istocie wyprowadzić wszystkie niewadome w zjawisku.
+
+$$
+p_f + p_e = p_f' + p_e' \Rightarrow
+\begin{cases}
+  \frac{h}{\lambda} = \frac{h}{\lambda'}\cos\theta + p_e\cos\varphi \\
+  0 = \frac{h}{\lambda'}\sin\theta + p_e\sin\varphi
+\end{cases}
+$$
+
+$$
+E_f + E_e = E_f' + E_e' \Rightarrow \frac{hc}{\lambda} + m_ec^2 =
+\frac{hc}{\lambda'} + E_e'
 $$
 
 \end{document}
