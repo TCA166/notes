@@ -172,4 +172,53 @@ E_f + E_e = E_f' + E_e' \Rightarrow \frac{hc}{\lambda} + m_ec^2 =
 \frac{hc}{\lambda'} + E_e'
 $$
 
+\section{Model Bohra}
+
+W modelu atomu Bohra, elektron porusza się wokół jądra wokół jednej z
+dyskretnych
+orbit. To też oznacza, że energia elektronu jest dyskretna lub zkwantowana.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \fill[red] (0,0) circle (0.12) node[white] {\small +};
+
+    \draw[thick,blue] (0,0) circle (1);
+    \draw[thick,blue,opacity=0.7] (0,0) circle (2);
+
+    \node[blue] at (1,1) {\scriptsize $n=1$};
+    \node[blue] at (2,2) {\scriptsize $n=2$};
+
+    \draw[->,thick,green!70!black] (1,0) -- (1.9,0)
+    node[midway,above] {\scriptsize $\vec{F}_d$};
+
+    \draw[->,thick,red] (1,0) -- (0.1,0)
+    node[midway,below] {\scriptsize $\vec{F}_e$};
+
+    \draw[->,thick,blue!50!black] (1,0) -- (1,0.5)
+    node[midway,left] {\scriptsize $\vec{v}$};
+
+  \end{tikzpicture}
+  \caption{Model Bohra atomu}
+\end{figure}
+
+Elektron na orbicie utrzymuje się w wyniku siły elektrostatycznej między
+elektronem a jądrem.
+$$
+\frac{mv^2}{r} = k \frac{e^2}{r^2}
+$$
+$$
+mvr = n\hbar = n\frac{h}{2\pi}
+$$
+Dla dowolnego ciała na orbicie:
+$$
+v = \frac{2\pi r}{T}
+$$
+$$
+E_k = - \frac{E_p}{2}
+$$
+Postulat Bohra:
+$$
+\oint pdq = nh
+$$
 \end{document}
