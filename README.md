@@ -23,6 +23,7 @@ skompilowane pliki `.pdf`.
 - [kompresja.pdf](kompresja/kompresja.pdf) "Kompresja
   danych"(06-DKDALI0)
 - [statystyka.pdf](statystyka/statystyka.pdf) "Statystyka"(06-DSTTLI0)
+- [krypto.pdf](kryptografia/krypto.pdf) "Kryptografia z elementami algebry"(06-DKALLI0)
 
 ## Informatyka Kwantowa
 
