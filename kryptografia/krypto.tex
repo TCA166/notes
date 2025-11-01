@@ -6,6 +6,115 @@
 
 \tableofcontents
 
+\section{Szyfr Shannona}
+
+Szyfr według Shannon'a jest zdefiniowany jako:
+$$
+\pi = (E, D) : (C, M, K)
+$$
+gdzie schemat szyfrujący $E$ i schemat deszyfrowania $D$ są funkcjami:
+$$
+E: M \times K \rightarrow C
+$$
+$$
+D: C \times K \rightarrow M
+$$
+
+$$
+D(k, E(k, m)) = m
+$$
+
+\subsection{Szyfr XOR}
+
+$$
+K = M = C = \{0, 1\}^L
+$$
+
+$$
+E(m, k) = m \oplus k
+$$
+$$
+D(c, k) = c \oplus k
+$$
+
+\subsection{Bezpieczeństwo doskonałe}
+
+Niech $\pi$ będzie szyfrem Shannona. Rozważmy eksperyment losowy, w którym
+zmienna losowa $K$ ma rozkład jednostajny nad $K$. Jeśli zachodzi:
+$$
+\forall_{m_0, m_1 \in M} \forall_{c \in C} P(E(k, m_0) = c) = P(E(k, m_1) = c)
+$$
+to mówimy, że szyfr $\pi$ jest szyfrem doskonałym.
+
+Jeśli $\pi$ jest szyfrem doskonałym, to $|K| \ge |M|$.
+
+\section{Struktury algebraiczne}
+
+\begin{enumerate}
+  \item $\forall_{a, b \in G} a * (b * c) = (a * b) * c$
+  \item $\forall_{a, b \in G} a * b = b * a$
+  \item $\exists_{e \in G} \forall_{a \in G} a * e = a$
+  \item $\forall_{a \in G} a^{-1} = e$
+\end{enumerate}
+
+\begin{itemize}
+  \item półgrupa: 1
+  \item monoid: 1, 3
+  \item grupa: 1, 3, 4
+  \item grupa abelowa: 1, 2, 3, 4
+\end{itemize}
+
+Zawsze istnieje tylko jeden element neutralny operacji.
+Rzędem grupy jest moc zbioru $G$.
+
+$$\varphi(n) = |\{a \in \mathbb{Z}_n : \gcd(a, n) = 1\}|$$
+
+\subsection{Podgrupa}
+
+Niech $H$ będzie podgrupą grupy $G$. Wtedy:
+$$
+\forall_{a, b \in H} a * b \in H
+$$
+$$
+\forall_{a \in H} a^{-1} \in H
+$$
+Na przykład, dla $\mathbb{Z}_{10} = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$,
+$H = \{0, 2, 4, 6, 8\}$ jest podgrupą grupy $\mathbb{Z}_{10}$.
+
+\subsection{Generatory}
+
+$$
+\langle g \rangle = \{g^k : k \in \mathbb{Z}\}
+$$
+
+Grupa cykliczna, to grupa, która posiada co najmniej jednoelementowy zbiór
+generatorów. $\exists_{g \in G} \langle g \rangle = G$
+
+\subsection{Problem logarytmu dyskretnego}
+
+Niech $G = \langle g \rangle$. Problemem jest znalezienie $x$
+takiego, że $g^x = a$. W zależności od grupy oraz jej rozmiaru,
+ten problem może być niezwykle trudny.
+
+\subsection{Warstwy}
+
+Dla podgrupy $H$ grupy $G$, warstwą lewostronną $H$ wyznaczoną przez
+$a \in G$ jest zbiór:
+$$
+\begin{cases}
+  a + H = \{a + h : h \in H\}
+  aH = \{ah : h \in H\}
+\end{cases}
+$$
+
+Warstwy są identyczne, albo rozłączne. Suma mnogościowa warstw jest równa
+grupie $G$. Indeksem podgrupy $H$ w grupie $G$ ($G : H$) nazywamy moc zbioru
+warstw względem podgrupy $H$.
+$$
+G : H = \frac{|G|}{|H|}
+$$
+Rząd podgrupy $H$ jest dzielnikiem rzędu grupy $G$.
+
 \section{RSA}
 
 Asymetryczny algorytm szyfrujący, w którym każda strona ma parę
