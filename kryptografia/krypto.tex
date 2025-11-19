@@ -6,6 +6,37 @@
 
 \tableofcontents
 
+\section{Złożoność obliczeniowa}
+
+\subsection{Dodawanie}
+
+Dodanie dwóch liczb binarnych $a$ i $b$ o długości $n$ ma złożoność $O(n)$,
+lub lepiej $O(\log \max(a, b))$.
+
+\subsection{Mnożenie}
+
+Mnożenie dwóch liczb binarnych $a$ i $b$ o długości $n$ ma złożoność $O(n^2)$,
+lub lepiej $O(\log^2 \max(a, b))$.
+
+\subsection{Potęgowanie}
+
+Potęgowanie liczby $a$ do potęgi $b$ ma złożoność $O(\log^b a)$.
+
+\subsection{Dzielenie}
+
+Dzielenie liczby $a$ przez $b$ ma złożoność $O(n^2)$.
+
+\subsection{Modulo}
+
+Modulo liczby $a$ przez $b$ ma złożoność $O(n^2)$.
+
+\subsection{Znajdowanie odwrotności}
+
+To zależy od grupy, ale dla $a$ w przypadku $Z_n$ wymaga obliczenia
+$n - a$, czyli $O(\log \max(a, n))$. W przypadku $Z_n^\times$ wymaga użycia
+rozszerzonego algorytmu Euklidesa. Ten wykonuje w najgorszym przypadku
+$a$ iteracji, więc złożoność wynosi $O(a \log^2 \max(a, n))$.
+
 \section{Szyfr Shannona}
 
 Szyfr według Shannon'a jest zdefiniowany jako:
@@ -158,7 +189,8 @@ $$
 \varphi(n) = (p-1)(q-1)
 $$
 Następnie wybieramy liczbę $e$ względnie pierwszą z $\varphi(n)$.
-Klucz prywatny $d$ musi spełniać warunek $ed \equiv 1 \pmod{\varphi(n)}$, zatem
+Klucz prywatny $d$ musi spełniać warunek $ed \equiv 1
+\pmod{\varphi(n)}$, zatem
 $$
 d = e^{-1} \pmod{\varphi(n)}
 $$

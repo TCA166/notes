@@ -170,4 +170,71 @@ $$
 e^x = \sum_{n=0}^\infty \frac{x^n}{n!}
 $$
 
+\section{Przestrzenie metryczne}
+
+Jeżeli na zbiorze $X$ określono funkcję $d: X \times X \rightarrow
+\mathbb{R}$, która spełnia następujące warunki:
+\begin{enumerate}
+  \item $d(x, x) = 0$
+  \item $d(x, y) = d(y, x)$
+  \item $d(x, y) \leq d(x, z) + d(z, y)$
+\end{enumerate}
+to $(X, d)$ nazywamy przestrzenią metryczną.
+
+\subsection{Zbieżność w przestrzeni metrycznej}
+
+Mówimy, że ciąg $x_n$ jest zbieżny do $x$ w przestrzeni metrycznej $(X, d)$,
+jeśli $\lim_{n \to \infty} d(x_n, x) = 0$.
+
+\subsection{Twierdzenie Banacha o punkcie stałym}
+
+Mówimy, że funkcja $f: X \rightarrow X$ jest kontrakcją, jeśli
+istnieje taka liczba $L \in (0, 1)$, że dla każdego $x, y \in X$ zachodzi
+$$
+d(f(x), f(y)) \leq L d(x, y)
+$$
+
+Jeśli $X$ to przestrzeń metryczna, a $f$ jest kontrakcją ze stałą $L
+\in (0, 1)$, to $f$ ma punkt stały $x_0$ w $X$. $x_0$ jest granicą ciągu
+$x_1 \in X$, $x_{n + 1} = f(x_n)$. Co więcej:
+$$
+d(x_n, x_0) \leq \frac{L^{n-1}}{1 - L} d(x_2, x_1)
+$$
+
+\section{Szeregi Fouriera}
+
+Jeżeli szereg trygonometryczny
+$$
+\frac{a_0}{2} + \sum_{n=1}^\infty (a_n \cos nx + b_n \sin nx)
+$$
+jest zbieżny jednostajnie do funkcji $f$ na przedziale $[-\pi, \pi]$, to
+$$
+a_0 = \frac{1}{\pi} \int_{-\pi}^\pi f(x) dx
+$$
+$$
+a_n = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos nx \, dx
+$$
+$$
+b_n = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin nx \, dx
+$$
+
+\subsection{Funkcja kawałkami gładka}
+
+Mówimy, że funkcja $f$ ma nieciągłość skokową w punkcie $x_0$, jeśli
+$$
+\lim_{x \to x_0^+} f(x) - \lim_{x \to x_0^-} f(x) \neq 0
+$$
+Mówimy, że funkcja $f$ jest kawałkami gładka, jeśli w dowolnym przedziale
+$[a, b]$ jest ciągła poza skończoną liczbą punktów przedziału $(a, b)$,
+jej punkty nieciągłości są punktami skokowymi, a pochodna funkcji
+jest ciągła poza skończoną liczbą punktów przedziału $(a, b)$.
+
+\subsection{Zbieżność szeregów Fouriera}
+
+Jeżeli funkcja $2\pi$ okresowa $f$ jest kawałkami gładka na $\mathbb{R}$, to
+jej szereg Fouriera jest zbieżny dla dowolnego $x \in \mathbb{R}$ do wartości:
+$$
+\frac{f(x-)+f(x+)}{2}
+$$
+
 \end{document}
