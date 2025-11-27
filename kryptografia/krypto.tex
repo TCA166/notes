@@ -1,5 +1,7 @@
 \documentclass{../notatki}
 
+\usetikzlibrary{chains}
+
 \title{Kryptografia z elementami algebry}
 
 \begin{document}
@@ -90,12 +92,6 @@ $$
 Grupa cykliczna, to grupa, która posiada co najmniej jednoelementowy zbiór
 generatorów. $\exists_{g \in G} \langle g \rangle = G$
 
-\subsection{Problem logarytmu dyskretnego}
-
-Niech $G = \langle g \rangle$. Problemem jest znalezienie $x$
-takiego, że $g^x = a$. W zależności od grupy oraz jej rozmiaru,
-ten problem może być niezwykle trudny.
-
 \subsection{Warstwy}
 
 Dla podgrupy $H$ grupy $G$, warstwą lewostronną $H$ wyznaczoną przez
@@ -115,6 +111,203 @@ G : H = \frac{|G|}{|H|}
 $$
 Rząd podgrupy $H$ jest dzielnikiem rzędu grupy $G$.
 
+\section{Problemy}
+
+\subsection{Problem logarytmu dyskretnego (DL)}
+
+Niech $G = \langle g \rangle$. Problemem jest znalezienie $x$
+takiego, że $g^x = a$. W zależności od grupy oraz jej rozmiaru,
+ten problem może być niezwykle trudny.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance=4mm]
+    \node (C) at (0,0) {C};
+    \node (A) at (4,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {los $x$};
+      \node[on chain] (c2) {$y=g^x$};
+      \node[on chain] (c3) {$x=\hat{x}$?};
+    \end{scope}
+
+    \node[below=1.5cm of A] (a1) {znajdź $\hat{x}$};
+
+    \draw[->] (c2)  -- node[midway, above] {$y$} (a1);
+    \draw[->] (a1)  -- node[midway, above] {$\hat{x}$} (c3);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla problemu logarytmu dyskretnego}
+\end{figure}
+
+\subsection{Problem DDH}
+
+Mamy daną grupę cykliczną $G = \langle g \rangle$, rzędu
+$q$, gdzie $q$ jest liczbą pierwszą. Losujemy $\alpha, \beta, \gamma
+\in \mathbb{Z}_q$. Następnie obliczamy:
+$$
+u = g^\alpha, v = g^\beta, w_0 = g^{\alpha \beta}, w_1 = g^\gamma
+$$
+Celem problemu, jest odgadnięcie $b$, dla danego $u, v, w_b$.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance=4mm]
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below of=C] (c1) {1. los $\alpha,
+        \beta, \gamma \in
+      \mathbb{Z}_q$};
+      \node[on chain] (c2) {$u = g^\alpha, v = g^\beta$};
+      \node[on chain] (c3) {$w_0 = g^{\alpha \beta}, w_1 = g^{\gamma}$};
+      \node[below of=A, yshift=-2.5cm] (textA) {znajdź $\hat{b}$};
+      \node[on chain] (c4) {$b = \hat{b}$?};
+    \end{scope}
+
+    \draw[->] (c3)  -- node[midway, above] {$y$} (textA);
+    \draw[->] (textA)  -- node[midway, above] {$\hat{x}$} (c4);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla problemu DDH}
+\end{figure}
+
+\subsection{CDH}
+
+Mamy daną grupę cykliczną $G = \langle g \rangle$, rzędu
+$q$, gdzie $q$ jest liczbą pierwszą. Losujemy $\alpha, \beta, \gamma
+\in \mathbb{Z}_q$. Następnie obliczamy:
+$$
+u = g^\alpha, v = g^\beta, w = g^{\alpha \beta}
+$$
+Celem problemu, jest odgadnięcie $w$, dla danego $u, v$.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance=4mm]
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below of=C] (c1) {1. los $\alpha,
+        \beta, \gamma \in
+      \mathbb{Z}_q$};
+      \node[on chain] (c2) {$u = g^\alpha, v = g^\beta$};
+      \node[on chain] (c3) {$w = g^{\alpha \beta}$};
+      \node[below of=A, yshift=-2.5cm] (textA) {znajdź $\hat{w}$};
+      \node[on chain] (c4) {$w = \hat{w}$?};
+    \end{scope}
+
+    \draw[->] (c3)  -- node[midway, above] {$y$} (textA);
+    \draw[->] (textA)  -- node[midway, above] {$\hat{x}$} (c4);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla problemu CDH}
+\end{figure}
+
+\section{Schematy}
+
+\subsection{Protokół DH}
+
+Mamy daną grupę cykliczną $G = \langle g \rangle$, rzędu
+$q$, gdzie $q$ jest liczbą pierwszą.
+Protokół Diffie-Hellman (DH), polega na losowym wybraniu sekretów przez dwóch
+użytkowników (A, B) $\alpha, \beta \in \mathbb{Z}_q$. Obliczeniu szyfrogramów
+$u = g^\alpha, v = g^\beta$, a następnym wysłaniu $u$ i $v$. Sekret wspólny
+$s = g^{\alpha \beta}$.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance=4mm]
+    \node (C) at (0,0) {Alice};
+    \node (A) at (5,0) {Bob};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (alpha) {$\alpha \in \mathbb{Z}_q$};
+      \node[on chain] (u)     {$u = g^\alpha$};
+      \node[on chain] (s1)     {$s = v^{\alpha}$};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (beta) {$\beta \in \mathbb{Z}_q$};
+      \node[on chain] (v)      {$v = g^\beta$};
+      \node[on chain] (s2)      {$s = u^\beta$};
+    \end{scope}
+
+    \draw[->] (u) -- node[midway, above] {$u, v$} (s2);
+    \draw[->] (v) -- (s1);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla protokołu DH}
+\end{figure}
+
+Protokół jest odporny na atak pasywny (tylko czytanie). Z kolei, jest podatny
+na atak jeśli atakujący ma wpływ na kanał komunikacji, chociażby poprzez atak
+Man-in-the-middle.
+
+\subsection{Schemat szyfrowania z kluczem publicznym}
+
+$$
+\varepsilon = (G, E, D) \text{ nad } (M, C, K)
+$$
+gdzie $G: \mathbb{N} \to K$, $E: K \times M \to C$, $D: K \times C \to M$.
+
+$$
+(pk, sk) = G(\lambda)
+$$
+$$
+C = E(pk, m)
+$$
+$$
+M = D(sk, C)
+$$
+
+\section{Ataki}
+
+\subsection{Man-in-the-middle}
+
+Jeśli atakujący ma wplyw na kanał komunikacji, to może przechwycić komunikaty
+podczas przekazywania kluczy. W takim momencie, może się podszyć pod drugą
+stronę, aby uzyskać dostęp do klucza prywatnego. Równocześnie może
+przekazywać dalej komunikację, aby ukryć swoją obecność. W ten sposób
+zna obydwa sekrety i tylko siedzi po środku.
+
+\subsection{Bezpieczeństwo semantyczne}
+
+Dla pewnego $\varepsilon = (G, E, D)$, atakujący ma dostęp do klucza
+publicznego $pk$. Wybiera on dwie wiadomości $m_0, m_1 \in M$. Przeciwnik
+wybiera jedną wiadomość $b \in \{0, 1\}$, szyfruje ją $c = E(pk, m_b)$ i zwraca
+atakującemu. Atakujący musi zgadnąć $b$.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance=4mm]
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$b \in \{0, 1\}, (pk, sk) =
+      G(\lambda)$};
+      \node[on chain] (c2)     {$c = E(pk, m_b)$};
+      \node[on chain] (c3)     {$\hat{b} = b$?};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {$m_0, m_1 \in M$};
+      \node[on chain] (a2)      {znajdź $\hat{b}$};
+    \end{scope}
+
+    \draw[->] (c1) -- node[midway, above] {$pk$} (a1);
+    \draw[->] (a1) -- node[midway, above] {$m_0, m_1$} (c2);
+    \draw[->] (c2) -- node[midway, above] {$c$} (a2);
+    \draw[->] (a2) -- node[midway, above] {$\hat{b}$} (c3);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla bezpieczeństwa semantycznego}
+\end{figure}
+
+\subsection{Atak CDA}
+
+Jest to powielona wersja bezpieczeństwa semantycznego. Wielokrotnie atakujący
+może tworzyć wiadomości i dostawać losowy kryptogram na podstawie ich. To czyni
+ten atak o wiele trudniejszym niż bezpieczeństwo semantyczne.
+
 \section{RSA}
 
 Asymetryczny algorytm szyfrujący, w którym każda strona ma parę
@@ -132,7 +325,8 @@ $$
 \varphi(n) = (p-1)(q-1)
 $$
 Następnie wybieramy liczbę $e$ względnie pierwszą z $\varphi(n)$.
-Klucz prywatny $d$ musi spełniać warunek $ed \equiv 1 \pmod{\varphi(n)}$, zatem
+Klucz prywatny $d$ musi spełniać warunek $ed \equiv 1
+\pmod{\varphi(n)}$, zatem
 $$
 d = e^{-1} \pmod{\varphi(n)}
 $$
