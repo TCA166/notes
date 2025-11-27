@@ -8,6 +8,37 @@
 
 \tableofcontents
 
+\section{Złożoność obliczeniowa}
+
+\subsection{Dodawanie}
+
+Dodanie dwóch liczb binarnych $a$ i $b$ o długości $n$ ma złożoność $O(n)$,
+lub lepiej $O(\log \max(a, b))$.
+
+\subsection{Mnożenie}
+
+Mnożenie dwóch liczb binarnych $a$ i $b$ o długości $n$ ma złożoność $O(n^2)$,
+lub lepiej $O(\log^2 \max(a, b))$.
+
+\subsection{Potęgowanie}
+
+Potęgowanie liczby $a$ do potęgi $b$ ma złożoność $O(\log^b a)$.
+
+\subsection{Dzielenie}
+
+Dzielenie liczby $a$ przez $b$ ma złożoność $O(n^2)$.
+
+\subsection{Modulo}
+
+Modulo liczby $a$ przez $b$ ma złożoność $O(n^2)$.
+
+\subsection{Znajdowanie odwrotności}
+
+To zależy od grupy, ale dla $a$ w przypadku $Z_n$ wymaga obliczenia
+$n - a$, czyli $O(\log \max(a, n))$. W przypadku $Z_n^\times$ wymaga użycia
+rozszerzonego algorytmu Euklidesa. Ten wykonuje w najgorszym przypadku
+$a$ iteracji, więc złożoność wynosi $O(a \log^2 \max(a, n))$.
+
 \section{Szyfr Shannona}
 
 Szyfr według Shannon'a jest zdefiniowany jako:
@@ -98,18 +129,44 @@ Dla podgrupy $H$ grupy $G$, warstwą lewostronną $H$ wyznaczoną przez
 $a \in G$ jest zbiór:
 $$
 \begin{cases}
-  a + H = \{a + h : h \in H\}
+  a + H = \{a + h : h \in H\}\\
   aH = \{ah : h \in H\}
 \end{cases}
 $$
 
-Warstwy są identyczne, albo rozłączne. Suma mnogościowa warstw jest równa
-grupie $G$. Indeksem podgrupy $H$ w grupie $G$ ($G : H$) nazywamy moc zbioru
-warstw względem podgrupy $H$.
+Warstwy są identyczne, albo rozłączne. Warstwy $aH$ i $bH$ są sobie
+równe kiedy $a^{-1}b \in H$. Suma mnogościowa
+warstw jest równa grupie $G$. Indeksem podgrupy $H$ w grupie $G$ ($G
+: H$) nazywamy moc zbioru warstw względem podgrupy $H$.
 $$
 G : H = \frac{|G|}{|H|}
 $$
 Rząd podgrupy $H$ jest dzielnikiem rzędu grupy $G$.
+
+\subsection{Homomorfizmy}
+
+$f: G \to G'$
+nazywamy homomorfizmem grupy $G$ w grupę $G'$, jeśli zachodzi:
+$$
+f(a + b) = f(a) + f(b)
+$$
+$$
+f(ab) = f(a)f(b)
+$$
+
+Jeśli:
+\begin{itemize}
+  \item $f$ jest iniekcją, to mówimy że $f$ jest monomorfizmem.
+  \item $f$ jest suriekcją, to mówimy że $f$ jest epimorfizmem.
+  \item $f$ jest bijekcją, to mówimy że $f$ jest izomorfizmem.
+\end{itemize}
+
+Z własności homomorfizmu wynika, że $f(e) = f(ee) = f(e)f(e) = e'$
+oraz $f(a^{-1}) = f(a)^{-1}$ i $f(a)f(a^{-1}) = f(e)$.
+
+Zbiór $Ker(f) = \{a \in G : f(a) = e'\}$ nazywamy jądrem homomorfizmu $f$.
+
+Zbiór $Im(f) = \{f(a) : a \in G\}$ nazywamy obrazem homomorfizmu $f$.
 
 \section{Problemy}
 
