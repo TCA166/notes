@@ -218,12 +218,33 @@ $$
 b_n = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin nx \, dx
 $$
 
+Jeśli $f$ jest parzysta, to $b_n = 0$, w przeciwnym wypadku $a_n = 0$.
+
+Alternatywnie, możemy użyć postaci zespolonej:
+$$
+\sum_{n=-\infty}^\infty c_n e^{inx}
+$$
+gdzie:
+$$
+c_0 = \frac{a_0}{2}
+$$
+$$
+c_n =
+\begin{cases}
+  \frac{a_n - ib_n}{2} & \text{jeśli } n > 0 \\
+  \frac{a_{-n} + ib_{-n}}{2} & \text{jeśli } n < 0
+\end{cases}
+$$
+
 \subsection{Funkcja kawałkami gładka}
 
-Mówimy, że funkcja $f$ ma nieciągłość skokową w punkcie $x_0$, jeśli
+Mówimy, że funkcja $f$ ma nieciągłość skokową w punkcie $x_0$, gdy
+istnieją granice jednostronne:
 $$
-\lim_{x \to x_0^+} f(x) - \lim_{x \to x_0^-} f(x) \neq 0
+f(x_0+) = \lim_{x \to x_0^+} f(x), f(x_0-) = \lim_{x \to x_0^-} f(x)
 $$
+Oraz $f(x_0+) \neq f(x_0-)$.
+
 Mówimy, że funkcja $f$ jest kawałkami gładka, jeśli w dowolnym przedziale
 $[a, b]$ jest ciągła poza skończoną liczbą punktów przedziału $(a, b)$,
 jej punkty nieciągłości są punktami skokowymi, a pochodna funkcji
@@ -236,5 +257,7 @@ jej szereg Fouriera jest zbieżny dla dowolnego $x \in \mathbb{R}$ do wartości:
 $$
 \frac{f(x-)+f(x+)}{2}
 $$
+Naturalnie, to oznacza, że jeśli $f$ jest ciągła w $x$, to szereg
+Fouriera jest zbieżny do wartości $f(x)$.
 
 \end{document}
