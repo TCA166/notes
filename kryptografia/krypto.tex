@@ -39,48 +39,6 @@ $n - a$, czyli $O(\log \max(a, n))$. W przypadku $Z_n^\times$ wymaga użycia
 rozszerzonego algorytmu Euklidesa. Ten wykonuje w najgorszym przypadku
 $a$ iteracji, więc złożoność wynosi $O(a \log^2 \max(a, n))$.
 
-\section{Szyfr Shannona}
-
-Szyfr według Shannon'a jest zdefiniowany jako:
-$$
-\pi = (E, D) : (C, M, K)
-$$
-gdzie schemat szyfrujący $E$ i schemat deszyfrowania $D$ są funkcjami:
-$$
-E: M \times K \rightarrow C
-$$
-$$
-D: C \times K \rightarrow M
-$$
-
-$$
-D(k, E(k, m)) = m
-$$
-
-\subsection{Szyfr XOR}
-
-$$
-K = M = C = \{0, 1\}^L
-$$
-
-$$
-E(m, k) = m \oplus k
-$$
-$$
-D(c, k) = c \oplus k
-$$
-
-\subsection{Bezpieczeństwo doskonałe}
-
-Niech $\pi$ będzie szyfrem Shannona. Rozważmy eksperyment losowy, w którym
-zmienna losowa $K$ ma rozkład jednostajny nad $K$. Jeśli zachodzi:
-$$
-\forall_{m_0, m_1 \in M} \forall_{c \in C} P(E(k, m_0) = c) = P(E(k, m_1) = c)
-$$
-to mówimy, że szyfr $\pi$ jest szyfrem doskonałym.
-
-Jeśli $\pi$ jest szyfrem doskonałym, to $|K| \ge |M|$.
-
 \section{Struktury algebraiczne}
 
 \begin{enumerate}
@@ -167,6 +125,48 @@ oraz $f(a^{-1}) = f(a)^{-1}$ i $f(a)f(a^{-1}) = f(e)$.
 Zbiór $Ker(f) = \{a \in G : f(a) = e'\}$ nazywamy jądrem homomorfizmu $f$.
 
 Zbiór $Im(f) = \{f(a) : a \in G\}$ nazywamy obrazem homomorfizmu $f$.
+
+\section{Szyfr Shannona}
+
+Szyfr według Shannon'a jest zdefiniowany jako:
+$$
+\pi = (E, D) : (C, M, K)
+$$
+gdzie schemat szyfrujący $E$ i schemat deszyfrowania $D$ są funkcjami:
+$$
+E: M \times K \rightarrow C
+$$
+$$
+D: C \times K \rightarrow M
+$$
+
+$$
+D(k, E(k, m)) = m
+$$
+
+\subsection{Szyfr XOR}
+
+$$
+K = M = C = \{0, 1\}^L
+$$
+
+$$
+E(m, k) = m \oplus k
+$$
+$$
+D(c, k) = c \oplus k
+$$
+
+\subsection{Bezpieczeństwo doskonałe}
+
+Niech $\pi$ będzie szyfrem Shannona. Rozważmy eksperyment losowy, w którym
+zmienna losowa $K$ ma rozkład jednostajny nad $K$. Jeśli zachodzi:
+$$
+\forall_{m_0, m_1 \in M} \forall_{c \in C} P(E(k, m_0) = c) = P(E(k, m_1) = c)
+$$
+to mówimy, że szyfr $\pi$ jest szyfrem doskonałym.
+
+Jeśli $\pi$ jest szyfrem doskonałym, to $|K| \ge |M|$.
 
 \section{Problemy}
 
@@ -365,6 +365,9 @@ Jest to powielona wersja bezpieczeństwa semantycznego. Wielokrotnie atakujący
 może tworzyć wiadomości i dostawać losowy kryptogram na podstawie ich. To czyni
 ten atak o wiele trudniejszym niż bezpieczeństwo semantyczne.
 
+Jeśli schemat szyfrowania kluczem publicznym jest semantycznie bezpieczny,
+to jest też odporny na ataki CDA.
+
 \section{RSA}
 
 Asymetryczny algorytm szyfrujący, w którym każda strona ma parę
@@ -423,5 +426,14 @@ $$
 $$
 C = 64 \Rightarrow M = 64^{37} \pmod{77} = 15
 $$
+
+\section{Funkcja Hashująca}
+
+$$
+H: X \to Y
+$$
+gdzie $|X| > |Y|$. Można interpretować jako funkcję jednokierunkową, bez
+zapadki. Mówimy, że $H$ jest złamana, jeśli łatwo można znaleźć
+przykłady $m_0 \neq m_1$, takie że zachodzi $H(m_0) = H(m_1)$.
 
 \end{document}
