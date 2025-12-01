@@ -222,8 +222,8 @@ Celem problemu, jest odgadnięcie $b$, dla danego $u, v, w_b$.
       \node[on chain] (c4) {$b = \hat{b}$?};
     \end{scope}
 
-    \draw[->] (c3)  -- node[midway, above] {$y$} (textA);
-    \draw[->] (textA)  -- node[midway, above] {$\hat{x}$} (c4);
+    \draw[->] (c3)  -- node[midway, above] {$u, v, w_b$} (textA);
+    \draw[->] (textA)  -- node[midway, above] {$\hat{b}$} (c4);
   \end{tikzpicture}
   \caption{Formalizm gry dla problemu DDH}
 \end{figure}
@@ -254,8 +254,8 @@ Celem problemu, jest odgadnięcie $w$, dla danego $u, v$.
       \node[on chain] (c4) {$w = \hat{w}$?};
     \end{scope}
 
-    \draw[->] (c3)  -- node[midway, above] {$y$} (textA);
-    \draw[->] (textA)  -- node[midway, above] {$\hat{x}$} (c4);
+    \draw[->] (c3)  -- node[midway, above] {$u, v$} (textA);
+    \draw[->] (textA)  -- node[midway, above] {$\hat{w}$} (c4);
   \end{tikzpicture}
   \caption{Formalizm gry dla problemu CDH}
 \end{figure}
