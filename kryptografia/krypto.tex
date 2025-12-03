@@ -126,6 +126,126 @@ Zbiór $Ker(f) = \{a \in G : f(a) = e'\}$ nazywamy jądrem homomorfizmu $f$.
 
 Zbiór $Im(f) = \{f(a) : a \in G\}$ nazywamy obrazem homomorfizmu $f$.
 
+\subsection{Symbol Lagrange'a}
+
+Liczba $a$ w grupie $G$ jest resztą kwadratową, jeśli istnieje $b \in
+G$ takie, że $a = b^2$.
+
+Symbol Lagrange'a jest zdefiniowany następująco:
+$$
+\frac{a}{p} =
+\begin{cases}
+  1 & \text{jeśli } a \text{ jest resztą kwadratową} \\
+  0 & \text{jeśli } p|a \\
+  -1 & \text{jeśli } a \text{ nie jest resztą kwadratową}
+\end{cases}
+$$
+
+\subsection{Ciało p-elementowe}
+
+Dla liczby pierwszej $p$:
+$$
+\mathbb{F}_p = \{0, 1, \ldots, p-1\}
+$$
+Struktura $(\mathbb{F}_p, +_p)$ to grupa abelowa o $p$ elementach. Równocześnie
+$(\mathbb{F}_p \setminus \{0\}, \cdot_p)$ jest grupą abelową. Ciałem
+$p$-elementowym jest $(\mathbb{F}_p, +_p, \cdot_p)$, gdzie:
+$$
+\forall_{a, b, c \in \mathbb{F}_p} a (b + c) = ab + ac \land (b + c)a = ba + ca
+$$
+
+\subsection{Krzywe eliptyczne}
+
+Dla $p > 3$, krzywą eliptyczna $E$ nad ciałem $\mathbb{F}_p$ jest dana przez:
+$$
+E: y^2 = x^3 + ax + b \mod p
+$$
+Krzywa eliptyczna musi mieć trzy pierwiastki, stąd:
+$$
+\Delta_E = 4a^3 + 27b^2 \mod p \neq 0
+$$
+
+Punkt $P = (x_1, y_1)$ leży na krzywej $E / \mathbb{F}_p$ (nad
+$\mathbb{F}_p$), jeśli spełnia równanie:
+$$
+y_1^2 = x_1^3 + ax_1 + b \mod p
+$$
+Zatem, zbiorem wartości krzywej jest:
+$$
+E(\mathbb{F}_p) = \{(x, y) \in \mathbb{F}_p \times \mathbb{F}_p : y^2
+= x^3 + ax + b \mod p\} \cup \{\mathcal{O}\}
+$$
+
+\subsubsection{Twierdzenie Hesse'go}
+
+$$
+\#E(\mathbb{F}_p) = p + 1 - t
+$$
+gdzie $t < 2\sqrt{p}$, oraz zależy od $E$. Należy wspomnieć, że $\#E$ to jej
+rząd oraz ilość punktów na krzywej.
+
+\subsubsection{Dodawanie}
+
+Dla dwóch punktów $P = (x_1, y_1), Q = (x_2, y_2); x_1 \neq x_2$,
+oraz $R = P \oplus Q = (x_3, y_3)$.
+$$
+\lambda = (y_2 - y_1)(x_2 - x_1)^{-1} \mod p
+$$
+następnie:
+$$
+x_3 = \lambda^2 - x_1 - x_2 \mod p
+$$
+$$
+y_3 = \lambda(x_1 - x_3) - y_1 \mod p
+$$
+
+\subsubsection{Potęgowanie}
+
+Dla punktu $P = (x_1, y_1), R = P \oplus P = (x_3, y_3)$.
+$$
+\lambda = (3x_1^2 + a)(2y_1)^{-1} \mod p
+$$
+następnie jak dla dodawania.
+
+\subsubsection{Odwracanie}
+
+$$
+P = (x_1, y_1)
+$$
+$$P^{-1} = (x_1, -y_1)
+$$
+
+\subsubsection{Element Neutralny}
+
+$\mathcal{O}$ nazywamy elementem neutralnym dla grupy
+$(E(\mathbb{F}_p), \oplus)$.
+$$
+P \oplus Q = \mathcal{O} \leftrightarrow x_1 = x_2 \land y_1 = -y_2
+$$
+$$
+P \oplus P^{-1} = \mathcal{O}
+$$
+
+\subsubsection{Generowanie krzywej}
+
+\begin{enumerate}
+  \item Generuj $k$-bitową liczbę pierwszą $p$
+  \item Losuj $a, b \in \mathbb{F}_p$
+  \item Oblicz $\Delta_E = 4a^3 + 27b^2$
+  \item Sprawdź, czy $\Delta_E \neq 0 \mod p$, w przeciwnym razie
+    \texttt{goto} 2
+  \item \texttt{return} a, b, p
+\end{enumerate}
+
+\subsubsection{Generowanie punktu}
+
+\begin{enumerate}
+  \item Losuj $x \in \mathbb{F}_p$
+  \item Oblicz $y^2 = x^3 + ax + b \mod p$
+  \item Jeśli $\frac{y^2}{p} = -1$ \texttt{goto} 1
+  \item \texttt{return} x, y
+\end{enumerate}
+
 \section{Szyfr Shannona}
 
 Szyfr według Shannon'a jest zdefiniowany jako:
