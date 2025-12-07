@@ -556,4 +556,145 @@ gdzie $|X| > |Y|$. Można interpretować jako funkcję jednokierunkową, bez
 zapadki. Mówimy, że $H$ jest złamana, jeśli łatwo można znaleźć
 przykłady $m_0 \neq m_1$, takie że zachodzi $H(m_0) = H(m_1)$.
 
+\section{ElGamal}
+
+Dla grupy cyklicznej $G$ rzędu $q$, wykonujemy najpierw protokoł DH, a następnie
+szyfrowanie wiadomości $m$ przy pomocy ustalonego sekretu $s =
+g^{\alpha\beta}$ w następujący sposób:
+$$
+c = m \cdot s
+$$
+$$
+m = c \cdot s^{-1}
+$$
+Aby zapewnić bezpieczeństwo, należy wymieniać $s$, czyli również $\alpha, \beta$
+za każdą wiadomością.
+
+\section{DES}
+
+DES (Data Encryption Standard) to archetypiczny szyfr blokowy. Transformuje on,
+albowiem pewien blok bitów (64) w blok równej długości, uznawany za szyfrogram.
+DES używa klucza długości 64 bitów, ale jedynie 56 bitów jest używanych do
+szyfrowania.
+
+Deszyfrowanie składa się z tej samej serii operacji, jedynie z kluczami
+używanymi w odwrotnej kolejności. To oznacza, że wystarczy jedna implementacja
+sprzętowa szyfrowania.
+
+\subsection{Enkrypcja}
+
+DES składa się z 16 rund, poprzedzonych permutacją wejściową ($IP$),
+oraz zakończoną permutacją wyjściową ($FP = IP^{-1}$). Blok wejściowy
+jest dzielony na pół, i operacje są wykonywane na obu częściach na przemian.
+$F(S)$ oznacza funkcję szyfrowania, dla klucza 48 bitowego $S$.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw, rectangle, minimum width=8cm, minimum height=1cm]
+    (input) {$IP$};
+
+    \coordinate (BL) at (input.south west);
+    \coordinate (BM) at ($(input.south west)!0.5!(input.south east)$);
+    \coordinate (BR) at (input.south east);
+
+    % points slightly below the box for the horizontal bracket segment
+    \coordinate (BLM) at ($(BL)!0.5!(BM)+(0,-4mm)$);
+    \coordinate (BRM) at ($(BM)!0.5!(BR)+(0,-4mm)$);
+
+    \draw[line width=0.4pt]
+    (BL) -- (BLM)
+    -- (BM);
+
+    \draw[line width=0.4pt]
+    (BM) -- (BRM)
+    -- (BR);
+
+    \node[draw, rectangle, minimum width=1.5cm, minimum height=1cm,
+    below=of BM] (F_1) {$F(K_1)$};
+    \node[left=of F_1] (xor_1) {$\oplus$};
+    \node[right=of F_1] (nil_1) {};
+
+    \node[draw, rectangle, minimum width=1.5cm, minimum
+    height=1cm, below=of F_1] (F_2) {$F(K_2)$};
+    \node[right=of F_2] (xor_2) {$\oplus$};
+    \node[left=of F_2] (nil_2) {};
+
+    \node[below=of F_2] (dots) {$\dots$};
+
+    \draw[->] (F_1) -- (xor_1);
+    \draw[->] (BLM) -- (xor_1);
+    \draw[->] (BRM) -- (xor_2);
+    \draw[->] (nil_1) -- (F_1);
+
+    \node[draw, rectangle, minimum width=8cm, minimum height=1cm, below=of dots]
+    (fp) {$FP$};
+
+    \coordinate (BL) at (fp.north west);
+    \coordinate (BM) at ($(fp.north west)!0.5!(fp.north east)$);
+    \coordinate (BR) at (fp.north east);
+
+    \coordinate (BLM) at ($(BL)!0.5!(BM)+(0,+4mm)$);
+    \coordinate (BRM) at ($(BM)!0.5!(BR)+(0,+4mm)$);
+
+    \draw[line width=0.4pt]
+    (BL) -- (BLM)
+    -- (BM);
+
+    \draw[line width=0.4pt]
+    (BM) -- (BRM)
+    -- (BR);
+
+    \draw[->] (F_2) -- (xor_2);
+    \draw[->] (xor_1) -- (BLM);
+    \draw[->] (nil_2) -- (F_2);
+    \draw[->] (xor_2) -- (BRM);
+
+  \end{tikzpicture}
+  \caption{Schemat szyfrowania DES}
+\end{figure}
+
+\subsection{Generowanie kluczy}
+
+Generowanie kluczy $S_n$ polega na kolejnych transformacji połówek
+klucza początkowego $K$. Najpierw klucz $K$ jest transformowany przez
+permutację $PC1$ do 56 bitów i dzielony na dwie 28-bitowe połowy $L_0$ i $R_0$.
+Następnie $L_0$ i $R_0$ są przesuwane o $p(n)$ bitów w lewo, gdzie $p(n)$
+jest zależne od rundy $n$. Po przesunięciu, $L_n$ i $R_n$ są
+połączone i permutowane przez $PC2$ do 48 bitów, aby uzyskać klucz
+$K_n$. Generacja $K_n = PC2(L_{n - 1} << p(n) | R_{n - 1} << p(n))$.
+Do dekrypcji, używamy kluczy $K_n$ w odwrotnej kolejności, zatem najpierw
+$K_{16}$, a następnie $K_{15}$, itd.
+
+\subsection{Funkcja F (Feistel)}
+
+Najpierw nasze 32 bity wejściowe szyfrogramu $C$ są poddawane transformacji $E$
+do 48 bitów ($4 \cdot 6$). Następnie szyfrogram jest mieszany z
+kluczem, zatem $I = E(C) \oplus K_n$. Po tym, $I$
+jest dzielone na 8 bloków po 6 bitów ($I_1, I_2, \ldots, I_8$), które
+są przekazywane do odpowiednich S-boxów. S-boxy działają jak funkcje
+nieliniowe i stanowią główne źródło bezpieczeństwa DES. Wyniki działania są
+transformowane przez $P$, dzięki czemu bity są równo dystrybuowane po
+całym 32-bitowym wyjściu.
+
+$$
+I = E(C) \oplus K_n
+$$
+$$
+F(K_n) = P(S_1(I_1) | S_2(I_2) | \ldots | S_8(I_8))
+$$
+
+\subsection{Bezpieczeństwo}
+
+DES nie jest bezpieczny na dwóch frontach: jego wielkość klucza i jego własności
+kryptoanalityzcne. 64 bitowy klucz to po prostu za mało, zwłascza, że
+tak naprawdę
+klucz ma 56 bitów. $2^{56} \sim 10^{16} $, co więcej, klucz DES
+mieści się w jednym rejestrze w architekturach 64-bitowych
+i przeszukanie wszystkich kluczy wiąże się z jedną pętlą \texttt{for} na type
+\texttt{uint64\_t}.
+
+Bardziej zaawansowane ataki, opierające się na kryptoanalizie potrafią rozwiązać
+problem CDA w $2^{50}$ rund z prawdopodobieństwem $50\%$.
+
 \end{document}
