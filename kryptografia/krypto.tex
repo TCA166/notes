@@ -22,7 +22,7 @@ lub lepiej $O(\log^2 \max(a, b))$.
 
 \subsection{Potęgowanie}
 
-Potęgowanie liczby $a$ do potęgi $b$ ma złożoność $O(\log^b a)$.
+Potęgowanie liczby $a$ do potęgi $b$ ma złożoność $O(\log b \log^2 a)$.
 
 \subsection{Dzielenie}
 
@@ -59,6 +59,10 @@ Zawsze istnieje tylko jeden element neutralny operacji.
 Rzędem grupy jest moc zbioru $G$.
 
 $$\varphi(n) = |\{a \in \mathbb{Z}_n : \gcd(a, n) = 1\}|$$
+
+$$
+a \in \mathbb{Z}_p^\times \rightarrow a^{-1} = a^{p-2} \mod p
+$$
 
 \subsection{Podgrupa}
 
