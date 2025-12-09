@@ -36,8 +36,7 @@ Modulo liczby $a$ przez $b$ ma złożoność $O(n^2)$.
 
 To zależy od grupy, ale dla $a$ w przypadku $Z_n$ wymaga obliczenia
 $n - a$, czyli $O(\log \max(a, n))$. W przypadku $Z_n^\times$ wymaga użycia
-rozszerzonego algorytmu Euklidesa. Ten wykonuje w najgorszym przypadku
-$a$ iteracji, więc złożoność wynosi $O(a \log^2 \max(a, n))$.
+rozszerzonego algorytmu Euklidesa. Złożoność wynosi $O(\log^2 \max(a, n))$.
 
 \section{Struktury algebraiczne}
 
@@ -700,5 +699,11 @@ i przeszukanie wszystkich kluczy wiąże się z jedną pętlą \texttt{for} na t
 
 Bardziej zaawansowane ataki, opierające się na kryptoanalizie potrafią rozwiązać
 problem CDA w $2^{50}$ rund z prawdopodobieństwem $50\%$.
+
+\subsection{Whitening}
+
+Poziom bezpieczeństwa DES można poprawić poprzez dodanie dodatkowego klucza
+do każdego bloku danych. Ten dodatkowy klucz jest używany do $\oplus$ z każdym
+blokiem danych przed szyfrowaniem.
 
 \end{document}
