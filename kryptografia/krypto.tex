@@ -562,18 +562,134 @@ przykłady $m_0 \neq m_1$, takie że zachodzi $H(m_0) = H(m_1)$.
 \section{ElGamal}
 
 Dla grupy cyklicznej $G$ rzędu $q$, wykonujemy najpierw protokoł DH, a następnie
-szyfrowanie wiadomości $m$ przy pomocy ustalonego sekretu $s =
-g^{\alpha\beta}$ w następujący sposób:
+szyfrowanie wiadomości $m$ przy pomocy ustalonego sekretu $k$ oraz
+algorytmu $(E, D)$. Zazwyczaj stosuje
+się dodatkowo funkcje haszującą $H: G \times G \to K$ do generowania $k$:
 $$
-c = m \cdot s
+s = g^{\alpha\beta} \pmod{q}
 $$
 $$
-m = c \cdot s^{-1}
+k = H(u, s)
 $$
-Aby zapewnić bezpieczeństwo, należy wymieniać $s$, czyli również $\alpha, \beta$
-za każdą wiadomością.
+$$
+c = E(m, k)
+$$
+$$
+m = D(c, k)
+$$
+Jeśli $H$ jest "dobry", czyli deterministyczny, lecz zbliżony do
+losowej funkcji, oraz problem CDH jest trudny, to ElGamal jest bezpieczny.
 
-\section{DES}
+\section{Protokół OT}
+
+Protokół OT, pozwala na przekazanie informacji bezpiecznie, bez serwera
+wiedzącego o zawartości wiadomości zwrotnej.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (0,0) {P};
+    \node (A) at (5,0) {Bob};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$\beta \in \mathbb{Z}_q, v = g^\beta$};
+      \node[on chain] (c2)     {$u_j = uv^j, w_j = u_j^\beta$};
+      \node[on chain] (c3)     {$k_j = H(v, w_j)$};
+      \node[on chain] (c4)     {$c_j = E(k_j, m_j), C=(c_0, c_1, \dots)$};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {$\alpha \in \mathbb{Z}_q, u =
+      g^\alpha v^{-i}$};
+      \node[on chain] (a2)      {$w_i = v^\alpha$};
+      \node[on chain] (a3)      {$k = H(v, w_i)$};
+      \node[on chain] (a4)      {$m_i = D(c_i, k)$};
+    \end{scope}
+
+    \draw[->] (c1) -- node[midway, above] {$v$} (a1);
+    \draw[->] (a1) -- node[midway, above] {$u$} (c2);
+    \draw[->] (c4) -- node[midway, above] {$C$} (a4);
+  \end{tikzpicture}
+  \caption{Schemat protokołu}
+\end{figure}
+
+$$
+w_i = u_i^\beta = (uv^i)^\beta = (g^\alpha v^{-i} v^{i})^\beta =
+g^{\alpha \beta}
+$$
+
+\section{Szyfry blokowe}
+
+Szyfrem blokowym, nazywamy szyfr, który szyfruje blok bitów wejściowych
+w blok równej długości, uznawany za szyfrogram.
+$$
+E: M \rightarrow M, D: M \rightarrow M
+$$
+
+\subsection{Bezpieczeństwo}
+
+Klasę permutacji, na zbiorze $X$, będziemy nazywać $Perms(X)$
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$b \in \{0, 1\}$};
+      \node[on chain] (c2)     {$f = E(k, \dots) : b = 0 \vee f \in
+      Perms(X) : b = 1$};
+      \node[on chain] (c3)     {$y_i = f(x_i)$};
+      \node[on chain] (c4)     {$b = \hat{b}$?};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {};
+      \node[on chain] (a2)     {};
+      \node[on chain] (a3)      {$x_1, x_2, \dots, x_n \in X$};
+      \node[on chain] (a4)      {znajduje $\hat{b} \sim b$};
+    \end{scope}
+
+    \draw[->] (a3) -- node[midway, above] {$x_i$} (c3);
+    \draw[->] (c3) -- node[midway, above] {$y_i$} (a4);
+    \draw[->] (a4) -- node[midway, above] {$\hat{b}$} (c4);
+  \end{tikzpicture}
+  \caption{Gra określająca bezpieczeństwo szyfru blokowego}
+\end{figure}
+
+Szyfr blokowy jest bezpieczny, jeśli $P(b = \hat{b}) \approx 1/2$
+
+\subsection{Nieprzewidywalność}
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$k \in K$};
+      \node[on chain] (c2)     {$y_i = E(k, x_i)$};
+      \node[on chain] (c3)     {$E(k, x_{n + 1}) = \hat{y}_{n+1}$?};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {$x_1, x_2, \dots, x_n \in X$};
+      \node[on chain] (a2)      {znajduje $\hat{y}_{n+1}$ dla $x_{n+1}$};
+
+    \end{scope}
+
+    \draw[->] (a1) -- node[midway, above] {$x_1, x_2, \dots, x_n$} (c2);
+    \draw[->] (c2) -- node[midway, above] {$y_1, y_2, \dots, y_n$} (a2);
+    \draw[->] (a2) -- node[midway, above] {$\hat{y}_{n+1}$} (c3);
+  \end{tikzpicture}
+  \caption{Gra określająca nieprzewidywalność szyfru blokowego}
+\end{figure}
+
+Jeśli szyfr blokowy jest bezpieczny, to nieprzewidywalność jest spełniona.
+
+\subsection{DES}
 
 DES (Data Encryption Standard) to archetypiczny szyfr blokowy. Transformuje on,
 albowiem pewien blok bitów (64) w blok równej długości, uznawany za szyfrogram.
@@ -584,7 +700,7 @@ Deszyfrowanie składa się z tej samej serii operacji, jedynie z kluczami
 używanymi w odwrotnej kolejności. To oznacza, że wystarczy jedna implementacja
 sprzętowa szyfrowania.
 
-\subsection{Enkrypcja}
+\subsubsection{Enkrypcja}
 
 DES składa się z 16 rund, poprzedzonych permutacją wejściową ($IP$),
 oraz zakończoną permutacją wyjściową ($FP = IP^{-1}$). Blok wejściowy
@@ -657,7 +773,7 @@ $F(S)$ oznacza funkcję szyfrowania, dla klucza 48 bitowego $S$.
   \caption{Schemat szyfrowania DES}
 \end{figure}
 
-\subsection{Generowanie kluczy}
+\subsubsection{Generowanie kluczy}
 
 Generowanie kluczy $S_n$ polega na kolejnych transformacji połówek
 klucza początkowego $K$. Najpierw klucz $K$ jest transformowany przez
@@ -669,7 +785,7 @@ $K_n$. Generacja $K_n = PC2(L_{n - 1} << p(n) | R_{n - 1} << p(n))$.
 Do dekrypcji, używamy kluczy $K_n$ w odwrotnej kolejności, zatem najpierw
 $K_{16}$, a następnie $K_{15}$, itd.
 
-\subsection{Funkcja F (Feistel)}
+\subsubsection{Funkcja F (Feistel)}
 
 Najpierw nasze 32 bity wejściowe szyfrogramu $C$ są poddawane transformacji $E$
 do 48 bitów ($4 \cdot 6$). Następnie szyfrogram jest mieszany z
@@ -687,7 +803,7 @@ $$
 F(K_n) = P(S_1(I_1) | S_2(I_2) | \ldots | S_8(I_8))
 $$
 
-\subsection{Bezpieczeństwo}
+\subsubsection{Bezpieczeństwo}
 
 DES nie jest bezpieczny na dwóch frontach: jego wielkość klucza i jego własności
 kryptoanalityzcne. 64 bitowy klucz to po prostu za mało, zwłascza, że
@@ -700,7 +816,7 @@ i przeszukanie wszystkich kluczy wiąże się z jedną pętlą \texttt{for} na t
 Bardziej zaawansowane ataki, opierające się na kryptoanalizie potrafią rozwiązać
 problem CDA w $2^{50}$ rund z prawdopodobieństwem $50\%$.
 
-\subsection{Whitening}
+\subsubsection{Whitening}
 
 Poziom bezpieczeństwa DES można poprawić poprzez dodanie dodatkowego klucza
 do każdego bloku danych. Ten dodatkowy klucz jest używany do $\oplus$ z każdym
