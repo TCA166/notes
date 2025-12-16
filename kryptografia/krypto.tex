@@ -1,6 +1,6 @@
 \documentclass{../notatki}
 
-\usetikzlibrary{chains}
+\usetikzlibrary{chains, decorations.pathreplacing}
 
 \title{Kryptografia z elementami algebry}
 
@@ -299,7 +299,7 @@ Niech $G = \langle g \rangle$. Problemem jest znalezienie $x$
 takiego, że $g^x = a$. W zależności od grupy oraz jej rozmiaru,
 ten problem może być niezwykle trudny.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance=4mm]
     \node (C) at (0,0) {C};
@@ -329,7 +329,7 @@ u = g^\alpha, v = g^\beta, w_0 = g^{\alpha \beta}, w_1 = g^\gamma
 $$
 Celem problemu, jest odgadnięcie $b$, dla danego $u, v, w_b$.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance=4mm]
     \node (C) at (0,0) {C};
@@ -361,7 +361,7 @@ u = g^\alpha, v = g^\beta, w = g^{\alpha \beta}
 $$
 Celem problemu, jest odgadnięcie $w$, dla danego $u, v$.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance=4mm]
     \node (C) at (0,0) {C};
@@ -394,7 +394,7 @@ użytkowników (A, B) $\alpha, \beta \in \mathbb{Z}_q$. Obliczeniu szyfrogramów
 $u = g^\alpha, v = g^\beta$, a następnym wysłaniu $u$ i $v$. Sekret wspólny
 $s = g^{\alpha \beta}$.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance=4mm]
     \node (C) at (0,0) {Alice};
@@ -456,7 +456,7 @@ publicznego $pk$. Wybiera on dwie wiadomości $m_0, m_1 \in M$. Przeciwnik
 wybiera jedną wiadomość $b \in \{0, 1\}$, szyfruje ją $c = E(pk, m_b)$ i zwraca
 atakującemu. Atakujący musi zgadnąć $b$.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance=4mm]
     \node (C) at (0,0) {C};
@@ -585,7 +585,7 @@ losowej funkcji, oraz problem CDH jest trudny, to ElGamal jest bezpieczny.
 Protokół OT, pozwala na przekazanie informacji bezpiecznie, bez serwera
 wiedzącego o zawartości wiadomości zwrotnej.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \node (C) at (0,0) {P};
@@ -630,7 +630,7 @@ $$
 
 Klasę permutacji, na zbiorze $X$, będziemy nazywać $Perms(X)$
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \node (C) at (0,0) {C};
@@ -662,7 +662,7 @@ Szyfr blokowy jest bezpieczny, jeśli $P(b = \hat{b}) \approx 1/2$
 
 \subsection{Nieprzewidywalność}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \node (C) at (0,0) {C};
@@ -688,6 +688,37 @@ Szyfr blokowy jest bezpieczny, jeśli $P(b = \hat{b}) \approx 1/2$
 \end{figure}
 
 Jeśli szyfr blokowy jest bezpieczny, to nieprzewidywalność jest spełniona.
+Jeśli szyfr jest przewidywalny, to nie może być bezpieczny, ponieważ mogąc
+przewidzieć $\hat{y}$, możemy łatwo porównać czy $\hat{y} = E(k, x_{n+1})$.
+
+\subsection{Odzyskanie klucza}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$k \in K$};
+      \node[on chain] (c2)     {$y_i = E(k, x_i)$};
+      \node[on chain] (c3)     {$k = \hat{k}$?};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {$x_1, x_2, \dots, x_n \in X$};
+      \node[on chain] (a2)      {znajduje $\hat{k}$};
+
+    \end{scope}
+
+    \draw[->] (a1) -- node[midway, above] {$x_1, x_2, \dots, x_n$} (c2);
+    \draw[->] (c2) -- node[midway, above] {$y_1, y_2, \dots, y_n$} (a2);
+    \draw[->] (a2) -- node[midway, above] {$\hat{k}$} (c3);
+  \end{tikzpicture}
+  \caption{Gra określająca odzyskanie klucza szyfru blokowego}
+\end{figure}
+
+Jeśli $E$ jest nieprzewidywalny, to jest odporny na odzyskiwanie klucza.
 
 \subsection{DES}
 
@@ -707,7 +738,7 @@ oraz zakończoną permutacją wyjściową ($FP = IP^{-1}$). Blok wejściowy
 jest dzielony na pół, i operacje są wykonywane na obu częściach na przemian.
 $F(S)$ oznacza funkcję szyfrowania, dla klucza 48 bitowego $S$.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \node[draw, rectangle, minimum width=8cm, minimum height=1cm]
@@ -803,15 +834,99 @@ $$
 F(K_n) = P(S_1(I_1) | S_2(I_2) | \ldots | S_8(I_8))
 $$
 
+\subsubsection{Permutacja E}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+
+    \node (label1) at (-1.5,0) {\textbf{C:}};
+
+    \node (a1) at (0,0) {32};
+    \node (a2) at (3,0) {1};
+    \node (a3) at (4,0) {2};
+    \node (a4) at (5,0) {3};
+    \node (a5) at (6,0) {4};
+    \node (a6) at (9, 0) {5};
+
+    \node (label2) at (-1.5,-2) {\textbf{E:}};
+
+    \node (b1) at (0,-2) {47};
+    \node (b2) at (1,-2) {48};
+    \node (b3) at (2,-2) {1};
+    \node (b4) at (3,-2) {2};
+    \node (b5) at (4,-2) {3};
+    \node (b6) at (5,-2) {4};
+    \node (b7) at (6,-2) {5};
+    \node (b8) at (7,-2) {6};
+    \node (b9) at (8,-2) {7};
+    \node (b10) at (9,-2) {8};
+
+    \draw[->] (a1) -- (b1);
+    \draw[->] (a1) -- (b3);
+    \draw[->] (a2) -- (b2);
+    \draw[->] (a2) -- (b4);
+
+    \draw[->] (a3) -- (b5);
+    \draw[->] (a4) -- (b6);
+    \draw[->] (a5) -- (b7);
+    \draw[->] (a5) -- (b9);
+    \draw[->] (a6) -- (b8);
+    \draw[->] (a6) -- (b10);
+
+    \draw[decorate,decoration={brace,amplitude=10pt,mirror},thick]
+    (b3.south west) -- (b8.south east)
+    node[midway,yshift=-14pt,draw=none,fill=none] {$S_1$};
+  \end{tikzpicture}
+  \caption{Permutacja E}
+\end{figure}
+
+\subsubsection{S-Boxy}
+
+S-Boxy, to funkcje nieliniowe, mające zapewnić większy poziom
+bezpieczeństwa DES. Są one definiowane przez tablicę $16 \times 4$.
+Indeksowana jest przez $x$ i $y$, gdzie $x \in \{0, 1, \ldots, 15\}$
+i $y \in \{0, 1, 2, 3\}$, wyciągane z sześciu bitów wejścia.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node(y) at (4.5, 0) {y};
+
+    \node (a) at (2,-1) {1};
+    \node (b) at (3,-1) {2};
+    \node (c) at (4,-1) {3};
+    \node (d) at (5,-1) {4};
+    \node (e) at (6,-1) {5};
+    \node (f) at (7,-1) {6};
+
+    \draw[decorate,decoration={brace,amplitude=10pt,mirror},thick]
+    (b.south west) -- (e.south east)
+    node[midway,yshift=-14pt,draw=none,fill=none] {$x$};
+
+    \draw[-] (a) -- (y);
+    \draw[-] (f) -- (y);
+  \end{tikzpicture}
+  \caption{Ilustracja interpretacji wejścia do S-Boxa jako koordynaty $(x,y)$}
+\end{figure}
+
+Założeniem S-boxa, jest zapewnienie tego, że zmiana jednego bitu
+wejścia zapewnia \textbf{co najmniej} zmianę dwóch bitów wyjścia. To oznacza, że
+ilość bitów zmienionych przez S-box jest \textbf{co najmniej} równa $2$ i
+potrzeba maksymalnie 6 rund aby zmiana jednego bitu wpłynęła na całe wyjście.
+
 \subsubsection{Bezpieczeństwo}
 
 DES nie jest bezpieczny na dwóch frontach: jego wielkość klucza i jego własności
-kryptoanalityzcne. 64 bitowy klucz to po prostu za mało, zwłascza, że
-tak naprawdę
-klucz ma 56 bitów. $2^{56} \sim 10^{16} $, co więcej, klucz DES
-mieści się w jednym rejestrze w architekturach 64-bitowych
-i przeszukanie wszystkich kluczy wiąże się z jedną pętlą \texttt{for} na type
-\texttt{uint64\_t}.
+kryptoanalityzcne.
+
+64 bitowy klucz to po prostu za mało, zwłascza, że tak naprawdę
+klucz ma 56 bitów. Klucz DES mieści się w jednym rejestrze w
+architekturach 64-bitowych i przeszukanie wszystkich kluczy wiąże się
+z jedną pętlą \texttt{for} na type \texttt{uint64\_t}. \textit{Notka
+od autora:} założyłem się z wykładowcą, czy
+taki atak jest praktyczny. Iteracja po 40 bitach klucza przy pomocy instrukcji
+\texttt{avx512} zajmuje około 8.6s. To oznacza, że iteracja po 56 bitach powinna
+zająć około 6.5 dnia.
 
 Bardziej zaawansowane ataki, opierające się na kryptoanalizie potrafią rozwiązać
 problem CDA w $2^{50}$ rund z prawdopodobieństwem $50\%$.
