@@ -937,4 +937,170 @@ Poziom bezpieczeństwa DES można poprawić poprzez dodanie dodatkowego klucza
 do każdego bloku danych. Ten dodatkowy klucz jest używany do $\oplus$ z każdym
 blokiem danych przed szyfrowaniem.
 
+\section{Funkcje pseudolosowe}
+
+Funkcje pseudolosowe (PRF) to funkcje deterministyczne, które mają generować
+wartości podobne do losowych (pseudolosowe).
+$$
+y = F(k, x)
+$$
+$$
+f = F(k, \dots), f: X \rightarrow Y
+$$
+
+\subsection{Bezpieczeństwo semantyczne}
+
+Niech $Fun[X, Y]$ oznacza zbiór wszystkich funkcji $X \rightarrow Y$;
+$\#Fun[X, Y] = \#Y^{\#X}$.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=4mm]
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$b \in \{0, 1\}$};
+      \node[on chain] (c2) {$f = F(k, \dots) : b = 0 \vee f \in
+      Fun[X, Y] : b = 1$};
+      \node[on chain] (c3)     {$y_i = f(x_i)$};
+      \node[on chain] (c4)     {$\hat{b} = b$?};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {};
+      \node[on chain] (a2) {};
+      \node[on chain] (a3)      {$x_i \in X$};
+      \node[on chain] (a4)      {znajdź $\hat{b}$};
+    \end{scope}
+
+    \draw[->] (a3) -- node[midway, above] {$x_i$} (c3);
+    \draw[->] (c3) -- node[midway, above] {$y_i$} (a4);
+    \draw[->] (a4) -- node[midway, above] {$\hat{b}$} (c4);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla bezpieczeństwa semantycznego funkcji
+  pseudolosowych}
+\end{figure}
+
+Funkcja PRF jest bezpieczna semantycznie, jeśli $|P(b = \hat{b}) -
+P(b \neq \hat{b})| < \epsilon$.
+Mówiąc krótko, funkcja PRF jest semantycznie bezpieczna, jeśli nie da
+się rozróżnić jej od losowej funkcji.
+
+\subsection{Counter}
+
+Przykładem funkcji PRF jest counter, który dla danego szyfru blokowego $E(k, x)$
+generuje kolejne szyfrogramy $c_i$. Publicznym jest $x$ oraz $m_i$.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{scope}
+      \node (input) at (0,0) {$x + i \mod N$};
+      \node[draw] (e) at (0, -1) {$E$};
+      \node (k) at (1, -1) {$k$};
+      \node (m) at (-1, -2) {$m_i$};
+      \node (xor) at (0, -2) {$\oplus$};
+      \node (out) at (0, -3) {$c_i$};
+
+      \draw[->] (input) -- (e);
+      \draw[->] (e) -- (xor);
+      \draw[->] (xor) -- (out);
+      \draw[->] (k) -- (e);
+      \draw[->] (m) -- (xor);
+    \end{scope}
+
+    \begin{scope}
+      \node (input) at (4,0) {$x + i \mod N$};
+      \node[draw] (e) at (4, -1) {$E$};
+      \node (k) at (5, -1) {$k$};
+      \node (m) at (3, -2) {$c_i$};
+      \node (xor) at (4, -2) {$\oplus$};
+      \node (out) at (4, -3) {$m_i$};
+
+      \draw[->] (input) -- (e);
+      \draw[->] (e) -- (xor);
+      \draw[->] (xor) -- (out);
+      \draw[->] (k) -- (e);
+      \draw[->] (m) -- (xor);
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Counter}
+\end{figure}
+
+Jeśli $F$ jest funkcją PRF, oraz $N$ jest wystarczająco duża, to dla
+wielomianowej liczby bloków konstrukcja counter jest CPA bezpieczna.
+
+\section{MAC}
+
+Schemat MAC (Message Authentication Code) zakłada przechowywanie
+wiadomości $m$ wraz z kodem $t$, nazywanym tagiem, jako $(m, t)$.
+Ma to zapobiec atakom aktywnym, zapewniając weryfikację poprawności
+wiadomości.
+
+$$
+t = S(k, m)
+$$
+$$
+V(k, m, t) =
+\begin{cases}
+  \texttt{accept} & \text{jeśli } t = S(k, m) \\
+  \texttt{reject} & \text{w przeciwnym wypadku}
+\end{cases}
+$$
+
+$$
+V(k, m, S(k, m)) = \texttt{accept}
+$$
+
+\subsection{Przykład}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node (a) at (0, 0) {Alice};
+    \node[draw, dotted] (m) at (3, -1) {Mallet};
+    \node (b) at (6, 0) {Bob};
+
+    \node[below=of a] (k1) {$t = S(k, m)$};
+    \node[below=of b] (k2) {$V(k, m, t)$};
+
+    \draw[->] (a) -- node[midway, above] {$(m, t)$} (b);
+
+  \end{tikzpicture}
+  \caption{Ilustracja wykorzystania MAC}
+\end{figure}
+
+\subsection{Bezpieczeństwo}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (0,0) {C};
+    \node (A) at (5,0) {A};
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of C] (c1) {$k \in K$};
+      \node[on chain] (c2) {$t_i = S(k, m_i)$};
+      \node[on chain] (c3)     {$\hat{t}_n = S(k, m_n)$};
+    \end{scope}
+
+    \begin{scope}[start chain=going below]
+      \node[on chain, below=of A] (a1) {$m_1, m_2, \dots m_{n - 1}$};
+      \node[on chain] (a2) {znajdź $\hat{t}_n$};
+    \end{scope}
+
+    \draw[->] (a1) -- node[midway, above] {$m_1, m_2, \dots m_{n - 1}$} (c2);
+    \draw[->] (c2) -- node[midway, above] {$t_1, t_2, \dots t_{n - 1}$} (a2);
+    \draw[->] (a2) -- node[midway, above] {$\hat{t}_n, m_n$} (c3);
+  \end{tikzpicture}
+  \caption{Formalizm gry dla bezpieczeństwa MAC}
+\end{figure}
+
+Schemat MAC jest bezpieczny jeśli dla wszystkich efektywnych atakujących,
+prawdopodobieństwo $P(\hat{t} = S(k, m_n))$ jest pomijalnie małe.
+
+\vspace{5em}
+\textcolor{red}{"Wyszło jak wyszło \dots"}
+
 \end{document}
