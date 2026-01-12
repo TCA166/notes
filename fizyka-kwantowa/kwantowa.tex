@@ -6,100 +6,110 @@
 
 \section{Wstęp}
 
-\subsection{Fizyka Klasyczna}
-
-Zwyczajowo, określa się, że fizyka klasyczna jest całym korpusem fizyki,
-opracowanym przed pojawieniem się fizyki kwantowej. Historycznie zatem,
-jest to fizyka opracowana przed XX wiekiem, opracowana przez Newtona, Leibniza,
-Maxwella, et. al.
-
-\begin{itemize}
-  \item Mechanika - Newton + Leibniz + Lagrange + Hamilton
-  \item Elektrodynamika - Maxwell
-  \item Termodynamika
-  \item Fizyka statystyczna
-\end{itemize}
-
-\subsubsection{Mechanika}
-
-Cała mechanika opiera sie na trzech prawach Newtona:
-\begin{enumerate}
-  \item $
-    \vec{F} = m\vec{a}
-    $
-  \item $
-    \frac{\vec{dp}}{dt} = \vec{F}
-    $
-  \item Każda akcja ma przeciwną i równą reakcję.
-\end{enumerate}
-
-Z tych praw wynika cała mechanika, wraz z alternatywnymi ujęciami, takimi jak
-równania Lagrange'a i Hamiltona.
-
-\subsubsection{Elektrodynamika}
-
-Cała elektrodynamika wywodzi się z równań Maxwella:
-\begin{enumerate}
-  \item $\nabla \vec{E} = \frac{q}{\epsilon_0}$
-  \item $\nabla \vec{B} = 0$
-  \item $\nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}$
-  \item $\nabla \times \vec{B} = \mu_0 \vec{J} + \mu_0 \epsilon_0
-    \frac{\partial \vec{E}}{\partial t}$
-\end{enumerate}
-
-\subsection{Widmo absorpcji}
-
-W momencie, gdy światło przechodzi przez gazową postać pierwiastka, a następnie
-pryzmat, światło zamiast rozszczepić się na wszystkie kolory, rozszczepia się
-na prawie wszystkie kolorym, pozostawiając luki w spektrum. To zjawisko
-nazywane jest widmem absorpcji.
-
-Wynika ono z zachowania elektronów w atomach pierwiastka, które po trafieniu
-przez foton, zmieniają swój stan energii, co powoduje zmianę długości fali
-światła i co za tym idzie luki w spektrum.
-
 $$
-\frac{1}{\lambda} = R \left( \frac{1}{n_1^2} - \frac{1}{n_2^2} \right)
+E^2 =c^2p^2 + m^2c^4
 $$
 
-To zjawisko dowodzi tego, że poziomy energetyczne elektronów są skwantyzowane,
-czyli dyskretne. Na podstawie tego zjawiska opracowano model atomu Bohra, w
-którym atomy znajdują się na dyskretnych orbitalach dookoła jądra atomu.
-Przejście między tymi stanami energii kosztuje energię.
+\section{Eksperyment Younga}
 
-Dla atomu i elektronu na orbitalu w odległości $r$ od jądra atomu:
+W eksperymencie mierzymy zachowanie elektronów względem
+dwóch dziur i czujnika ruchomego na wzdłuż osi $x$. Mierzymy prawdopodobieństwo,
+tego, że czujnik odbierze elektron, jako $P_{12}(x)$. Równocześnie rozróżniamy
+$P_1(x)$ oraz $P_2(x)$; prawdopodobieństwa, tego, że czujnik odbierze
+elektron przy jednej z dziur zasłoniętej.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[draw] (source) at (-4,2) {źródło};
+
+    \draw (0,0) -- (0, 1.8);
+    \draw (0, 2) -- (0, 2.3);
+    \draw (0, 2.5) -- (0,4);
+
+    \draw[thick] (2,0) -- (2,4) node[above] {$x$};
+
+    \draw[->] (source.east) -- (0, 2.4);
+    \draw[->] (source.east) -- (0, 1.9);
+
+  \end{tikzpicture}
+  \caption{Ilustracja eksperymentu}
+\end{figure}
+
+\subsection{Cząstkowa interpretacja}
+
+Jeśli elektron zachowałby się jako cząstka, to spodziewalibyśmy się, że
+$P_{12}(x) = P_1(x) + P_2(x)$. Wnioskiem takiej obserwacji byłoby, że
+cząstki elektronów nie mają na siebie wpływu; nie zachodzi interferencja.
+Co więcej, elektron zawsze przechodzi jedną dziurą.
+
+\subsection{Falowa interpretacja}
+
+Jeśli elektron zachowałby się jako fala, to spodziewalibyśmy się
+przeciwnego wyniku. Fale nie nakładają się na siebie tak czysto.
+Zachodziłaby interferencja; fale w zależności od fazy albo by się na siebie
+nakładały, albo niwelowały. Co więcej ze wzlędu na działanie fal, elektron
+by przechodził przez obydwie dziury jednocześnie.
+$P_{12}(x) = |\phi_1(x) + \phi_2(x)|^2$,
+$P_1 = |\phi_1(x)|^2$, \dots.
+
+\subsection{Wynik}
+
+Eksperyment pokazuje, że mimo tego, że detektor odbiera elektrony
+w dyskretnych grupach, to $P_{12}$ zachowuje się jakby elektrony były falami.
+Zatem elektron zachowuje się "trochę jak cząstka trochę jak fala".
+
+Dodanie źródła światła do eksperymentu, co pozwala nam go zobaczyć, powoduje, że
+elektrony zachowują się jak cząstki. Wynika to z tego, że światło wpływa na
+elektrony.
+
+Na podstawie tego eksperymentu, opracowano zasadę niepewności Heisenberga.
+W ramach eksperymentu, oznacza ona, że nie da się zaprojektować detektora
+elektronów, który nie wpływa na elektrony.
+
+\subsection{Wyprowadzenia}
+
+Ten eksperyment pozwala nam wyprowadzić następujące właściwości
+światła o danej długości fali $\lambda$ i częstości $\omega$:
+
 $$
-m \frac{v^2}{r} = \frac{1}{4 \pi \epsilon_0} \frac{e^2}{r^2}
+k = \frac{2 \pi}{\lambda}
 $$
 $$
-mvr = n\hbar \rightarrow \text{promieniowanie jest absorbowane}
+p = \frac{2\pi\hbar}{\lambda} = \frac{h}{\lambda} = k\hbar
 $$
 $$
-\text{promieniowanie} \leftrightarrow \text{zmiana orbity}
+E_f = \hbar \omega = pc
+$$
+Zatem też: $m_f = 0$, $v_f = c$.
+
+\subsection{Światło}
+
+\noindent \textit{Światło o danym $\lambda$ i $\omega$ składa się z
+dyskretnych cząstek, których dystrybucja jest dana przez interferencję fali}.
+Nie jest falą, ale działa jak fala. Charakterystyka fali określa
+prawdopodobieństo, tego że foton padnie w danym miejscu.
+
+\subsection{Fala de Broglie}
+
+Jest to generalizacja koncepcji światła wychodzącej z eksperymentu Younga.
+Każda fala, która na skali makroskopicznej zachowuje się jak fala, lecz tak
+naprawdę jest masą dyskretnych cząstek jest falą de Broglie, lub falą materii.
+
+$$
+\lambda = \frac{h}{p}
+$$
+$$
+E = h\nu
 $$
 
-\subsection{Katastrofa w ultrafiolecie}
+\section{Zasada niepewności}
 
-Poszukiwania zdolności emisyjnej ciał, doprowadziły do powstania
-prawa Rayleigha-Jeansa:
 $$
-f(\nu, T) = 2 \frac{\nu^2}{c^2} kT
+\Delta x \Delta p \geq \frac{\hbar}{2}
 $$
-$$
-f(\lambda, T) = 2 \frac{ckT}{\lambda^4}
-$$
-Zcałkowanie tego prawa, po całym zakresie częstości, daje nam nieskończenie dużą
-energię. To jest niemożliwe. Co więcej, w komorze, będącej ciałem
-doskonale czarnym, promieniowanie ultrafioletowe zgodnie z tym prawem
-powinno w nieskończoność wydzielać energię. To oczywiście nie było
-zgodne z obserwacjami. Tą sprzeczność nazwano katastrofą w ultrafiolecie.
-
-\subsection{Energia relatywistyczna}
-
-Energia cząsteczki w ruchu to:
-$$
-E^2 = p^2c^2 + m^2c^4
-$$
+gdzie, na przykład, $\Delta x = \sigma(x)$. Istotna jest jednak obserwacja, że
+dla $\Delta x \rightarrow 0$, $\Delta p \rightarrow \infty$, i na odwrót.
 
 \section{Efekt Fotoelektryczny}
 
@@ -107,10 +117,8 @@ W wyniku promieniowania fotonami, elektrony atomów pierwiastka są
 wyrzucane z atomu. Efekt ten jest wykorzystywany w praktyce w
 napędzaniu fotodiod i fotokomórek.
 
-Energia fotonu zależy od charakterystyk fali, w tym długości fali $\lambda$:
-$$
-E_f = h\nu = \hbar \omega = \frac{hc}{\lambda} = pc
-$$
+Elektrony w metalu znajdują się w studni potencjału, głębokości $W$,
+odpowiadającej pracy wyjścia.
 Foton padając na materiał powoduje wyrzucenie elektronu naładowanego
 $U$ z energią kinetyczną $E_{k \text{max}}$. W wyniku tego procesu
 utracona zostaje energia w postaci pracy wyjścia $W$:
@@ -126,7 +134,7 @@ W zjawisku Comptona foton padający na elektron zmienia kierunek i
 częstość. Efekt ten jest wykorzystywany w praktyce w analizie struktury
 atomów i molekuł.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \draw[->,thick,blue] (-2,0) -- (0,0) node[midway,above] {$E_f$};
@@ -160,6 +168,10 @@ $$
 Pozwala nam w istocie wyprowadzić wszystkie niewadome w zjawisku.
 
 $$
+p = \frac{h}{\lambda}
+$$
+
+$$
 p_f + p_e = p_f' + p_e' \Rightarrow
 \begin{cases}
   \frac{h}{\lambda} = \frac{h}{\lambda'}\cos\theta + p_e\cos\varphi \\
@@ -178,7 +190,7 @@ W modelu atomu Bohra, elektron porusza się wokół jądra wokół jednej z
 dyskretnych
 orbit. To też oznacza, że energia elektronu jest dyskretna lub zkwantowana.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \fill[red] (0,0) circle (0.12) node[white] {\small +};
@@ -222,28 +234,5 @@ Postulat Bohra:
 $$
 \oint pdq = nh
 $$
-
-\section{Wzór Plancka}
-
-$$
-\langle E \rangle = \langle mh\nu \rangle = \langle m \rangle h\nu
-$$
-
-Dla ciała doskonale czarnego:
-$$
-\langle E \rangle = \frac{h\nu}{e^{\frac{h\nu}{kBT}} - 1}
-$$
-
-$$
-\lambda = \frac{h}{p} = \frac{c}{\nu}
-$$
-
-\section{Zasada niepewności}
-
-$$
-\Delta x \Delta p \geq \frac{\hbar}{2}
-$$
-gdzie, na przykład, $\Delta x = \sigma(x)$. Istotna jest jednak obserwacja, że
-dla $\Delta x \rightarrow 0$, $\Delta p \rightarrow \infty$, i na odwrót.
 
 \end{document}
