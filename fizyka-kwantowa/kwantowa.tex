@@ -184,6 +184,68 @@ E_f + E_e = E_f' + E_e' \Rightarrow \frac{hc}{\lambda} + m_ec^2 =
 \frac{hc}{\lambda'} + E_e'
 $$
 
+\section{Stan cząstki}
+
+Z powyższych sekcji wiemy, że cząstka w mechanice kwantowej nie ma stricte
+określonej pozycji ani pędu. Wynika to z zasady niepewności Heisenberga.
+W mechanice klasycznej cząstki opisujemy parą $(x, p)$, czym opisujemy w
+mechanice kwantowej? Mamy funkcję falową $\psi(x)$, gdzie $P(x) = |\psi(x)|^2$
+opisuje prawdopodobieństwo znalezienia cząstki w $x$.
+
+Elektron w okolicy atomu $1$ jest opisany przez funkcję falową $\psi_1(x)$.
+Prawdopodobieństwo tego, że elektron jest w miejscu $x$ obok atomu $1$ opisuje
+analogicznie $P_1(x) = |\psi_1(x)|^2$. Teraz wyobraźmy sobie, że
+dodajemy drugi atom $2$ i nie wiemy obok
+którego jest elektron. Na podstawie pomiarów możem określić, czy pomiary
+odpowiadają $P_1(x)$, czy $P_2(x) = |\psi_2(x)|^2$.
+
+Co jeśli elektron może być między cząstkami, czyli nie zakładamy, że należy
+do jednej cząstki? Wtedy mówimy, że elektron jest w stanie $\psi_{1 +
+2}(x) = \psi_1(x) + \psi_2(x)$. $P_{1 + 2} = |\psi_{1 + 2}|^2$.
+
+\subsection{Pomiar}
+
+Do momentu pomiaru, elektron w naszym przykładzie \textbf{nie ma
+pozycji}. Założenie, że
+jest obok jednej cząstki jest jak założenie, że cząstka przeszła przez jeden
+otwór w eksperymencie Younga. Prawdopodobieństwo w mechanice
+klasycznej i kwantowej działają zupełnie inaczej. W mechanice klasycznej
+cząstki mają określony zawczasu stan. Pomiar, wykonany w danym czasie uzyska
+zawsze jeden wynik. Identyczny pomiar wykonany w mechanice kwantowej może
+uzyskać różne odpowiedzi.
+
+Można to sobie wyobrazić w następujący sposób. W mechanice
+klasycznej, prawdopodobieństwo $P(x)$ jest ewaluowane a priori.
+Mechanika klasyczna jest deterministyczna i znając $(x, p)$ nie muszę
+nawet robić pomiarów. W mechanice kwantowej $P(x)$ jest ewaluowane w czasie
+rzeczywistym. Mechanika kwantowa nie jest deterministyczna.
+
+\subsection{Funkcja}
+
+$P(x) = |\psi(x)|^2$ musi być całkowalna po całej powierzchni.
+Prawdopodobieństwo musi być skończone w końcu. Są od tej zasady
+wyjątki, szczególnie cząstki, których całka rośnie wraz z rozmiarem
+wszechświata.
+
+Dla cząstki z określonym pędem $p$:
+$$
+\psi_p(x) = A\exp[\frac{ipx}{\hbar}]
+$$
+$A$ to czynnik normalizujący, wychodzący z konieczności
+$1 = \int_{-\infty}^{\infty} |\psi_x(x)|^x dx$. Dla nieskończonego
+wszechświata nie ma to sensu, bo $1 = |A|^2 \cdot \infty$.
+Zatem zakładamy skończony wszechświat o obwodzie $L$:
+$$
+\psi_p(x) = \frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]
+$$
+Warunek kwantyzacji ogranicza $p$ do:
+$$
+p_n = \frac{nh}{L}
+$$
+$$
+\psi(x) = \sum_{p} A(p) \psi_p(x)
+$$
+
 \section{Model Bohra}
 
 W modelu atomu Bohra, elektron porusza się wokół jądra wokół jednej z
