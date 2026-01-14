@@ -6,9 +6,22 @@
 
 \section{Wstęp}
 
-$$
-E^2 =c^2p^2 + m^2c^4
-$$
+Przydatne wzory w jednym miejscu:
+\begin{itemize}
+  \item Pęd ciałą o masie $m$ i prędkości $v$:
+    $$
+    p = mv
+    $$
+  \item Energia ciała o masie $m$ i pędzie $p$: $$
+    E^2 =c^2p^2 + m^2c^4
+    $$
+  \item Stała plancka i jej \textbf{evil twin} $$
+    h = 2 \pi \hbar
+    $$
+  \item Prędkość fali $$
+    v = \lambda \nu
+    $$
+\end{itemize}
 
 \section{Eksperyment Younga}
 
@@ -79,7 +92,7 @@ $$
 p = \frac{2\pi\hbar}{\lambda} = \frac{h}{\lambda} = k\hbar
 $$
 $$
-E_f = \hbar \omega = pc
+E_f = \hbar \omega = pc = h \nu
 $$
 Zatem też: $m_f = 0$, $v_f = c$.
 
@@ -98,9 +111,6 @@ naprawdę jest masą dyskretnych cząstek jest falą de Broglie, lub falą mater
 
 $$
 \lambda = \frac{h}{p}
-$$
-$$
-E = h\nu
 $$
 
 \section{Zasada niepewności}
@@ -166,10 +176,6 @@ $$
 (\lambda' - \lambda) \frac{m_ec}{h} = 1 - \cos\theta
 $$
 Pozwala nam w istocie wyprowadzić wszystkie niewadome w zjawisku.
-
-$$
-p = \frac{h}{\lambda}
-$$
 
 $$
 p_f + p_e = p_f' + p_e' \Rightarrow
@@ -282,19 +288,80 @@ $$
 \frac{mv^2}{r} = k \frac{e^2}{r^2}
 $$
 $$
-mvr = n\hbar = n\frac{h}{2\pi}
+L = mvr = n\hbar
 $$
 Dla dowolnego ciała na orbicie:
 $$
 v = \frac{2\pi r}{T}
 $$
-gdzie $T$ jest czasem okresu orbity.
+gdzie $T$ jest czasem okresu orbity. Energie potencjalną można wyznaczyć z
+pola elektrycznego.
 $$
-E_k = - \frac{E_p}{2}
+E_p = 2E_k = k\frac{e^2}{r}
 $$
+$$
+E_k = \frac{1}{2}mv^2
+$$
+
+\subsection{Nieskończenie głęboka studnia potencjału}
+
+Istnieje studnia potencjału. W zakresie $x \in (0, L)$ cząstka może się poruszać
+swobodnie, potencjał jest zerowy. Poza tym obszarem potencjał jest
+nieskończenie duży. długość studni ($L$) musi być równa całkowitej
+wielokrotności połowy długości fali:
+$$
+L = n\frac{\lambda}{2}
+$$
+Trzeba też wykorzystać własności fali de Broglie
+($\lambda=\frac{h}{p}$) aby uzyskać:
+$$
+p_n = \frac{nh}{2L}
+$$
+
 Postulat Bohra:
 $$
 \oint pdq = nh
+$$
+
+\subsection{Ciało doskonale czarne}
+
+Ciało doskonale czarne, to koncept fizyczny, w którym rozważamy zachowanie się
+energii, temperatury i promieniowana w doskonale czarnej wnęce. Założenie jest
+takie, że ciało ma nie dopuścić do powrotnej emisji promieniowania.
+
+W ciele doskonale czarnym zakłada się, że liczba modów oscylacyjnych jest dana
+wzorem:
+$$
+N(\nu)d\nu = \frac{8\pi\nu^2}{c^3}d\nu
+$$
+Wynika to z $\nu = \frac{c}{\lambda}$ oraz $\lambda = \frac{2\pi}{k}$.
+Gęstość energii na jednostkę częsości wyraża się:
+$$
+u(\nu, T) = N(\nu)\langle E \rangle
+$$
+
+\subsubsection{Katastrofa w ultrafiolecie}
+
+W klasycznej teorii z zasady ekwipartycji energii wynika, że średnia
+energia przypadająca na jeden stopień swobody układu oscylacyjnego jest równa:
+$$
+\langle E \rangle = k_BT
+$$
+Podstawienie $\langle E \rangle = k_BT$ do $u(\nu, T)$ daje nam wzór
+Rayleigha-Jeansa na gęstość energii na jednostkę częstośći. Ten wzór jest
+o tyle słaby, że całka po całym zakresie $\nu$ daje nam nieskończoną energię,
+co jest nonsensem. Ten fenomen został nazwany katastrofą w ultrafiolecie.
+
+\subsubsection{Wzór Plancka}
+
+Planck rozwiązał problem z wzorem Rayleigha-Jeansa, wprowadzając inną
+definicję $\langle E \rangle$. Podstawowym założeniem Plancka jest, że energia
+pojedynczego oscylatora jest zkwantowana.
+$$
+E_n = nh\nu
+$$
+$$
+\langle E \rangle = \frac{h\nu}{e^{\frac{h\nu}{k_BT}} - 1}
 $$
 
 \end{document}
