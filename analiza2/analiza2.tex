@@ -2,6 +2,12 @@
 
 \title{Analiza Matematyczna z Zastosowaniami 2}
 
+% semestr zacząłem jak zaczynam każdy, czyli od poważnego stwierdzenia, że
+% analiza 2 to kobyła i czas na lock in i każdy wykład będę tu opracowywał.
+% Potem realia studiów mnie uderzyły jak ciężarówka i efekt jest taki, że
+% na początku mamy pięknie opracowaną teorię ciągów funkcyjnych, a potem
+% tylko rzeczy do kolokwiów z ćwiczeń bo wykład zaliczyłem za aktywność
+
 \begin{document}
 
 \section{Ciąg Funkcyjny}
@@ -259,5 +265,190 @@ $$
 $$
 Naturalnie, to oznacza, że jeśli $f$ jest ciągła w $x$, to szereg
 Fouriera jest zbieżny do wartości $f(x)$.
+
+\section{Funkcje wielu zmiennych}
+
+Funkcje $f: \mathbb{R}^n \to \mathbb{R}^m$ są funkcjami wielu zmiennych.
+Z reguły tutaj będziemy rozważać funkcjami dla $m = 1$ i $n = 2$, lecz czasami
+potworki się zdarzają.
+
+\subsection{Granica}
+
+Dla $A \subset \mathbb{R}^n$, oraz $x_n \in A$ i $\lim_{n \to \infty}
+x_n = x_0$,
+mówimy, że $f : A \to \mathbb{R}$ ma granicę w $x_0$ równą $g$;
+$$
+\lim_{x \to x_0} f(x) = g
+$$
+gdy dla każdego ciągu $x_n \in A$, zachodzi:
+$$
+x_n \stackrel{n \to \infty}{\to} x_0 \Rightarrow f(x_n) \stackrel{n
+\to \infty}{\to} g
+$$
+Lub; funkcja ma granicę w punkcie $x_0$ równą $g$, gdy jej wartości dla punktów
+zbliżających się do $x_0$ zbiegają do $g$.
+
+\subsection{Ciągłość}
+
+Funkcja $f: \mathbb{R}^n \to \mathbb{R}$ jest ciągła w punkcie $x_0$, jeśli:
+$$
+\lim_{x \to x_0} f(x) = f(x_0)
+$$
+
+\subsection{Pochodna cząstkowa}
+
+$$
+\frac{\partial f}{\partial x_i}(x_1, \dots, x_n) = \lim_{h \to 0}
+\frac{f(x_1, \dots, x_i + h, \dots, x_n) - f(x_1, \dots, x_i, \dots, x_n)}{h}
+$$
+
+$$
+\frac{\partial f}{\partial x_j}\frac{\partial f}{\partial x_j}(x_1,
+\dots, x_n) = \frac{\partial^2 f}{\partial x_j^2}(x_1, \dots, x_n)
+$$
+
+Z tw. Schwarz'a mamy, że jeśli drugie pochodne cząstkowe są ciągłe w okolicy
+$x_0$, to w tej okolicy mamy:
+$$
+\frac{\partial^2 f}{\partial x_i \partial x_j}(x_0) =
+\frac{\partial^2 f}{\partial x_j \partial x_i}(x_0)
+$$
+Zatem jeśli masz miłą funkcję, to możesz w dowolnej kolejności różnicować.
+
+\subsection{Gradient}
+
+$$
+\nabla f(x_1, \dots, x_n) = \left(\frac{\partial f}{\partial
+  x_1}(x_1, \dots, x_n), \dots, \frac{\partial f}{\partial x_n}(x_1,
+\dots, x_n)\right)
+$$
+
+\subsection{Pochodna}
+
+$U \subset \mathbb{R}^n$. Mówimy, że funkcja $f: U \to \mathbb{R}$
+jest różniczkowalna w punkcie $x_0$, jeśli
+istnieje przekształcenie liniowe $A: \mathbb{R}^n
+\to \mathbb{R}$, takie, że:
+$$
+\lim_{(h_1, \dots, h_n) \to (0, \dots, 0)} \frac{f(x_1 + h_1, \dots,
+x_n + h_n) - f(x_1, \dots, x_n) - A(h_1, \dots, h_n)}{||(h_1, \dots,
+h_n)||} = 0
+$$
+$A(h_1, \dots, h_n)$ nazywamy $f'(x_1, \dots, x_n)$, a $||(h_1, \dots,
+h_n)||$ to długość wektora $\sqrt{h_1^2 +
+\dots + h_n^2}$.
+
+Jeśli $f$ ma pochodną w punkcie $x_0$ to:
+$$
+f'(x_1, \dots, x_n)(h_1, \dots, h_n) = \sum_{i=1}^n \frac{\partial
+f}{\partial x_i}(x_1, \dots, x_n) h_i
+$$
+
+Dla większej ilości wymiarów; $f: U \to \mathbb{R}^m$:
+$$
+\lim_{(h_1, \dots, h_n) \to (0, \dots, 0)} \frac{||f(x_1 + h_1, \dots,
+x_n + h_n) - f(x_1, \dots, x_n) - f'(h_1, \dots, h_n)||}{||(h_1, \dots,
+h_n)||} = 0
+$$
+$$
+f' = (f_1', \dots, f_m')
+$$
+
+\subsection{Macierz Jacobiego}
+
+Jeżeli funkcja $f:U \to \mathbb{R}^m$ ma pochodną w punkcie $x_0$, to $f'$
+jest odwzorowaniem liniowym. Jego macierz nazywamy macierzą Jacobiego. Jakobian
+to wyznacznik tej macierzy.
+
+\subsection{Ekstrema lokalne}
+
+Warunkiem koniecznym tego, że punkt $x_0$ jest ekstremum lokalnym, jest
+spełnienie warunku:
+$$
+\nabla f(x_0) = (0, \dots, 0)
+$$
+Jednak należy też sprawdzić, czy rzeczywiście ten punkt jest ekstremum lokalnym.
+Punkt jest ekstremum lokalnym, jeśli w otoczeniu $U$ punktu zachodzi:
+$$
+\forall_{u \in U} f(u) \leq f(x_0)
+$$
+Jeśli nierówność jest ostra to mówimy, że jest to ekstrmum ścisłe.
+
+Warunkiem dostatecznym tego, że punkt $(x_0, y_0)$ jest ekstremum lokalnym, jest
+spełnienie warunku:
+$$
+\nabla f(x_0, y_0) = (0, \dots, 0) \land H(x_0, y_0) =
+\begin{vmatrix}
+  \frac{\partial^2 f}{\partial x^2}(x_0, y_0) & \frac{\partial^2
+  f}{\partial x \partial y}(x_0, y_0) \\
+  \frac{\partial^2 f}{\partial y \partial x}(x_0, y_0) & \frac{\partial^2
+  f}{\partial y^2}(x_0, y_0)
+\end{vmatrix} > 0
+$$
+Jeśli którakolwiek pochodna cząstkowa drugiego rzędu jest ujemna to punkt jest
+minimum lokalne. W p.p. jest to maksimum lokalne. Jeżeli $H(x_0, y_0)
+< 0$ to ekstremum nie ma, a jeśli $H(x_0, y_0) = 0$ to nie wiadomo.
+
+\subsection{Całki}
+
+Jeśli $f(x, y)$ jest funkcją ciągłą na prostokącie $R = [a, b] \times [c, d]$,
+to całkę podwójną można obliczyć przez całki iterowane:
+$$
+\iint_R f(x, y) \, dx \, dy = \int_a^b \left( \int_c^d f(x, y) \, dy
+\right) \, dx
+$$
+nazywamy to twierdzeniem Fubiniego.
+
+\subsubsection{Całka przez rozszerzenie funkcji}
+
+Jeśli $f$ jest zdefiniowane na $D \subset \mathbb{R}^2$, to można całkować
+po rozszerzeniu $f^*$ funkcji $f$.
+$$
+f^*(x, y) =
+\begin{cases}
+  f(x, y) & \text{jeśli } (x, y) \in D \\
+  0 & \text{w przeciwnym wypadku}
+\end{cases}
+$$
+$$
+\iint_{D} f(x, y) \, dx \, dy = \iint_{R} f^*(x, y) \, dx \, dy
+$$
+
+\subsubsection{Zbiór normalny}
+
+Obszar normalny względem osi $x$ to zbiór punktów $(x, y)$, dla których:
+$$
+\begin{cases}
+  a \leq x \leq b \\
+  f(x) \leq y \leq g(x)
+\end{cases}
+$$
+Obszar normalny względem osi $y$ to zbiór punktów $(x, y)$, dla których:
+$$
+\begin{cases}
+  c \leq y \leq d \\
+  h(y) \leq x \leq k(y)
+\end{cases}
+$$
+
+\subsubsection{Całka po zbiorze normalnym}
+
+$$
+D = \{(x, y): a \leq x \leq b, f(x) \leq y \leq g(x)\}
+$$
+gdzie $f, g: [a,b] \to \mathbb{R}$ są ciągłe. Dla dowolnej $h: D \to
+\mathbb{R}$:
+$$
+\iint_D{} h(x, y) \, dx \, dy = \int_a^b \left( \int_{f(x)}^{g(x)} h(x, y) \, dy
+\right) \, dx
+$$
+
+\subsubsection{Obszary regularne}
+
+Suma skończonej ilości zbiorów normalnych, parami rozłącznych, jest
+obszarem regularnym. Dla zbioru regularnego $D = D_1 \cup D_2 \cup \dots D_n$:
+$$
+\iint_D f(x, y) \, dx \, dy = \sum_{i=1}^n \iint_{D_i} f(x, y) \, dx \, dy
+$$
 
 \end{document}
