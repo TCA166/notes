@@ -1,4 +1,5 @@
 \documentclass{../notatki}
+\usepackage{physics}
 
 \title{Wstęp do Fizyki Kwantowej}
 
@@ -22,6 +23,109 @@ Przydatne wzory w jednym miejscu:
     v = \lambda \nu
     $$
 \end{itemize}
+
+\subsection{Algebra}
+
+\textit{Z jakiegoś powodu dużą częścią zajęć była algebra, bo fizycy nie mieli
+  dedykowanego przedmiotu, więc tu przypomnienie bo pewno algebra będzie sporą
+częścią kolowkium \texttt{<3}}.
+
+\subsubsection{Macierze}
+
+$$
+A_{ij} = A^T_{ji}
+$$
+
+$$
+\overline{a + b\textit{i}} = a - b\textit{i}
+$$
+
+$$
+A^\dag = \overline{A}^T
+$$
+
+\begin{itemize}
+  \item Symetryczna $A^T = A$
+  \item Ortogonalna $A^T \cdot A = A \cdot A^T = I$
+  \item Hermitowska $A^\dag = A$
+  \item Normalna $A^\dag \cdot A = A \cdot A^\dag$
+  \item Unitarna $A^\dag \cdot A = A \cdot A^\dag = I$
+  \item Osobliwa $\det A = 0$
+\end{itemize}
+
+\subsubsection{Wartości i wektory własne}
+
+$$
+\det(A - \lambda I) = 0
+$$
+
+$$
+(A - \lambda_i I)v_i = 0
+$$
+
+\subsubsection{Notacja Diraca}
+
+Wektor $v$, nazwany $a$ w przestrzeni $V$ (domyślnie $\mathbb{C}^n$)
+można zapisać jako:
+$$
+\ket{a} = v = (v_1, v_2, \ldots, v_n)
+$$
+
+$$
+\bra{a} = \ket{a}^\dagger
+$$
+
+$$
+\braket{a}{b} = \bra{a} \cdot \ket{b} = \sum_{i} \overline{a_i} b_i
+$$
+
+$$
+\ketbra{a}{b} = \ket{b} \times \bra{a}
+$$
+
+\subsubsection{Rozkład spektralny}
+
+Dla każdej macierzy normalnej $A$ istnieje jej rozkład spektralny, czyli:
+$$
+A = \sum_{i} \lambda_i P_i = \sum_{i} \lambda_i \ketbra{i}{i}
+$$
+
+\subsubsection{Diagonalizacja}
+
+$$
+A = UDU^{-1}
+$$
+Dla macierzy normalnej $U^{-1} = U^\dag$. $U$ to macierz złożona z
+wektorów własnych $A$. $D$ to macierz diagonalna, gdzie wszystkie wartości
+występujące na przekątnej to wartości własne $A$, lub inaczej, jest to macierz
+zapisana w bazie swoich wektorów własnych.
+
+$$
+f(A) = U
+\begin{bmatrix}
+  f(\lambda_1) & 0 & \cdots & 0 \\
+  0 & f(\lambda_2) & \cdots & 0 \\
+  \vdots & \vdots & \ddots & \vdots \\
+  0 & 0 & \cdots & f(\lambda_n)
+\end{bmatrix} U^\dag
+$$
+
+\subsubsection{Operacje}
+
+$$
+\trace(A) = \sum_{i} \lambda_i = \sum_{i} A_{ii}
+$$
+$$
+\det(A_{2 \times 2}) = A_{11}A_{22} - A_{12}A_{21}
+$$
+$$
+[A, B] = AB - BA
+$$
+
+\subsection{Analiza}
+
+\textit{Cóż powtórka z równań różniczkowych też była, bo again, fizycy i matma
+się nie lubią, więc tu też powtarzam}.
 
 \section{Eksperyment Younga}
 
