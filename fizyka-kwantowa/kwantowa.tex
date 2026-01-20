@@ -110,6 +110,10 @@ f(A) = U
 \end{bmatrix} U^\dag
 $$
 
+Magicznym aspektem macierzy zdiagonalizowanych, lub szerzej, tych zapisanych
+w bazie swoich wektorów własnych, jest to, że na ich diagonali są ich wartości
+własne.
+
 \subsubsection{Operacje}
 
 $$
@@ -467,5 +471,52 @@ $$
 $$
 \langle E \rangle = \frac{h\nu}{e^{\frac{h\nu}{k_BT}} - 1}
 $$
+
+\section{Obserwacje}
+
+Pomiar $L$, wyrażony macierzą, może przyjąć wartości zgodne z jego wartościami
+własnymi. Z reguły, poprzez $\ket{L = \lambda}$ zapisuje się wektor własny
+stanu (macierzy) $L$, odpowiadający wartości własnej $\lambda$.
+
+Wartość oczekiwana operatora $O$ w stanie $\ket{L = \lambda}$ jest równa:
+$$
+\langle O \rangle = \bra{L = \lambda} O \ket{L = \lambda}
+$$
+ta zależność jest prawdziwa, nawet dla transformacji, np.: $O = O'^2$.
+
+Jeśli założymy, że $\Delta O$, jest określona przez odchylenie
+standardowe ($\sigma$), to:
+$$
+\Delta O = \sqrt{\langle O^2 \rangle - \langle O \rangle^2}
+$$
+
+Prawdopodobieństwo wystapienia stanu (wektora) własnego $\ket{O = \psi}$
+operatora $O$ w stanie $\ket{L = \lambda}$, jest dane wzorem:
+$$
+P(\ket{O = \psi}) = |\braket{O = \psi}{L = \lambda}|^2
+$$
+
+W stanie $\ket{\psi}$ w bazie $L$, zmierzyliśmy $L'$ i uzyskaliśmy wartość
+$\lambda$. Dla takiego pomiaru możemy określić podprzestrzeń $L$, odpowiadający
+stanom, które mogły doprowadzić do wyniku. Taką podprzestrzeń określamy:
+$$
+\Pi = \sum_{\lambda_i : \lambda_i^2 = \lambda} \ket{L =
+\lambda_i}\bra{L = \lambda_i}
+$$
+Projekcja $\ket{\psi}$ na $\Pi$ daje nam stan po pomiarze $\ket{\psi'}$.
+$$
+\ket{\psi'} = \Pi \ket{\psi}
+$$
+$$
+P(L' = \lambda) = \bra{\psi} \ket{\psi'}
+$$
+
+\section{Równanie Schrödingera}
+
+$$
+i\hbar \frac{\partial}{\partial t} \ket{\psi} = H \ket{\psi}
+$$
+gdzie $H$ to hamiltonian układu (dający energię układu), a $\psi(t)$ to stan
+w czasie.
 
 \end{document}
