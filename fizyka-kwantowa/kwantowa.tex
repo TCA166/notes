@@ -101,13 +101,13 @@ występujące na przekątnej to wartości własne $A$, lub inaczej, jest to maci
 zapisana w bazie swoich wektorów własnych.
 
 $$
-f(A) = U
+f(A) = U^\dag
 \begin{bmatrix}
   f(\lambda_1) & 0 & \cdots & 0 \\
   0 & f(\lambda_2) & \cdots & 0 \\
   \vdots & \vdots & \ddots & \vdots \\
   0 & 0 & \cdots & f(\lambda_n)
-\end{bmatrix} U^\dag
+\end{bmatrix} U
 $$
 
 Magicznym aspektem macierzy zdiagonalizowanych, lub szerzej, tych zapisanych
@@ -238,7 +238,8 @@ napędzaniu fotodiod i fotokomórek.
 Elektrony w metalu znajdują się w studni potencjału, głębokości $W$,
 odpowiadającej pracy wyjścia.
 Foton padając na materiał powoduje wyrzucenie elektronu naładowanego
-$U$ z energią kinetyczną $E_{k \text{max}}$. W wyniku tego procesu
+$U$ z energią kinetyczną $E_{k \text{max}}$. $U$ nazywamy potencjałem
+hamującym. W wyniku tego procesu
 utracona zostaje energia w postaci pracy wyjścia $W$:
 $$
 E_{k \text{max}} = E_f - W = eU
@@ -288,8 +289,8 @@ Pozwala nam w istocie wyprowadzić wszystkie niewadome w zjawisku.
 $$
 p_f + p_e = p_f' + p_e' \Rightarrow
 \begin{cases}
-  \frac{h}{\lambda} = \frac{h}{\lambda'}\cos\theta + p_e\cos\varphi \\
-  0 = \frac{h}{\lambda'}\sin\theta + p_e\sin\varphi
+  \frac{h}{\lambda} = \frac{h}{\lambda'}\cos\theta + p_e'\cos\varphi \\
+  0 = \frac{h}{\lambda'}\sin\theta + p_e'\sin\varphi
 \end{cases}
 $$
 
