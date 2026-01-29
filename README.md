@@ -24,6 +24,7 @@ skompilowane pliki `.pdf`.
   danych"(06-DKDALI0)
 - [statystyka.pdf](statystyka/statystyka.pdf) "Statystyka"(06-DSTTLI0)
 - [krypto.pdf](kryptografia/krypto.pdf) "Kryptografia z elementami algebry"(06-DKALLI0)
+- [konspekt.pdf](egz_inz/konspekt.pdf) Konspekt do egzaminu dyplomowego
 
 ## Informatyka Kwantowa
 

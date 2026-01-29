@@ -1,0 +1,196 @@
+\documentclass{../notatki}
+
+\title{Konspekt do egzaminu dyplomowego}
+
+\begin{document}
+
+Wśród studentów panuje przekonanie, że na egzaminie dyplomowym pytają o tematy
+związane z ekspertyzą komisji. Do tego, ja uważam, że warto powtórzyć podstawy
+teoretyczne związane z tematem pracy, czyli w moim przypadku programowanie
+niskopoziomowe.
+
+Komisja:
+\begin{itemize}
+  \item prof. UAM dr hab. Tomasz Górecki - \textit{Statystyka i
+    nauczanie maszynowe}
+  \item prof. UAM dr hab. Jacek Marciniak - \textit{Sztuczna inteligencja, APO}
+  \item prof. UAM dr hab. Łukasz Smaga - \textit{Statystyka}
+\end{itemize}
+
+\section{Programowanie niskopoziomowe}
+
+\subsection{Język maszynowy oraz języki wyższego rzędu. Kompilacja,
+interpretacja i konsolidacja programu}
+
+\begin{itemize}
+  \item W architekturze von Neumanna zakładamy, że komputer składa się z części:
+    \begin{itemize}
+      \item procesora - wykonuje instrukcje
+      \item pamięci - przechowuje dane i instrukcje
+      \item wejścia/wyjścia - umożliwia komunikację z zewnątrz
+    \end{itemize}
+  \item Język maszynowy to język, który umożliwia wydawanie
+    instrukcji procesorowi
+    \begin{itemize}
+      \item Każdy procesor ma swój zestaw rozpoznawanych instrukcji
+      \item Logicznie te instrukcje można pisać w postaci kodu "Assembly"
+      \item Każda instrukcja ma swój kod binarny
+      \item W cyklu procesor czyta instrukcje, dekoduje ją, wykonuje
+        i zwraca wynik
+    \end{itemize}
+  \item Języki wyższego rzędu to języki, które pozwalają na bardziej
+    abstrakcyjne i wygodniejsze reprezentowanie logiki
+  \item Przy pomocy kompilatora programy są przetwarzane na język maszynowy
+    \begin{itemize}
+      \item Kompilator najpierw przetwarza kod źródłowy na jakąś
+        reprezentację wewnętrzną
+      \item Reprezentacja wewnętrzna pozwala na podstawowe optymalizacje
+      \item Następnie przetwarza tą reprezentację wewnętrzną na język maszynowy
+      \item Wyjściem kompilatora są pliki obiektowe, zawierają one
+        kod maszynowy, lecz mogą mieć wywołania do brakujących
+        funkcji lub adresów
+      \item Jezyk maszynowy składa się z sekcji; tekstu, dane i stosu
+    \end{itemize}
+  \item Interpreter to program, który wykonuje programy w języku wyższego rzędu
+    bez konieczności konwersji na język maszynowy
+  \item Konsolidator to program, który łączy programy w jeden plik wykonywalny
+    \begin{itemize}
+      \item Konsolidator zazwyczaj jest częścią kompilatora
+      \item Mając kilka plików obiektowych łączy je w jeden plik wykonywalny
+      \item W zależności od wymogów, koniecznym może być budowanie
+        nowej przestrzeni nazw dla funkcji i zmiennych
+      \item Zazwyczaj konsolidator potrafi łączyć pliki obiektowe w
+        inne pliki obiektowe, budując nową przestrzeń adresową
+    \end{itemize}
+\end{itemize}
+
+\subsection{Pojęcie funkcji; przekazywanie parametrów i zwracanie
+wyniku. Czas życia i zakres ważności nazwy}
+
+\begin{itemize}
+  \item Funkcja to tylko miejsce w kodzie maszynowym, które może być wywołane
+    przez inne miejsca w kodzie maszynowym
+  \item Każdy język wyższego poziomu określa jeden sposób, w którym argumeny
+    są przekazywane do funkcji
+  \item Zazwyczaj w momencie wywołania funkcji, funkcja rezerwuje
+    sobie przestrzeń na stosie, aby przechowywać lokalne zmienne i
+    parametry funkcji
+  \item Konkretne miejsce przechowywania parametrów i zwracanej
+    wartości to kwestia konwencji
+\end{itemize}
+
+\subsection{Zarządzanie pamięcią. Wskaźniki, referencje i
+dereferencje. Dynamiczna alokacja pamięci, sterta}
+
+\begin{itemize}
+  \item Pamięc jest adresowana przez liczby całkowite
+  \item Adresy fizycznej pamięci są adresowane ciągle i zarządza nią system
+    operacyjny
+  \item We współczesnych systemach operacyjnych pamięć jest adresowana przez
+    wirtualne adresy, które są przekształcane na fizyczne przez mechanizm
+    adresowania pamięci
+  \item Wirtualne adresy nie muszą być ciągłe i nawet nie muszą mieć
+    w danym momencie
+    przypisanego fizycznego miejsca w pamięci
+  \item W ten sposób do procesu mogą być dołączane strony pamięci, bez
+    konieczności przerywania działania procesu
+  \item Typowo alokator pilnuje podpiętej pamięci dynamicznej (heap),
+    a w przypadku
+    braku pamięci prosi system operacyjny o dodatkową pamięć
+\end{itemize}
+
+\section{Systemy operacyjne}
+
+\subsection{Systemy plików (atrybuty pliku, katalogi, dowiązania
+twarde i symboliczne).}
+
+\subsection{Współbieżność, synchronizacja procesów: semafory,
+  semafory binarne, monitory, problemy
+  współbieżności (sekcja krytyczna, producent/konsument, czytelnicy i
+pisarze, n-filozofów)}
+
+\begin{itemize}
+  \item Poprzez odpowiednio szybkie zmienianie kontekstu procesora,
+    można zapewnić praktycznie równoczesne wykonywanie zadań
+  \item Logicznie jednak konieczne jest prawidłowe zarządzanie
+    dostępem do zasobów współdzielonych
+  \item Krytyczną sekcją nazywamy fragment kodu, który jest wykonywany
+    przez więcej niż jeden proces, a dostęp do zasobów współdzielonych
+    jest współbieżny
+  \item W celu synchronizacji procesów istnieje wiele narzędzi, najprostszym
+    jest semafor binarny w współdzielonej pamięci
+  \item Zakleszczeniem jest sytuacja, w której $n$ procesów nie może osiągnąć
+    współbieżnego dostępu do zasobu, na skutek działania innych procesów.
+\end{itemize}
+
+\section{Sztuczna Inteligencja}
+
+\subsection{Czym jest sztuczna inteligencja. Sposoby definiowania
+sztucznej inteligencji. Test Turinga.}
+
+\begin{itemize}
+  \item Sztuczna inteligencja to zdolność komputera do wykonywania zadań, które
+    wymagają inteligencji ludzkich. To znaczy, że sztuczna inteligencja jako
+    dziedzina jest de facto rozbita na wiele poddziedzin, każda
+    skupiona na konkretnym problemie; np.:
+    \begin{itemize}
+      \item rozumowanie
+      \item rozwiązywanie problemów
+      \item wnioskowanie
+      \item uczenie maszynowe
+      \item $\dots$
+    \end{itemize}
+  \item Zwyczajowo kategoryzujemy systemy sztucznej
+    inteligencji w zależności od tego jak myślą i się zachowują. Systemy typu
+    LLM docelowo mają myśleć i zachowywać się jak ludzie. Z kolei
+    systemy szachowe wręcz przeciwnie.
+  \item Test Turinga miał docelowo sprawdzić, czy maszyna jest inteligentna
+    czy nie, poprzez interakcję z człowiekiem.
+\end{itemize}
+
+\subsection{Przeszukiwanie przestrzeni stanów. Wybrane algorytmy. Heurystyki.}
+
+\begin{itemize}
+  \item Poprzez zdefiniowanie dla problemu pewnej konkretnej przestrzeni stanów,
+    a w niej kilka stanów początkowych i końcowych, możemy rozwiązać
+    problem poprzez przeszukanie przestrzeni stanów
+  \item Klasycznie przestrzeń stanów można zwiedzać przy pomocy
+    algorytmów takich jak BFS, DFS, oraz algorytmu Djikstry.
+  \item W rozwiązywaniu takiego problemu szczególnie przydatne są heurystyki,
+    które pozwalają poprawić efektywność przeszukiwania przestrzeni stanów w
+    średnim przypadku.
+  \item Dokładnie heurystyka to spekulatywny formalizm, którego nie da się
+    udowodnić, lecz jest przydatny
+\end{itemize}
+
+\subsection{Uczenie maszynowe. Regresja liniowa i logistyczna.
+Wykorzystanie sztucznych sieci neuronowych w sztucznej inteligencji.}
+
+\begin{itemize}
+  \item Nauczanie maszynowe to dziedzina sztucznej inteligencji,
+    która skupia się na tworzeniu algorytmów, które mogą uczyć się z
+    danych i wykonywać zadania, które są zazwyczaj wykonywane przez ludzi.
+  \item Klasycznym przykładem zadania dla nauczania maszynowego jest
+    klasyfikacja lub regresja
+  \item Najprostszą metodą uczenia maszynowego jest dopasowanie parametrów
+    pewnej funkcji pierwotnej, która opisuje zależność między
+    zmiennymi, do danych. Przykładem takiej metodologii jest regresja
+    liniowa lub logistyczna.
+  \item Poprzez optymalizację matematyczną możemy znaleźć najlepsze parametry
+    funkcji pierwotnej, które minimalizują funkcję błędu.
+  \item Sieć neuronowa to wielokrotne złożenie funkcji liniowej
+\end{itemize}
+
+\section{Statystyka}
+
+\subsection{Model jednej próby prostej. Rozkłady teoretyczne.
+  Parametry modelu. Estymatory
+nieobciążone. Metoda największej wiarogodności.}
+
+\subsection{Przedziały ufności. Konstrukcja dokładnych przedziałów
+ufności. Przybliżone przedziały ufności - metoda bootstrapowa.}
+
+\subsection{Testy statystyczne. Konstrukcja testów statystycznych.
+Hipotezy, poziom istotności testu, p-wartość}
+
+\end{document}
