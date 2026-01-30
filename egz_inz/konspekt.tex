@@ -14,7 +14,7 @@ Komisja:
   \item prof. UAM dr hab. Tomasz Górecki - \textit{Statystyka i
     nauczanie maszynowe}
   \item prof. UAM dr hab. Jacek Marciniak - \textit{Sztuczna inteligencja, APO}
-  \item prof. UAM dr hab. Łukasz Smaga - \textit{Statystyka}
+  \item dr. Tomasz Kowalski - \textit{Sztuczna inteligencja}
 \end{itemize}
 
 \section{Programowanie niskopoziomowe}
@@ -179,6 +179,9 @@ Wykorzystanie sztucznych sieci neuronowych w sztucznej inteligencji.}
   \item Poprzez optymalizację matematyczną możemy znaleźć najlepsze parametry
     funkcji pierwotnej, które minimalizują funkcję błędu.
   \item Sieć neuronowa to wielokrotne złożenie funkcji liniowej
+  \item Backpropagation, to zastosowanie reguły łańcuchowej do obliczania
+    gradientu funkcji błędu, co umożliwia zastosowanie standardowych
+    metod optymalizacji do trenowania sieci neuronowych.
 \end{itemize}
 
 \section{Statystyka}
@@ -187,10 +190,87 @@ Wykorzystanie sztucznych sieci neuronowych w sztucznej inteligencji.}
   Parametry modelu. Estymatory
 nieobciążone. Metoda największej wiarogodności.}
 
+\begin{itemize}
+  \item Model jednej próby prostej, to model statystyczny, w którym
+    zakładamy, że obserwacja to losowa zmienna, niezależna od innych
+    obserwacji, pochodząca z pewnego rozkładu teoretycznego
+  \item Rozkłady teoretyczne to modele matematyczne, które opisują
+    prawdopodobieństwo wystąpienia różnych wartości losowej zmiennej
+  \item Modele teoretyczne mają parametry, które określają kształt
+    rozkładu.\\
+    \textbf{\textit{Na przykład, rozkład Bernoulliego ma jeden parametr $p$,
+    który określa prawdopodobieństwo sukcesu.}}
+  \item Estymator to funkcja, która na podstawie próby danych
+    szacuje wartość parametru rozkładu teoretycznego\\
+    \textbf{\textit{Chcemy wnioskować cechy populacji na podstawie
+    próby, na przykład średnią}}
+  \item Nieobciążony estymator to taki, którego wartość oczekiwana
+    jest równa rzeczywistej wartości parametru
+    \textbf{\textit{Nieobciążony estymator, średnio po wielu próbach
+    da prawidłową wartość}}
+  \item Metoda największej wiarogodności to metoda estymacji
+    parametrów, która polega na znalezieniu takich wartości
+    parametrów, które maksymalizują funkcję wiarogodności\\
+    \textbf{\textit{Optymalizujemy parametry zakładanego rozkładu,
+    tak aby prawdopdobobieństwo uzyskania danych było jak największe}}
+\end{itemize}
+
 \subsection{Przedziały ufności. Konstrukcja dokładnych przedziałów
 ufności. Przybliżone przedziały ufności - metoda bootstrapowa.}
 
+\begin{itemize}
+  \item Przedział ufności to przedział, który z określonym
+    poziomem ufności zawiera prawdziwą wartość parametru populacji\\
+    \textbf{\textit{Dla danego estymatora, możemy powiedzieć z jaką
+    pewnością uzyska wartość w danym zakresie}}
+  \item Dokładne przedziały ufności można skonstruować, korzystając
+    z rozkładów statystycznych i właściwości estymatorów
+  \item Metoda bootstrapowa to metoda przybliżonego konstruowania
+    przedziałów ufności. Polega ona na zamienieniu estymatora w próbę;
+    \begin{enumerate}
+      \item Zakładamy, że próba danych jest reprezentatywna
+      \item Z oryginalnej próby losujemy z powtórzeniami $B$ nowych prób
+      \item Dla każdej z prób obliczamy estymator
+      \item Analizujemy rozkład wartości estymatorów
+    \end{enumerate}
+    \textbf{\textit{Przy brakujących danych, symulujemy wiele próbek
+    i patrzymy jak się zachowuje estymator}}
+\end{itemize}
+
 \subsection{Testy statystyczne. Konstrukcja testów statystycznych.
 Hipotezy, poziom istotności testu, p-wartość}
+
+\begin{itemize}
+  \item Test statystyczny to procedura, która pozwala na podjęcie decyzji
+    dotyczącej hipotezy statystycznej na podstawie danych z próby\\
+    \textbf{\textit{Bierzemy jakąś statystykę (wzór) i sprawdzamy jak
+    się zachowuje na zbiorze danych}}
+  \item Hipoteza zerowa to założenie, które testujemy, natomiast
+    hipoteza alternatywna to założenie przeciwne\\
+    \textbf{\textit{Wiążemy jakąś hipotezę z zachowaniem wcześniej
+    zdefiniowanej statystyki}}
+  \item Poziom istotności testu ($\alpha$) to maksymalne prawdopodobieństwo
+    popełnienia błędu pierwszego rodzaju, czyli odrzucenia hipotezy
+    zerowej, gdy jest ona prawdziwa\\
+    \textbf{\textit{Zakładamy, że 5\% czasu możemy błędnie odrzucić
+    hipotezę zerową}}
+  \item P-wartość to prawdopodobieństwo uzyskania wyniku
+    testu tak ekstremalnego jak obserwowany, zakładając, że
+    hipoteza zerowa jest prawdziwa.\\
+    \textbf{\textit{Mierzymy jak bardzo "ekstremalne" są nasze dane w
+    stosunku do hipotezy zerowej}}
+  \item P-wartość mierzy odchylenie od hipotezy zerowej\\
+    \textbf{\textit{Jeśli wynik jest mało ekstremalny, to hipoteza
+    zerowa jest prawdopdoobnie prawdziwa}}
+  \item Jeśli p-wartość jest mniejsza niż poziom istotności, to
+    odrzucamy hipotezę zerową\\
+    \textbf{\textit{$p < \alpha \rightarrow$ odrzucamy $H_0$}}
+  \item Błąd pierwszego rodzaju ($\alpha$) to odrzucenie prawdziwej
+    hipotezy zerowej\\
+    \textbf{\textit{Fałszywe pozytywy}}
+  \item Błąd drugiego rodzaju ($\beta$) to nieodrzucenie fałszywej
+    hipotezy zerowej\\
+    \textbf{\textit{Fałszywe negatywy}}
+\end{itemize}
 
 \end{document}
