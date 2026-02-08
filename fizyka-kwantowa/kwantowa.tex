@@ -126,12 +126,7 @@ $$
 [A, B] = AB - BA
 $$
 
-\subsection{Analiza}
-
-\textit{Cóż powtórka z równań różniczkowych też była, bo again, fizycy i matma
-się nie lubią, więc tu też powtarzam}.
-
-\section{Eksperyment Younga}
+\section{Eksperyment Younga - dwu-szczelinowy}
 
 W eksperymencie mierzymy zachowanie elektronów względem
 dwóch dziur i czujnika ruchomego na wzdłuż osi $x$. Mierzymy prawdopodobieństwo,
@@ -180,13 +175,26 @@ Eksperyment pokazuje, że mimo tego, że detektor odbiera elektrony
 w dyskretnych grupach, to $P_{12}$ zachowuje się jakby elektrony były falami.
 Zatem elektron zachowuje się "trochę jak cząstka trochę jak fala".
 
-Dodanie źródła światła do eksperymentu, co pozwala nam go zobaczyć, powoduje, że
-elektrony zachowują się jak cząstki. Wynika to z tego, że światło wpływa na
-elektrony.
+Obserwowanie elektronów, które przechodzą przez szczeliny, powoduje,
+że przestają zachowywać się jak fale, a zaczynają zachowywać się jak cząstki.
+Znika inteferencja, bo wiemy, że elektron przechodzi przez jedną z
+dziur, a nie przez obydwie.
 
 Na podstawie tego eksperymentu, opracowano zasadę niepewności Heisenberga.
 W ramach eksperymentu, oznacza ona, że nie da się zaprojektować detektora
-elektronów, który nie wpływa na elektrony.
+elektronów, który nie wpływa na elektrony. Detektor, czy to pozycji czy pędu,
+ma pewną dokładność i pomiar tej dokładności wpływa na mierzoną cząstkę.
+Zasada niepewności nie wpływa na życie na naszej skali, ponieważ długości fali
+obiektów w naszej skali są bardzo małe, oraz te obiekty są obserwowane ciągle,
+więc nie ma możliwości, żeby zachowywały się jak fale.
+
+\subsection{Słabe źródło światła}
+
+Z słabym źródłem światła, możemy się spodziewać pojedynczych fotonów, które
+trafiają w losowe punkty na ekranie. Po dłuższym czasie, możemy
+zauważyć, że rozkład tych punktów przypomina rozkład interferencyjny,
+który obserwujemy w przypadku silnego źródła światła.
+To dowodzi istnienia fotonów.
 
 \subsection{Wyprowadzenia}
 
@@ -210,6 +218,12 @@ Zatem też: $m_f = 0$, $v_f = c$.
 dyskretnych cząstek, których dystrybucja jest dana przez interferencję fali}.
 Nie jest falą, ale działa jak fala. Charakterystyka fali określa
 prawdopodobieństo, tego że foton padnie w danym miejscu.
+Co więcej, foton wie czy szczelina jest otwarta w eksperymencie
+dwu-szczelinowym, co ma sens tylko jeśli jest falą.
+Należy też wspomnieć, że foton nie może się zatrzymać. Jako, że nie ma masy,
+to pęd i jego energia są zależne od jego prędkości. Gdyby się
+zatrzymał, to jego energia i pęd byłyby równe zero, co jest
+niemożliwe z zachowania energii.
 
 \subsection{Fala de Broglie}
 
@@ -220,6 +234,9 @@ naprawdę jest masą dyskretnych cząstek jest falą de Broglie, lub falą mater
 $$
 \lambda = \frac{h}{p}
 $$
+
+Elektron jak i foton są falami de Broglie, ale foton jest falą de
+Broglie o masie zerowej.
 
 \section{Zasada niepewności}
 
@@ -246,6 +263,10 @@ E_{k \text{max}} = E_f - W = eU
 $$
 Częstością progową nazywamy najniższą częstość $\omega_0$, dla której
 $E_{k \text{max}} = 0$.
+
+Einstein w 1905 sugerował, istnienie fotonów, jako cząstek światła,
+aby wyjaśnić efekt fotoelektryczny. Rzeczywiście, w formaliźmie
+powyżej ma to sens.
 
 \section{Zjawisko Comptona}
 
@@ -298,6 +319,8 @@ $$
 E_f + E_e = E_f' + E_e' \Rightarrow \frac{hc}{\lambda} + m_ec^2 =
 \frac{hc}{\lambda'} + E_e'
 $$
+
+Efekt comptona, opisany w 1927 roku, jest dowodem na istnienie fotonu.
 
 \section{Stan cząstki}
 
@@ -353,7 +376,32 @@ Zatem zakładamy skończony wszechświat o obwodzie $L$:
 $$
 \psi_p(x) = \frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]
 $$
-Warunek kwantyzacji ogranicza $p$ do:
+
+\subsection{Warunek kwantyzacji}
+
+Ponieważ wszechświat jest mniej więcej kołem, to funkcja falowa może
+być parametryzowana
+przez kąt $\theta$. W takiej postaci:
+$$
+\psi(\theta) = \psi(\theta + 2\pi)
+$$
+Nazywamy to warunkiem jednej wartości funkcji falowej.
+
+Rozważmy teraz ten warunek w $\psi_p$:
+$$
+P(x) = |\psi_p(x)|^2 =
+\frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]\frac{1}{\sqrt{L}}\exp[-\frac{ipx}{\hbar}]
+= \frac{1}{L}
+$$
+Po nałożeniu warunku jednej wartości falowej, otrzymujemy:
+$$
+\psi_p(x) = \psi_p(x + L) = \psi_p(x) \exp[\frac{ipL}{\hbar}]
+$$
+Zatem $\exp[\frac{ipL}{\hbar}] = 1$. Z własności $\exp$ można wyprowadzić, że:
+$$
+\frac{pL}{\hbar} = 2\pi n
+$$
+W ten sposób otrzymujemy warunek kwantyzacji:
 $$
 p_n = \frac{nh}{L}
 $$
@@ -474,6 +522,47 @@ $$
 $$
 
 \section{Obserwacje}
+
+Wyobraźmy sobie, że mamy układ, w którym możemy powiedzieć, że zachodzi
+superpozycja między dwoma stanami. Czyli; funkcja falowa $\psi(x)$ układu
+jest sumą dwóch funkcji falowych $\psi_1(x)$ i $\psi_2(x)$, które odpowiadają
+dwóm różnym stanom układu.
+$$
+\psi(x) = A(p_1)\psi_{p_1}(x) + A(p_2)\psi_{p_2}(x)
+$$
+W tym zapisie $A(p)$ to stałe prawdopodobieństwa, które są związane z
+prawdopodobieństwem znalezienia cząstki w stanie $p$. $p_1$ i $p_2$
+to dwa dozwolone stany pędu w tym przykładzie.
+
+Pomiar $p$ w stanie $\psi(x)$ może dać wynik $p_1$ lub $p_2$.
+Relatywne prawdopodobieństwo uzyskania $p_1$ jest równe $|A(p_1)|^2$.
+W $dt$ odcinku czasu po pomiarze, układ jest w stanie $\psi_p(x)$.
+
+Fourier udowodnił, że nie istnieją inne funkcje falowe, które spełniają
+warunek jednej wartości, niż te, które są liniową kombinacją $\psi_p(x)$.
+$$
+\psi(x) = \sum_{n} A(p_n) \psi_{p_n}(x), \quad p_n = \frac{nh}{L}
+$$
+$$
+A(p_n) = \int_{0}^{L} \psi(x) \psi_{p_n}^*(x) dx
+$$
+
+\subsection{Przykład}
+
+Niech $\mathcal{A}$ to zmienna losowa, i $\alpha_n$ to dozwolone wartości.
+Niech $\psi_{\alpha_n}(x)$ opisuje stan układu, w którym $\mathcal{A} =
+\alpha_n$. Matematyka nam mówi, że $\psi(x)$ może być zapisana jako kombinacja
+liniowa funkcji $\psi_{\alpha_n}$, a fizyka kwantowa nam mówi, że
+$P(\mathcal{A} = \alpha_n) = |A(\alpha_n)|^2$.
+
+Możemy zapisać tą kombinację liniową jako wektor w przestrzeni Hilberta, czyli:
+$$
+\ket{\psi} = \sum_{n} A(\alpha_n) \ket{\alpha_n}
+$$
+W tej notacji, $\ket{\alpha_n}$ to wektor stanu, który odpowiada
+pomiarowi $\mathcal{A} = \alpha_n$.
+
+\subsection{Algebra}
 
 Pomiar $L$, wyrażony macierzą, może przyjąć wartości zgodne z jego wartościami
 własnymi. Z reguły, poprzez $\ket{L = \lambda}$ zapisuje się wektor własny
