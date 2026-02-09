@@ -59,9 +59,8 @@
 }
 
 %tłumaczenie nazw
-\renewcommand{\figurename}{Diagram}
-\renewcommand{\tablename}{Tabela}
-\renewcommand{\contentsname}{Spis treści}
+\RequirePackage[polish]{babel}
+\RequirePackage{cleveref}
 
 %do rysowaniu diagramów
 \RequirePackage{tikz}

@@ -132,8 +132,8 @@ W eksperymencie mierzymy zachowanie elektronów względem
 dwóch dziur i czujnika ruchomego na wzdłuż osi $x$. Mierzymy prawdopodobieństwo,
 tego, że czujnik odbierze elektron, jako $P_{12}(x)$. Równocześnie rozróżniamy
 $P_1(x)$ oraz $P_2(x)$; prawdopodobieństwa, tego, że czujnik odbierze
-elektron przy jednej z dziur zasłoniętej.
-
+elektron przy jednej z dziur zasłoniętej. Diagram ilustrujący eksperyment
+znajduje się w \cref{fig:young}.
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
@@ -150,6 +150,7 @@ elektron przy jednej z dziur zasłoniętej.
 
   \end{tikzpicture}
   \caption{Ilustracja eksperymentu}
+  \label{fig:young}
 \end{figure}
 
 \subsection{Cząstkowa interpretacja}
@@ -272,8 +273,7 @@ powyżej ma to sens.
 
 W zjawisku Comptona foton padający na elektron zmienia kierunek i
 częstość. Efekt ten jest wykorzystywany w praktyce w analizie struktury
-atomów i molekuł.
-
+atomów i molekuł. Ilustracja zjawiska znajduje się w \cref{fig:compton}.
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
@@ -299,6 +299,7 @@ atomów i molekuł.
     \draw[dashed] (0,0) -- (1.5,0);
   \end{tikzpicture}
   \caption{Ilustracja zjawiska Comptona. Foton $f$ ma długość fali $\lambda$.}
+  \label{fig:compton}
 \end{figure}
 
 W zjawisku zachowanny jest pęd oraz energia, co wraz z równaniem Comptona:
@@ -322,99 +323,17 @@ $$
 
 Efekt comptona, opisany w 1927 roku, jest dowodem na istnienie fotonu.
 
-\section{Stan cząstki}
-
-Z powyższych sekcji wiemy, że cząstka w mechanice kwantowej nie ma stricte
-określonej pozycji ani pędu. Wynika to z zasady niepewności Heisenberga.
-W mechanice klasycznej cząstki opisujemy parą $(x, p)$, czym opisujemy w
-mechanice kwantowej? Mamy funkcję falową $\psi(x)$, gdzie $P(x) = |\psi(x)|^2$
-opisuje prawdopodobieństwo znalezienia cząstki w $x$.
-
-Elektron w okolicy atomu $1$ jest opisany przez funkcję falową $\psi_1(x)$.
-Prawdopodobieństwo tego, że elektron jest w miejscu $x$ obok atomu $1$ opisuje
-analogicznie $P_1(x) = |\psi_1(x)|^2$. Teraz wyobraźmy sobie, że
-dodajemy drugi atom $2$ i nie wiemy obok
-którego jest elektron. Na podstawie pomiarów możem określić, czy pomiary
-odpowiadają $P_1(x)$, czy $P_2(x) = |\psi_2(x)|^2$.
-
-Co jeśli elektron może być między cząstkami, czyli nie zakładamy, że należy
-do jednej cząstki? Wtedy mówimy, że elektron jest w stanie $\psi_{1 +
-2}(x) = \psi_1(x) + \psi_2(x)$. $P_{1 + 2} = |\psi_{1 + 2}|^2$.
-
-\subsection{Pomiar}
-
-Do momentu pomiaru, elektron w naszym przykładzie \textbf{nie ma
-pozycji}. Założenie, że
-jest obok jednej cząstki jest jak założenie, że cząstka przeszła przez jeden
-otwór w eksperymencie Younga. Prawdopodobieństwo w mechanice
-klasycznej i kwantowej działają zupełnie inaczej. W mechanice klasycznej
-cząstki mają określony zawczasu stan. Pomiar, wykonany w danym czasie uzyska
-zawsze jeden wynik. Identyczny pomiar wykonany w mechanice kwantowej może
-uzyskać różne odpowiedzi.
-
-Można to sobie wyobrazić w następujący sposób. W mechanice
-klasycznej, prawdopodobieństwo $P(x)$ jest ewaluowane a priori.
-Mechanika klasyczna jest deterministyczna i znając $(x, p)$ nie muszę
-nawet robić pomiarów. W mechanice kwantowej $P(x)$ jest ewaluowane w czasie
-rzeczywistym. Mechanika kwantowa nie jest deterministyczna.
-
-\subsection{Funkcja}
-
-$P(x) = |\psi(x)|^2$ musi być całkowalna po całej powierzchni.
-Prawdopodobieństwo musi być skończone w końcu. Są od tej zasady
-wyjątki, szczególnie cząstki, których całka rośnie wraz z rozmiarem
-wszechświata.
-
-Dla cząstki z określonym pędem $p$:
-$$
-\psi_p(x) = A\exp[\frac{ipx}{\hbar}]
-$$
-$A$ to czynnik normalizujący, wychodzący z konieczności
-$1 = \int_{-\infty}^{\infty} |\psi_x(x)|^x dx$. Dla nieskończonego
-wszechświata nie ma to sensu, bo $1 = |A|^2 \cdot \infty$.
-Zatem zakładamy skończony wszechświat o obwodzie $L$:
-$$
-\psi_p(x) = \frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]
-$$
-
-\subsection{Warunek kwantyzacji}
-
-Ponieważ wszechświat jest mniej więcej kołem, to funkcja falowa może
-być parametryzowana
-przez kąt $\theta$. W takiej postaci:
-$$
-\psi(\theta) = \psi(\theta + 2\pi)
-$$
-Nazywamy to warunkiem jednej wartości funkcji falowej.
-
-Rozważmy teraz ten warunek w $\psi_p$:
-$$
-P(x) = |\psi_p(x)|^2 =
-\frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]\frac{1}{\sqrt{L}}\exp[-\frac{ipx}{\hbar}]
-= \frac{1}{L}
-$$
-Po nałożeniu warunku jednej wartości falowej, otrzymujemy:
-$$
-\psi_p(x) = \psi_p(x + L) = \psi_p(x) \exp[\frac{ipL}{\hbar}]
-$$
-Zatem $\exp[\frac{ipL}{\hbar}] = 1$. Z własności $\exp$ można wyprowadzić, że:
-$$
-\frac{pL}{\hbar} = 2\pi n
-$$
-W ten sposób otrzymujemy warunek kwantyzacji:
-$$
-p_n = \frac{nh}{L}
-$$
-$$
-\psi(x) = \sum_{p} A(p) \psi_p(x)
-$$
-
 \section{Model Bohra}
+
+Do opracowania modelu atomu Bohra, przyczynił się eksperyment J. Balmera. W tym
+eksperymencie światło przechodzące przez gaz pewnego pierwiastka,
+rozszczepia się na tylko konkretne kolory. To eksperymentalnie sugeruje, że
+atom może emitować tylko dyskretne poziomy energii.
 
 W modelu atomu Bohra, elektron porusza się wokół jądra wokół jednej z
 dyskretnych
 orbit. To też oznacza, że energia elektronu jest dyskretna lub zkwantowana.
-
+Diagram modelu można znaleźć w \cref{fig:bohr}.
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
@@ -437,6 +356,7 @@ orbit. To też oznacza, że energia elektronu jest dyskretna lub zkwantowana.
 
   \end{tikzpicture}
   \caption{Model Bohra atomu}
+  \label{fig:bohr}
 \end{figure}
 
 Elektron na orbicie utrzymuje się w wyniku siły elektrostatycznej między
@@ -521,7 +441,219 @@ $$
 \langle E \rangle = \frac{h\nu}{e^{\frac{h\nu}{k_BT}} - 1}
 $$
 
-\section{Obserwacje}
+\subsection{Efekt Einsteina de Haasa}
+
+Zakładano, że magnetyzm się bierze, z ruchu elektronów na orbicie atomu
+Bohra. Zgodnie z tym modelem, prąd na pierwszej orbicie powinien wynosić:
+$$
+I = \frac{e}{T} = \frac{ne\hbar}{2\pi r^2m}
+$$
+Magnetyczny moment dipolowy $\mu$, wynosi zatem:
+$$
+\vec{\mu} = I \cdot \vec{S} = I \cdot \pi r^2 = \frac{-e}{2m} \vec{L}
+= \frac{-e}{2m} \hbar
+$$
+Ta wartość nie zgadzała się z wynikami eksperymentów, ponieważ nie uwzględniała
+spinu elektronów jako większej składowej magnetyzmu. Zatem eksperymentalnie:
+$$
+\frac{\mu}{L} = g(\frac{-e}{2m})
+$$
+
+\subsection{Eksperyment Sterna-Gerlacha}
+
+Srebro $\texttt{Ag}_{47}$ ma tylko jeden wolny elektron. W wyniku ogrzewania
+srebra, odłącza się ten pojedynczy elektron. Jeśli na drodze elektronu
+znajduje się pole magnetyczne, to elektron odbija się w pewnym kierunku.
+W wyniku tego eksperymentu można wywnioskować, że elektron ma spin.
+$$
+\vec{\mu_s} = g\frac{-e}{2m} \vec{S}
+$$
+
+Wykonanie wielokrotne eksperymentu Sterna-Gerlacha(SG), pozwala nam wyprowadzić
+kilka podstawowych zasad fizyki kwantowej.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw] (sg11) at (0,0) {$SG_x$};
+    \node[draw, above right of=sg11, xshift=1cm] (sg12) {$SG_x$};
+    \node[below right of=sg11, xshift=1cm] (sg13) {$\ket{\uparrow_x}$};
+    \node[right of=sg12, xshift=1cm] (sg14) {$\ket{\downarrow_x}$};
+
+    \draw[->] (sg11) |- node[above] {50\%} (sg12);
+    \draw[->] (sg11) |- node[below] {50\%} (sg13);
+    \draw[->] (sg12) -- (sg14);
+  \end{tikzpicture}
+  \caption{Sekwencyjny eksperyment Sterna-Gerlacha 1}
+  \label{fig:sg1}
+\end{figure}
+Diagram \cref{fig:sg1} ilustruje jak elektron w fizyce kwantowej ma konkretny
+stan spinu w danej osi.
+
+Powtórzenie eksperymentu, lecz tym razem za drugim podejściem mierzenie
+wobec innej osi, daje nam zupelnie inny wynik. Ilustracja tego
+procesu znajduje się w \cref{fig:sg2}.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw] (sg11) at (0,0) {$SG_x$};
+    \node[draw, above right of=sg11, xshift=1cm, yshift=1cm] (sg12) {$SG_z$};
+    \node[below right of=sg11, xshift=1cm] (sg13) {$\ket{\uparrow}_x$};
+    \node[above right of=sg12, xshift=1cm] (sg14) {$\ket{\downarrow}_z$};
+    \node[below right of=sg12, xshift=1cm] (sg15) {$\ket{\uparrow}_z$};
+
+    \draw[->] (sg11) |- node[above] {50\%} (sg12);
+    \draw[->] (sg11) |- node[below] {50\%} (sg13);
+    \draw[->] (sg12) |- node[above] {25\%} (sg14);
+    \draw[->] (sg12) |- node[below] {25\%} (sg15);
+  \end{tikzpicture}
+  \caption{Sekwencyjny eksperyment Sterna-Gerlacha 2}
+  \label{fig:sg2}
+\end{figure}
+Stany spinów w różnych osiach są niezależne i nie wpływają na siebie, zatem
+pomiar w innej osi daje nam kolejny podział na pół elektronów.
+
+Trzykrotne wykonanie eksperymentu SG daje nam najciekawszy wynik. Ilustracja
+tego procesu znajduje się w \cref{fig:sg3}.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw] (sg11) at (0,0) {$SG_x$};
+    \node[draw, above right of=sg11, xshift=1cm, yshift=1cm] (sg12) {$SG_z$};
+    \node[below right of=sg11, xshift=1cm] (sg13) {$\ket{\uparrow}_x$};
+    \node[draw, above right of=sg12, xshift=1cm, yshift=1cm] (sg14) {$SG_x$};
+    \node[below right of=sg12, xshift=1cm] (sg15) {$\ket{\uparrow}_z$};
+    \node[above right of=sg14, xshift=1cm] (sg16) {$\ket{\downarrow}_x$};
+    \node[below right of=sg14, xshift=1cm] (sg17) {$\ket{\uparrow}_x$};
+
+    \draw[->] (sg11) |- node[above] {50\%} (sg12);
+    \draw[->] (sg11) |- node[below] {50\%} (sg13);
+    \draw[->] (sg12) |- node[above] {25\%} (sg14);
+    \draw[->] (sg12) |- node[below] {25\%} (sg15);
+    \draw[->] (sg14) |- node[above] {12.5\%} (sg16);
+    \draw[->] (sg14) |- node[below] {12.5\%} (sg17);
+  \end{tikzpicture}
+  \caption{Sekwencyjny eksperyment Sterna-Gerlacha 3}
+  \label{fig:sg3}
+\end{figure}
+Pomiar spinu w osi Z, usunał nam informację o spinie w osi X. Stan spinu
+w osi X stał się nieokreślony, aż do ostatniego pomiaru, który dał nam
+znowu kolejny podział elektronów na pół.
+
+\section{Postulaty fizyki kwantowej}
+
+\begin{itemize}
+  \item Każdy stan układu kwantowego jest opisany przez wektor w
+    przestrzeni Hilberta.
+    Iloczyn skalarny takich wektorów $\braket{\psi'}{\psi}$ określa amplitudę
+    przejścia z stanu $\ket{\psi}$ do stanu $\ket{\psi'}$.
+  \item Wielkością, którą można mierzyć odpowiadają operatory
+    Hermitowskie - macierze Hermitowskie.
+  \item Możliwymi wartościami pomiaru są wartości własne operatora
+    Hermitowskiego.
+  \item W wyniku pomiaru wartości własnej operatora, układ przeskakuje do
+    odpowiadającego stanu własnego (wektora własnego).
+\end{itemize}
+
+\section{Stan cząstki}
+
+Z powyższych sekcji wiemy, że cząstka w mechanice kwantowej nie ma stricte
+określonej pozycji ani pędu. Wynika to z zasady niepewności Heisenberga.
+W mechanice klasycznej cząstki opisujemy parą $(x, p)$, czym opisujemy w
+mechanice kwantowej? Mamy funkcję falową $\psi(x)$, gdzie $P(x) = |\psi(x)|^2$
+opisuje prawdopodobieństwo znalezienia cząstki w $x$. Nazywamy to postulatem
+Borna, oraz:
+$$
+P(x) = |\psi(x)|^2 = \psi^*(x)\psi(x)
+$$
+gdzie $\psi^*(x)$ jest sprzężeniem zespolonym funkcji falowej $\psi(x)$.
+
+Elektron w okolicy atomu $1$ jest opisany przez funkcję falową $\psi_1(x)$.
+Prawdopodobieństwo tego, że elektron jest w miejscu $x$ obok atomu $1$ opisuje
+analogicznie $P_1(x) = |\psi_1(x)|^2$. Teraz wyobraźmy sobie, że
+dodajemy drugi atom $2$ i nie wiemy obok
+którego jest elektron. Na podstawie pomiarów możem określić, czy pomiary
+odpowiadają $P_1(x)$, czy $P_2(x) = |\psi_2(x)|^2$.
+
+Co jeśli elektron może być między cząstkami, czyli nie zakładamy, że należy
+do jednej cząstki? Wtedy mówimy, że elektron jest w stanie $\psi_{1 +
+2}(x) = \psi_1(x) + \psi_2(x)$. $P_{1 + 2} = |\psi_{1 + 2}|^2$.
+
+\subsection{Pomiar}
+
+Do momentu pomiaru, elektron w naszym przykładzie \textbf{nie ma
+pozycji}. Założenie, że
+jest obok jednej cząstki jest jak założenie, że cząstka przeszła przez jeden
+otwór w eksperymencie Younga. Prawdopodobieństwo w mechanice
+klasycznej i kwantowej działają zupełnie inaczej. W mechanice klasycznej
+cząstki mają określony zawczasu stan. Pomiar, wykonany w danym czasie uzyska
+zawsze jeden wynik. Identyczny pomiar wykonany w mechanice kwantowej może
+uzyskać różne odpowiedzi.
+
+Można to sobie wyobrazić w następujący sposób. W mechanice
+klasycznej, prawdopodobieństwo $P(x)$ jest ewaluowane a priori.
+Mechanika klasyczna jest deterministyczna i znając $(x, p)$ nie muszę
+nawet robić pomiarów. W mechanice kwantowej $P(x)$ jest ewaluowane w czasie
+rzeczywistym. Mechanika kwantowa nie jest deterministyczna.
+
+\subsection{Funkcja}
+
+$P(x) = |\psi(x)|^2$ musi być całkowalna po całej powierzchni.
+Prawdopodobieństwo musi być skończone w końcu. Są od tej zasady
+wyjątki, szczególnie cząstki, których całka rośnie wraz z rozmiarem
+wszechświata.
+
+Dla cząstki z określonym pędem $p$ postulujemy, że:
+$$
+\psi_p(x) = A\exp[\frac{ipx}{\hbar}]
+$$
+$A$ to czynnik normalizujący, wychodzący z konieczności
+$1 = \int_{-\infty}^{\infty} |\psi_x(x)|^x dx$. Dla nieskończonego
+wszechświata nie ma to sensu, bo $1 = |A|^2 \cdot \infty$.
+Zatem zakładamy skończony wszechświat o obwodzie $L$:
+$$
+\psi_p(x) = \frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]
+$$
+
+Z zasady niepewności wiemy, że skoro w stanie $\psi_p$ mamy określony pęd, to
+nie możemy określić z żadną dokładnością pozycji cząstki. Łatwo to
+można udowodnić,
+albowiem:
+$$
+P(x) = |\psi_p(x)|^2 =
+\frac{1}{\sqrt{L}}\exp[\frac{ipx}{\hbar}]\frac{1}{\sqrt{L}}\exp[-\frac{ipx}{\hbar}]
+= \frac{1}{L}
+$$
+Prawdopodobieństwo jest jednostajne na całej powierzchi wrzechświata. Zasada
+niepewności jest spełniona.
+
+\subsection{Warunek kwantyzacji}
+
+Ponieważ wszechświat jest mniej więcej kołem, to funkcja falowa może
+być parametryzowana
+przez kąt $\theta$. W takiej postaci:
+$$
+\psi(\theta) = \psi(\theta + 2\pi)
+$$
+Nazywamy to warunkiem jednej wartości funkcji falowej.
+
+Rozważmy teraz ten warunek w $\psi_p$.
+Po nałożeniu warunku jednej wartości falowej, otrzymujemy:
+$$
+\psi_p(x) = \psi_p(x + L) = \psi_p(x) \exp[\frac{ipL}{\hbar}]
+$$
+Zatem $\exp[\frac{ipL}{\hbar}] = 1$. Z własności $\exp$ można wyprowadzić, że:
+$$
+\frac{pL}{\hbar} = 2\pi n
+$$
+W ten sposób otrzymujemy warunek kwantyzacji:
+$$
+p_n = \frac{nh}{L}
+$$
+$$
+\psi(x) = \sum_{p} A(p) \psi_p(x)
+$$
+
+\subsection{Obserwacje}
 
 Wyobraźmy sobie, że mamy układ, w którym możemy powiedzieć, że zachodzi
 superpozycja między dwoma stanami. Czyli; funkcja falowa $\psi(x)$ układu
@@ -547,7 +679,7 @@ $$
 A(p_n) = \int_{0}^{L} \psi(x) \psi_{p_n}^*(x) dx
 $$
 
-\subsection{Przykład}
+\subsubsection{Przykład}
 
 Niech $\mathcal{A}$ to zmienna losowa, i $\alpha_n$ to dozwolone wartości.
 Niech $\psi_{\alpha_n}(x)$ opisuje stan układu, w którym $\mathcal{A} =
@@ -562,7 +694,7 @@ $$
 W tej notacji, $\ket{\alpha_n}$ to wektor stanu, który odpowiada
 pomiarowi $\mathcal{A} = \alpha_n$.
 
-\subsection{Algebra}
+\subsubsection{Algebra}
 
 Pomiar $L$, wyrażony macierzą, może przyjąć wartości zgodne z jego wartościami
 własnymi. Z reguły, poprzez $\ket{L = \lambda}$ zapisuje się wektor własny
