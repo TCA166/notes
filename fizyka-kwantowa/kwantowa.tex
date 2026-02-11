@@ -539,6 +539,10 @@ Pomiar spinu w osi Z, usunał nam informację o spinie w osi X. Stan spinu
 w osi X stał się nieokreślony, aż do ostatniego pomiaru, który dał nam
 znowu kolejny podział elektronów na pół.
 
+Postawienie kolejnego urządzenia SG, pod kątem $\theta$, obniża
+prawdopodobieństwo
+pomiaru spinu w osi X na $\cos^2(\frac{\theta}{2})$.
+
 \section{Postulaty fizyki kwantowej}
 
 \begin{itemize}
@@ -744,6 +748,7 @@ $$
 S_z \ket{\uparrow_z} = \lambda_z \ket{\uparrow_z} , \quad S_z
 \ket{\downarrow_z} = -\lambda_z \ket{\downarrow_z}
 $$
+zazwyczaj definiujemy $\lambda_z = \frac{\hbar}{2}$
 $$
 \braket{\uparrow_z}{\downarrow_z} = 0
 $$
@@ -756,6 +761,15 @@ $$
 
 Powyższe, pozwala nam określić $S_z$, a także $S_x$, $S_y$. Tak się składa, że
 te macierze to macierze Pauliego; $\sigma_x$, $\sigma_y$, $\sigma_z$.
+$$
+\sigma_x =
+\begin{pmatrix} 0 & 1 \\ 1 & 0
+\end{pmatrix}, \quad \sigma_y =
+\begin{pmatrix} 0 & -i \\ i & 0
+\end{pmatrix}, \quad \sigma_z =
+\begin{pmatrix} 1 & 0 \\ 0 & -1
+\end{pmatrix}
+$$
 
 \section{Równanie Schrödingera}
 
