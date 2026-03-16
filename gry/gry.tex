@@ -1,0 +1,137 @@
+\documentclass{../notatki}
+
+\title{Gry Kombinatoryczne}
+
+\begin{document}
+
+\section{Gra}
+
+W ramach przedmiotu będziemy rozważać gry skończone, z pełną informacją o stanie
+gry. Zakładamy, że w ramach gier będą występować tylko dwaj gracze, i co za tym
+idzie, gra się może kończyć z wynikiem 1 (gracz 1 wygrywa), 0 (gracz 2 wygrywa),
+lub 1/2 (remis).
+
+\subsection{Drzewo gry}
+
+Różne stany gry można rozważać w postaci drzewa gry, gdzie każdy węzeł
+reprezentuje możliwy stan gry, krawędzie ruchy, a poziomy drzewa reprezentują
+rundy gry.
+
+\subsection{Strategia}
+
+Strategią, nazywamy funckję działającą na podstawie stanu gry i zwracającą
+ruch gracza, lub kolejny stan.
+
+\textbf{W każdej grze ktoś ma strategię nieprzegrywającą}.
+
+\textbf{Jeśli nie ma remisu w grze, to ktoś ma strategię wygrywającą}
+
+\section{Analiza wstecz}
+
+Analizując wstecz zachowania graczy w ramach gry, możemy przyporządkować
+każdemu stanowi "wartość", która odpowiada za wynik gry w tym
+momencie, zakładając optymalne ruchy obu graczy.
+
+\begin{figure}[!htb]
+  \centering
+  \begin{tikzpicture}
+    \node[circle, draw, fill=blue, minimum size=1cm] (parent) at (0,0) {1/2};
+
+    \node[circle, draw, fill=red, minimum size=1cm, below left=of
+    parent] (child1) {0};
+    \node[circle, draw, fill=red, minimum size=1cm, below
+    right=of parent] (child2) {1/2};
+
+    \node[circle, draw, fill=blue, minimum size=1cm, below left
+    = of child1] (grandchild1) {1};
+    \node[circle, draw, fill=blue, minimum size=1cm, below
+    = of child1] (grandchild2) {0};
+    \node[circle, draw, fill=blue, minimum size=1cm, below
+    = of child2] (grandchild3) {1};
+    \node[circle, draw, fill=blue, minimum size=1cm, below right
+    = of child2] (grandchild4) {1/2};
+
+    \node[below left= of grandchild1] (grandgrandchild1) {1/2};
+    \node[below= of grandchild1] (grandgrandchild2) {1};
+    \node[below= of grandchild2] (grandgrandchild3) {0};
+    \node[below left= of grandchild3] (grandgrandchild4) {1};
+    \node[below= of grandchild3] (grandgrandchild5) {0};
+    \node[below right= of grandchild4] (grandgrandchild6) {1/2};
+    \node[below right= of grandchild4] (grandgrandchild7) {1/2};
+    \node[below= of grandchild4] (grandgrandchild8) {0};
+
+    \draw (parent) -- (child1);
+    \draw (parent) -- (child2);
+    \draw (child1) -- (grandchild1);
+    \draw (child1) -- (grandchild2);
+    \draw (child2) -- (grandchild3);
+    \draw (child2) -- (grandchild4);
+
+    \draw (grandchild1) -- (grandgrandchild1);
+    \draw (grandchild1) -- (grandgrandchild2);
+    \draw (grandchild2) -- (grandgrandchild3);
+    \draw (grandchild3) -- (grandgrandchild4);
+    \draw (grandchild3) -- (grandgrandchild5);
+    \draw (grandchild4) -- (grandgrandchild6);
+    \draw (grandchild4) -- (grandgrandchild7);
+    \draw (grandchild4) -- (grandgrandchild8);
+  \end{tikzpicture}
+  \caption{Przykładowe wartościowanie stanów gry \label{fig:gry}}
+\end{figure}
+
+W kontekście \cref{fig:gry}, na podstawie analizy wstecz możemy bardzo łatwo
+określić, że wartością gry jest 1/2. Na podstawie tego wynika, że każdy z graczy
+ma strategię nieprzegrywającą. Równocześnie nikt nie ma strategii wygrywającej.
+W kontekście takiego drzewa, strategią jest decyzja na każdym liściu, do którego
+dziecka przejść.
+
+\section{Hex}
+
+Jeśli na każdym polu planszy Hex $n \times n$ położymy pionka o
+dowolnym kolorze, to jeden z kolorów będzie w pozycji wygrywającej. Stąd też,
+nie ma remisów w tej grze.
+
+\section{Kradzież strategii}
+
+Jest to technika analizy gry, która polega na analizie potencjalnych strategii
+przeciwnika. Na przykład, pozwala nam udowodnić, że gracz ma strategię
+wygrywającą, nawet jeśli nie jest w stanie ją znaleźć samodzielnie.
+
+W Hex, nie ma remisów. W związku z tym, jak zakładamy, że gracz II ma strategię
+wygrywyającą, to gracz I musi nie mieć wygrywającej strategii. Można, jednak
+znaleźć sprzeczność w założeniach. Wyobraźmy sobie, że gracz I ma strategię
+gracza II. W takiej sytuacji, gracz I może zrobić jakiś losowy ruch, i potem
+po prostu podążać tą strategią wygrywającą gracza II. Napotkanie naszego
+wcześniejszego ruchu nie jest problemem - wystarczy, zrobić inny losowy ruch.
+To oznacza, że gracz I ma strategię wygrywającą - opartą na strategii gracza
+II. Sprzeczność, czyli gracz II nie ma strategii wygrywającej, czyli gracz I
+ma strategię wygrywającą.
+
+Ten dowód opiera się na kluczowych faktach:
+\begin{itemize}
+  \item W Hex nie ma remisów
+  \item Pola w Hex mogą być tylko w 3 stanach
+  \item Ruch dodatkowy w Hex nie może być szkodliwy
+\end{itemize}
+Najłatwiej ten dowód atakować w innych grach poprzez nasz losowy ruch. Gry takie
+jak Rex (odwrócony Hex), charakteryzują się tym, że ruch potrafi być zły dla
+gracza.
+
+Kradzież strategii działa też w Chomp. Tam, ponownie zakładamy, że gracz II
+ma strategię wygrywającą. Gracz I zjada prawy dolny róg. To jest nieszkodliwe
+i potem podąża za strategią gracza II. Zatem mamy sprzeczność - gracz I ma
+strategię wygrywającą, a gracz II nie ma strategii wygrywającej.
+
+\section{Metoda ruchów odpowiadających}
+
+Dla niektórych gier, odpowiednią strategią jest ruch odpowiadający. Ogólnie,
+można powiedzieć, że ruchem odpowiadającym jest taki ruch, który jest jakimś
+odpowiednikiem ruchu gracza przeciwnego. Wtedy strategia staje się funkcją
+ruchu przeciwnika.
+
+Na przykład, w kółko i krzyżyk, dla dowolnego rozmiaru planszy i kombinacji,
+da się stworzyć parowania pól, które należy wypełnić w momencie kiedy przeciwnik
+wypełni sparowane pole. Dla bardziej skomplikowanych wariantów kółka i krzyżyk
+da się w ten sposób skonstruować strategię nieprzegrywającą.
+
+\end{document}

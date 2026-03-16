@@ -5,7 +5,7 @@ przeniesiona do LaTeXa. Zachęcam do pomocy, uzupełniania i poprawiania
 czytelności. W celu zapewnienia pełnej dostępności w repozytorium znajdują się
 skompilowane pliki `.pdf`.
 
-## Informatyka
+## Informatyka 1 stopień
 
 - [asd.pdf](asd/asd.pdf) "Algorytmy i struktury danych"(06-DASDLI0)
 - [sop.pdf](systemy-operacyjne/sop.pdf) "Systemy
@@ -25,6 +25,10 @@ skompilowane pliki `.pdf`.
 - [statystyka.pdf](statystyka/statystyka.pdf) "Statystyka"(06-DSTTLI0)
 - [krypto.pdf](kryptografia/krypto.pdf) "Kryptografia z elementami algebry"(06-DKALLI0)
 - [konspekt.pdf](egz_inz/konspekt.pdf) Konspekt do egzaminu dyplomowego
+
+## Informatyka 2 stopień
+
+- [gry.pdf](gry/gry.pdf) "Gry Kombinatoryczne" (06-S4IN01-F01047)
 
 ## Informatyka Kwantowa
 
