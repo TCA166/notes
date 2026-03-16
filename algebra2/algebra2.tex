@@ -1,0 +1,97 @@
+\documentclass{../notatki}
+
+\title{Algebra liniowa z zastosowaniami 2.\\ Podstawy obliczeń kwantowych}
+
+\begin{document}
+
+\section{Przestrzeń wektorowa}
+
+Przestrzeń wektorowa $V$ nad ciałem $K$ to:
+\begin{itemize}
+  \item $(V, +)$ - grupa abelowa, $+$ - dodawanie wektorów
+  \item $(K, \oplus, \odot)$ - ciało, $\oplus$ - dodawanie
+    skalarów, $\odot$ - mnożenie skalarów
+  \item $\cdot : K \times V \to V$ - mnożenie wektorów
+  \item $
+    \alpha \cdot (v_1 + v_2) = \alpha \cdot v_1 + \alpha \cdot v_2
+    $
+  \item $
+    (\alpha_1 \oplus \alpha_2) \cdot v = \alpha_1 \cdot v + \alpha_2 \cdot v
+    $
+  \item $
+    \alpha_1 \cdot (\alpha_2 \cdot v) = (\alpha_1 \odot \alpha_2) \cdot v
+    $
+  \item $
+    1 \cdot v = v
+    $
+\end{itemize}
+
+Intuicyjnie, jest to ciało skalarów i grupa wektorów z dodatkowym
+działaniem. Przestrzenią wektorową może być wiele rzeczy. Od wielowymiarowych
+ciał $\mathbb{R}^n$, poprzez bajty ($\mathbb{F}_2^8$), aż po funkcje w ramach
+szeregów Fourier'a.
+
+\subsection{Powłoka liniowa}
+
+Dla $S = \{v_1, v_2, \dots, v_n\}$, czyli zbioru wektorów z $V$ nad $K$,
+zbiór wszystkich kombinacji liniowych:
+$$
+\mathrm{span}(S) = \{ \alpha_1 v_1 + \alpha_2 v_2 + \dots + \alpha_n
+v_n | \alpha_1, \alpha_2, \dots, \alpha_n \in K \}
+$$
+nazywamy powłoką zbioru $S$. Intuicyjnie, jest to zbiór skalarów odpowiadających
+pewnym wektorom z $V$. Mnożymy skalary z wektorami i dostajemy nowy wektor,
+powstały z kombinacji liniowej. Wszystkie takie wektory tworzą powłokę liniową.
+
+Inaczej, powłoka liniowa to najmniejsza podprzestrzeń $V$, zawierająca wszystkie
+wektory z $S$. Mówimy, że wektory z $S$ rozpinają podprzestrzeń $V$, równoważną
+$\mathrm{span}(S)$.
+
+\subsection{Liniowa niezależność}
+
+Podzbiór $S$ z $V$ nad $K$ jest liniowo niezależny, jeśli dla dowolnego
+podzbioru $S' \subseteq S = \{v_1, v_2, \dots, v_n\}$ i dowolnych
+$\alpha_1, \alpha_2 \in K$:
+$$
+\alpha_1 v_1 + \alpha_2 v_2 + \dots + \alpha_n v_n  = 0 \rightarrow
+\alpha_1 = \alpha_2 = \dots = \alpha_n = 0
+$$
+
+Intuicyjnie, jeśli nie da się wyrazić dowolnego wektora z $S$ jako kombinacji
+liniowej innych wektorów z $S$, to $S$ jest liniowo niezależny. Jeśli da się
+wyrazić dowolny wektor z $S$ przy pomocy innych wektorów z $S$, to da się też
+zsumować dowolnie te wektory do zera, tak, że skalary nie są równe zero.
+
+\subsection{Baza}
+
+Baza $B$ przestrzeni $V$, to liniowo niezależny $B \subseteq V$, który rozpina
+przestrzeń $V$.
+
+Inaczej, jest to zbiór wektorów liniowo niezależnych, czyli takich których
+nie da się wyrazić przy pomocy siebie, przy pomocy których można wyrazić dowolny
+wektor z $V$ jako kombinację liniową. Można o bazie myśleć jako o zbiorze
+elementarnych wartości, bloków budulcowych.
+
+\subsection{Przekształcenia liniowe}
+
+Niech $U$ i $V$ będą przestrzeniami wektorowymi nad $K$. Funkcję $T: U \to V$
+nazywamy przekształceniem liniowym, jeśli dla dowolnych $\alpha_1,
+\alpha_2 \in K$
+i dowolnych $u_1, u_2 \in U$:
+$$
+T(\alpha_1 u_1 + \alpha_2 u_2) = \alpha_1 T(u_1) + \alpha_2 T(u_2)
+$$
+
+Dla przestrzeni $U$ z bazą $S = \{v_1, v_2, \dots, v_n\}$, oraz $V$ z
+bazą $S' = \{w_1, w_2, \dots, w_m\}$, macierzą przekształcenia liniowego
+$T: U \to V$ nazywamy $M_S^{S'} = [m_{ij}] \in K^{m \times n}$.
+$$
+T(v_j) = \sum_{i=1}^m m_{ij} w_i
+$$
+Intuicyjnie, w j-tej kolumnie macierzy $M_S^{S'}$ stoją współrzędne wektora
+$v_j$ w bazie $S'$.
+
+Wspólrzędne wektora $v \in V$ w bazie $S'$ to $\langle v \rangle_{S'}
+= M_S^{S'} \langle v \rangle_S$.
+
+\end{document}
