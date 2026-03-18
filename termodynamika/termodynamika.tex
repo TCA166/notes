@@ -13,10 +13,14 @@ $$
 \section{Stany}
 
 \begin{itemize}
-  \item Izotermiczny - $T = $ const
-  \item Izobaryczny - $p = $ const
-  \item Izochoryczny - $V = $ const
-  \item Adiabatyczny - $Q = 0$/const
+  \item Izotermiczny - stała temperatura \\
+    $dU = 0 \quad \partial W = - \partial Q$
+  \item Izobaryczny - stałe ciśnienie \\
+    $dp = 0, \quad dU = \partial Q, \quad \partial Q = dH$
+  \item Izochoryczny - objętość jest stała\\
+    $\partial W = 0, \quad dU = \partial Q, \quad dV = 0$
+  \item Adiabatyczny - ciepło jest stałe\\
+    $\partial Q = 0, \quad dU = \partial W$
 \end{itemize}
 
 $$
@@ -38,5 +42,41 @@ Dla gazu $V = V(p, T)$, $dv = (\frac{\partial V}{\partial p})dp +
 $$
 dv = -\frac{RT}{p^2}dp + \frac{R}{p}dT
 $$
+
+\section{Zerowa zasada termodynamiki}
+
+W stanie równowagi termodynamicznej nie zachodzą żadne systematyczne
+zmzmiany parametrów. Nie zachodzą także żadne systematyczne przepływy
+wielkości termodynamicznych.
+
+Bycie w stanie równowagi termodynamicznej jest tranzytywne. Jeśli stworzymy
+trzy zamknięte układy, obok siebie tak aby mogły przekazywać ciepło, to stan
+się w nich wyrówna prędzej czy później. Dojdzie do stanu równowagi
+termodynamicznej.
+
+Rozróżniamy dwa rodzaje stanów równowagi. Pełna równowaga termodynamiczna, to
+prawdziwie pełna równowaga. Nic się nie zmienia ani przepływa. Druga, pozwala
+na drobne zmiany, w interesującej nas skali czasowej. Można też pominąć niektóre
+parametry oczywiście.
+
+\section{Pierwsza zasada termodynamiki}
+
+W układzie makroskopowym, energia wewnętrzna układu zostaje zachowana. W skalach
+mikroskopowych rozważamy energie kinetyczne i potencjalne wszystkich cząstek.
+Fenomenologicznie rozważamy sumę wszystkich energii w układzie (U).
+Istnieje wielkość U, która jest $f$ stanu.
+$$
+\partial W = \sum_k X_k dX_k
+$$
+$$
+dU = \partial W + \partial Q
+$$
+
+Ilość ciepła potrzebną do przyrostu temperatury o 1 stopień wyrażamy jako:
+$$
+C_x = (\frac{\partial Q}{\partial T})_x
+$$
+
+\section{Cykle termodynamiczne}
 
 \end{document}
