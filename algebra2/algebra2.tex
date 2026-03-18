@@ -1,4 +1,5 @@
 \documentclass{../notatki}
+\usepackage{physics}
 
 \title{Algebra liniowa z zastosowaniami 2.\\ Podstawy obliczeń kwantowych}
 
@@ -82,6 +83,8 @@ $$
 T(\alpha_1 u_1 + \alpha_2 u_2) = \alpha_1 T(u_1) + \alpha_2 T(u_2)
 $$
 
+\subsection{Zmiana bazy}
+
 Dla przestrzeni $U$ z bazą $S = \{v_1, v_2, \dots, v_n\}$, oraz $V$ z
 bazą $S' = \{w_1, w_2, \dots, w_m\}$, macierzą przekształcenia liniowego
 $T: U \to V$ nazywamy $M_S^{S'} = [m_{ij}] \in K^{m \times n}$.
@@ -92,6 +95,134 @@ Intuicyjnie, w j-tej kolumnie macierzy $M_S^{S'}$ stoją współrzędne wektora
 $v_j$ w bazie $S'$.
 
 Wspólrzędne wektora $v \in V$ w bazie $S'$ to $\langle v \rangle_{S'}
-= M_S^{S'} \langle v \rangle_S$.
+= M_S^{S'} \langle v \rangle_S$, dla danych koordynatów w bazie $S$
+$\langle v \rangle_S$.
+
+Macierzą przejścia dla przestrzeni $V$ z bazą S i $U$ z bazą $S'$,
+oraz macierzą przekształcenia $M_S^{S'}$ jest macierz
+$M_S^{S'}(Id_S)$, $Id_V : V \to V$.
+
+\subsection{Własności}
+
+Śladem macierzy $A$ nazywamy $\tr A$; gdzie:
+$$
+\tr A = \sum_{i=1}^n a_{ii}
+$$
+
+Jądrem nazywamy zbiór wektorów (punktów), które są przekształcane w zero.
+$$
+\ker T = \{v \in V: T(v) = 0\}
+$$
+
+Dla $T: V \to W$, obrazem jest podzbiór przestrzeni $W$, składający się z
+wektorów, które można otrzymać z $T(v) : v \in V$.
+$$
+\operatorname{Im} T = T(V) = \{w \in W: \exists_{v \in V} T(v) = w\}
+$$
+Intuicyjnie, obrazem jest kontrdziedzina przekształcenia; wszystkie wartości
+co może nam zwrócić.
+
+$$
+\dim V = \dim \operatorname{Ker} T + \dim \operatorname{Im} T
+$$
+
+\section{Wektory własne}
+
+Dla przestrzeni $V$ nad ciałem $K$, z przekształceniem $T: V \to V$, jeśli
+dla niezerowego $v \in V$ spełnione jest:
+$$
+Tv = \lambda v
+$$
+gdzie $\lambda \in K$, to $v$ nazywamy wektorem własnym dla opdowiadającej
+wartości własnej $\lambda$. Tu się przydaje notacja Diraca;
+$v_\lambda = \ket{\lambda}$. Intuicyjnie, wektor własny operatora (macierzy),
+po wrzuceniu do operatora może zwrócić tylko przeskalowany ten sam wektor.
+Odwrócenie macierzy nieosobliwej, odwraca też jej wartości własne.
+
+Z powyższego można wyprowadzić wzór na wartości własne; oraz
+zdefiniować wielomian charakterystyczny:
+$$
+\determinant (A - \lambda I) = 0 = p_T(\lambda)
+$$
+$$
+(T - \lambda I)v_\lambda = 0
+$$
+
+Zbiór wszystkich wartości własnych $A$ nazywamy jej widmem (spektrum) i
+oznaczamy $\sigma(A)$.
+
+Wektor $\ket{m}$ nazywamy uogólnionym wektorem własnym rzędu $m$ macierzy $A$
+dla wartości własnej $\lambda$ jeśli $(A - \lambda I)^m \ket{m} = 0$, oraz
+$(A - \lambda I)^{m - 1} \ket{m} \neq 0$.
+$$
+\ket{n - 1} = (A - \lambda I) \ket{n}
+$$
+
+\subsection{Wielomian charakterystyczny}
+
+Dla wielomianu charakterystycznego:
+$$
+p_A(t) = (t - \lambda_1)^{k_1} (t - \lambda_2)^{k_2} \dots (t - \lambda_m)^{k_m}
+$$
+liczbę $k_i : i \leq m$ nazywamy krotnością wartości własnej $\lambda_i$.
+Jeśli da się zapisać $p_A(t) = c_nt^n + \dots c_0$, to:
+$$
+c_n = 1, \tr A = - c_{n - 1}, \determinant A = (-1)^n c_0
+$$
+Każda macierz kwadratowa nad $\mathbb{R}$ lub $\mathbb{C}$ jest
+pierwiastkiem swojego wielomianu charakterystycznego.
+
+Wielomian minimalny to wielomian $p_A(t)$, który spełnia warunek
+$p_A(A) = 0$, oraz którego współczynnik przy najniższej potędze wynosi 1.
+Każda macierz ma wielomian minimalny stopnia równego wielomianowi
+charakterystycznemu. Macierz $A$ jest diagonalizowalna tylko wtedy, gdy $q_A$
+ma pierwiastki jednorodne. Dzielnikami elementarnymi $f_i(\lambda)^{m_i}$
+macierzy $A$ nazywamy potęgi nierozkładalnych wielomianów pojawiające się w
+rozkładzie wielomianu minimalnego na czynniki.
+$$
+q_A(\lambda) = f_1(\lambda)^{m_1} f_2(\lambda)^{m_2}\dots f_k(\lambda)^{m_k}
+$$
+
+\subsection{Macierze podobne}
+
+Macierze kwadratowe $A$ i $B$ nazywamy podobnymi $A \sim B$, jeśli istnieje $P$,
+takie, że:
+$$
+PAP^{-1} = B
+$$
+Intuicyjnie, macierze są podobne jeśli da się je sprowadzić do siebie przez
+jedną macierz. Jeśli $A \sim B$ to $p_A(t) = p_B(t)$.
+
+\subsection{Diagonalizacja}
+
+Macierz można zdiagonalizować tylko jeśli:
+\begin{itemize}
+  \item Jej wielomian charakterystyczny rozkłada się na iloczyn
+    czynników liniowych
+  \item Krotność geometryczna każdej wartości własnej odpowiada jej
+    krotności algebraicznej
+\end{itemize}
+
+Macierze można jednocześnie diagonalizować, tylko jeśli ze sobą komutują:
+$AB = BA$. Jednoczesna diagonalizacja oznacza istnienie jednej bazy
+ortonormalnej, w której obie macierze przyjmują postać diagonalną.
+Wektory tej bazy są więc wektorami własnymi zarówno A, jak i B.
+
+\section{Klatka Jordana}
+
+Macierz rozmiaru $k \times k$, postaci:
+$$
+J_k(\lambda) =
+\begin{bmatrix}
+  \lambda & 1 & 0 & \hdots & 0 \\
+  0 & \lambda & 1 & \hdots & 0 \\
+  \vdots & & \ddots & \ddots & \vdots \\
+  0 & 0 & 0 & 0 & \lambda
+\end{bmatrix}
+$$
+nazywamy klatką Jordana. Każda macierz kwadratowa $A$ o elementach z
+$\mathbb{C}$ jest podobna do macierzy klatkowo-diagonalnej. Macierz klatkowo
+diagonalną można zdefiniować jako macierz diagonalną, z kolejnymi
+$J_1, \dots J_k$ na diagonali.
 
 \end{document}
