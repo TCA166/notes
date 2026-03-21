@@ -1,4 +1,6 @@
 \documentclass{../notatki}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
 
 \title{Termodynamika i podstawy fizyki statystycznej}
 
@@ -37,11 +39,62 @@ to stała gazowa, a $T$ to temperatura.
 
 \subsection{Przykład}
 
-Dla gazu $V = V(p, T)$, $dv = (\frac{\partial V}{\partial p})dp +
-(\frac{\partial V}{\partial T})dt$.
+Dla gazu $V = V(p, T)$, $dv = \left(\frac{\partial V}{\partial p}\right)dp +
+\left(\frac{\partial V}{\partial T}\right)dt$.
 $$
 dv = -\frac{RT}{p^2}dp + \frac{R}{p}dT
 $$
+
+\subsection{Prawa empiryczne}
+
+\begin{figure}[!tbh]
+  \centering
+  \begin{tikzpicture}
+    \begin{groupplot}[
+        group style={
+          group size=3 by 1,
+          horizontal sep=1.5cm,
+        },
+        width=3cm, height=3cm,
+        axis lines=middle,
+        xlabel={$V$}, ylabel={$p$},
+        ymin=0, ymax=3,
+        xmin=-1, xmax=3,
+        domain=0:3, samples=200,
+        scale only axis,
+        legend style={
+          at={(-1.1,1)},
+          anchor=north west,
+          draw=black,
+          fill=white
+        },
+        legend cell align=left,
+        xtick=\empty, ytick=\empty
+      ]
+
+      \nextgroupplot[
+        title={Izoterma, $pV = \textrm{const}$},
+      ]
+      \addplot[blue, thick]  {1/x};
+      \addlegendentry{$p(V) = \frac{nRT}{V}$};
+      \addlegendimage{red, thick}
+      \addlegendentry{$p(T) = \frac{nRT}{V}$}
+      \addlegendimage{green, thick}
+      \addlegendentry{$V(T) = \frac{nRT}{p}$}
+
+      \nextgroupplot[
+        title={Izochora, $\frac{p}{T} = \textrm{const}$},
+      ]
+      \addplot[red,  thick]  {x + 1};
+
+      \nextgroupplot[
+        title={Izobara, $\frac{V}{T} = \textrm{const}$},
+        xlabel={$T$}, ylabel={$V$},
+      ]
+      \addplot[green, thick] {x + 1};
+    \end{groupplot}
+  \end{tikzpicture}
+\end{figure}
 
 \section{Zerowa zasada termodynamiki}
 
@@ -72,11 +125,76 @@ $$
 dU = \partial W + \partial Q
 $$
 
-Ilość ciepła potrzebną do przyrostu temperatury o 1 stopień wyrażamy jako:
-$$
-C_x = (\frac{\partial Q}{\partial T})_x
-$$
-
 \section{Cykle termodynamiczne}
+
+\begin{figure}[!tbh]
+  \centering
+  \begin{tikzpicture}
+    \node (a) at (1,1) {A};
+    \node (b) at (1,3) {B};
+    \node (c) at (3,1) {C};
+
+    \draw[->] (0,0) -- (5,0) node[right] {$V$};
+    \draw (1,0.08) -- (1,-0.08) node[below] {\small $V_1$};
+    \draw (3,0.08) -- (3,-0.08) node[below] {\small $V_2$};
+    \draw[->] (0,0) -- (0,4) node[above] {$p$};
+    \draw (-0.08,1) -- (0.08,1) node[left] {\small $p_1$};
+    \draw (-0.08,3) -- (0.08,3) node[left] {\small $p_2$};
+
+    \draw[->] (a) -- node[midway,left] {\tiny izochora} (b);
+    \draw[->] (a) -- node[midway,below] {\tiny izobara} (c);
+    \draw[->] (b) -- (c);
+
+  \end{tikzpicture}
+  \caption{Przykładowy cykl termodynamiczny}
+\end{figure}
+
+\begin{itemize}
+  \item $A \rightarrow B$:\\
+    $\partial W_{AB} = -pdV = 0$\\
+    $W_{AB} = 0$
+  \item $B \rightarrow C$:\\
+    $\partial W_{BC} = -pdV$
+    $$
+    W_{BC} = - \int pdV = - \int_{V_1}^{V_2} p(v)dV
+    $$
+    Jeśli założymy, że $p(v)$ jest liniowa w $[V_1, V_2]$:
+    $$
+    W_{BC} = - \int_{V_1}^{V_2} \left(\frac{p_2 - p_1}{V_1 - V_2}(V_2 - V)
+    + p_1\right)dV = -\left(p_1(V_2 - V_1) + \frac{1}{2}(p_2 -
+    p_1)(V_2 - V_1)\right)
+    $$
+  \item $A \rightarrow C$:\\
+    $\partial W_{AC} = -p_1dV$
+    $$
+    W_{AC} = -p_1\int_{V_1}^{V_2} dV = -p_1(V_2 - V_1)
+    $$
+\end{itemize}
+
+\section{Temperatura i ciepło}
+
+Temperatura to parametr makroskopowy opisujący stan równowagi termodynamicznej.
+Jeżeli dwa układy są w stanie równowagi termodynamicznej to ich temperatury są
+równe. Jeśli połączymy dwa układy o różnych temperaturach to ich temperatury
+się wyrównają.
+
+Pojemnością cieplną nazywamy ilość ciepła $Q$ potrzebną do zmiany temperatury.
+$$
+\mathcal{C}_x = \left(\frac{\partial Q}{dT}\right)_x
+$$
+Z kolei, ciepło właściwe $C_x$ definiujemy jako:
+$$
+C_x = \frac{\mathcal{C}_x}{m}
+$$
+Dla pewnego stanu stałego ciśnienia ciśnienia, mamy:
+$$
+\mathcal{C}_p = \left(\frac{\partial Q}{dT}\right)_p = \left(\frac{\partial
+H}{\partial T}\right)_p
+$$
+Dla pewnego stanu stałej pojemności, mamy:
+$$
+\mathcal{C}_V = \left(\frac{\partial Q}{dT}\right)_V =
+\left(\frac{\partial U}{\partial T}\right)_V
+$$
 
 \end{document}
