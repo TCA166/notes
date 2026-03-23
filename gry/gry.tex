@@ -4,6 +4,38 @@
 
 \begin{document}
 
+\section{Graf}
+
+Graf nieskierowany, to uporządkowana para wierzchołków $V$ i krawędzi $E$:
+$$
+G = (V, E)
+$$
+Jeśli $(x, y) \in E$, to mówimy, że $x$ i $y$ są przyległe i $x$ jest sąsiadem
+wierzchołka $y$.
+Stopniem wierzchołka jest liczba jego sąsiadów.
+
+Ścieżka $P_n$ to graf $n$ wierzchołków, gdzie:
+$$
+V = \{w_1, w_2, \dots w_n\} \quad E = \{(w_1, w_2), (w_2, w_3), \dots
+(w_{n - 1}, w_n)\}
+$$
+
+Cykl $C_n$ to ścieżka z dodatkową krawędzią łączącą końce:
+$$
+V = \{w_1, w_2, \dots w_n\} \quad E = \{(w_1, w_2), (w_2, w_3), \dots
+(w_{n - 1}, w_n), (w_n, w_1)\}
+$$
+
+Graf pełny $K_n$ to graf w którym każde dwa rózne wierzchołki są przyległe.
+
+Podgraf $H \subseteq G$ to podzbiór wierzchołków $G$ i krawędzi $G$. Pograf
+rozpina $G$, jeśli każdy wierzchołek $G$ jest w $H$.
+
+Graf jest spójny, jeśli każde dwa jego wierzchołki są połączone ścieżką.
+Składowa grafu to maksymalny podgraf spójny.
+
+Drzewo to graf spójny bez cykli.
+
 \section{Gra}
 
 W ramach przedmiotu będziemy rozważać gry skończone, z pełną informacją o stanie
@@ -91,6 +123,23 @@ Jeśli na każdym polu planszy Hex $n \times n$ położymy pionka o
 dowolnym kolorze, to jeden z kolorów będzie w pozycji wygrywającej. Stąd też,
 nie ma remisów w tej grze.
 
+W Hex $n \times n$ gracz I ma strategię wygrywającą, na podstawie kradzieży
+strategii. Równocześnie, w grze $m \times n$ jeśli zapełnimy planszę dowolnie,
+to zawsze powstanie połączenie
+
+Rex to odwrócony wariant Hex, gdzie stanem przegrywającym jest stworzenie
+połączenia. W Rex $n \times n$ gracz pierwszy ma strategię wygrywającą wtedy
+i tylko wtedy, gdzy $n$ jest parzyste.
+
+\section{Chomp}
+
+Na tabliczce $n \times m$ gracze na przemian wybierają kostkę. Tym ruchem
+ograniczają tabliczkę do kostek na lewo lub powyżej wcześniej wybranej;
+jakby odgryzali wszystko na prawo i w dół. Celem gry jest doprowadzenie
+przeciwnika do zjedzenia kostki w lewym górnym rogu.
+
+W chomp gracz I ma strategię wygrywającą na podstawie
+
 \section{Kradzież strategii}
 
 Jest to technika analizy gry, która polega na analizie potencjalnych strategii
@@ -114,7 +163,7 @@ Ten dowód opiera się na kluczowych faktach:
   \item Ruch dodatkowy w Hex nie może być szkodliwy
 \end{itemize}
 Najłatwiej ten dowód atakować w innych grach poprzez nasz losowy ruch. Gry takie
-jak Rex (odwrócony Hex), charakteryzują się tym, że ruch potrafi być zły dla
+jak Rex, charakteryzują się tym, że ruch potrafi być zły dla
 gracza.
 
 Kradzież strategii działa też w Chomp. Tam, ponownie zakładamy, że gracz II
@@ -133,5 +182,15 @@ Na przykład, w kółko i krzyżyk, dla dowolnego rozmiaru planszy i kombinacji,
 da się stworzyć parowania pól, które należy wypełnić w momencie kiedy przeciwnik
 wypełni sparowane pole. Dla bardziej skomplikowanych wariantów kółka i krzyżyk
 da się w ten sposób skonstruować strategię nieprzegrywającą.
+
+\section{Gra Shannona}
+
+Na grafie spójnym $G$, z dwoma wyróżnionymi wierzchołkami $a, b \in V$, dwaj
+gracze po koleji malują na zmiane po jednej krawędzi. Wygrywa Konstruktor,
+jeśli powstanie ścieżka o końcach $a, b$; Destruktor przegrywa w takim
+przypadku.
+
+W grze, konstruktor ma strategię wygrywającą wtedy i tylko wtedy, gdy G posiada
+przynajmniej dwa krawędziowo rozłączne drzewa rozpinające
 
 \end{document}

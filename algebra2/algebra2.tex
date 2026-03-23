@@ -169,8 +169,27 @@ Jeśli da się zapisać $p_A(t) = c_nt^n + \dots c_0$, to:
 $$
 c_n = 1, \tr A = - c_{n - 1}, \determinant A = (-1)^n c_0
 $$
+
+\subsubsection{Twierdzenie Cayleya-Hamiltona}
+
 Każda macierz kwadratowa nad $\mathbb{R}$ lub $\mathbb{C}$ jest
 pierwiastkiem swojego wielomianu charakterystycznego.
+
+$$
+p_A(A) = 0
+$$
+
+Dla $p_A(t) = t^2 - 5A - 2I$, możemy bardzo łatwo określić wysokie potęgi $A$
+lub jej odwrotność:
+$$
+p_A(A) = A^2 - 5A - 2I = 0 \Rightarrow A^2 = 5A + I \Rightarrow A^4 = (5A + I)^2
+$$
+$$
+p_A(A) = 0 \Rightarrow A^2A^{-1} -5 - 2A^{-1} = 0 \Rightarrow A^{-1}
+= \frac{A - 5I}{2}
+$$
+
+\subsubsection{Wielomian Minimalny}
 
 Wielomian minimalny to wielomian $p_A(t)$, który spełnia warunek
 $p_A(A) = 0$, oraz którego współczynnik przy najniższej potędze wynosi 1.
