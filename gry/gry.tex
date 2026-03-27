@@ -201,4 +201,55 @@ doprowadzenie do drzewa rozpinającego, a konstruktora zapobiegnięcie.
 W grze, konstruktor ma strategię wygrywającą wtedy i tylko wtedy, gdy G posiada
 przynajmniej dwa krawędziowo rozłączne drzewa rozpinające
 
+\section{Gra w \texorpdfstring{$K_n$}{Kn}}
+
+Na planszy postaci grafu pełnego $K_n$ gracze na przemian malują krawędzie
+w swoim kolorze. Wygrywa ten, który pierwszy zbuduje $K_k$ w swoim kolorze.
+
+Jeśli $k = 3$, to dla $n \leq 4$ wartość gry to $1/2$, dla $n > 4$,
+wartość gry to $1$. Stąd, pierwszy z graczy ma strategię
+nieprzegrywającą. Można, to określić z kradzieży, dla każdego $k > 2$.
+
+Prawdziwie ciekawym pytaniem, jest to, dla jakiego $n$ remis jest możliwy,
+a dla jakiego nie?
+
+\section{Ramsey}
+
+Dowolnie malujemy krawędzie $K_n$ dwoma kolorami. Czy zawsze powstanie
+monochromatyczny trójkąt? Dla $n \leq 5$ nie, dla $n > 5$ tak. Czyli najmniejsze
+$n$, które prowadzi do gwarantowanego monochromatycznego trójkąta to 6.
+
+Liczba Ramseya $r(q_1, \dots, q_k)$, to najmniejsze $j$, dla którego przy
+dowolnym $k$-kolorowaniu krawędziowym, istnieje klika rozmiaru $q_i$, której
+wszystkie krawędzie są koloru $i$.
+$$
+r(3, 3) = 6
+$$
+Notacyjnie, $r(3, 3)$ zadaje pytanie, dla jakiego $j$ istnieje zawsze,
+niezaleznie od kolorowania, klika czerwona rozmiaru 3, lub niebieska rozmiaru 3.
+$$
+r(3, 3, 3) = 17 \neq r(3, 3)
+$$
+Dla trzy kolorowania mamy więcej kolorów, więcej potencjalnych kolorowań, więc
+oczywiście liczba musi być większa aby zagwarantować trójkąt.
+$$
+r(3, 4) = 9 \neq r(3, 3)
+$$
+Podobnie tutaj, gdzie pytamy jaka liczba gwarantuje, że dla dowolnego
+kolorowania, jakie $j$ gwarantuje, że jest klika czerwona rozmiaru $3$ lub
+niebieska rozmiaru $4$. Jest to zawężenie, bo jest mniej potencjalnych klik
+rozmiaru $4$ na $K_n$.
+
+Dla dowolnego $a$ i $b$ zawsze istnieje $r(a, b)$. Piszemy $K_n \to (K_a, K_b)$,
+jeśli dla każdego kolorowania krawędzi $K_n$ dwoma kolorami, powstanie czerwona
+$K_a$, lub niebieska $K_b$.
+
+Ponieważ istnieje bijekcja, między kolorowaniami na $K_n$, a stanami gry
+w $K_n$, to można wnioskować, że jeśli $r(k, k) = n$, to strategię
+wygrywającą ma gracz pierwszy i remis jest niemożliwy.
+
+$$
+r(a, b) \leq r(a - 1, b) + r(a, b - 1)
+$$
+
 \end{document}
