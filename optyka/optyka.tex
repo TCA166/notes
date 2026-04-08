@@ -1,0 +1,189 @@
+\documentclass{../notatki}
+
+\title{Optyka z fotoniką}
+
+\begin{document}
+
+\section{Wektorowe operatory różniczkowe}
+
+Czas na powtórkę i wstęp z okropnej notacji fizycznej.
+$$
+\vec{f}: \mathbb{R}^3 \to \mathbb{R}^3
+$$
+$$
+\vec{f}(x, y, z) = f_x \hat{i} + f_y \hat{j} + f_z \hat{k}
+$$
+
+\subsection{Gradient}
+
+$$
+\nabla \vec{f}(x, y, z) =
+\hat{i} \frac{\partial f}{\partial x}(x, y,z) +
+\hat{j} \frac{\partial f}{\partial y}(x, y, z) +
+\hat{k} \frac{\partial f}{\partial z}(x, y, z)
+\in \mathbb{R}^3
+$$
+
+\subsection{Dywergencja}
+
+$$
+\nabla \cdot \vec{f} = \frac{\partial f_x}{\partial x} + \frac{\partial
+f_y}{\partial y} + \frac{\partial f_z}{\partial z}
+\in \mathbb{R}
+$$
+
+Mierzy jak bardzo pole wektorowe
+
+\subsection{Rotacja}
+
+$$
+\nabla \times \vec{f}(x, y, z) =
+\begin{vmatrix}
+
+  \hat{i} & \hat{j} & \hat{k} \\
+  \frac{\partial}{\partial x} & \frac{\partial}{\partial y} &
+  \frac{\partial}{\partial z} \\
+  f_x(x, y, z) & f_y(x, y, z) & f_z(x, y, z)
+
+\end{vmatrix}
+$$
+
+\subsection{Zależności}
+
+$$
+\nabla \cdot (\nabla \times \vec{f}) = 0
+$$
+$$
+\nabla \times (\nabla f) = 0
+$$
+$$
+\nabla \times (\nabla \times \vec{f}) = \nabla(\nabla \cdot \vec{f})
+- \Delta \vec{f}
+$$
+
+\subsection{Laplasjan}
+
+$$
+\nabla \cdot (\nabla f(x, y, z)) \equiv \nabla ^2 f(x, y, z) =
+\Delta f(x, y, z) =
+\frac{\partial^2 f}{\partial^2 x}(x, y, z) +
+\frac{\partial^2 f}{\partial^2 y}(x, y, z) +
+\frac{\partial^2 f}{\partial^2 z}(x, y, z)
+$$
+
+\subsection{Iloczyn wektorowy}
+
+$$
+\vec{c} = \vec{a} \times \vec{b} =
+\begin{vmatrix}
+  \hat{i} & \hat{j} & \hat{k} \\
+  a_x & a_y & a_z \\
+  b_x & b_y & b_z
+\end{vmatrix}
+$$
+
+\subsection{Twierdzenie Gaussa-Ostrogradskiego}
+
+$$
+\int_V \nabla \cdot \vec{f} dx dy dz = \oint_A \vec{f} \cdot \vec{dA}
+$$
+Całka po objętości $V$ z dywergencji, jest równa całce z powierzchni otaczającej
+daną objętość.
+
+\subsection{Twierdzenie Stokesa}
+
+$$
+\oint_C \vec{f} \cdot \vec{dl} = \int_A (\nabla \times \vec{f}) \cdot \vec{dA}
+$$
+gdzie $C$ to dowolna krzywa, a A to powierzchnia dowolnego otwartego obszaru
+ograniczonego krzywą C.
+
+\section{Równania Maxwella}
+
+\subsection{Prawo Faradaya}
+
+$$
+\oint_L \vec{E} \vec{dl} = - \frac{\partial \phi_B}{\partial t} = -
+\frac{d}{dt} \int_S \vec{B} \vec{ds}
+$$
+gdzie $\vec{E}$ to natężenie pola elektrycznego, $L$ to dowolna zamknięta
+krzywa, $\phi_B$ to strumień indukcji przez powierzchnię $S$ rozpinającą $L$,
+a $\vec{B}$ to indukcja pola magnetycznego.
+
+$$
+\nabla \times \vec{E} = - \frac{\partial \vec{B}}{\partial t}
+$$
+
+\subsection{Prawo Amper'a}
+
+$$
+\oint_L \vec{B} \vec{dl} = \mu I + \mu \epsilon \frac{\partial
+\phi_E}{\partial t} = \mu I + \mu \epsilon \frac{d
+}{dt} \int_S \vec{E} \vec{ds}
+$$
+gdzie $I$ to całkowity prąd elektryczny przepływający przez dowolną powierzchnię
+$S$ rozpinającą $L$, $\mu$ i $\epsilon$ to stałe.
+
+$$
+\nabla \times \vec{B} = \mu \vec{g} + \mu \epsilon \frac{\partial
+\vec{E}}{\partial t}
+$$
+gdzie $\vec{g}$ to gęstość prądu elektrycznego.
+
+\subsection{Prawo Gaussa}
+
+$$
+\epsilon \phi_E = \epsilon \oint_S \vec{E} \vec{ds} = q
+$$
+gdzie $\phi_E$ to strumień pola elektrycznego przez dowolną zamkniętą
+powierzchnię $S$, a $q$ to całkowity ładunek zawarty wewnątrz tej powierzchni.
+
+$$
+\epsilon \nabla \cdot \vec{E} = \rho
+$$
+gdzie $\rho$ to gęstość ładunku elektrycznego.
+
+\subsection{Prawo Gaussa dla magnetyzmu}
+
+$$
+\phi_B = \oint_S \vec{B} \vec{ds}  = 0
+$$
+
+$$
+\nabla \times \vec{B} = 0
+$$
+
+\section{Wektor Poyntinga}
+
+$$
+\vec{S} = \frac{1}{\mu_0}(\vec{E} \times \vec{B})
+$$
+
+\section{Funkcje falowe}
+
+Funckja falowa, ma postać ogólną:
+$$
+f(x, t) = A \sin(kx + \omega t)
+$$
+lub
+$$
+f(x, t) = Ae^{i(kz - \omega t)}
+$$
+
+$$
+\omega = 2 \pi f \quad\left[\frac{\textrm{rad}}{\textrm{s}}\right]
+$$
+$$
+f = 1/T \quad\left[\textrm{Hz}\right] \text{lub} \left[\textrm{s}^{-1}\right]
+$$
+$$
+k = \frac{2 \pi}{\lambda} \quad\left[\frac{\textrm{rad}}{\textrm{m}}\right]
+$$
+$$
+\lambda = \frac{v}{f} \quad[\textrm{m}]
+$$
+$$
+v = f\lambda = \frac{\omega}{k} \quad\left[\frac{\textrm{m}}{\textrm{s}}\right]
+$$
+
+\end{document}
