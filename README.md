@@ -42,4 +42,6 @@ skompilowane pliki `.pdf`.
   2"(04-S3INK03-P04804)
 - [kwantowa.pdf](fizyka-kwantowa/kwantowa.pdf) "Podstawy fizyki kwantowej"
   (04-S3INK03-P02166)
-  - [algebra2.pdf](algebra2/algebra2.pdf) "Algebra liniowa z zastosowaniami 2. Podstawy obliczeń kwantowych" (04-S3INK03-P04812)
+- [algebra2.pdf](algebra2/algebra2.pdf) "Algebra liniowa z zastosowaniami 2. Podstawy obliczeń kwantowych" (04-S3INK03-P04812)
+- [optyka.pdf](optyka/optyka.pdf) "Optyka z fotoniką" (04-S3INK04-P02420)
+- [termodynamika.pdf](termodynamika/termodynamika.pdf) "Termodynamika i podstawy fizyki statystycznej" (04-S3INK04-P02157)
