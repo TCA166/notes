@@ -223,8 +223,9 @@ gracze po kolei malują na zmiane po jednej krawędzi. Wygrywa Konstruktor,
 jeśli powstanie ścieżka o końcach $a, b$; Destruktor przegrywa w takim
 przypadku.
 
-W grze, konstruktor ma strategię wygrywającą wtedy i tylko wtedy, gdy G posiada
-przynajmniej dwa krawędziowo rozłączne drzewa rozpinające
+W grze, konstruktor ma strategię wygrywającą wtedy i tylko wtedy, gdy
+jakiś podgraf G (może też G) posiada
+przynajmniej dwa krawędziowo rozłączne drzewa rozpinające.
 
 \section{Gra w spójność}
 
@@ -232,7 +233,7 @@ Jest to gra podobna do gry shannona, tylko, że celem konstruktora jest
 doprowadzenie do drzewa rozpinającego, a konstruktora zapobiegnięcie.
 
 W grze, konstruktor ma strategię wygrywającą wtedy i tylko wtedy, gdy G posiada
-przynajmniej dwa krawędziowo rozłączne drzewa rozpinające
+przynajmniej dwa krawędziowo rozłączne drzewa rozpinające.
 
 \section{Bridge-it}
 
@@ -289,6 +290,11 @@ wygrywającą ma gracz pierwszy i remis jest niemożliwy.
 
 $$
 r(a, b) \leq r(a - 1, b) + r(a, b - 1)
+$$
+
+$$
+r(k_1, \dots, k_r) \leq \sum_{i=1}^{r} r(k_1, \dots, k_i - 1, \dots
+k_r) - (r - 2)
 $$
 
 \end{document}
