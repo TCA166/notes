@@ -244,4 +244,274 @@ $\mathbb{C}$ jest podobna do macierzy klatkowo-diagonalnej. Macierz klatkowo
 diagonalną można zdefiniować jako macierz diagonalną, z kolejnymi
 $J_1, \dots J_k$ na diagonali.
 
+\section{Przestrzenie Hilberta}
+
+\textit{Nie wiem kim był ten Hilbert, że potrzebował tyle przestrzeni, ale na
+pewno był \textbf{wielkim} człowiekiem.}
+
+\subsection{Iloczyn skalarny}
+
+Dla przestrzeni wektorowej $V$ nad ciałem $K$, iloczynem skalarnym nazywamy
+odwzorowanie $\braket{\cdot}{\cdot} : V \times V \to K$, spełniające warunki:
+\begin{enumerate}
+  \item $\braket{x}{y} = \overline{\braket{y}{x}}$
+  \item $\braket{x}{\alpha y + \beta z} = \alpha \braket{x}{y} + \beta
+    \braket{x}{z}$
+  \item $\braket{x}{y} = 0 \rightarrow x = 0$
+  \item $\braket{x}{y} \geq 0$
+\end{enumerate}
+
+\subsubsection{Iloczyn zewnętrzny}
+
+Iloczynem zewnętrznym $\otimes: V \times W \to L(V, W)$ nazywamy odwzorowanie
+liniowe $V \to W$, zadane przez $(v \otimes w)(x) = \braket{v}{x}w$
+
+\subsection{Przestrzeń dualna}
+
+Dla przestrzeni wektorowej $V$ nad ciałem $K$,
+zbiór wszystkich odwzorowań liniowych $T: V \to K$, zwanych
+funkcjonałami liniowymi, nazywamy przestrzenią dualną $V$ i oznaczamy $V^*$.
+
+Bardzo prostym funkcjonałem liniowym jest, na przykład:
+$$
+f_z(x) = \braket{z}{x}
+$$
+Jeśli zdefiniujemy odwzorowanie $i: V \to V^*$, $i(z) = f_z$,
+czyli takie zwracające dla każdego wektora $x$, funkcjonał liniowy zwracający
+wartość iloczynu skalarnego z danym wektorem, to możemy powiedzieć, że $i(z)$
+jest izomorfizmem.
+
+\subsection{Normy}
+
+Dla przestrzeni wektorowej $V$ nad ciałem $K$,
+odwzorowanie $||\cdot||: V \to [0, \infty)$, nazywamy normą, jesli spełnia
+następujące warunki:
+\begin{enumerate}
+  \item $||x|| = 0 \leftrightarrow x = 0$
+  \item $||\alpha x || = |\alpha | ||x||$
+  \item $||x + y|| \leq ||x|| + ||y||$
+\end{enumerate}
+Normy też spełniają drugą nierówność trójkąta:
+$$
+| ||x|| - ||y|| | \leq ||x - y||
+$$
+
+\subsubsection{Norma indukowana}
+
+Jeżeli $V$ jest przestrzenią wektorową z iloczynem skalarnym
+$\braket{\cdot}{\cdot}$ to:
+$$
+||x|| = \sqrt{\braket{x}{x}}
+$$
+jest normą indukowaną przez iloczyn skalarny.
+
+Normy indukowane spełniają regułę równoległoboku:
+$$
+2 ||x||^2 + 2||y||^2 = ||x + y||^2 + ||x - y||^2
+$$
+
+\subsubsection{Nierówność Cauchy'ego-Schwarza}
+
+$$
+|\braket{x}{y}| \leq ||x|| ||y||
+$$
+
+Kątem $\theta$ pomiędzy $x$ i $y$ nazywamy:
+$$
+\braket{x}{y} = ||x|| ||y|| \cos \theta
+$$
+Jeśli $|\braket{x}{y}| = 0$, to mówimy, że $x$ i $y$ są ortogonalne.
+
+\subsection{Przekształcenie unitarne}
+
+Przekształcenie liniowe $U: V \to W$, przestrzeni wektorowych $V$ i $W$ nad
+ciałem $K$, nazywamy unitarnym (ortogonalnym), jeśli dla dowolnych $x, y \in V$
+zachodzi $\braket{Ux}{Uy}_W = \braket{x}{y}_V$. Macierz przekształcenia $U$
+jest unitarna.
+
+Przekształcenia unitarne i ortogonalne zachowują kąty między wektorami.
+Klasycznym, zatem przekształceniem jest ortogonalnym jest macierz obrotu.
+
+Jeśli $||Tv||_W = ||v||V$, to $T$ nazywamy izometrią. Przekształcenia unitarne
+i ortogonalne są izometriami.
+
+\subsection{Metryka}
+
+Dla przestrzeni wektorowej $V$, metryką nazywamy funkcję $d: V \times
+V \to [0, \infty)$, spełniającą warunki:
+\begin{enumerate}
+  \item $d(a, b) = 0 \leftrightarrow a = b$
+  \item $d(a, b) = d(b, a)$
+  \item $d(a, b) \leq d(a, c) + d(b, c)$
+\end{enumerate}
+
+Metrykę zadaną przez $d(x, y) = ||x - y||$ nazywamy metryką
+indukowaną przez normę.
+
+\subsection{Przestrzeń zupełna}
+
+Niech $a_i$ będzie ciągiem elementów przestrzeni metrycznej $(X, d)$. Mówimy, że
+ten ciąg jest ciągiem Cauchy'ego, jeśli:
+$$
+\forall_{\epsilon > 0} \exists_{N \in \mathbb{N}} \forall_{m, n > N}
+d(a_m, a_n) < \epsilon
+$$
+lub, dla każdego epsilona, istnieje takie $N$, po którym wszystkie elementy
+są bliżej do siebie nawzajem niż ten epsilon.
+
+Przestrzeń wektorową z metryką nazywamy przestrzenią zupełną, jesli każdy
+zdefiniowany w niej ciąg Cauchy'ego ma granicę należącą do tej przestrzeni.
+
+Dwie normy $||\cdot||_A$ i $||\cdot||_B$ zdefiniowane na przestrzeni $V$
+nazywamy równoważnymi, jeśli istnieją takie stałe $c, C > 0$, że dla każdego
+$v \in V c||v||_A \leq ||v||_B \leq C||v||_A$
+
+\subsection{Definicja}
+
+Przestrzeń wektorowa nad ciałem liczb rzeczwistych lub zespolonych z iloczynem
+skalarnym indukującym metrykę zupełną nazywamy przestrzenią Hilberta.
+
+\subsection{Macierze gęstości}
+
+Macierzą gęstości (operatorem stanu) nazywamy operator $\rho$ spełniający:
+\begin{enumerate}
+  \item $\rho = \rho^\dag$
+  \item $\rho \geq 0$
+  \item $\tr \rho = 1$
+\end{enumerate}
+
+Stan mieszany to wypukła kombinacja stanów czystych:
+$$
+\rho = \sum_i p_i \ketbra{\psi_i}{\psi_i}
+$$
+gdzie, oczwywiście, z definicji fizycznej; $p_i \geq 0$ i $\sum_i p_i = 1$.
+
+Stan jest czysty wtedy i tylko wtedy gdy:
+$$
+\tr(\rho^2) = 1
+$$
+Dla stanów mieszanych $\tr(\rho^2) < 1$.
+
+Pomiar rzutowy opisuje zbiór ortogonalnych projektorów $\{P_i : P_i =
+\ketbra{i}{i}\}$, spełniających relację zupełności: $\sum_i P_i = I$.
+Prawdopodobieństwo uzyskania wyniku $i$, $p(i) =
+\bra{\psi}P_i\ket{\psi} = |\braket{i}{\psi}|^2$.
+
+Wartość średnią obserwabli $A$ w stanie $\rho$ obliczamy jako:
+$$
+\langle A \rangle = \tr(\rho A)
+$$
+
+\subsubsection{Sfera Blocha}
+
+Dowolną macierz gęstości kubitu można zapisać jako:
+$$
+\rho = \frac{1}{2}(I + x\sigma_x + y\sigma_y + z\sigma_z) =
+\frac{1}{2}(I + \vec{r} \cdot \vec{q})
+$$
+$\vec{r}$ nazywamy wektorem Blocha, a $\sigma$ to macierze Pauliego.
+
+\section{Ortogonalizacja Grama-Schmidta}
+
+Dany jest niezależny zbiór wektorów $\{v_1, v_2, \dots, v_n\}$. Ta procedura
+pozwala zmienić go w zbiór wektorów parami ortogonalnych.
+\begin{enumerate}
+  \item $u_1 = v_1$
+  \item $u_k = v_k - \sum_{j=1}^{k - 1}
+    \frac{\braket{u_j}{v_k}}{\braket{u_j}{u_j}}u_j$
+  \item Wektory $\{u_k\}$ są ortogonalne, aby stworzyć z nich bazę, trzeba
+    je znormalizować $e_k = \frac{u_k}{||u_k||}$
+\end{enumerate}
+
+\section{Rozkład QR}
+
+Dla macierzy $A \in \mathbb{C}^{m \times n}$ jej rozkład QR to faktoryzacja:
+$$
+A = QR
+$$
+gdzie $Q \in \mathbb{C}^{m \times n}$ jest macierzą z ortonormalnymi kolumnami,
+a $R \in \mathbb{C}^{n \times n}$ jest macierzą górnotrójkątną.
+Jeżeli $A$ jest kwadratowa to $Q$ jest unitarna.
+
+\section{Normy macierzowe}
+
+Normę operatorową $||\cdot||$ nazywamy normę macierzową indukowaną przez normę
+wektorową $||A|| = \max_{x \neq 0} \frac{||A_x||}{||x||} =
+\max_{||x||=1}||Ax||$.
+
+\subsection{Własności}
+
+\begin{itemize}
+  \item Normę macierzową $||\cdot||$ nazywamy semimultiplykatywną
+    jeśli dla wszystkich macierzy kwadratowych $A$ i $B$ mamy $||AB||
+    \leq ||A|| ||B||$.
+  \item  Każda semimultiplikatywna norma macierzowa $||\cdot||$ jest zgodna z
+    pewną normą wektorową $||\cdot||_W$, czyli $||Ax||_W \leq ||A|| ||x||_W$
+\end{itemize}
+
+\subsection{Wskaźnik uwarunkowania macierzy}
+
+$$
+\kappa(A) = ||A|| \cdot ||A^{-1}||
+$$
+Można interpretować $\kappa(A)$ jako miarę wrażliwości rozwiązania układu
+$Ax = b$ na zaburzenia w $A$ i $b$.
+
+\section{Iloczyn Tensorowy}
+
+Niech $V$ i $W$ będą przestrzeniami wektorowymi o bazach:
+$\{\ket{e_1}, \ket{e_2}, \dots, \ket{e_n}\}$, oraz $\{\ket{f_1},
+\ket{f_2}, \dots, \ket{f_m}\}$. Ich iloczyn tensorowy $V \otimes W$
+jest przestrzenią o bazie:
+$$
+\{\ket{e_i} \otimes \ket{f_j} : 1 \leq i \leq n, 1 \leq j \leq m\}
+$$
+Czasami stosuje się skróconą notację:
+$$
+\ket{e_i} \otimes \ket{f_j} \equiv \ket{e_i}\ket{e_j} \equiv \ket{e_i f_j}
+$$
+
+\subsection{Stany splątane}
+
+Układ kwantowy, opisany przez stan $\ket{\psi} \in \mathcal{H}_A
+\otimes \mathcal{H}_B$ jest splątany, jeśli nie da się go zapisać w postaci
+iloczynu tensorowego:
+$$
+\ket{\psi} \neq \ket{\psi_A} \otimes \ket{\psi_B}
+$$
+Stany, które można zapisać w tej postaci, nazywamy separowalnymi lub
+produktowymi.
+
+\subsection{Iloczyn Kroneckera}
+
+Dla macierzy $A \in \mathbb{C}^{m \times n}$ oraz $B \in
+\mathbb{C}^{p \times q}$ iloczyn Kroneckera $A \otimes B$ jest macierzą o
+wymiarach $mp \times nq$, zdefiniowaną jako:
+$$
+A \otimes B =
+\begin{bmatrix}
+  a_{11}B & a_{12}B & \cdots & a_{1n}B \\
+  a_{21}B & a_{22}B & \cdots & a_{2n}B \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{m1}B & a_{m2}B & \cdots & a_{mn}B
+\end{bmatrix}
+$$
+
+\subsection{Wyśladowywanie podukładu}
+
+Dla stanu gęstości $\rho_{AB}$ układu złożonego $A \otimes B$, partial trace
+względem podukładu $B$ definiujemy jako:
+$$
+\rho_A = \Tr_B(\rho_{AB}) = \sum_j (\mathbb{I}_A \otimes \bra{j})
+\rho_{AB} (\mathbb{I}_A \otimes \ket{j})
+$$
+
+\subsection{Miary splątania}
+
+Miarę splątania układu $AB$ zwaną entropią (von Neumanna) splątania liczymy
+jako:
+$$
+S(\rho_A) = -\tr(\rho_A \log \rho_A)
+$$
+
 \end{document}
