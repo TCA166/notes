@@ -514,4 +514,90 @@ $$
 S(\rho_A) = -\tr(\rho_A \log \rho_A)
 $$
 
+\section{Forma Kwadratowa}
+
+Forma kwadratowa $q$ na przestrzeni wektorowej $V$ nad ciałem $K$ to funkcja
+$$
+q: V \to K
+$$
+dla której istnieje symetryczna forma dwuliniowa $B: V \times V \to K$
+spełniająca:
+$$
+q(v) = B(v, v) : v \in V
+$$
+$$
+B(v, w) = \frac{q(v + w) - q(v) - q(w)}{2}
+$$
+
+Macierzą formy kwadratowej $q$ nazywamy taką macierz, że $q(x) = x^TAx$.
+$A$ zawsze można dobrać, tak, aby była symetryczna, albowiem:
+$$
+A = \frac{A + A^T}{2} + \frac{A - A^T}{2}
+$$
+$$
+x^T \frac{A - A^T}{2}x = (x^T\frac{(A - A^T)^T}{2}x)^T = -x^T\frac{A
+- A^T}{2}x = 0
+$$
+
+\subsection{Określoność}
+
+Forma kwadratowa dana wzorem
+$$
+q(x) = x^T Ax
+$$
+gdzie $A$ jest symetryczna $n \times n$, jest:
+\begin{itemize}
+  \item dodatnio określona gdy $q(x) > 0 : x \neq 0$
+  \item ujemnie określona gdy $q(x) < 0 : x \neq 0$
+  \item nieokreślona gdy $q(x) > 0 \land q(y) < 0$
+  \item dodatnio półokreślona gdy $q(x) \geq 0$
+  \item ujemnie półokreślona gdy $q(x) \leq 0$
+\end{itemize}
+
+Alternatywnie, można rozważać określoność zależnie od wartości własnych $A$:
+\begin{itemize}
+  \item dodatnio określona jeśli $\lambda_i > 0$
+  \item ujemnie określona jeśli $\lambda_i < 0$
+  \item nieokreślona jeśli $\textrm{sgn}(\lambda_i) \neq
+    \textrm{sgn}(\lambda_j)$
+  \item półokreślona jeśli $\lambda_i \geq 0$ lub $\lambda_i \leq 0$
+\end{itemize}
+
+Na podstawie kryterium Sylvestera:
+\begin{itemize}
+  \item $q$ jest dodatnio określona jeśli wszystkie główne minory $A$
+    są dodatnie:
+    $$
+    \det(A_1) > 0, \dots, \det(A_n) > 0
+    $$
+  \item $q$ jest ujemnie określona jeśli minory są na przemian dodatnie i ujemne
+    $$
+    \det(A_1) < 0, \det(A_2) > 0, \dots
+    $$
+\end{itemize}
+
+\subsection{Postać diagonalna}
+
+Dla każdej formy kwadratowej $q = x^TAx$ o charakterystyce różnej od 2
+istnieje nieosobliwa macierz $S$ taka, że $S^TAS = \textrm{diag}(\lambda_1,
+\dots, \lambda_n)$. W przypadku, gdy $K = \mathbb{R}$, $S$ można zawsze dobrać,
+tak aby była ortogonalna.
+
+Macierze $A, B$ nazywamy kongruentnymi, jeżeli istnieje taka
+nieosobliwa macierz $C$, że $C^TAC = B$. Dowolne dwa nieosobliwe przekształcenia
+rzeczywistej formy kwadratowej $q = x^TAx$ do postaci diagonalnej
+$$
+S^TAS = \textrm{diag}(\lambda_1, \dots, \lambda_n)
+$$
+$$
+R^TAR = \textrm{diag}(\lambda_1', \dots, \lambda_n')
+$$
+prowadzą do jednakowej liczby dodatnich, ujemnych i zerowych
+elementów na diagonali.
+
+\section{Rozkład Cholesky'ego-Banachiewicza}
+
+Każdą rzeczywistą, symetryczną macierz dodatnio określonej formy kwadratowej
+można zapisać jako iloczyn macierzy dolnotrójkątnej i jej transpozycji
+
 \end{document}
