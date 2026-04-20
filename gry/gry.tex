@@ -297,4 +297,78 @@ r(k_1, \dots, k_r) \leq \sum_{i=1}^{r} r(k_1, \dots, k_i - 1, \dots
 k_r) - (r - 2)
 $$
 
+\section{Geometria Dyskretna}
+
+\subsection{Kółko i krzyżyk}
+
+Prostą grę w kółko i krzyżyk można zdefiniować abstrakcyjnie dla $n$ wymiarów.
+Klasyczna wersja jest dwu-wymiarowa; $[3]^2$, z $3 \times 3$ pól. Można sobie
+zatem wyobrazić wersję jedno-wymiarową $[3]^1$ z $3$ polami, albo $[3]^3$
+z $3 \times 3 \times 3$ polami.
+
+Zbiorem pól dla gry kółko i krzyżyk $[k]^n$ jest:
+$$
+\{(w_1, w_2, \dots w_n) : \forall_i w_i \in \{1, \dots, k\} \}
+$$
+czyli, po prostu, dyskretne punkty na planszy $\overbrace{k \times k
+\dots \times k}^n$.
+
+Dla takiej gry linia, to zbiór $k$ różnych punktów, takich, że kolejne
+$w_i$ dla rosnących $i$ tworzą ciągi o określnej monotoniczności; stałej,
+rosnącej lub malejącej. Ponieważ, współrzędne są symetryczne i abstrakcją,
+to można zamieniać kolejnościami. Zatem, dla $[3]^4$:
+$$
+3 \Bigg \{
+  \underbrace{
+    \begin{smallmatrix}
+      (2,& 1,& 3,& 1) \\
+      (2,& 2,& 2,& 2) \\
+      (2,& 3,& 1,& 3)
+    \end{smallmatrix}
+  }_4
+  =
+  \begin{smallmatrix}
+    (2,& 3,& 1,& 3) \\
+    (2,& 2,& 2,& 2) \\
+    (2,& 1,& 3,& 1)
+  \end{smallmatrix}
+  \quad
+  \cdots
+  \quad
+  \overbrace{
+    \begin{smallmatrix}
+      (w_1,& \cdots & w_n) \\
+      & \vspace{0.2em}\vdots &   \\
+      (w_1,& \cdots & w_n)
+    \end{smallmatrix}
+  }^n
+\Bigg \} k
+$$
+
+Wartością $[3]^2$ jest $1/2$, podobnie $[4]^2$. $[3]^3$, $[4]^3$ jak i
+$[3]^4$ mają wartość 1.
+
+Dla ogólnego problemu wartości $[k]^n$, możemy z kradzieży wywnioskować, że
+gracz drugi nigdy nie ma strategii wygrywającej. Stąd też wartość to albo
+$1/2$ lub $1$. Zatem, wartość gry $[k]^n$ sprowadza się do problemu tego,
+czy w grze jest remis.
+
+\subsubsection{Twierdzenie Halesa-Jewetta}
+
+Dla dowolnego $k \in \mathbb{N}$, istnieje $n \in mathbb{N}$, że przy dowolnym
+pokolorowaniu dwoma kolorami planszy $[k]^n$ powstanie monochromatyczna linia.
+
+Lub inaczej; jest $k$, dla którego przy odpowiednim $n$, nie da się
+zremisować. Najmniejsze takie $n$ oznaczamy $hj(k)$.
+\textbf{Uwaga na notację!}, $HJ(k) \neq hj(k)$.
+
+$$
+hj(3) = 3
+$$
+
+Jeśli $n \geq hj(k)$, to nie ma remisów w $[k]^n$, a co za tym idzie wartość
+gry musi być $1$.
+
+\subsection{Set}
+
 \end{document}
