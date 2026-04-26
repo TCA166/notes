@@ -120,7 +120,9 @@ $$
 \operatorname{Im} T = T(V) = \{w \in W: \exists_{v \in V} T(v) = w\}
 $$
 Intuicyjnie, obrazem jest kontrdziedzina przekształcenia; wszystkie wartości
-co może nam zwrócić.
+co może nam zwrócić. Aby znaleźć obraz macierzy, zawsze można sprawdzić, czy jej
+wektory kolumnowe nie są liniowo niezależne, jeśli są, to tworzą one
+bazę obrazu, i obrazem jest dowolna ich kombinacja liniowa.
 
 $$
 \dim V = \dim \operatorname{Ker} T + \dim \operatorname{Im} T
@@ -152,15 +154,29 @@ $$
 (T - \lambda I)v_\lambda = 0
 $$
 
-Zbiór wszystkich wartości własnych $A$ nazywamy jej widmem (spektrum) i
-oznaczamy $\sigma(A)$.
-
 Wektor $\ket{m}$ nazywamy uogólnionym wektorem własnym rzędu $m$ macierzy $A$
 dla wartości własnej $\lambda$ jeśli $(A - \lambda I)^m \ket{m} = 0$, oraz
 $(A - \lambda I)^{m - 1} \ket{m} \neq 0$.
 $$
 \ket{n - 1} = (A - \lambda I) \ket{n}
 $$
+
+\subsection{Własności}
+
+Wartości własne macierzy:
+\begin{itemize}
+  \item rzeczywistych symetrycznych są rzeczywiste
+  \item hermitowskich też są rzeczywiste
+  \item antysymetrycznych i antyhermitowskich są czysto urojone
+  \item unitarnych są zespolone i $|\lambda| = 1$
+\end{itemize}
+
+Wektory własne macierzy normalnych są ortogonalne, lub ortonormalne, więc
+można z nich zbudować bazę. To oznacza, że można je zawsze diagonalizować,
+i diagonalizacja jest wyrażeniem tych macierzy w bazie swoich wektorów własnych.
+
+Zbiór wszystkich wartości własnych $A$ nazywamy jej widmem (spektrum) i
+oznaczamy $\sigma(A)$.
 
 \subsection{Twierdzenie Gerszgorina}
 
@@ -234,10 +250,31 @@ Macierz można zdiagonalizować tylko jeśli:
     krotności algebraicznej
 \end{itemize}
 
+\subsubsection{Komutacja}
+
 Macierze można jednocześnie diagonalizować, tylko jeśli ze sobą komutują:
-$AB = BA$. Jednoczesna diagonalizacja oznacza istnienie jednej bazy
-ortonormalnej, w której obie macierze przyjmują postać diagonalną.
+$AB = BA$, $[A, B] = 0$. Jednoczesna diagonalizacja oznacza istnienie
+jednej bazy ortonormalnej, w której obie macierze przyjmują postać diagonalną.
 Wektory tej bazy są więc wektorami własnymi zarówno A, jak i B.
+
+Zatem, jeśli mamy dwie komutujące macierze $[A, B] = 0$, to wiemy, że istnieje
+macierz $S$, która:
+$$
+S^{-1}AS = \textrm{diag}(\lambda_{1}(A), \dots) \quad S^{-1}BS =
+\textrm{diag}(\lambda_1(B), \dots)
+$$
+Wiemy też, że $B$ i $A$ mają zbiór wspólnych wektorów własnych, oraz, że $S$
+to zestawienie kolumnowe tych właśnie wspólnych wektorów własnych.
+
+\subsubsection{Funkcje macierzowe}
+
+Jeżeli funkcja ma rozwinięcie w szereg, jak np.: $e^x$, to można założyć, że:
+$$
+e^A = \textrm{diag}(e^\lambda_1, \dots)
+$$
+$$
+\sin A = \textrm{diag}(\sin \lambda_1, \dots)
+$$
 
 \section{Klatka Jordana}
 
@@ -451,6 +488,29 @@ gdzie $Q \in \mathbb{C}^{m \times n}$ jest macierzą z ortonormalnymi kolumnami,
 a $R \in \mathbb{C}^{n \times n}$ jest macierzą górnotrójkątną.
 Jeżeli $A$ jest kwadratowa to $Q$ jest unitarna.
 
+\subsection{Ortogonalizacja Grama-Schmidta}
+
+Niech $A = \left[a_1, a_2, \dots, a_n\right]$, gdzie $a_i$ to kolejne kolumny.
+Wtedy:
+$$
+\begin{smallmatrix}
+  u_1 = a_1, & q_1 = \frac{u_1}{||u_1||} \\
+  u_2 = a_2 - \braket{q_1}{a_2}q_1, & q_2 = \frac{u_2}{||u_2||} \\
+  u_3 = a_3 - \braket{q_1}{a_3}q_1 - \braket{q_2}{a_3}q_2, & q_3 =
+  \frac{u_3}{||u_3||}\\
+  \vspace{0.2em}\vdots & \\
+  u_n = a_n - \sum_{i = 1}^{n - 1} \braket{q_i}{a_n} q_i, & q_n =
+  \frac{u_n}{||u_n||}
+\end{smallmatrix}
+$$
+$Q = \left[q_1, q_2, \dots, q_n\right]$, a $R = Q^\dag A$
+
+\subsection{Wyznaczanie wartości własnych}
+
+$$
+A = Q_1R_1
+$$
+
 \section{Normy macierzowe}
 
 Normę operatorową $||\cdot||$ nazywamy normę macierzową indukowaną przez normę
@@ -616,9 +676,149 @@ $$
 prowadzą do jednakowej liczby dodatnich, ujemnych i zerowych
 elementów na diagonali.
 
-\section{Rozkład Cholesky'ego-Banachiewicza}
+\section{Rozkład LU}
+
+Wiodącym minorem głównym $M_l$ nazywamy wyznacznik z kwadratowego
+lewego górnego rogu macierzy o pewnym rozmiarze $l \leq n$. $M_n(A) = \det A$.
+
+$$
+A =
+\begin{bmatrix}
+  a_{11} & a_{12} & \cdots & a_{1n} \\
+  a_{21} & a_{22} & \cdots & a_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{n1} & a_{n2} & \cdots & a_{nn} \\
+\end{bmatrix}
+\quad
+M_1(A) = \left[a_{11}\right],
+\quad
+M_2(A) =
+\begin{vmatrix}
+  a_{11} & a_{12} \\
+  a_{21} & a_{22} \\
+\end{vmatrix},
+\quad
+\dots
+\quad
+M_l(A) =
+\begin{vmatrix}
+  a_{11} & a_{12} & \cdots & a_{1l} \\
+  a_{21} & a_{22} & \cdots & a_{2l} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{l1} & a_{l2} & \cdots & a_{ll} \\
+\end{vmatrix}
+$$
+
+Jeżeli wszystkie $M_l$ macierzy kwadratowej $A$ są niezerowe, to $A$ można
+jednoznacznie rozłożyć na iloczyn macierzy dolnotrójkątnej $L$, i
+górnotrójkątnej $U$.
+
+$$
+A =
+\begin{bmatrix}
+  a_{11} & a_{12} & \cdots & a_{1n} \\
+  a_{21} & a_{22} & \cdots & a_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{n1} & a_{n2} & \cdots & a_{nn} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  1 & 0 & \cdots & 0 \\
+  l_{21} & 1 & \cdots & 0 \\
+  \vdots & \vdots & \ddots & \vdots \\
+  l_{n1} & l_{n2} & \cdots & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+  u_{11} & u_{12} & \cdots & u_{1n} \\
+  0 & u_{22} & \cdots & u_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  0 & 0 & \cdots & u_{nn} \\
+\end{bmatrix}
+$$
+
+$$
+u_{11} = a_{11}, \quad a_{21} = l_{21}u_{11}
+$$
+
+\subsection{Kryterium Sylvestra}
+
+Minorem głównym (nie-wiodącym) jest wyznacznik z macierzy bez $i$-tego wiersza
+i kolumny. Minory wiodące główne, też są konwencjonalnie główne, albowiem
+są zwykłymi minorami głównymi, z $i = \{j : j > l\}$.
+
+Jest to zbiór kryteriów, które pozwalają na podstawie wiodących minorów głównych
+$M_l$ określić określoność macierzy symetrycznej $A$:
+\begin{itemize}
+  \item dodatnio określona $\leftrightarrow M_l > 0 : l \leq n$
+  \item ujemnie określona $\leftrightarrow M_1 < 0 \land M_2 > 0, M_3
+    < 0, \dots$
+  \item dodatnio półkokreślona $\leftrightarrow$ wszystkie minory
+    główne są nieujemne
+  \item ujemnie półokreślona $\leftrightarrow$ wszystkie minory główne rzędu
+    nieparzystego są nieujemne
+  \item  nieokreślona w p.p.
+\end{itemize}
+
+\subsection{Rozkład Cholesky'ego-Banachiewicza}
 
 Każdą rzeczywistą, symetryczną macierz dodatnio określonej formy kwadratowej
-można zapisać jako iloczyn macierzy dolnotrójkątnej i jej transpozycji
+można zapisać jako iloczyn macierzy dolnotrójkątnej i jej transpozycji, co
+znacznie upraszcza operację znajdowania $LU$.
+
+\subsubsection{Własności macierzy dolnotrójkątnych}
+
+\begin{itemize}
+  \item $L^{-1}$ też jest dolnotrójkątna
+  \item $(LL^T)^{-1} = (L^T)^{-1}L^{-1} \quad (LL')^{-1} = L'^{-1}L^{-1}$
+  \item Rozwiązywanie $Lx = b$ jest trywialne, przez strukturę $L$
+    $$
+    \begin{bmatrix}
+      1 & 0 & \cdots & 0 \\
+      l_{21} & 1 & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      l_{n1} & l_{n2} & \cdots & 1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+      x_1 \\
+      x_2 \\
+      \vdots \\
+      x_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      b_1 \\
+      b_2 \\
+      \vdots \\
+      b_n
+    \end{bmatrix}
+    \quad
+    \Rightarrow
+    \quad
+    \begin{smallmatrix}
+      1 \cdot x_1 = b_1 \\
+      l_{21} x_1 + x_2 = b_2 \\
+      \vspace{0.2em}\vdots \\
+      l_{n1} x_1 + l_{n2} x_2 + \dots + x_n = b_n
+    \end{smallmatrix}
+    \Rightarrow
+    \begin{smallmatrix}
+      x_1 = b_1 \\
+      x_2 = b_2 - l_{21} b_1\\
+      \vspace{0.2em}\vdots \\
+      x_n = b_n - l_{n1} x_1 - l_{n2} x_2 - \dots
+    \end{smallmatrix}
+    $$
+  \item Z powyższego, widać też, że rozwiązywanie $L^Tx = b
+    \Rightarrow Ux=b$ jest trywialne
+\end{itemize}
+
+\subsection{Równania}
+
+$$
+B = LL^T
+$$
+$$
+Bx = b \Rightarrow LL^Tx = b \Rightarrow \mathbf{Ly = b \quad L^Tx = y}
+$$
 
 \end{document}
