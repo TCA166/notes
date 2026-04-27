@@ -299,6 +299,11 @@ $$
 
 \section{Geometria Dyskretna}
 
+Większość gier opiera się o jakąś abstrakcyjną definicję. Na
+przykład, hex, określony dla planszy rozmiaru $n \in \mathbb{N}$. Tutaj będziemy
+rozważać gry określone dla większej ilości dyskretnych parametrów, z czego
+się pojawia geometria dyskretna.
+
 \subsection{Kółko i krzyżyk}
 
 Prostą grę w kółko i krzyżyk można zdefiniować abstrakcyjnie dla $n$ wymiarów.
@@ -370,5 +375,78 @@ Jeśli $n \geq hj(k)$, to nie ma remisów w $[k]^n$, a co za tym idzie wartość
 gry musi być $1$.
 
 \subsection{Set}
+
+\section{Gry KK vs KD}
+
+W zależności od definicji gry, można zdefiniować jej alternatywną wersję
+ze zmodyfikowanym celem gry graczy. Np.: Hex to gra Konstruktor-Konstruktor(KK),
+lecz, można zdefiniować jej wersję alternatywną
+Konstruktor-Destruktor(KD), w której celem gracza 2 nie jest
+zbudowanie połączenia, lecz zapobiegnięcie zbudowania połączenia przez gracza 1.
+
+W krach KD zwyczajowo zaczyna konstruktor, chyba, że to gra Shannona, albowiem
+zwyczaj.
+
+W grach KD, jeśli destruktor ma strategię nieprzegrywającą w
+wariancie KK, to ma też wygrywającą w KD, albowiem remis, brak
+legalnego ruchu, jest jego stanem wygrywającym.
+
+W grach KD, jeśli destruktor ma strategię nieprzegrywającą strategię ruchów
+odp, to jest to strategia wygrywająca.
+
+Hex absolutnie się nie zmienia na skutek KK$\to$KD. Dla KK: $[3]^2 =
+1$, $[5]^2 = 0$, $[n]^d = 1 : d \geq hj(n)$. Co więcej, jeśli $[n]^d = 1$, to
+$[n]^{d + 1} = 1$.
+
+\subsection{Definicja}
+
+W ogóle, gra KD jest zdefiniowana jako $(X, \mathcal{W}), \forall_{w
+\in \mathcal{W}} w \subset X$, czyli pewien zbiór elementów, wraz z zbiorem
+wygrywających elementów. Wygrywa Konstruktor, gdy którykolwiek $w \in
+\mathcal{W}$ jest koloru konstruktora. W przypadku Gry Shannona, $X$
+to krawędzie, a $\mathcal{W}$ to ścieżki łączącej $A$ i $B$.
+
+\subsection{Wizualizacja}
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[thick] (0,0) ellipse (2.5 and 1.5)
+    node[above=1.5cm] {$w_1 \subset X$};
+    \draw[thick] (1.5,0) ellipse (2.5 and 1.5)
+    node[above=1.5cm] {$w_2 \subset X$};
+
+    % Subset inside A
+    \draw[thick] (-0.7,0) ellipse (1 and 0.6)
+    node[below=0.5cm] {$w_3 \subset X$};
+
+    % Items as nodes
+    \node[circle,draw,fill=white] (a) at (-1.3,0.1) {$a$};
+    \node[circle,draw,fill=white] (b) at (-0.2,-0.1) {$b$};
+    \node[circle,draw,fill=white] (c) at (1.4,0.2) {$c$};
+    \node[circle,draw,fill=white] (d) at (3,0.3) {$d$};
+    \node[circle,draw,fill=white] (e) at (0.5,-0.7) {$e$};
+  \end{tikzpicture}
+  \caption{Wizualizacja $(X, \mathcal{W})$ \label{fig:xw}}
+\end{figure}
+W takiej strukturze jak \cref{fig:xw}, zamiast rysować krawędzie,
+kolorujemy elementy $X$, czyli punkty wizualizacji. Jeśli jakiś podzbiór,
+"ziemniaczek" jak to zostało cudownie nazwane na wykładzie, będzie jednego
+koloru, to wygrywa Konstruktor.
+
+\subsection{Rachunek prawdopodobieństwa}
+
+Wyobraźmy sobie, że losowo każdy element z $X$ kolorujemy na 2 kolory.
+Ile będzie zbiorów czerwonych w $\mathcal{W}$? Mierzymy to jako zmienną losową
+$Z$.
+
+\subsubsection{Twierdzenie Erdosa-Selfridge'a}
+
+Jeśli $\mathbb{E}Z < 0.5$, to Destruktor ma strategię wygrywającą.
+
+$$
+\mathbb{E}Z = \sum_{w \in \mathcal{W}} \frac{1}{2^{|w|}}
+$$
+\textbf{Kryterium nie działa w drugą stronę}
 
 \end{document}
