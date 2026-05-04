@@ -166,8 +166,6 @@ ograniczają tabliczkę do kostek na lewo lub powyżej wcześniej wybranej;
 jakby odgryzali wszystko na prawo i w dół. Celem gry jest doprowadzenie
 przeciwnika do zjedzenia kostki w lewym górnym rogu.
 
-W chomp gracz I ma strategię wygrywającą na podstawie
-
 \section{Kradzież strategii}
 
 Jest to technika analizy gry, która polega na analizie potencjalnych strategii
@@ -448,5 +446,50 @@ $$
 \mathbb{E}Z = \sum_{w \in \mathcal{W}} \frac{1}{2^{|w|}}
 $$
 \textbf{Kryterium nie działa w drugą stronę}
+
+\section{Gry NIM}
+
+Gra NIM to każda gra, którą da się przedstawić w postaci następującego
+grafu skierowanego $G$, zwanego grafem NIM:
+\begin{itemize}
+  \item $V(G)$ jest zbiorem pozycji w grze
+  \item $(x, y) \in E(G)$ wtedy i tylko wtedy, gdy z pozycji $x$ gracz może
+    przejść w jednym ruchu do pozycji $y$
+  \item $G$ jest acykliczny (w skierowany sposób, więc cykle mogą
+    być, ale nie może być cykli skierowanych)
+  \item Istnieje jeden wierzhołek o stopniu wejścia 0, zwany pozycją startową
+\end{itemize}
+Z acykliczności wynika istnienie wierzchołka o stopniu wyjścia 0, będący pozycją
+końcową.
+
+\subsection{Przykłady}
+
+Szachy nie są grą NIM, bo są cykliczne (skoczek). Chomp i usuwanie
+monet są grami NIM.
+
+\subsection{Ocena pozycji}
+
+W grach NIM oceniamy pozycje w następujący sposób:
+\begin{itemize}
+  \item Jeśli gracz w danej pozycji przegrywa, to mówimy, że jest to pozycja P
+  \item Jeśli pozycja prowadzi do pozycji P, to jest R - rozstrzygająca
+  \item Jeśli wszyscy sąsiedzi wierzchołka są R, to jest to wierzchołek P
+\end{itemize}
+
+Każdemu wierzchołkowi grafu NIM można przypisać jednoznacznie, że jest P lub R.
+
+\subsection{Suma Gier}
+
+Dla zbioru wierzchołkowo rozłącznych grafów $G_1, G_2, \dots, G_n$ gier NIM,
+możemy zdefiniować nową grę tak, że ruch polega na wybraniu jednego $G_k$ i
+wykonaniu w nim ruchu. Przegrywa, kto nie ma ruchu, czyli w każdym $G_j$ została
+osiągnięta pozycja końcowa.
+
+Mówimy, że taka gra jest sumą gier NIM:
+$$
+G_1 + G_2 + \dots + G_n
+$$
+
+Aby określić wartość sumy gier, robimy XOR kolejnych wartości $G_k$.
 
 \end{document}
