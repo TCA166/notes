@@ -172,23 +172,29 @@ Jest to technika analizy gry, która polega na analizie potencjalnych strategii
 przeciwnika. Na przykład, pozwala nam udowodnić, że gracz ma strategię
 wygrywającą, nawet jeśli nie jest w stanie ją znaleźć samodzielnie.
 
-W Hex, nie ma remisów. W związku z tym, jak zakładamy, że gracz II ma strategię
-wygrywyającą, to gracz I musi nie mieć wygrywającej strategii. Można, jednak
-znaleźć sprzeczność w założeniach. Wyobraźmy sobie, że gracz I ma strategię
-gracza II. W takiej sytuacji, gracz I może zrobić jakiś losowy ruch, i potem
-po prostu podążać tą strategią wygrywającą gracza II. Napotkanie naszego
-wcześniejszego ruchu nie jest problemem - wystarczy, zrobić inny losowy ruch.
-To oznacza, że gracz I ma strategię wygrywającą - opartą na strategii gracza
-II. Sprzeczność, czyli gracz II nie ma strategii wygrywającej, czyli gracz I
-ma strategię wygrywającą.
+\begin{examplebox}
+  W Hex, nie ma remisów. W związku z tym, jak zakładamy, że gracz II
+  ma strategię
+  wygrywyającą, to gracz I musi nie mieć wygrywającej strategii. Można, jednak
+  znaleźć sprzeczność w założeniach. Wyobraźmy sobie, że gracz I ma strategię
+  gracza II. W takiej sytuacji, gracz I może zrobić jakiś losowy ruch, i potem
+  po prostu podążać tą strategią wygrywającą gracza II. Napotkanie naszego
+  wcześniejszego ruchu nie jest problemem - wystarczy, zrobić inny losowy ruch.
+  To oznacza, że gracz I ma strategię wygrywającą - opartą na strategii gracza
+  II. Sprzeczność, czyli gracz II nie ma strategii wygrywającej, czyli gracz I
+  ma strategię wygrywającą.
 
-Ten dowód opiera się na kluczowych faktach:
-\begin{itemize}
-  \item W Hex nie ma remisów
-  \item Pola w Hex mogą być tylko w 3 stanach
-  \item Ruch dodatkowy w Hex nie może być szkodliwy
-\end{itemize}
-Najłatwiej ten dowód atakować w innych grach poprzez nasz losowy ruch. Gry takie
+  Ten dowód opiera się na kluczowych faktach:
+  \begin{itemize}
+    \item W Hex nie ma remisów
+    \item Pola w Hex mogą być tylko w 3 stanach
+    \item Ruch dodatkowy w Hex nie może być szkodliwy
+  \end{itemize}
+
+\end{examplebox}
+
+Najłatwiej ten dowód atakować w innych grach poprzez nasz losowy
+ruch. Gry takie
 jak Rex, charakteryzują się tym, że ruch potrafi być zły dla
 gracza.
 
@@ -257,26 +263,29 @@ Dowolnie malujemy krawędzie $K_n$ dwoma kolorami. Czy zawsze powstanie
 monochromatyczny trójkąt? Dla $n \leq 5$ nie, dla $n > 5$ tak. Czyli najmniejsze
 $n$, które prowadzi do gwarantowanego monochromatycznego trójkąta to 6.
 
-Liczba Ramseya $r(q_1, \dots, q_k)$, to najmniejsze $j$, dla którego przy
-dowolnym $k$-kolorowaniu krawędziowym, istnieje klika rozmiaru $q_i$, której
-wszystkie krawędzie są koloru $i$.
-$$
-r(3, 3) = 6
-$$
-Notacyjnie, $r(3, 3)$ zadaje pytanie, dla jakiego $j$ istnieje zawsze,
-niezaleznie od kolorowania, klika czerwona rozmiaru 3, lub niebieska rozmiaru 3.
-$$
-r(3, 3, 3) = 17 \neq r(3, 3)
-$$
-Dla trzy kolorowania mamy więcej kolorów, więcej potencjalnych kolorowań, więc
-oczywiście liczba musi być większa aby zagwarantować trójkąt.
-$$
-r(3, 4) = 9 \neq r(3, 3)
-$$
-Podobnie tutaj, gdzie pytamy jaka liczba gwarantuje, że dla dowolnego
-kolorowania, jakie $j$ gwarantuje, że jest klika czerwona rozmiaru $3$ lub
-niebieska rozmiaru $4$. Jest to zawężenie, bo jest mniej potencjalnych klik
-rozmiaru $4$ na $K_n$.
+\begin{examplebox}
+  Liczba Ramseya $r(q_1, \dots, q_k)$, to najmniejsze $j$, dla którego przy
+  dowolnym $k$-kolorowaniu krawędziowym, istnieje klika rozmiaru $q_i$, której
+  wszystkie krawędzie są koloru $i$.
+  $$
+  r(3, 3) = 6
+  $$
+  Notacyjnie, $r(3, 3)$ zadaje pytanie, dla jakiego $j$ istnieje zawsze,
+  niezaleznie od kolorowania, klika czerwona rozmiaru 3, lub
+  niebieska rozmiaru 3.
+  $$
+  r(3, 3, 3) = 17 \neq r(3, 3)
+  $$
+  Dla trzy kolorowania mamy więcej kolorów, więcej potencjalnych kolorowań, więc
+  oczywiście liczba musi być większa aby zagwarantować trójkąt.
+  $$
+  r(3, 4) = 9 \neq r(3, 3)
+  $$
+  Podobnie tutaj, gdzie pytamy jaka liczba gwarantuje, że dla dowolnego
+  kolorowania, jakie $j$ gwarantuje, że jest klika czerwona rozmiaru $3$ lub
+  niebieska rozmiaru $4$. Jest to zawężenie, bo jest mniej potencjalnych klik
+  rozmiaru $4$ na $K_n$.
+\end{examplebox}
 
 Dla dowolnego $a$ i $b$ zawsze istnieje $r(a, b)$. Piszemy $K_n \to (K_a, K_b)$,
 jeśli dla każdego kolorowania krawędzi $K_n$ dwoma kolorami, powstanie czerwona
@@ -462,10 +471,10 @@ grafu skierowanego $G$, zwanego grafem NIM:
 Z acykliczności wynika istnienie wierzchołka o stopniu wyjścia 0, będący pozycją
 końcową.
 
-\subsection{Przykłady}
-
-Szachy nie są grą NIM, bo są cykliczne (skoczek). Chomp i usuwanie
-monet są grami NIM.
+\begin{examplebox}
+  Szachy nie są grą NIM, bo są cykliczne (skoczek). Chomp i usuwanie
+  monet są grami NIM.
+\end{examplebox}
 
 \subsection{Ocena pozycji}
 

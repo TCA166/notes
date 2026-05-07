@@ -61,6 +61,11 @@
 %tłumaczenie nazw
 \RequirePackage[polish]{babel}
 \RequirePackage{cleveref}
+\crefname{examplebox}{example}{examples}
+\Crefname{examplebox}{Example}{Examples}
+\crefname{theorem}{tw.}{tw.}
+\crefname{table}{tab.}{tab.}
+\crefname{listing}{wyc.}{wyc.}
 
 %do rysowaniu diagramów
 \RequirePackage{tikz}
@@ -98,4 +103,16 @@ draw=black, fill=blue!30]
 \newcommand{\comment}[1]{
   {\tiny
   \textit{#1}}
+}
+
+% Example boxes
+\RequirePackage{tcolorbox}
+
+\newtcolorbox[auto counter, number within=section]{examplebox}{
+  colback=black!5!white,
+  colframe=black!20!white,
+  fonttitle=\bfseries,
+  title=Przykład~\thetcbcounter,
+  label={examplebox:\thetcbcounter},
+  left=1mm, right=1mm, top=1mm, bottom=1mm
 }

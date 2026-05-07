@@ -2,7 +2,10 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{groupplots}
 
-\title{Termodynamika i podstawy fizyki statystycznej}
+\title{Termodynamika i podstawy \\ fizyki statystycznej}
+
+\newcommand{\pderiv}[2]{\left(\frac{\partial #1}{\partial #2}\right)}
+\newcommand{\tcap}{\mathcal{C}}
 
 \begin{document}
 
@@ -11,6 +14,40 @@ rozważa się sumarycznie, a nie indywidualnie jak w mechanice.
 $$
 N \sim 6.023 \cdot 10^{23} \\
 $$
+
+\section{Różniczki}
+
+Jeśli wiemy, że jakaś własność stanu $X$, jest funkcją stanu: $X =
+X(x_1, x_2, \dots, x_n)$,
+to możemy zapisać:
+$$
+dX = \pderiv{X}{x_1} dx_1 +
+\pderiv{X}{x_2} dx_2 + \dots +
+\pderiv{X}{x_n} dx_n
+$$
+
+Dla formy różniczkowej:
+$$
+z(x, y) = M(x, y)dx + N(x, y)dy
+$$
+warunek zupełności to:
+$$
+\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
+$$
+Jeśli jest on spełniony, to można powiedzieć, że $z(x, y)$ może być
+funkcją stanu.
+
+\begin{examplebox}
+  Na przykład, założmy, funkcję stanu: $z(x, y) = x^3 + y^2$. Wtedy:
+  $$
+  dz = \pderiv{z}{x} dx + \pderiv{z}{y} dy = 3x^2 dx + 2y dy
+  $$
+  Ponieważ;
+  $$
+  \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} = 0
+  $$
+  to możemy powiedzieć, że $z(x, y)$ może być funkcją stanu.
+\end{examplebox}
 
 \section{Stany}
 
@@ -25,9 +62,146 @@ $$
     $\partial Q = 0, \quad dU = \partial W$
 \end{itemize}
 
+Dla procesu quasi-statycznego, praca wykonana przez gaz przy zmianie
+objętości:
 $$
 \partial W = -pdV
 $$
+
+\section{Zerowa zasada termodynamiki}
+
+W stanie równowagi termodynamicznej nie zachodzą żadne systematyczne
+zmzmiany parametrów. Nie zachodzą także żadne systematyczne przepływy
+wielkości termodynamicznych.
+
+Bycie w stanie równowagi termodynamicznej jest tranzytywne. Jeśli stworzymy
+trzy zamknięte układy, obok siebie tak aby mogły przekazywać ciepło, to stan
+się w nich wyrówna prędzej czy później. Dojdzie do stanu równowagi
+termodynamicznej.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw, rectangle, minimum width=1.5cm, minimum height=1cm]
+    (A) {$p_1V_1$};
+    \node[draw, rectangle, minimum width=1.5cm, minimum height=1cm,
+    right=0cm of A] (B) {$p_2V_2$};
+    \node[draw, rectangle, minimum width=1.5cm, minimum height=1cm,
+    right=0cm of B] (C) {$p_3V_3$};
+    \node at (5, 1.5) {$p_1V_1 \leftrightarrow p_2V_2 \leftrightarrow p_3V_3$};
+
+    \node at (1.5, 2.2) {diatermiczne};
+
+    \draw[->, thick, red, dotted] (2, 2) -- ([yshift=0.5cm]B.east);
+    \draw[->, thick, red, dotted] (1, 2) -- ([yshift=0.5cm]B.west);
+  \end{tikzpicture}
+  \caption{Układ układów w równowadze, które z czasem osiągną
+  równowagę między sobą.}
+\end{figure}
+
+Rozróżniamy dwa rodzaje stanów równowagi. Pełna równowaga termodynamiczna, to
+prawdziwie pełna równowaga. Nic się nie zmienia ani przepływa. Druga, pozwala
+na drobne zmiany, w interesującej nas skali czasowej. Można też pominąć niektóre
+parametry oczywiście.
+
+\section{Pierwsza zasada termodynamiki}
+
+W układzie makroskopowym, energia wewnętrzna układu zostaje zachowana. W skalach
+mikroskopowych rozważamy energie kinetyczne i potencjalne wszystkich cząstek.
+Fenomenologicznie rozważamy sumę wszystkich energii w układzie ($U$).
+Istnieje wielkość $U$, która jest $f$ stanu.
+$$
+\partial W = \sum_k X_k dX_k
+$$
+gdzie $X_k$ są parametrami stanu.
+
+Załóżmy, że $\Delta U = W$, czyli zmiana energii wewnętrznej jest równa pracy
+wykonanej nad układem. Wtedy, po wykonaniu pracy, w której wrócimy do
+stanu początkowego, mielibyśmy $W \neq 0 \nRightarrow \Delta U = 0$; oczywista
+sprzeczność. Stąd, mamy że:
+$$
+dU = \partial W + \partial Q
+$$
+
+\begin{examplebox}
+  Wiemy, że $U = U(T, V)$, a nad układem można wykonać jedynie pracę
+  objętościową ($W_v$).
+
+  \vspace{1em}
+  Zatem, $W_v \Rightarrow \partial W = - pdV$. Z pierwszej zasady termodynamiki
+  wiemy, że $dU = \partial W + \partial Q \Rightarrow dU = -pdV + \partial Q$.
+  Możemy też rozpisać postać $dU$:
+  $$
+  dU = \pderiv{U}{T} dT +
+  \pderiv{U}{V} dV
+  $$
+  To możemy przekształcić do:
+  $$
+  \partial Q = pdV + dU \Rightarrow \partial Q = pdV +
+  \pderiv{U}{T} dT +
+  \pderiv{U}{V} dV =
+  \left(\frac{\partial U}{\partial T}\right)_VdT +
+  \left[\pderiv{U}{T}_V + p\right] dV
+  $$
+  W tej formie dobrze widac, że $Q$ nie jest funkcją stanu, ale zależy od
+  zmian w objętości i temperaturze.
+\end{examplebox}
+
+\section{Temperatura i ciepło}
+
+Temperatura to parametr makroskopowy opisujący stan równowagi termodynamicznej.
+Jeżeli dwa układy są w stanie równowagi termodynamicznej to ich temperatury są
+równe. Jeśli połączymy dwa układy o różnych temperaturach to ich temperatury
+się wyrównają.
+
+Pojemnością cieplną nazywamy ilość ciepła $Q$ potrzebną do zmiany temperatury.
+$$
+\tcap_x = \pderiv{Q}{T}_x
+$$
+Z kolei, ciepło właściwe $C_x$ definiujemy jako:
+$$
+C_x = \frac{\tcap_x}{m}
+$$
+Dla pewnego stanu stałego ciśnienia ciśnienia, mamy:
+$$
+\tcap_p = \pderiv{Q}{T}_p = \pderiv{H}{T}_p
+$$
+Dla pewnego stanu stałej pojemności, mamy:
+$$
+\tcap_V = \pderiv{Q}{T}_V =
+\pderiv{U}{T}_V
+$$
+
+\begin{examplebox}
+  Załóżmy, izobarę, czyli: $U = U(T, V)$. Na podstawie z 1 zasady termodynamiki,
+  oraz definicji ciepła właściwego, chcemy znaleźć związek między
+  tymi własnościami.
+
+  \vspace{1em}
+  Z definicji ciepła właściwego, mamy:
+  $$
+  \tcap_V = \pderiv{Q}{T}_V =
+  \pderiv{U}{T}_V \quad \tcap_P =
+  \pderiv{Q}{T}_P
+  $$
+  Z 1 zasady termodynamiki można w tych warunkach wyprowadzić wzór na
+  $\partial Q$ (\ref{examplebox:4.1}).
+  $$
+  \partial Q = \pderiv{U}{T}_V dT +
+  \left[\pderiv{U}{V}_T + p\right]dV =
+  \tcap_V dT + \left[\pderiv{U}{V}_T + p\right]dV
+  $$
+  $$
+  \Downarrow \quad :dT_P \\
+  $$
+  $$
+  \pderiv{Q}{T}_P = \tcap_V + \left[\pderiv{U}{V}_T + p\right]\pderiv{V}{T}_P
+  $$
+  $$
+  \tcap_P - \tcap_V = \left[\pderiv{U}{V}_T + p\right]\pderiv{V}{T}_P
+  $$
+
+\end{examplebox}
 
 \section{Gaz Doskonały}
 
@@ -37,30 +211,29 @@ $$
 gdzie $p$ to ciśnienie, $V$ to objętość, $n$ to ilość moli gazu, $R$
 to stała gazowa, a $T$ to temperatura.
 
-\subsection{Przykład}
+\begin{examplebox}
+  Dla gazu $V = V(p, T)$, $dV = \pderiv{V}{p} dp +
+  \pderiv{V}{T} dt$.
+  $$
+  dV = -\frac{RT}{p^2}dp + \frac{R}{p}dT
+  $$
+\end{examplebox}
 
-Dla gazu $V = V(p, T)$, $dv = \left(\frac{\partial V}{\partial p}\right)dp +
-\left(\frac{\partial V}{\partial T}\right)dt$.
-$$
-dv = -\frac{RT}{p^2}dp + \frac{R}{p}dT
-$$
-
-\subsection{Równanie adiabaty}
-
-$$
-dU = \partial W = -pdV
-$$
-$$
-\mathcal{C}_p - \mathcal{C}_V = nR
-$$
-$$
-\kappa = \frac{\mathcal{C}_p}{\mathcal{V}} > 1
-$$
-$$
-pV^{\kappa} = \tilde{C}
-$$
+Gaz doskonały spełnia:
+\begin{itemize}
+  \item cząstki poruszają się chaotycznie
+  \item cząstki to punkty materialne $V = 0$
+  \item cząsatki podlegają prawom Newtona
+  \item poza momentami zderzeń, na cząstki nie działają siły
+  \item zderzenia są sprężyste
+\end{itemize}
+zatem, powietrze w pojemniku spoczywającym o stałej objętości $V$
+jest doskonałe.
 
 \subsection{Prawa empiryczne}
+
+Jest to zbiór praw, dla gazu doskonałego w specyficznych warunkach, z reguły,
+ograniczenia warunków brzegowych.
 
 \begin{figure}[!h]
   \centering
@@ -111,59 +284,167 @@ $$
   \end{tikzpicture}
 \end{figure}
 
-\section{Zerowa zasada termodynamiki}
+\subsection{Równanie adiabaty}
 
-W stanie równowagi termodynamicznej nie zachodzą żadne systematyczne
-zmzmiany parametrów. Nie zachodzą także żadne systematyczne przepływy
-wielkości termodynamicznych.
+\begin{examplebox}
+  Wyprowadźmy równanie adiabaty dla gazu doskonałego.
+  $$
+  pV = nRT \quad \tcap_P - \tcap_V = nR \quad dU = \partial W = -pdV
+  \quad U = U(T)
+  $$
 
-Bycie w stanie równowagi termodynamicznej jest tranzytywne. Jeśli stworzymy
-trzy zamknięte układy, obok siebie tak aby mogły przekazywać ciepło, to stan
-się w nich wyrówna prędzej czy później. Dojdzie do stanu równowagi
-termodynamicznej.
+  \vspace{1em}
+  $$
+  dU = \pderiv{U}{T}_V dT = \tcap_V dT = -pdV = -\frac{nRT}{V} dV
+  \quad \tcap_V \frac{dT}{T} = - \frac{nRdV}{V}
+  $$
+  Całkujemy, aby wyeliminować $dT$ i $dV$.
+  $$
+  \tcap_V \ln T = - nRmV + C = -(\tcap_P - \tcap_V) mV + C
+  $$
+  Tutaj C to stała, naturalny efekt całkowania.
+  $$
+  \ln T ^{\tcap_V} = \ln \overline{C} V ^ {-(\tcap_P - \tcap_V)}
+  $$
+  $$
+  T^{\tcap_V} = \overline{C} V ^ {\tcap_V - \tcap_P} \Rightarrow T =
+  \overline{C}^x V ^ {\frac{\tcap_V - \tcap_P}{\tcap_V}}
+  $$
+\end{examplebox}
 
-Rozróżniamy dwa rodzaje stanów równowagi. Pełna równowaga termodynamiczna, to
-prawdziwie pełna równowaga. Nic się nie zmienia ani przepływa. Druga, pozwala
-na drobne zmiany, w interesującej nas skali czasowej. Można też pominąć niektóre
-parametry oczywiście.
-
-\section{Pierwsza zasada termodynamiki}
-
-W układzie makroskopowym, energia wewnętrzna układu zostaje zachowana. W skalach
-mikroskopowych rozważamy energie kinetyczne i potencjalne wszystkich cząstek.
-Fenomenologicznie rozważamy sumę wszystkich energii w układzie (U).
-Istnieje wielkość U, która jest $f$ stanu.
 $$
-\partial W = \sum_k X_k dX_k
+T = \overline{C}^x V ^ {\frac{\tcap_V - \tcap_P}{\tcap_V}} =
+\overline{C}^x V^{1 - \kappa}
 $$
 $$
-dU = \partial W + \partial Q
+nRT = \tilde{C} V^{1 - \kappa}
+$$
+$$
+pV^{\kappa} = \tilde{C}
+$$
+Stałe $\overline{C}$, $\overline{C}^x$, $\tilde{C}$ to po prostu różne stałe,
+wynikające z logarytmów. Zazwyczaj, te stałe są stałe dla
+\textbf{danej adiabaty}. To oznacza, że można przyrównać te stałe do siebie
+wraz z zmianą jakiegoś parametru (np. objętości).
+
+\begin{examplebox}
+  Zakładając środowisko adiabatyczne, trzeba wyprowadzić pracę przy zmianie
+  objętości.
+  $$
+  \stackrel{p_1}{V_1} \to \stackrel{p_2}{V_2} \quad W = ?
+  $$
+  $$
+  \partial W = -pdV \quad pV^\kappa = \tilde{C} \Rightarrow
+  p_1V_1^\kappa = p_2V_2^\kappa \quad pV = nRT
+  $$
+
+  \vspace{1em}
+  $$
+  p_1V_1^\kappa = p_2V_2^\kappa \quad W = \int \partial W = -
+  \int_{V_1}^{V_2} p \cdot dV = - \int_{V_1}^{V_2}
+  \frac{p_1V_1^\kappa}{V^\kappa} \cdot dV = - p_1V_1^\kappa \int_{V_1}^{V_2}
+  \frac{1}{V^\kappa} \cdot dV
+  $$
+  $$
+  W = -p_1V_1^\kappa \left[\frac{V^{-\kappa + 1}}{1 -
+  \kappa}\right]^{V_2}_{V_1} = \frac{p_1V_1}{\kappa - 1}
+  \left(\left(\frac{V_2}{V_1}\right)^{1 - \kappa} - 1 \right)
+  $$
+  To jest jakaś postać, ale da się jeszcze uprościć ją.
+  $$
+  \left.
+  \begin{aligned}
+    V = \frac{nRT}{p} &\Rightarrow& \frac{V_2}{V_1} = \frac{T_2}{T_1}
+    \frac{p_1}{p_2} \\
+    p_1V_1^\kappa = p_2V_2^\kappa &\Rightarrow& \frac{p_2}{p_1} =
+    \left(\frac{V_1}{V_2}\right)^\kappa
+  \end{aligned}
+\right\} \left(\frac{V_2}{V_1}\right)^{1 - \kappa} =
+\left(\frac{V_2}{V_1}\right)^{1} \left(\frac{V_1}{V_2}\right)^\kappa =
+\frac{T_2}{T_1} \frac{p_1}{p_2} \cdot  \frac{p_2}{p_1} = \frac{T_2}{T_1}
+$$
+$$
+W = \frac{p_1V_1}{\kappa - 1}\left(\frac{T_2}{T_1} - 1\right) =
+\frac{p_1V_1}{(\kappa - 1)T_1} (T_2 - T_1) =
+\frac{nR}{\kappa - 1}(T_2 - T_1)
+$$
+\end{examplebox}
+
+\subsection{Inne równania}
+
+\begin{itemize}
+\item $W = p(V_1 - V_2) = nR(T_1 - T_2)$ - izobara
+\item $W = nRT \ln \frac{V_1}{V_2} = nRT \ln \frac{p_2}{p_1}$ - izoterma
+\item $W = 0$ - izochora
+\end{itemize}
+
+\subsection{Doświadczenie Joule'a}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+  \node[draw, minimum width=1.5cm, minimum height=3cm] (A) at (0,0)
+  {\textit{gaz}};
+  \node[draw, minimum width=1cm, minimum height=0.3cm, right=of A,
+  xshift=-1cm] (B) {};
+  \node[draw, minimum width=1.5cm, minimum height=3cm, right=of B,
+  xshift=-1cm] (C) {\textit{próżnia}};
+
+  \node[align=center, yshift=2cm] at (B.north) (Btext) {przegroda};
+
+  \node[draw, thick, rounded corners, fit=(A) (B) (C) (Btext), inner sep=8mm]
+  (bigbox) {};
+
+  \node[align=center, yshift=-0.2cm] at (bigbox.south) (bordertext)
+  {osłona izolująca};
+
+  \draw[->] (Btext.south) -- (B.north);
+\end{tikzpicture}
+\caption{Diagram eksperymentu Joule'a}
+\end{figure}
+
+Po usunięciu przegrody, temperatura gazu się nie zmienia. Stąd:
+$$
+U \neq U(V)
+$$
+oraz, $U$ jest funkcją temperatury.
+$$
+dU = \pderiv{U}{T}_V dT
+$$
+
+\section{Entropia}
+
+Entropia to funkcja stanu, która się zmienia, gdy ciepło jest
+wymieniane między układem i jego otoczeniem:
+$$
+dS = \frac{\partial Q}{T}
 $$
 
 \section{Cykle termodynamiczne}
 
 \begin{figure}[!tbh]
-  \centering
-  \begin{tikzpicture}
-    \node (a) at (1,1) {A};
-    \node (b) at (1,3) {B};
-    \node (c) at (3,1) {C};
+\centering
+\begin{tikzpicture}
+  \node (a) at (1,1) {A};
+  \node (b) at (1,3) {B};
+  \node (c) at (3,1) {C};
 
-    \draw[->] (0,0) -- (5,0) node[right] {$V$};
-    \draw (1,0.08) -- (1,-0.08) node[below] {\small $V_1$};
-    \draw (3,0.08) -- (3,-0.08) node[below] {\small $V_2$};
-    \draw[->] (0,0) -- (0,4) node[above] {$p$};
-    \draw (-0.08,1) -- (0.08,1) node[left] {\small $p_1$};
-    \draw (-0.08,3) -- (0.08,3) node[left] {\small $p_2$};
+  \draw[->] (-0.2,0) -- (5,0) node[right] {$V$};
+  \draw (1,0.08) -- (1,-0.08) node[below] {\small $V_1$};
+  \draw (3,0.08) -- (3,-0.08) node[below] {\small $V_2$};
+  \draw[->] (-0.2,0) -- (-0.2,4) node[above] {$p$};
+  \draw (-0.25,1) -- (-0.15,1) node[left] {\small $p_1$};
+  \draw (-0.25,3) -- (-0.15,3) node[left] {\small $p_2$};
 
-    \draw[->] (a) -- node[midway,left] {\tiny izochora} (b);
-    \draw[->] (a) -- node[midway,below] {\tiny izobara} (c);
-    \draw[->] (b) -- (c);
+  \draw[->] (a) -- node[midway,left] {\tiny izochora} (b);
+  \draw[->] (a) -- node[midway,below] {\tiny izobara} (c);
+  \draw[->] (b) -- (c);
 
-  \end{tikzpicture}
-  \caption{Przykładowy cykl termodynamiczny}
+\end{tikzpicture}
+\caption{Przykładowy cykl termodynamiczny}
 \end{figure}
 
+\begin{examplebox}
 \begin{itemize}
   \item $A \rightarrow B$:\\
     $\partial W_{AB} = -pdV = 0$\\
@@ -185,39 +466,51 @@ $$
     W_{AC} = -p_1\int_{V_1}^{V_2} dV = -p_1(V_2 - V_1)
     $$
 \end{itemize}
+\end{examplebox}
 
-\section{Temperatura i ciepło}
+\subsection{Cykl Carnota}
 
-Temperatura to parametr makroskopowy opisujący stan równowagi termodynamicznej.
-Jeżeli dwa układy są w stanie równowagi termodynamicznej to ich temperatury są
-równe. Jeśli połączymy dwa układy o różnych temperaturach to ich temperatury
-się wyrównają.
+Jest to cykl z czterema przejściami, symetrycznie, izoterma($T_1$) -
+adiabata - izoterma($T_2$) - adiabata. $T_2 > T_1$. W ramach cyklu wydzielane
+i pobierane jest ciepło.
 
-Pojemnością cieplną nazywamy ilość ciepła $Q$ potrzebną do zmiany temperatury.
+\begin{figure}[!tbh]
+\centering
+\begin{tikzpicture}
+  \node (a) at (1,4) {A};
+  \node (b) at (3,3) {B};
+  \node (c) at (4,1) {C};
+  \node (d) at (2, 2) {D};
+
+  \node (center) at (2.5,2.5) {$\overline{W}$};
+
+  \draw[->] (-0.2,0) -- (5,0) node[right] {$V$};
+  \draw (1,0.08) -- (1,-0.08) node[below] {\small $V_1$};
+  \draw (4,0.08) -- (4,-0.08) node[below] {\small $V_2$};
+  \draw[->] (-0.2,0) -- (-0.2,5) node[above] {$p$};
+  \draw (-0.25,1) -- (-0.15,1) node[left] {\small $p_1$};
+  \draw (-0.25,4) -- (-0.15,4) node[left] {\small $p_2$};
+
+  \draw[->] (a) -- node[midway,above, xshift=0.3cm, yshift=0.3cm] {
+  $\stackrel{Q_{AB}}{\Downarrow}$ \tiny izoterma($T_2$)} (b);
+  \draw[->] (b) -- node[midway,right] {\tiny adiabata} (c);
+  \draw[->] (c) -- node[midway,below, xshift=-0.3cm] {
+  $\stackrel{\Downarrow}{Q_{CD}}$ \quad \tiny $T_1$} (d);
+  \draw[->] (d) -- (a);
+
+\end{tikzpicture}
+\caption{Cykl Carnota}
+\end{figure}
+
+Z definicji:
 $$
-\mathcal{C}_x = \left(\frac{\partial Q}{dT}\right)_x
+\eta = \frac{\overline{W}}{Q_{AB}} = 1 - \frac{T_1}{T_2}
 $$
-Z kolei, ciepło właściwe $C_x$ definiujemy jako:
+Z pierwszej zasady termodynamiki:
 $$
-C_x = \frac{\mathcal{C}_x}{m}
-$$
-Dla pewnego stanu stałego ciśnienia ciśnienia, mamy:
-$$
-\mathcal{C}_p = \left(\frac{\partial Q}{dT}\right)_p = \left(\frac{\partial
-H}{\partial T}\right)_p
-$$
-Dla pewnego stanu stałej pojemności, mamy:
-$$
-\mathcal{C}_V = \left(\frac{\partial Q}{dT}\right)_V =
-\left(\frac{\partial U}{\partial T}\right)_V
+\overline{W} = Q_{AB} + Q_{CD}
 $$
 
-\section{Entropia}
-
-Entropia to funkcja stanu, która się zmienia, gdy ciepło jest
-wymieniane między układem i jego otoczeniem:
-$$
-dS = \frac{\partial Q}{T}
-$$
+\subsection{Cykl Otta}
 
 \end{document}
