@@ -407,18 +407,45 @@ Po usunięciu przegrody, temperatura gazu się nie zmienia. Stąd:
 $$
 U \neq U(V)
 $$
-oraz, $U$ jest funkcją temperatury.
+$U$ jest funkcją temperatury.
 $$
-dU = \pderiv{U}{T}_V dT
+dU = n\pderiv{U}{T}_V dT = n\tcap_V dT \quad U(T) = n\tcap_V T
 $$
 
-\section{Entropia}
+\subsection{Rozkład Maxwella}
 
-Entropia to funkcja stanu, która się zmienia, gdy ciepło jest
-wymieniane między układem i jego otoczeniem:
+Rozkład pradopodobieństwa prędkości cząstek gazu doskonałego $v$ w
+danej temperaturze to:
 $$
-dS = \frac{\partial Q}{T}
+\rho(v) = 4 \pi \left(\frac{m_0}{2\pi k_BT}\right)^{\frac{3}{2}} v^2
+e^{-\frac{m_0v^2}{2k_BT}}
 $$
+
+\begin{examplebox}
+$$
+\langle f(v) \rangle = \int_0^\infty f(v) \rho(v) dv
+$$
+
+\vspace{1em}
+$$
+\langle v^2 \rangle = \int_0^\infty v^2 \rho(v) dv = 4 \pi
+\left(\frac{m_0}{2\pi k_BT}\right)^{\frac{3}{2}} \int_0^\infty v^4
+e^{-\frac{m_0v^2}{2k_BT}} dv = 4 \pi \left(\frac{m_0}{2\pi
+k_BT}\right)^{\frac{3}{2}} \cdot \frac{3}{8}
+\sqrt{\frac{\pi}{\frac{m_0}{2k_BT}^5}} =
+$$
+$$
+= \frac{3}{2} \pi^{\frac{3}{2}} \left(\frac{m_0}{2\pi
+k_BT}\right)^{\frac{3}{2}}
+\left(\frac{m_0}{2k_BT}\right)^{-\frac{5}{2}} = \frac{3}{2}
+\left(\frac{m_0}{2k_BT}\right)^{-\frac{2}{2}} = 3 \frac{k_BT}{m_0}
+$$
+\end{examplebox}
+
+\subsection{Zasada ekwipartycji energii}
+
+Na każdy stopień swobody, średnia energia kinetyczna gazu wynosi
+$\frac{1}{2} k_BT$
 
 \section{Cykle termodynamiczne}
 
@@ -477,26 +504,29 @@ i pobierane jest ciepło.
 \begin{figure}[!tbh]
 \centering
 \begin{tikzpicture}
-  \node (a) at (1,4) {A};
-  \node (b) at (3,3) {B};
-  \node (c) at (4,1) {C};
+  \node (a) at (1,5) {A};
+  \node (b) at (4,4) {B};
+  \node (c) at (5,1) {C};
   \node (d) at (2, 2) {D};
 
-  \node (center) at (2.5,2.5) {$\overline{W}$};
+  \node (center) at (3,3) {$\overline{W}$};
 
-  \draw[->] (-0.2,0) -- (5,0) node[right] {$V$};
+  \draw[->] (-0.2,0) -- (6,0) node[right] {$V$};
   \draw (1,0.08) -- (1,-0.08) node[below] {\small $V_1$};
-  \draw (4,0.08) -- (4,-0.08) node[below] {\small $V_2$};
-  \draw[->] (-0.2,0) -- (-0.2,5) node[above] {$p$};
+  \draw (5,0.08) -- (5,-0.08) node[below] {\small $V_2$};
+  \draw[->] (-0.2,0) -- (-0.2,6) node[above] {$p$};
   \draw (-0.25,1) -- (-0.15,1) node[left] {\small $p_1$};
-  \draw (-0.25,4) -- (-0.15,4) node[left] {\small $p_2$};
+  \draw (-0.25,5) -- (-0.15,5) node[left] {\small $p_2$};
 
-  \draw[->] (a) -- node[midway,above, xshift=0.3cm, yshift=0.3cm] {
-  $\stackrel{Q_{AB}}{\Downarrow}$ \tiny izoterma($T_2$)} (b);
-  \draw[->] (b) -- node[midway,right] {\tiny adiabata} (c);
-  \draw[->] (c) -- node[midway,below, xshift=-0.3cm] {
-  $\stackrel{\Downarrow}{Q_{CD}}$ \quad \tiny $T_1$} (d);
-  \draw[->] (d) -- (a);
+  \draw[->] (a) to[out=-30, in=180]
+  node[midway,above,sloped] {$\stackrel{Q_{AB}}{\Downarrow}$}
+  node[midway,below,sloped] {\tiny izoterma($T_2$)}(b);
+  \draw[->] (b) to[out=-80, in=110] node[midway,above, sloped] {\tiny
+  adiabata} (c);
+  \draw[->] (c) to[out=180, in=-30]
+  node[midway,below, sloped] {$\stackrel{\Downarrow}{Q_{CD}}$}
+  node[midway,above,sloped] {\tiny izoterma($T_1$)} (d);
+  \draw[->] (d) to[out=110, in=-80] (a);
 
 \end{tikzpicture}
 \caption{Cykl Carnota}
@@ -512,5 +542,409 @@ $$
 $$
 
 \subsection{Cykl Otta}
+
+\begin{figure}[!tbh]
+\centering
+\begin{tikzpicture}
+  \node (a) at (2,4) {A};
+  \node (b) at (5,3) {B};
+  \node (c) at (5,1) {C};
+  \node (d) at (2, 2) {D};
+
+  \draw[->] (-0.2,0) -- (6,0) node[right] {$V$};
+  \draw (2,0.08) -- (2,-0.08) node[below] {\small $V_1$};
+  \draw (5,0.08) -- (5,-0.08) node[below] {\small $V_2$};
+  \draw[->] (-0.2,0) -- (-0.2,5) node[above] {$p$};
+  \draw (-0.25,2) -- (-0.15,2) node[left] {\small $p_1$};
+  \draw (-0.25,4) -- (-0.15,4) node[left] {\small $p_2$};
+
+  \draw[->] (a) to[out=-30, in=180] node[midway,above, sloped] {\tiny
+  adiabata} (b);
+  \draw[->] (b) -- node[midway,right] {$\Rightarrow Q_{BC}$} (c);
+  \draw[->] (c) to[out=180, in=-30] node[midway,below, sloped] {\tiny
+  adiabata} (d);
+  \draw[->] (d) -- node[midway,left] {$Q_{DA} \Rightarrow $} (a);
+
+\end{tikzpicture}
+\caption{Cykl Otta}
+\end{figure}
+
+$$
+Q_{DA} = n \tcap_V (T_A - T_D) > 0 \quad Q_{BC} = n \tcap_V (T_C - T_B) > 0
+$$
+$$
+\eta = 1 - \frac{T_B - T_C}{T_A - T_B} = 1 - r^{1 - \kappa}
+$$
+$$
+r = \frac{V_C}{V_D} > 1
+$$
+
+\subsection{Cykl Diesel'a}
+
+\begin{figure}[!tbh]
+\centering
+\begin{tikzpicture}
+  \node (a) at (1,5) {A};
+  \node (b) at (3,5) {B};
+  \node (c) at (6,3) {C};
+  \node (d) at (6, 1) {D};
+
+  \draw[->] (-0.2,0) -- (7,0) node[right] {$V$};
+  \draw (1,0.08) -- (1,-0.08) node[below] {\small $V_1$};
+  \draw (6,0.08) -- (6,-0.08) node[below] {\small $V_2$};
+  \draw[->] (-0.2,0) -- (-0.2,6) node[above] {$p$};
+  \draw (-0.25,1) -- (-0.15,1) node[left] {\small $p_1$};
+  \draw (-0.25,5) -- (-0.15,5) node[left] {\small $p_2$};
+
+  \draw[->] (a) -- node[midway,below] {\tiny izobara}
+  node[midway,above] {$\stackrel{Q_{AB}}{\Downarrow}$} (b);
+  \draw[->] (b) to[out=-70, in=180] node[midway,above, sloped] {\tiny
+  adiabata} (c);
+  \draw[->] (c) -- node[midway,left] {\tiny izochora}
+  node[midway,right] {$\Rightarrow Q_{CD}$} (d);
+  \draw[->] (d) to[out=180, in=-70] node[midway,below, sloped] {\tiny
+  adiabata} (a);
+
+\end{tikzpicture}
+\caption{Cykl Diesel'a}
+\end{figure}
+
+$$
+r = \frac{V_D}{V_A} \quad k = \frac{V_B}{V_A}
+$$
+$$
+Q_{CD} = n\tcap_V(T_D - T_C) < 0 \quad Q_{AB} = n\tcap_p (T_B - T_A) > 0
+$$
+$$
+\eta = 1 - \frac{\tcap_V(T_C - T_D)}{\tcap_p (T_B - T_A)} = 1 -
+\frac{(T_C - T_D)}{\kappa (T_B - T_A)}
+$$
+
+\section{Entropia}
+
+Entropia to funkcja stanu, która się zmienia, gdy ciepło jest
+wymieniane między układem i jego otoczeniem:
+$$
+dS = \frac{\partial Q}{T}
+$$
+$$
+S = k_B \ln T
+$$
+
+\begin{examplebox}
+Obliczmy entropię gazu doskonałego.
+$$
+S = S(V, T) \quad dU = \partial Q + \partial W = \partial Q - pdV =
+n\tcap_V dT \quad pV = nRT
+$$
+
+\vspace{1em}
+$$
+\partial Q = pdV + n\tcap_V dT \Rightarrow dS = \frac{p}{T} dV +
+\frac{n\tcap_V}{T} dT = \frac{nR}{V} dV + \frac{n\tcap_V}{T} dT
+$$
+Mamy teraz postać różniczkową. Aby uzyskać postać funkcji, musimy zcałkować:
+$$
+S_2 - S_1 = \int_1^2 dS = nR\ln\frac{V_2}{V_1} + n\tcap_V \ln\frac{T_2}{T_1}
+$$
+$$
+S(T, V) = \int dS = nR\ln(V) + n\tcap_V\ln(T) + C(n)
+$$
+Jeśli wykorzystamy wzór na $\tcap_V$ dla gazu doskonałego, możemy ten
+wzór jeszcze uprościć
+$$
+\tcap_V = \frac{\sigma}{2}R \Rightarrow S(V, T) =
+nR\ln\left(VT^{\frac{\sigma}{2}}\right) + C
+$$
+\end{examplebox}
+
+\subsection{Własności}
+
+\begin{itemize}
+\item Addytywność: $A = B \cup C \rightarrow S_A = S_B + S_C$
+\item $dE = TdS$
+\item $\partial Q = TdS$
+\end{itemize}
+
+\subsection{Entropia gazu doskonałego}
+
+$$
+S(V, T) = C_0(N) + Nk_B \ln (BT^{\frac{3}{2}})
+$$
+
+Dla 1 atmosfery mamy:
+$$
+n = \frac{N}{V} \quad \lambda = \sqrt{\frac{2\pi h^2}{mk_BT}} \quad S
+= Nk \left[\frac{5}{2} - \ln \left(n \lambda^3\right)\right]
+$$
+
+\section{Entalpia}
+
+Entalpia to suma wewnętrznej energii systemu termodynamicznego.
+$$
+H(S, p) = U + pV
+$$
+Jest to funkcja stanu, zależna od entropii i ciśnienia.
+
+\section{Relacje Maxwella}
+
+Jest to zbiór relacji, które można wyprowadzić z definicji
+potencjałów termodynamicznych, przy pewnych założeniach. W ramach
+relacji, zakładamy proces odwracalny na gazie doskonałym, co tłumaczy się do:
+$$
+\left.
+\begin{aligned}
+\partial Q &=& TdS\\
+\partial W &=& -pdV
+\end{aligned}
+\right\} \Rightarrow dU = \partial Q + \partial W = TdS - pdV
+$$
+
+\begin{examplebox}
+Na podstawie definicji energii wewnętrznej układu $U$, możemy wyprowadzić
+pierwszą relację Maxwella.
+$$
+U = U(S, V)
+$$
+
+\vspace{1em}
+Ponieważ:
+$$
+dU = \pderiv{U}{S}_V dS + \pderiv{U}{V}_S + dV = TdS - pdV
+$$
+to możemy zauważyć że:
+$$
+\pderiv{U}{S}_V = T \quad \pderiv{U}{V}_S = -p
+$$
+Jeśli potem obliczymy pochodne mieszane, i założymy, że muszą być
+równe bo $U$ jest "ładną funkcją":
+$$
+\left.
+\begin{aligned}
+\frac{\partial}{\partial V} \pderiv{U}{S}_V &=& \pderiv{T}{V}_S\\
+\frac{\partial}{\partial S} \pderiv{U}{V}_V &=& -\pderiv{p}{S}_V
+\end{aligned}
+\right\} \pderiv{T}{V}_S = -\pderiv{p}{S}_V
+$$
+\end{examplebox}
+
+\begin{examplebox}
+Na podstawie defincji entalpii, możemy wyprowadzić drugą relację Maxwella.
+$$
+H = U + pV = H(S, p)
+$$
+
+\vspace{1em}
+Rozwijając $dH$ na podstawie definicji $H$:
+$$
+dH = dU + d(pV) = \partial Q + \partial W + d(pV)= TdS - pdV + Vdp +
+pdV = TdS + Vdp
+$$
+równocześnie, z definicji $H = H(s, p)$;
+$$
+dH = \pderiv{H}{S}_pdS + \pderiv{H}{p}_Sdp
+$$
+Teraz, podobnie jak w poprzednim przykładzie \ref{examplebox:10.1},
+możemy zauważyć, że:
+$$
+T = \pderiv{H}{S}_p \quad V = \pderiv{H}{p}_S
+$$
+i co za tym idzie, zakładając, że $H$ to "ładna funkcja":
+$$
+\pderiv{T}{p}_S = \pderiv{V}{S}_P
+$$
+\end{examplebox}
+
+\begin{examplebox}
+Na podstawie energii swobodnej (Helmholtza) $F$, możemy wyprowadzić kolejną
+relację Maxwella.
+$$
+F = U - TS = F(T, V)
+$$
+
+\vspace{1em}
+Rozwijając z definicji $dF$:
+$$
+dF = dU - SdT - TdS = TdS - pdV -SdT - TdS = -pdV - SdT
+$$
+Na podstawie definicji, podobnie jak w poprzednich przykładach:
+$$
+\pderiv{F}{T}_V = -S \quad \pderiv{F}{V}_T = -p
+$$
+I teraz, po podstawieniu i ponownym założeniu "ładnego" $F$:
+$$
+\pderiv{S}{V}_T = \pderiv{p}{T}_V
+$$
+\end{examplebox}
+
+\begin{examplebox}
+Na podstawie entalpii swobodnej (Gibbsa) $G$, możemy wyprowadzić
+kolejną relację
+Maxwella
+$$
+G = H - TS = G(T, p)
+$$
+
+\vspace{1em}
+Rozwijając z definicji $G$:
+$$
+dG = dH - SdT - TdS = dU + d(pV) - SdT - TdS = \partial Q + \partial W + Vdp +
+pdV - SdT - TdS =
+$$
+$$
+= Vdp - SdT
+$$
+Dostajemy następujące relacje:
+$$
+\pderiv{G}{T}_p = -S \quad \pderiv{G}{p}_T = V
+$$
+które po założeniu "ładnego" $G$:
+$$
+-\pderiv{S}{p}_T = \pderiv{V}{T}_p
+$$
+\end{examplebox}
+
+\textbf{Relacje są prawdziwe, jeśli spełnione są założenia.}
+
+\section{Zespół kanoniczny}
+% ładna nazwa nadana przez GPT, cholera wie czy ma sens
+
+\begin{examplebox}
+Dowód
+$$
+U = \frac{\partial}{\partial \beta} (\beta F)_V \quad \beta = \frac{1}{T}
+$$
+
+\vspace{1em}
+Najpierw, rozbijemy prawą część równania:
+$$
+U = \frac{\partial}{\partial \beta} (\beta F)_V = F +
+\pderiv{F}{\beta}_V  \beta = F + \textcolor{red}{\pderiv{F}{T}_V}
+\textcolor{blue}{\pderiv{T}{\beta}_V} \beta
+$$
+Jeśli rozwiniemy definicję $F$, oraz jej różniczki, to dostaniemy
+uproszczenie:
+$$
+F=U-TS \Rightarrow dF = dU - TdS - SdT = \pderiv{F}{T}_V dT +
+\pderiv{F}{V}_T dV \Rightarrow \textcolor{red}{\pderiv{F}{T}_V} = -S
+$$
+Następnie z własności pochodnej możemy uprościć drugi czynnik:
+$$
+\textcolor{blue}{\pderiv{T}{\beta}_V} = \pderiv{\beta^{-1}}{\beta}_v
+= - \frac{1}{\beta ^2} = -T^2
+$$
+Co finalnie daje nam:
+$$
+U = F + (-S)(-T^2)\beta = F + ST = U - TS + TS = U \quad \square
+$$
+\end{examplebox}
+
+\begin{examplebox}
+Dowód
+$$
+H = \frac{\partial}{\partial \beta} (BG)_p
+$$
+
+\vspace{1em}
+Rozwijając równanie, uzyskamy znajomą nam już postać:
+$$
+H = \frac{\partial}{\partial \beta} (BG)_p = G + \beta \pderiv{G}{\beta}_p =
+G +
+\textcolor{red}{\pderiv{G}{T}_p}\textcolor{blue}{\pderiv{T}{\beta}_p} \beta
+$$
+Jeśli rozwiniemy definicję $G$ i jej różniczki, to dostaniemy uproszczenie:
+$$
+G = H - TS \Rightarrow dG = dH - TdS - SdT = -SdT + Vdp =
+\pderiv{G}{T}_p dT + \pderiv{G}{p}_T dp \Rightarrow
+\textcolor{red}{\pderiv{G}{T}_p} = -S
+$$
+Z poprzedniego przykładu już znamy drugie uproszczenie, stąd:
+$$
+H = G + (-S)(-T^2)\beta = G + TS = H - TS + TS = H \quad \square
+$$
+\end{examplebox}
+
+\begin{examplebox}
+Dowód
+$$
+\pderiv{\tcap_V}{V}_T = T \left(\frac{\partial^2 p}{\partial T^2}\right)_V
+$$
+
+\vspace{1em}
+Jeśli rozwieniemy definicję $\tcap_V$, to dostaniemy wyrażenie z $S$:
+$$
+\tcap_V = \pderiv{Q}{T}_V = \left(\frac{TdS}{dT}\right)_V = T\pderiv{S}{T}_V
+$$
+Z definicji $S$, możemy wyrazić $\tcap_V$ przy pomocy $F$:
+$$
+S = -\pderiv{F}{T}_V \Rightarrow dS = - \frac{\partial}{\partial T}
+\pderiv{F}{T}_V = -\left(\frac{\partial^2 F}{\partial T^2}\right)
+\Rightarrow \tcap_V = -T\left(\frac{\partial^2 F}{\partial T^2}\right)
+$$
+Z definicji $p$, możemy prawą stronę równania zapisać też przy pomocy $F$:
+$$
+p = - \pderiv{F}{V}_T \Rightarrow \left(\frac{\partial^2 p}{\partial
+T^2}\right)_V = -\frac{\partial^3 F}{\partial T^2 \partial V}
+$$
+Na koniec, z definicji różniczki, możemy przyrównać obydwie strony:
+$$
+\pderiv{\tcap_V}{V}_T = -T\frac{\partial}{\partial V}
+\left(\frac{\partial^2 F}{\partial T^2}\right) = T\left(-\frac{\partial^3
+F}{\partial T^2 \partial V}\right) = T\left(\frac{\partial^2 p}{\partial
+T^2}\right)_V \quad \square
+$$
+\end{examplebox}
+
+\begin{examplebox}
+Dowód
+$$
+\pderiv{\tcap_p}{p}_T = -T\left(\frac{\partial^2 V}{\partial T^2}\right)_p
+$$
+
+\vspace{1em}
+Jeśli rozwiniemy definicję $G$ i jej różniczki, to będziemy mogli
+wyrazić $V$ przez $G$:
+$$
+G = H - TS \Rightarrow dG = dH - TdS - SdT = -SdT + Vdp =
+\pderiv{G}{T}_p dT + \pderiv{G}{p}_T dp \Rightarrow \pderiv{G}{p}_T = V
+$$
+Teraz możemy wyrazić prawą stronę równania przez $G$:
+$$
+-T\left(\frac{\partial^2 V}{\partial T^2}\right)_p = -T
+\frac{\partial^2}{\partial T^2} V = -T
+\frac{\partial^2}{\partial T^2} \pderiv{G}{p}
+$$
+Na koniec wystarczy tylko rozwinąć $\tcap_p \to \partial Q \to dS \to
+G$ i przyrównać obydwie strony równania:
+$$
+\pderiv{\tcap_p}{p}_T = \frac{\partial}{\partial p} \pderiv{Q}{T}_p =
+\frac{\partial}{\partial p} \left(\frac{TdS}{dT}\right)_p = -T
+\frac{\partial}{\partial p}
+\left(\frac{\partial^2 G}{\partial
+T^2}\right)_p = -T \frac{\partial^3 G}{\partial T^2 \partial p} \quad \square
+$$
+\end{examplebox}
+
+\section{Potencjał chemiczny}
+
+Potencjał chemiczny zapisujemy jako $\mu$.
+$$
+\begin{aligned}
+dU = \pderiv{U}{S}_{V, n} dS + \pderiv{U}{V}_{S, n} dV +
+\pderiv{U}{n}_{S, V} dn &\rightarrow& \mu = \pderiv{U}{n}_{S, V} \\
+dF = -SdT - pdV + \mu dn &\rightarrow& \mu = \pderiv{F}{n}_{T, V} \\
+dH = TdS + Vdp + \mu dn &\rightarrow& \mu = \pderiv{H}{n}_{s, p} \\
+dG & \rightarrow & \mu = \pderiv{G}{n}_{T,P}
+\end{aligned}
+$$
+
+\subsection{Wielki potencjał termodynamiczny}
+
+$$
+\Omega = F - \mu n
+$$
+$$
+d\Omega = -SdT - pdV - nd\mu
+$$
 
 \end{document}
