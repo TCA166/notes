@@ -116,3 +116,9 @@ draw=black, fill=blue!30]
   label={examplebox:\thetcbcounter},
   left=1mm, right=1mm, top=1mm, bottom=1mm
 }
+
+\newcommand{\pderiv}[2]{\left(\frac{\partial #1}{\partial #2}\right)}
+\newcommand{\tcap}{\mathcal{C}}
+
+\RequirePackage{pgfplots}
+\usepgfplotslibrary{groupplots}

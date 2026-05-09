@@ -1,0 +1,155 @@
+\documentclass{../konspekt}
+%\usepackage[fontsize=5pt]{scrextend}
+
+\title{Konspekt Termodynamika}
+
+\begin{document}
+
+\begin{multicols}{2}
+
+  \section{Różniczki}
+
+  Dla $f(x_1, \dots, x_n)$, możemy zapisać, że:
+  $$
+  df = \pderiv{f}{x_1} dx_1 + \dots + \pderiv{f}{x_n} dx_n
+  $$
+
+  Jeśli dla $dz(x, y) = M(x, y)dx + N(x, y)dy$;
+  $$
+  \pderiv{M}{y} = \pderiv{M}{x}
+  $$
+  to możemy powiedzieć, że $z(x, y)$ jest funkcją stanu
+
+  Jeśli funkcja jest gładka to:
+  $$
+  \frac{\partial^2 z}{\partial x \partial y} = \frac{\partial^2
+  z}{\partial y \partial x}
+  $$
+
+  \section{Stany}
+
+  \begin{itemize}
+    \item Izotermiczny - stała temperatura \\
+      $dU = 0 \quad \partial W = - \partial Q$
+    \item Izobaryczny - stałe ciśnienie \\
+      $dp = 0, \quad dU = \partial Q, \quad \partial Q = dH$
+    \item Izochoryczny - objętość jest stała\\
+      $\partial W = 0, \quad dU = \partial Q, \quad dV = 0$
+    \item Adiabatyczny - ciepło jest stałe\\
+      $\partial Q = 0, \quad dU = \partial W$
+  \end{itemize}
+
+  \section{Pierwsze zasada termodynamiki}
+
+  $$
+  dU = \partial W + \partial Q
+  $$
+  Dla procesu quasi-statycznego:
+  $$
+  \partial W = -pdV
+  $$
+
+  \section{Ciepło}
+
+  $$
+  \tcap_x = \pderiv{Q}{T}_x \quad \tcap_p = \pderiv{H}{T}_p \quad
+  \tcap_V = \pderiv{U}{T}_V
+  $$
+  Nie mylić z ciepłem właściwym:
+  $$
+  C_x = \frac{\tcap_x}{m}
+  $$
+
+  \section{Gaz Doskonały}
+
+  $$
+  pV = nRT
+  $$
+  $$
+  \tcap_p - \tcap_V = nR \quad \tcap_V = \frac{\sigma}{2}R \quad
+  \tcap_V = \frac{\sigma + 2}{2} R
+  $$
+  $$
+  S(V, T) = C_0 + NK_B\ln(BT^{\frac{3}{2}})
+  $$
+  Dla $\tcap_V$ niezależnego od temperatury:
+  $$
+  U(T) = n\tcap_VT
+  $$
+  \subsection{Adiabata}
+  $$
+  pV^\kappa = \tilde{C} = p_1V_1^\kappa = p_2V_2^\kappa \quad
+  \kappa = \frac{\tcap_p}{\tcap_V} > 1
+  $$
+  \subsection{Rozkład Maxwella}
+  $$
+  \rho(v) = 4 \pi \left(\frac{m_0}{2\pi k_BT}\right)^{\frac{3}{2}} v^2
+  e^{-\frac{m_0v^2}{2k_BT}}
+  $$
+  \subsection{Relacje Maxwella}
+
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $\pderiv{T}{V}_S = -\pderiv{p}{S}_V$
+      \item $\pderiv{T}{p}_S = \pderiv{V}{S}_p$
+      \item $\pderiv{S}{V}_T = \pderiv{p}{T}_V$
+      \item $\pderiv{S}{p}_T = - \pderiv{V}{T}_p$
+    \end{enumerate}
+  \end{multicols}
+
+  \section{Funkcje potencjału}
+
+  $$
+  dS = \frac{\partial Q}{T} \quad S = k_B \ln T
+  $$
+  $$
+  H(S, p) = U + pV \quad F(T, V) = U - TS \quad G(T, p) = H - TS
+  $$
+  $$
+  \pderiv{F}{T}_V = -S = \pderiv{G}{T}_p \quad \pderiv{G}{p}_T = V
+  $$
+
+  \section{Cykle}
+
+  \begin{itemize}
+    \item Carnota: $$
+      \eta = \frac{\overline{W}}{Q_{AB}} = 1 - \frac{T_1}{T_2} \quad
+      \overline{W} = T_1 + T_2
+      $$
+    \item Otta:
+      $$
+      Q_{DA} = n \tcap_V (T_A - T_D) > 0 \quad Q_{BC} = n \tcap_V
+      (T_C - T_B) > 0
+      $$
+      $$
+      \eta = 1 - \frac{T_B - T_C}{T_A - T_B} = 1 - r^{1 - \kappa}
+      \quad r = \frac{V_C}{V_D} > 1
+      $$
+    \item Diesel'a:
+      $$
+      r = \frac{V_D}{V_A} \quad k = \frac{V_B}{V_A}
+      $$
+      $$
+      Q_{CD} = n\tcap_V(T_D - T_C) < 0 \quad Q_{AB} = n\tcap_p (T_B - T_A) > 0
+      $$
+      $$
+      \eta = 1 - \frac{\tcap_V(T_C - T_D)}{\tcap_p (T_B - T_A)} = 1 -
+      \frac{(T_C - T_D)}{\kappa (T_B - T_A)}
+      $$
+  \end{itemize}
+
+  \section{Potencjał chemiczny}
+
+  $$\hspace{-3em}
+  \begin{aligned}
+    dU = \pderiv{U}{S}_{V, n} dS + \pderiv{U}{V}_{S, n} dV +
+    \pderiv{U}{n}_{S, V} dn &\rightarrow& \mu = \pderiv{U}{n}_{S, V} \\
+    dF = -SdT - pdV + \mu dn &\rightarrow& \mu = \pderiv{F}{n}_{T, V} \\
+    dH = TdS + Vdp + \mu dn &\rightarrow& \mu = \pderiv{H}{n}_{s, p} \\
+    dG & \rightarrow & \mu = \pderiv{G}{n}_{T,P}
+  \end{aligned}
+  $$
+
+\end{multicols}
+
+\end{document}
