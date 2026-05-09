@@ -501,4 +501,56 @@ $$
 
 Aby określić wartość sumy gier, robimy XOR kolejnych wartości $G_k$.
 
+\subsection{Nimber}
+
+Jest to inna forma oceny pozycji niż R/P.
+\begin{itemize}
+  \item Pozycja przegrywająca ma 0
+    $$
+    ni(x) = 0 \leftrightarrow N(x) = \emptyset \quad N(x) = \{v : (x,
+    v) \in E(G)\}
+    $$
+  \item Każda inna pozycja $x$ ma nimbera równego najmniejszej $\geq 0$
+    liczbie całkowitej, której nie ma w zbiorze nimberów sąsiadów:
+    $$
+    ni(x) = \min \left\{ n \geq 0 : n \notin \{ ni(v) : v \in N(x) \} \right\}
+    $$
+\end{itemize}
+Każdemu wierzchołkowi można przypisać $ni(v)$ w sposób jednoznaczny. Nimber
+pozycji startowej nazywamy nimerem tej gry.
+$$
+ni(G) = ni(x) : \{(v, x) : v \in G\} = \emptyset
+$$
+
+W każdym grafie NIM, wierzchołek jest P-pozycją wtedy i tylko wtedy
+gdy ma $ni(x) = 0$.
+$$
+v = \mathrm{P} \leftrightarrow ni(v) = 0
+$$
+
+\subsubsection{Nimowanie}
+
+Operacją nimowania, nazywamy operację $\oplus: \mathbb{N} \times
+\mathbb{N} \to \mathbb{N}$. Aby obliczyć wartość $\oplus(a, b)$, należy:
+\begin{itemize}
+  \item Zapisz a i b w systemie dwójkowym
+  \item Dodaj po współrzędnych $\mod 2$
+  \item Wynik zapisz w dziesiętnym
+\end{itemize}
+$\mathbb{N}$ z działaniem $\oplus$ jest grupą abelową.
+
+\subsubsection{Nimowanie gier}
+
+Dla gier NIM $G_1, \dots, G_k$, nimber ich sumy jest sumą nimberów składowych:
+$$
+ni\left(\sum_{i = 1}^k G_i\right) = ni(G_1) \oplus ni(G_2) \oplus
+\dots \oplus ni(G_k)
+$$
+To oznacza, że możemy bardzo łatwo rozważać wartości gier złożonych, oraz, co
+ciekawe, wartości konkretnych ruchów. Wystarczy z danej gry $G_i$, usunąć
+wszystkie poddrzewa, w których dany ruch nie został wykonany, w ten sam sposób
+tworząc $G_i'$.
+
+\tiny\textit{She nim on my ber till I Grundy}
+
 \end{document}
