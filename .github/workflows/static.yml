@@ -25,12 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Symlink notatki.cls into all subfolders
-        run: |
-          for d in $(find . -type d); do
-            if [ "$d" != "." ]; then
-              ln -sf "$(realpath ./notatki.cls)" "$d/notatki.cls"
-            fi
-          done
+        run: ln -sf "$(realpath ./notatki.cls)" "../notatki.cls"
 
       - name: Compile all TeX files to PDF (recursive)
         uses: xu-cheng/latex-action@v3
