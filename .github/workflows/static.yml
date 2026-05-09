@@ -25,7 +25,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Symlink notatki.cls into all subfolders
-        run: ln -sf "$(realpath ./notatki.cls)" "../notatki.cls"
+        run: |
+          ln -sf "$(realpath ./notatki.cls)" "../notatki.cls"
+          ln -sf "$(realpath ./konspekt.cls)" "../konspekt.cls"
 
       - name: Compile all TeX files to PDF (recursive)
         uses: xu-cheng/latex-action@v3
