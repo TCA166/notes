@@ -33,6 +33,7 @@
 \RequirePackage{amssymb}
 \RequirePackage{diagbox}
 \RequirePackage{colortbl}
+\RequirePackage{physics}
 
 % code blocki
 \RequirePackage{listings}
@@ -120,5 +121,6 @@ draw=black, fill=blue!30]
 \newcommand{\pderiv}[2]{\left(\frac{\partial #1}{\partial #2}\right)}
 \newcommand{\tcap}{\mathcal{C}}
 
+% fancier boxes
 \RequirePackage{pgfplots}
 \usepgfplotslibrary{groupplots}
