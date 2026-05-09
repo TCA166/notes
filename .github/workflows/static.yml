@@ -24,10 +24,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Symlink notatki.cls into all subfolders
+      - name: Symlink stuff
         run: |
           ln -sf "$(realpath ./notatki.cls)" "../notatki.cls"
           ln -sf "$(realpath ./konspekt.cls)" "../konspekt.cls"
+          find . -mindepth 2 -type f | while read -r file; do
+            ln -sf "$(realpath "$file")" "./$(basename "$file")"
+          done
 
       - name: Compile all TeX files to PDF (recursive)
         uses: xu-cheng/latex-action@v3
