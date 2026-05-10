@@ -825,4 +825,32 @@ $$
 Bx = b \Rightarrow LL^Tx = b \Rightarrow \mathbf{Ly = b \quad L^Tx = y}
 $$
 
+\section{Rozkład SVD}
+
+Każdą macierz rzeczywistą $A \in \mathbb{R}^{m \times n}$ można
+przedstawić jako:
+$$
+A = U \Sigma V^{*}
+$$
+gdzie $U \in \mathbb{C}^{m\times m}$ i $V \in
+\mathbb{C}^{n \times n}$ to macierze unitarne, a $\Sigma \in
+\mathbb{R}^{m \times n}$ to macierz diagonalna, z nieujemnymi
+liczbami na diagonali.
+
+Aby znaleźć rozkład SVD należy:
+\begin{enumerate}
+  \item obliczyć $H = A^\dag A \in \mathbb{C}^{n \times n}$, jako macierz
+    hermitowską półokreśloną
+  \item Znaleźć wartości własne $\lambda_i$ wraz z odpowiadającymi
+    wektorami własnymi $\ket{i}$ macierzy $H$
+  \item $V = \left[\ket{1}, \ket{2}, \dots, \ket{n}\right]$
+  \item Znajdź wartości osobliwe $\sigma_i = \sqrt{\lambda_i}$,
+    $\Sigma_{ii} = \sigma_i$, $\Sigma_{ij} = 0 : j \neq i$
+  \item $u_i = \sigma_i^{-1} A \ket{i} : \sigma_i \neq 0$, $u_i \in
+    \mathbb{C}^n$
+  \item $U = \left[u_1, u_2, \dots, u_m\right]$
+  \item Jeśli konieczne uzupełnij wartości $U$ i $V$, ortogonalizacją
+    Grama-Schidta
+\end{enumerate}
+
 \end{document}
