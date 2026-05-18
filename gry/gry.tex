@@ -551,6 +551,54 @@ ciekawe, wartości konkretnych ruchów. Wystarczy z danej gry $G_i$, usunąć
 wszystkie poddrzewa, w których dany ruch nie został wykonany, w ten sam sposób
 tworząc $G_i'$.
 
-\tiny\textit{She nim on my ber till I Grundy}
+\textit{\tiny She nim on my ber till I Grundy}
+
+\section{Gry o sumie zerowej}
+
+Celem nie jest wygrana, lecz maksymalizowanie jakiejś liczby na końcu
+rozgrywki. Każda pozycja ma przypisaną wypłatę $\mathbb{R}$.
+Domyślnie, gracz I chce maksymalizować tę wypłatę, a gracz II minimalizować.
+Dotychczasowe gry to szczególny przypadek gier o sumie zerowej, gdzie wypłata
+$\{0, 1, \frac{1}{2}\} \subset \mathbb{R}$.
+
+Jeśli gracz $i$ stosuje strategię $s_i$ dla $i = 1,2$, to wypłatę na
+końcu rozgrywki oznaczamy $w(s_1, s_2)$.
+
+\begin{examplebox}
+  Gra Konstruktor-Malarz, to gra w monochromatyczną $K_3$ na $K_n$.
+  Konstruktor wybiera krawędź, malarz maluje ją na jeden z dwóch kolorów.
+
+  Wypłata, to liczba rund, Konstruktor ją minimalizuje, malarz
+  maksymalizuje. Konstruktor ma strategię wymuszającą
+  monochromatyczną $K_3$ w najwyżej 8 rundach.
+  Malarz ma strategię, która pozwala mu przetrwać co najmniej 7 rund.
+\end{examplebox}
+
+Wartość gry o sumie zerowej $G$, to taka liczba $x = \textrm{val}(G)$, że gracz
+maksymalizujący ma strategię gwarantującą wypłatę co najmniej $x$, a
+równocześnie, przeciwnik ma strategię gwarantującą wypłatę nie większą $x$.
+
+Strategia optymalna gracza maksymalizującego, to taka co gwarantuje
+wypłatę co najmniej $\textrm{val}(G)$, bez względu na strategię
+przeciwnika. Strategia optymalna gracza minimalizującego, to taka co
+gwarantuje wypłatę nie większą niż $\textrm{val}(G)$.
+
+\subsection{Minimax}
+
+Gracz pierwszy maksymalizuje. Istnieje dokładnie jedna liczba $x$, dla której:
+\begin{itemize}
+  \item Istnieje $s_1$, że dla każdej strategii $s$, przeciwnika,
+    zachodzi: $w(s_1, s) \geq x$
+  \item Istnieje $s_2$, że $w(s, s_2) \leq x$
+\end{itemize}
+
+Niech $G$ będzie grą o sumie zerowej, w której graczem
+maksymalizującym jest gracz 1. Dla $a \in \mathbb{R}$:
+\begin{itemize}
+  \item Jeśli dla $s_1$, zachodzi $w(s_1, s) \geq a \rightarrow
+    \textrm{val}(G) \geq a$
+  \item Jeśli dla $s_2$ zachodzi $w(s, s_2) \leq a \rightarrow
+    \textrm{val}(G) \leq a$
+\end{itemize}
 
 \end{document}
