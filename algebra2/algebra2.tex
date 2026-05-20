@@ -853,4 +853,172 @@ Aby znaleźć rozkład SVD należy:
     Grama-Schidta
 \end{enumerate}
 
+\section{Równania Liniowe}
+
+Dla równania liniowego $Ax = b$, chcemy znaleźć rozwiązanie $x$.
+Dotychczas rozważaliśmy metody pozwalające na dokładne rozwiązanie, lecz
+takie rozwiązywanie ma złożoność $O(n^3)$.
+
+Zamiast tego, można szukać rozwiązań przybliżonych. Celem wtedy, jest
+znalezienie
+takiej macierzy $Q$, dla której:
+\begin{itemize}
+  \item $\ket{k} = (I - Q^{-1}A) \ket{k - 1} + Q^{-1}b$
+  \item $\ket{0}, \ket{1}, \dots, \ket{k - 1}$ jest zbieżne do $x$.
+\end{itemize}
+Aby ciąg $\ket{k} \to x$ , dla dowolnego $\ket{0}$, to:
+$$
+\rho(I - Q^{-1}A) < 1
+$$
+
+\subsection{Metoda Richardsona}
+
+$$
+Q = \frac{I}{\omega} \quad \ket{k} = (I - \omega A) \ket{k - 1} + \omega b
+$$
+$$
+\rho(I - \omega A) < 1 \rightarrow \ket{k} \to x
+$$
+
+\subsection{Metoda Jacobiego}
+
+$$
+A = D + L + U \quad Q = D
+$$
+$$
+\ket{k} = (I - D^{-1}A) \ket{k - 1} + D^{-1} b
+$$
+Metoda jest zbieżna, jeśli $A$ jest silnie diagonalnie dominująca, lub:
+$$
+\left(\rho(I - D^{-1}A) < 1 \right)
+\rightarrow \ket{k} \to x
+$$
+
+\subsection{Metoda Gaussa-Seidla}
+
+$$
+A = D + L + U \quad Q = D + L
+$$
+$$
+\ket{k} = (I - (D + L)^{-1}A) \ket{k - 1} + (D + L)^{-1}b
+$$
+Jeżeli macierz $A$ jest diagonalnie dominująca, lub symetryczna i
+dodatnio okeślona, to metoda jest zbieżna.
+
+\subsection{Metoda Nadrelaksacji}
+
+$$
+A = D + L + U \quad Q = \frac{D}{\omega} + L \quad 0 < \omega < 2
+$$
+$$
+\ket{k} = \left[I - \left(\frac{D}{\omega} + L\right)^{-1}A\right]
+\ket{k - 1} + \left(\frac{D}{\omega} + L\right)^{-1} b
+$$
+Metoda jest zbieżna, jeśli $A$ jest symetryczna i dodatnio określona.
+
+\section{Rozkład Schmidta}
+
+Niech $\ket{\psi} \in \mathcal{H}_A \otimes \mathcal{H}_B$ będzie
+stanem kwantowym dwóch podukładów; $A$ i $B$.
+
+Rozkładem Schmidta nazywamy przedstawienie tego stanu w pewnych ortonormalnych
+bazach $\{\ket{u_i}\} \subset \mathcal{H}_A$ i $\{\ket{v_i}\} \subset
+\mathcal{H}_B$:
+$$
+\ket{\psi} = \sum_{i=1}^{r} \lambda_i \ket{u_i} \otimes \ket{v_i}
+$$
+gdzie $\lambda_i \in \mathbb{R}^+$, a $r$ to ranga Schidta; liczba
+niezerowych wyrazów w sumie.
+$$
+\sum_i \lambda_i^2 = 1
+$$
+
+\begin{examplebox}
+  Niech: $\ket{\psi} \in \mathcal{H}_A \otimes \mathcal{H}_B$.
+  Wybieramy bazy $\{\ket{j}_A\}$ i $\{\ket{j}_B\}$.
+  $$
+  \ket{\psi} = \sum_{j,k} M_{j,k} \ket{j}_A \otimes \ket{k}_B
+  $$
+  Stosujemy rozkład SVD: $M = U \Sigma V^\dag$, $M_{jk} = \Sigma_i
+  U_{ji} \sigma_i V^\dag_{ik}$
+  $$
+  \ket{\psi} = \sum_i \sigma_i \left(\sum_j U_{ji} \ket{j}_A\right)
+  \otimes \left(\sum_k V^\dag_{ik} \ket{k}_B\right)
+  $$
+  $$
+  \ket{u_i}_A = \sum_j U_{ji} \ket{j}_A \quad \ket{v_i}_B = \sum_k
+  V^\dag_{ik} \ket{k}_B = \sum_k \overline{V_{ki}} \ket{k}_B
+  $$
+  Dla $\lambda_i = \sigma_i$:
+  $$
+  \ket{\psi} = \sum_i \lambda_i \ket{u_i} \otimes \ket{v_i}
+  $$
+\end{examplebox}
+
+\subsection{Macierze gęstości}
+
+$$
+\rho_A = \tr_B \ket{\psi} \bra{\psi} = \sum_{i, j} \lambda_i
+\lambda_j \ket{u_i} \bra{u_j} \tr \left(\ket{v_i} \bra{v_j}\right) =
+\sum_i \lambda_i^2 \ket{u_i} \bra{u_i}
+$$
+
+\subsection{Entropia Splątania}
+
+$$
+S(\rho_A) = -\sum_i \lambda_i^2 \log \lambda_i^2 = -\tr(\rho_A \log
+\rho_A) = S(\rho_B)
+$$
+
+\section{Kanały Kwantowe}
+
+Kanał kwantowy, to całkowicie dodatnie odworowanie liniowe, zachowujące ślad.
+$$
+\varepsilon = \mathcal{B}(\mathcal{H}_A) \to \mathcal{B}(\mathcal{H}_B)
+$$
+gdzie $\mathcal{B}(\mathcal{H}_A)$ to przestrzeń operatorów w $\mathcal{H}_A$.
+Dowolne rozszerzenie odwzorowania $\varepsilon \otimes \mathbb{I}_n$
+jest nieujemnie określone. Równocześnie, zachowuje ślad:
+$\tr[\varepsilon(\rho)] = \tr[\rho]$.
+
+Stan układu dwóch kubitów $\rho_{AB} = \sum_{i,j,k,l} \rho_{ijkl}
+\ket{i}\bra{j} \otimes \ket{k}\bra{l}$ jest separowalny wtedy i tylko wtedy,
+gdy macierz powstała z transpozycji jednego z podukładów jest
+nieujemnie określona.
+$$
+\rho_{AB}^T = \sum_{i,j,k,l} \rho_{ijkl} \ket{i}\bra{j} \otimes \ket{l}\bra{k}
+$$
+
+\subsection{Ślad częściowy}
+
+Gdy mamy układ żłożony z $AB$, możemy chcieć opisać stan obserwowalny wyłącznie
+na podukładzie $A$ lub $B$.
+$$
+\tr_B : \mathcal{B}(\mathcal{H}_A \otimes \mathcal{H}_B) \to
+\mathcal{B}(\mathcal{H}_B)
+$$
+Dla dowolnej bazy ortonormalnej $\{\ket{k}\}$ przestrzeni $\mathcal{H}_B$
+$$
+\tr_B(\rho_{AB}) = \sum_k (I_A \otimes \bra{k}_B) \rho_{AB} (I_A
+\otimes \ket{k}_B)
+$$
+
+Dla $\rho_{AB} = \rho_A \otimes \rho_B$: $\tr_B(\rho_{AB}) =
+\tr(\rho_B)\rho_A = \rho_A$
+
+$$
+\varepsilon (\rho) = \tr_E(V_\rho V^\dag)
+$$
+
+Entropia splątania stanu czystego $\ket{\psi}_{AB}$ to:
+$$
+E(\ket{\psi}_{AB}) = S(\rho_A) = S(\rho_B) \quad \rho_A =
+\tr_B(\ket{\psi} \bra{\psi})
+$$
+
+%Definicja entropii splątania
+%Wyśladuj jeden z podukładów
+%Oblicz macierz gęstości jednego z podukładów
+%Oblicz entropię splątania
+
 \end{document}
