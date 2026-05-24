@@ -36,7 +36,7 @@ jobs:
         uses: TCA166/static-embed-db@main # or @v1 after tagging
         with:
           glob: '../*/*.tex'
-          strip_paths: 2
+          strip_paths: 1
           dist_dir: .
 
       - name: Install Pandoc
