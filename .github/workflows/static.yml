@@ -32,8 +32,13 @@ jobs:
           work_in_root_file_dir: true
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Setup static-embedding-db
+        run: |
+          git clone https://github.com/TCA166/static-embed-db.git
+          cd static-embed-db
+          ./build.sh ../*/*.tex --strip_paths 2
+          cp -a dist/. ..
+          mv ../index.html ../search.html
 
       - name: Install Pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
@@ -41,6 +46,9 @@ jobs:
       - name: Convert README.md to index.html
         run: |
           pandoc README.md -o index.html --standalone
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload PDFs as artifact for Pages
         uses: actions/upload-pages-artifact@v3
