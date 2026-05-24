@@ -33,18 +33,18 @@ jobs:
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1
 
       - name: Setup static-embedding-db
-        run: |
-          git clone https://github.com/TCA166/static-embed-db.git
-          cd static-embed-db
-          ./build.sh ../*/*.tex --strip_paths 2
-          cp -a dist/. ..
-          mv ../index.html ../search.html
+        uses: TCA166/static-embed-db@main # or @v1 after tagging
+        with:
+          tex_glob: '../*/*.tex'
+          strip_paths: 2
+          dist_dir: ..
 
       - name: Install Pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
 
       - name: Convert README.md to index.html
         run: |
+          mv index.html search.html
           pandoc README.md -o index.html --standalone
 
       - name: Setup Pages
