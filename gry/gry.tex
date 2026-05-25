@@ -601,4 +601,20 @@ maksymalizującym jest gracz 1. Dla $a \in \mathbb{R}$:
     \textrm{val}(G) \leq a$
 \end{itemize}
 
+Podobnie jak w grach o konkretnym wyniku $\{0, \frac{1}{2}, 1\}$; możemy użyć
+analizy wstecz aby określić wartość gry $G$. Tutaj, o wiele ciekawszym
+zagadnieniem jest estymacja wartości gry przy brakujących danych.
+
+\subsection{Metoda alfa-beta}
+
+\begin{enumerate}
+  \item Wierzchołki mają $\textrm{val}(x) = [-\infty, \infty]$
+  \item Liście oznaczone, dostają $\textrm{val}(x) = [w(x), w(x)]$
+  \item Cofamy się wstecz, rozważając kolejne oszacowania
+  \item Jeśli na wierzchołku gracza maksymalizującego $x$, sąsiadującego z
+    $[a, b]$, $\max \textrm{val}(x) < a$ to obcinamy $x$
+  \item Jeśli na wierzchołku gracza minimalizującego $x$, sąsiadującego z
+    $[a, b]$, $\min \textrm{val}(x) > b$ to obcinamy $x$
+\end{enumerate}
+
 \end{document}
