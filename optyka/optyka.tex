@@ -226,7 +226,41 @@ Tutaj przydają się powszechne uproszczenia funkcji trygonometrycznych:
   \caption{Wartości funkcji trygonometrycznych dla wybranych kątów}
 \end{table}
 
-\section{Prawo Snella}
+\section{Załamanie Światła}
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[dotted, ->] (0,-2) -- (0,2) node[above] {$y$};
+    \draw[dotted, ->] (-2,0) -- (2,0) node[right] {$x$};
+
+    \draw[->, thick] (-1.5,1.5) node[above left] {$\vec{k}_I$} -- (0,0);
+    \draw[->, thick] (0,0) -- (1.2,1.5) node[above right] {$\vec{k}_R$};
+    \draw[->, thick] (0,0) -- (0.8,-1.5) node[below right] {$\vec{k}_T$};
+  \end{tikzpicture}
+  \caption{Monochromatyczna fala elektromagnetyczna padająca z
+    ośrodka 1 ($\vec{k}_I$). Część fali ulega odbiciu ($\vec{k}_R$),
+    a inna część
+  załamaniu ($\vec{k}_T$)}
+\end{figure}
+
+Wszystkie fale mają tą samą częstość, stąd:
+$$
+\omega = k_Iv_1 = k_Rv_1 = k_Tv_2
+$$
+Co pozwala nam określić, że:
+$$
+k_I = k_R \quad k_R = k_T \frac{v_2}{v_1} = k_T \frac{n_1}{n_2}
+$$
+gdzie $n_1$ to współczynnik załamania ośrodka, $v_1$ to prędkość
+światła w ośrodku.
+
+Kąt padania i odbicia są równe:
+$$
+\theta_I = \theta_R
+$$
+
+\subsection{Prawo Snella}
 
 Przy światłu odbijającemu się od wody:
 $$
@@ -327,13 +361,24 @@ ponieważ jej kąt padania jest większy od kąta granicznego.
 
 \section{Model Drudego}
 
+Ośrodki, w których funkcja dielektryczna zależy od częstotliwości nazywamy
+materiałami dyspersyjnymi. Dla takich materiałów:
 $$
-\varepsilon(\omega) = \varepsilon_0 \left(1 - \frac{\omega_p^2}{\omega^2}\right)
+\omega_p^2 = \frac{ne^2}{\varepsilon_0m} \quad \varepsilon(\omega) =
+1 + i\frac{\omega_p^2}{\omega(\gamma - i\omega)}
 $$
 gdzie $\varepsilon(\omega)$ to całkowita przenikalność dielektryczna,
 $\varepsilon_0$ to przenikalność dielektryczna w próżni,
 $\omega_p$ to plazmonowa częstość własna zależna od materiału,
-$\omega$ to częstość fali elektromagnetycznej
+$\omega$ to częstość fali elektromagnetycznej. Jeśli zaniedbamy tłumienie:
+$$
+\varepsilon(\omega) = 1 - \frac{\omega_p^2}{\omega^2}
+$$
+
+Model Drudego, czyli wyrażenie na przewodność elektronów swobodnych to:
+$$
+\sigma = \frac{ne^2}{m(\gamma - i\omega)}
+$$
 
 Dla idealnego, niestraconego metalu (bez tłumienia, $\gamma=0$) i
 dielektryka o przenikalności ($\varepsilon_d$):
