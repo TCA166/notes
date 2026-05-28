@@ -617,4 +617,49 @@ zagadnieniem jest estymacja wartości gry przy brakujących danych.
     $[a, b]$, $\min \textrm{val}(x) > b$ to obcinamy $x$
 \end{enumerate}
 
+\section{Złożoność algorytmiczna}
+
+Na potrzeby zajęć, będziemy rozważać dwa rodzaje złożoności:
+\begin{itemize}
+  \item Złożoność czasowa
+  \item Złożoność pamięciowa - cała reszta zasobów - liczba pól planszy
+\end{itemize}
+
+\begin{examplebox}
+  Problem decyzyjny, czy dana pozycja w hex $n \times n$ jest wygrywająca dla 1,
+  należy do klasy PTIME oraz PSPACE
+\end{examplebox}
+
+\subsection{Gry wielomianowe}
+
+Rozważmy klasę gier kombinatorycznych na planszach o $n$ polach, w których
+liczba możliwości ruchu jest w każdej pozycji ograniczona wielomianowo względem
+$n$, oraz liczba rund jest ograniczona wielomianowo względem $n$.
+
+W takiej klasie gier problem oceny pozycji ma wielomianową złożoność pamięciową.
+
+\subsection{Zupełność}
+
+Problem $X \in \textrm{PSPACE}$ jest zupełny, jeżeli każdy problem $Y
+\in \textrm{PSPACE}$, można wielomianowo przekształcić do problemu $X$.
+
+\begin{examplebox}
+  Problem decyzyjny wygrywającej pozycji dla gry w hex, jest PSPACE-zupełny
+\end{examplebox}
+
+\subsection{Gry Shannona}
+
+Parametrem określającym Gre Shannona jest liczba wierzchołków grafu.
+Poniższe problemy są w klasie P względem $n$:
+\begin{itemize}
+  \item Czy w danym grafie o $n$ wierzchołkach istnieją dwa rozłączne
+    krawędziowo drzewa rozpinające?
+  \item Czy w danym grafie o $n$ wierzchołkach i wyróżnionych wierzchołkach
+    $a, b$ istnieje podgraf $G'$ zawierający $a, b$, który ma
+    przynajmniej dwa rozłączne krawędzieowo drzewa rozpinające?
+\end{itemize}
+
+Problem czy Destruktor ma strategię wygrywającą w wierzchołkowej grze Shannona,
+jest PSPACE zupełny.
+
 \end{document}
