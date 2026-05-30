@@ -3,7 +3,8 @@
 To są moje notatki ze studiów. Część z nich oryginalnie pisana w Wordzie, potem
 przeniesiona do LaTeXa. Zachęcam do pomocy, uzupełniania i poprawiania
 czytelności. W celu zapewnienia pełnej dostępności w repozytorium znajdują się
-skompilowane pliki `.pdf`.
+skompilowane pliki `.pdf`. Notatki można przeszukiwać za pomocą embedding
+[search bar](https://tca166.github.io/notes/search.html).
 
 ## Informatyka 1 stopień
 

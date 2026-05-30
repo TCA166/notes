@@ -1,0 +1,417 @@
+\documentclass{../notatki}
+\fancyhead[C]{}
+
+\title{Problemy}
+
+\begin{document}
+
+\section{Zestaw 1}
+
+\subsection{Zadanie 1}
+
+\subsubsection{Udowodnij, że każda skończona macierz kwadratowa $A$ nad ciałem
+  liczb zespolonych jest podobna do swojej transpozycji
+\texorpdfstring{$A^T$}{A\^T}}
+
+Każda macierz $A$ jest podobna do swojej postaci Jordana $A \sim J_A$.
+Ponieważ podobieństwo jest tranzytywne:
+$$
+A \sim B, B \sim C \Rightarrow B = P_A A P_A^{-1}, C = P_B B P_B^{-1}
+\Rightarrow C =  P_B P_A A P_A^{-1} P_B^{-1} \Rightarrow C = P_C A P_C^{-1}
+\rightarrow A \sim C
+$$
+to jeśli $J_A \sim J_{A^T}$, to $A \sim A^T$, ponieważ:
+$$
+A \sim J_A \sim J_{A^T} \sim A^T
+$$
+
+Macierz Jordana $J_A$ składa się z bloków, dla odpowiedniej wartości
+własnej $\lambda$:
+$$
+J_k(\lambda) =
+\begin{bmatrix}
+  \lambda & 1 & 0 & \hdots & 0 \\
+  0 & \lambda & 1 & \hdots & 0 \\
+  \vdots & & \ddots & \ddots & \vdots \\
+  0 & 0 & 0 & 0 & \lambda
+\end{bmatrix}
+\quad J_A = \textrm{diag}(J_1(\lambda_1), \dots, J_k(\lambda_k))
+\quad J_k^T(\lambda) =
+\begin{bmatrix}
+  \lambda & 0 & \hdots & 0 \\
+  1 & \lambda & \hdots & 0 \\
+  0 & 1 & \lambda & 0 \\
+  \vdots & \vdots& \ddots & \vdots \\
+  0 & 0 & 0 & \lambda
+\end{bmatrix}
+$$
+Z własności złożenia $\textrm{diag}$, wiemy, że $J_A^T =
+\textrm{diag}(J_1^T(\lambda_1), \dots, J_k^T(\lambda_k))$
+
+Macierz antydiagonalna $R$, ma dwie kluczowe własności. Po pierwsze,
+transformuje nadprzekątną macierzy, na podprzekątną, jak na poniższym
+przykładzie:
+$$
+\begin{bmatrix}
+  0 & 1 \\
+  1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+  \alpha & \beta \\
+  \gamma & \delta
+\end{bmatrix}
+\begin{bmatrix}
+  0 & 1 \\
+  1 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+  \gamma & \delta \\
+  \alpha & \beta
+\end{bmatrix}
+\begin{bmatrix}
+  0 & 1 \\
+  1 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+  \delta & \gamma \\
+  \beta & \alpha
+\end{bmatrix}
+$$
+$R$ odwraca kolejność wierszy i kolumn, więc element na pozycji
+$(i,i+1)$ przechodzi na $(k-i+1, k-(i+1)+1)=(k-i+1, k-i)$, czyli z
+nadprzekątnej na podprzekątną.
+Po drugie; $R^{-1} = R$, zatem:
+$$
+RJ_k(\lambda)R^{-1} = RJ_k(\lambda)R = J_k^T(\lambda)
+$$
+stąd wynika, że $J_k(\lambda) \sim J_k^T(\lambda)$, ponieważ macierz $R$
+spełnia formalny warunek podobieństwa. Jeśli skonstruujemy macierz $Q$,
+taką, że $Q = \textrm{diag}(R_1, \dots, R_k)$, to:
+$$
+Q^{-1} J_A Q = J_A^T \sim J_A \sim J_{A^T} \sim A^T \sim A \quad \square
+$$
+
+\subsubsection{Wyznacz liczbę klas podobieństwa macierzy 2×2 nad ciałem dwu-
+elementowym \texorpdfstring{$\mathbb{F}_2$}{F\_2}}
+
+Niech $A \in F_2^{2 \times 2}$. Oznaczmy przez
+$$
+p_A(t) = \det(tI-A)
+$$
+wielomian charakterystyczny, a przez $m_A(t)$ wielomian minimalny macierzy $A$.
+Z twierdzenia Cayleya--Hamiltona mamy $p_A(A)=0$, więc
+$$
+m_A(t)\mid p_A(t).
+$$
+Dla macierzy $2\times 2$ zachodzi ponadto: klasy podobieństwa są wyznaczone
+przez (równoważnie) racjonalną postać kanoniczną, czyli przez możliwe pary
+$(p_A,m_A)$ (inaczej: przez wielomiany niezmiennicze).
+
+Istnieją dokładnie cztery możliwości dla $p_A(t)$:
+$$
+t^2,\qquad t^2+1=(t+1)^2,\qquad t^2+t=t(t+1),\qquad t^2+t+1.
+$$
+Rozpatrzmy je kolejno.
+
+\noindent\textbf{(1) $p_A(t)=t^2$.}
+Wtedy jedyną wartością własną (w $\overline{\mathbb{F}_2}$) jest $0$ i
+$m_A(t)\mid t^2$, więc $m_A(t)\in\{t,t^2\}$.
+\begin{itemize}
+  \item Jeśli $m_A(t)=t$, to $A=0$ (jedna klasa podobieństwa).
+  \item Jeśli $m_A(t)=t^2$, to $A$ jest niezerowa nilpotentna i jest podobna do
+    $$
+    N =
+    \begin{pmatrix}
+      0 & 1 \\
+      0 & 0
+    \end{pmatrix}
+    $$
+\end{itemize}
+W tym przypadku dostajemy $2$ klasy.
+
+\noindent\textbf{(2) $p_A(t)=t^2+1=(t+1)^2$.}
+Wtedy $m_A(t)\mid (t+1)^2$, więc $m_A(t)\in\{t+1,(t+1)^2\}$.
+\begin{itemize}
+  \item Jeśli $m_A(t)=t+1$, to $A=I$ (jedna klasa).
+  \item Jeśli $m_A(t)=(t+1)^2$, to $A$ ma nietrywialny blok Jordana dla
+    $\lambda=1$ i jest podobna do
+    $$
+    J =
+    \begin{pmatrix}
+      1 & 1 \\
+      0 & 1
+    \end{pmatrix}
+    $$
+    (druga klasa).
+\end{itemize}
+W tym przypadku dostajemy $2$ klasy.
+
+\noindent\textbf{(3) $p_A(t)=t^2+t=t(t+1)$.}
+Wielomian charakterystyczny rozkłada się na iloczyn dwóch różnych czynników
+liniowych, więc $A$ ma dwie różne wartości własne $0$ i $1$ w $\mathbb{F}_2$,
+a zatem jest diagonalizowalna i podobna do
+$$
+D =
+\begin{pmatrix}
+  0 & 0 \\
+  0 & 1
+\end{pmatrix}.
+$$
+Daje to dokładnie $1$ klasę.
+
+\noindent\textbf{(4) $p_A(t)=t^2+t+1$.}
+Wielomian $t^2+t+1$ jest nierozkładalny nad $\mathbb{F}_2$, więc jedyny
+możliwy wielomian minimalny to $m_A(t)=\chi_A(t)$.
+Wtedy $A$ jest podobna do macierzy towarzyszącej (kompanionowej) tego
+wielomianu:
+$$
+C =
+\begin{pmatrix}
+  0 & 1 \\
+  1 & 1
+\end{pmatrix}.
+$$
+Daje to dokładnie $1$ klasę.
+
+Sumując liczbę klas we wszystkich przypadkach, otrzymujemy
+$$
+2+2+1+1=6.
+$$
+Zatem liczba klas podobieństwa macierzy $2\times 2$ nad $\mathbb{F}_2$ wynosi 6.
+
+\subsection{Udowodnij twierdzenie Gerszgorina}
+
+\textit{Każda wartość własna $\lambda$ macierzy $A \in \mathbb{C}^{n \times n}$
+  leży wewnątrz lub na brzegu jednego z kół o środku $a_{ii}$ i
+  promieniu $R_i = \sum_{j \neq i} |a_{ij}|$
+}
+
+Dla $A \ket{\lambda} = \lambda \ket{\lambda}$:
+$$
+\sum_{j = 1}^n a_{ij} \ket{\lambda}_j = \lambda \ket{\lambda}_i
+$$
+$$
+a_{ii}\ket{\lambda}_i + \sum_{j \neq i} a_{ij} \ket{\lambda}_j =
+\lambda \ket{\lambda}_i
+\Rightarrow (\lambda - a_{ii})\ket{\lambda}_i = \sum_{j \neq i}
+a_{ij} \ket{\lambda}_j
+$$
+Jeśli $\ket{\lambda}_i \neq 0$, to dzielimy przez $\ket{\lambda}_i$ i
+bierzemy moduł:
+$$
+|\lambda - a_{ii}| = \left|\sum_{j \neq i} a_{ij}
+\frac{\ket{\lambda}_j}{\ket{\lambda}_i}\right| \leq \sum_{j \neq i}
+|a_{ij}| \left|\frac{\ket{\lambda}_j}{\ket{\lambda}_i}\right| =
+\left|\frac{1}{\ket{\lambda}_i}\right|\sum_{j \neq i} \left|a_{ij}
+\ket{\lambda}_j\right|
+$$
+
+Istnieje takie $k$, że:
+$$
+\left|\ket{\lambda}_k\right| = \max_{1 \leq i \leq n}
+\left|\ket{\lambda}_i\right|
+$$
+Dla $i = k$:
+$$
+\left|\lambda - a_{kk}\right| \leq
+\left|\frac{1}{\ket{\lambda}_k}\right|\sum_{j \neq k} \left|a_{kj}
+\ket{\lambda}_j\right|
+$$
+Z maksymalności $\left|\ket{\lambda}_k\right|$ mamy
+$\left|\ket{\lambda}_j\right|
+\leq \left|\ket{\lambda}_k\right|$, więc $\left|a_{kj}
+\ket{\lambda}_j\right| \leq |a_{kj}|
+\left|\ket{\lambda}_k\right|$, co podstawiając:
+$$
+\left|\lambda - a_{kk}\right| \leq \sum_{j \neq k} |a_{kj}| = R_k
+$$
+Jest to typowa konstrukcja koła Gerszgorina. $\square$
+
+\subsection{Zadanie 3}
+
+Dla $T_1: V \to W$, oraz $T_2: W \to V$, będą dwoma przekształceniami liniowymi.
+$$
+T = T_1 \circ T_2: V \to V
+$$
+Prawdziwym jest, że $\ker T_1 = \ker T$, oraz $\ker T_2 \subset \Im T_1$,
+czy $T_2$ jest różnowartościowe?
+
+$T_2$ jest różnowartościowe, jeśli $\ker T_2 = \{0\}$. Zatem, chcemy udowodnić,
+że $\forall_{w \in \ker T_2} w = 0$. Wiemy, że $w \in \Im T_1$. Istnieje więc,
+takie $v \in V : T_1(v) = w$. Z definicji $w$, mamy:
+$$
+T(v) = T_2(T_1(v)) = T_2(w) = 0
+$$
+więc $v \in \ker T = \ker T_1$. Zatem:
+$$
+w = T_1(v) = 0.
+$$
+Dowolny wektor $v \in V$, po przekształceniu $T_1(v)$ daje nam
+dowolny $w \in W$, który musi być zerowy. $\square$
+
+\section{Zestaw 2}
+
+\textit{
+  Stanem absolutnie maksymalnie splątanym (AME state) nazywamy taki
+  stan skwantowy, którego wszystkie zredukowane macierze gęstości są
+  maksymalnie mieszane.
+}
+
+\subsection{Zadanie 1}
+
+\subsubsection{GHZ}
+
+$$
+\ket{GHZ} = \frac{1}{\sqrt{2}} \left(\ket{000} + \ket{111}\right)
+$$
+$$
+\rho = \ket{GHZ} \bra{GHZ} = \frac{1}{2} \left(\ket{000} \bra{000} +
+\ket{000} \bra{111} + \ket{111} \bra{000} + \ket{111} \bra{111}\right)
+$$
+$$
+\Tr_{BC}(\ket{000}\bra{000}) = \ket{0}\bra{0} \quad
+\Tr_{BC}(\ket{111}\bra{111}) = \ket{1}\bra{1}
+$$
+$$
+\Tr_{BC}(\ket{000}\bra{111}) = \Tr_{BC}\Big( (\ket{0}\bra{1})_A
+\otimes (\ket{00}\bra{11})_{BC} \Big)
+=
+(\ket{0}\bra{1})\,\Tr(\ket{00}\bra{11})
+=
+\ket{0}\bra{1}\,\braket{11}{00}
+=
+\ket{0}\bra{1}\cdot 0
+=
+0
+$$
+$$
+\Tr_{BC}(\ket{111}\bra{000})
+=
+\ket{1}\bra{0}\,\braket{00}{11}
+=
+\ket{1}\bra{0}\cdot 0
+=
+0
+$$
+
+$$
+\rho_A = \frac{1}{2}\left(1, 0, 0, 1\right) = \rho_B = \rho_C
+$$
+
+Każda jedno-kubitowa redukcja jest maksymalnie mieszana, więc
+$\ket{GHZ}$ jest absolutely maximally entangled.
+
+\subsubsection{W}
+
+Czy stan $\ket{W}$ jest absolutnie maksymalnie splątany?
+$$
+\ket{W} = \frac{1}{\sqrt{3}}\left(\ket{001} + \ket{010} + \ket{100}\right)
+$$
+$$
+\rho = \ket{W} \bra{W}
+$$
+
+$$
+\rho_A = \frac{1}{3} \left(\ket{0}\bra{0} \braket{01}{01} +
+  \ket{0}\bra{0} \braket{10}{10} + \ket{1}\bra{1}
+\braket{00}{00}\right) = \frac{2}{3} \ket{0}\bra{0} + \frac{1}{3} \ket{1}\bra{1}
+$$
+
+Z symetrii stanu $\rho_A = \rho_B = \rho_C$. Ponieważ redukcja do jednego kubitu
+nie jest maksymalnie mieszana, stan $\ket{W}$ nie jest absolutnie
+maksymalnie splątany.
+
+\subsection{Zadanie 2}
+
+$$
+\ket{\psi} = \frac{1}{\sqrt{2}} \left(\ket{0} + i\ket{1}\right)
+$$
+
+\subsubsection{Podaj współrzędne stanu}
+
+$$
+\ket{\psi} = \cos\left(\frac{\theta}{2}\right)\ket{0} +
+e^{i\phi}\sin\left(\frac{\theta}{2}\right)\ket{1}
+$$
+$$
+\cos\left(\frac{\theta}{2}\right) = \frac{1}{\sqrt{2}} \quad
+e^{i\phi} \sin\left(\frac{\theta}{2}\right) = \frac{i}{\sqrt{2}}
+$$
+$$
+\theta = \frac{\pi}{2} \quad \phi = \frac{\pi}{2}
+$$
+
+Wektor w sferze blocha ma współrzędne:
+$$
+(x, y, z) = (\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta) = (0, 1, 0)
+$$
+$$
+\langle X \rangle = 0 \quad \langle Y \rangle = 1 \quad \langle Z \rangle = 0
+$$
+
+\subsubsection{Pomiar uogólniony}
+
+$$
+M_i = \frac{\ket{\psi_i}\bra{\psi_i}}{2}
+$$
+$$
+M_1 = \frac{\ket{0}\bra{0}}{2} = \frac{1}{2}
+\begin{bmatrix}
+  1 \\ 0
+\end{bmatrix}
+\begin{bmatrix}
+  1 & 0
+\end{bmatrix} =
+\frac{1}{2}
+\begin{bmatrix}
+  1 & 0
+  \\ 0 & 0
+\end{bmatrix}
+$$
+$$
+M_2 = \frac{
+  \left(\frac{1}{\sqrt{3}} \ket{0} + \frac{\sqrt{2}}{\sqrt{3}} \ket{1}\right)
+  \left(\frac{1}{\sqrt{3}} \bra{0} + \frac{\sqrt{2}}{\sqrt{3}} \bra{1}\right)
+}{2} = \frac{1}{6}
+\begin{bmatrix}
+  1 & \sqrt{2} \\
+  \sqrt{2} & 2
+\end{bmatrix}
+$$
+$$
+M_3 = \frac{
+  \left(\frac{1}{\sqrt{3}} \ket{0} + \frac{\sqrt{2}}{\sqrt{3}}
+  e^{\frac{2\pi}{3}} \ket{1}\right)
+  \left(\frac{1}{\sqrt{3}} \bra{0} + \frac{\sqrt{2}}{\sqrt{3}}
+  e^{\frac{2\pi}{3}} \bra{1}\right)
+}{2} = \frac{1}{6}
+\begin{bmatrix}
+  1 & \sqrt{2}e^{\frac{2\pi}{3}} \\
+  \sqrt{2}e^{\frac{2\pi}{3}} & 2e^{\frac{4\pi}{3}}
+\end{bmatrix}
+$$
+$$
+M_4 = \frac{1}{6}
+\begin{bmatrix}
+  1 & \sqrt{2}e^{\frac{4\pi}{3}} \\
+  \sqrt{2}e^{\frac{4\pi}{3}} & 2e^{\frac{8\pi}{3}}
+\end{bmatrix}
+$$
+
+$$
+p_i = \bra{\psi} M_i \ket{\psi} \quad \ket{\psi} = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+  1 \\ -i
+\end{bmatrix}
+\quad \bra{\psi} = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+  1 & -i
+\end{bmatrix}
+$$
+$$
+p_1 =
+$$
+
+\end{document}
