@@ -582,6 +582,36 @@ A \otimes B =
 \end{bmatrix}
 $$
 
+\begin{examplebox}
+  $$
+  H_i: \mathcal{H}_i \to \mathcal{H}_i \quad
+  H = \frac{1}{2}
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & -1
+  \end{bmatrix}
+  \quad H_1 \otimes H_2 = ?
+  $$
+
+  $$
+  H_1 \otimes H_2 = H \otimes H = \frac{1}{2}
+  \begin{bmatrix}
+    1 \cdot H & 1 \cdot H \\
+    1 \cdot H & -1 \cdot H
+  \end{bmatrix} = \frac{1}{2}
+  \begin{bmatrix}
+    1 & 1 & 1 & 1 \\
+    1 & -1 & 1 & -1 \\
+    1 & 1 & -1 & -1 \\
+    1 & -1 & -1 & 1
+  \end{bmatrix}
+  $$
+  $$
+  H_1 \otimes H_2 : \mathcal{H}_1 \otimes \mathcal{H}_2 \to
+  \mathcal{H}_1 \otimes \mathcal{H}_2
+  $$
+\end{examplebox}
+
 \subsection{Wyśladowywanie podukładu}
 
 Dla stanu gęstości $\rho_{AB}$ układu złożonego $A \otimes B$, partial trace
