@@ -814,4 +814,144 @@ $$
 \end{bmatrix}
 $$
 
+\section{Zestaw 3}
+
+\subsection{Zadanie 1}
+
+Z definicji normy Frobeniusa:
+$$
+||A||_F = \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n} |a_{ij}|^2}
+$$
+Mamy udowodnić:
+$$
+||A||_F^2 = \Tr(A^\dag A) = \sum_i \sigma_i^2
+$$
+
+$$
+A^\dag A =
+\begin{bmatrix}
+  a^*_{11} & a^*_{21} & \dots & a^*_{1n} \\
+  a^*_{12} & a^*_{22} & \dots & a^*_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a^*_{m1} & a^*_{m2} & \dots & a^*_{mn} \\
+\end{bmatrix}
+\begin{bmatrix}
+  a_{11} & a_{12} & \dots & a_{1m} \\
+  a_{21} & a_{22} & \dots & a_{2m} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{n1} & a_{n2} & \dots & a_{nm} \\
+\end{bmatrix}
+\Rightarrow
+(A^\dag A)_{jj} = \sum_{i=1}^{m} a^*_{ij} a_{ij} = \sum_{i=1}^{m} |a_{ij}|^2
+$$
+$$
+\Tr(A^\dag A) = \sum_{j=1}^{n} (A^\dag A)_{jj} = \sum_{j=1}^{n}
+\sum_{i=1}^{m} |a_{ij}|^2 = ||A||_F^2
+$$
+
+Z definicji SVD, mamy:
+$$
+A = U \Sigma V^\dag
+$$
+gdzie $U$ i $V$ są ortogonalnymi macierzami unitarnymi, a $\Sigma$
+jest diagonalną macierzą wartości własnych.
+$$
+(A^\dag A) = (U \Sigma V^\dag)^\dag (U \Sigma V^\dag) = V \Sigma^\dag
+U^\dag U \Sigma V^\dag
+$$
+z ortogonalności $U$:
+$$
+(A^\dag A) = V \Sigma^\dag I \Sigma V^\dag = V \Sigma^\dag \Sigma V^\dag
+$$
+Ponieważ $\Tr$ jest niezmienniczy względem kolejności operacji:
+$$
+\Tr(A^\dag A) = \Tr(V \Sigma^\dag \Sigma V^\dag) = \Tr(\Sigma^\dag
+\Sigma V^\dag V) = \Tr(\Sigma^\dag \Sigma I)
+$$
+A ponieważ, $\Sigma$ jest diagonalną macierzą wartości osobliwych, to mamy:
+$$
+\Tr(\Sigma^\dag \Sigma) = \sum_{i=1}^{n} \sigma_i^2 = ||A||_F^2 \quad \square
+$$
+
+\subsection{Zadanie 2}
+$$
+\Tr_B(\ket{\Psi}\bra{\Phi} \otimes \ket{\alpha}\bra{\beta}) =
+\braket{\beta}{\alpha} \ket{\Psi}\bra{\Phi}
+$$
+
+$$
+\Tr_B(\rho_{AB}) = \sum_k (I_A \otimes \bra{k}_B) \rho_{AB} (I_A
+\otimes \ket{k}_B)
+$$
+$$
+\Tr_B(\ket{\Psi}\bra{\Phi} \otimes \ket{\alpha}\bra{\beta}) = \sum_k
+(I_A \otimes \bra{k}_B)\left(\ket{\Psi}\bra{\Phi} \otimes
+\ket{\alpha}\bra{\beta}\right) (I_A
+\otimes \ket{k}_B) =
+$$
+$$
+=\sum_k \left[(I_A \ket{\Psi}\bra{\Phi}) \otimes (\bra{k}_B
+\ket{\alpha}\bra{\beta})\right] (I_A
+\otimes \ket{k}_B) = \sum_k (\ket{\Psi}\bra{\Phi} I_A) \otimes (\bra{k}_B
+\ket{\alpha}\bra{\beta} \ket{k}_B) = \sum_k \ket{\Psi}\bra{\Phi}
+\otimes (\bra{k}_B
+\ket{\alpha}\bra{\beta} \ket{k}_B)
+$$
+Ponieważ $\braket{\cdot}{\cdot}$ to skalar, $\otimes$ redukuje się do mnożenia,
+więc:
+$$
+\Tr_B(\ket{\Psi}\bra{\Phi} \otimes \ket{\alpha}\bra{\beta}) =
+\ket{\Psi}\bra{\Phi} \sum_k \bra{k}_B \ket{\alpha}\bra{\beta}
+\ket{k}_B = \ket{\Psi}\bra{\Phi} \sum_k \braket{\alpha}{k} \braket{k}{\beta}
+$$
+Relacja zupełności bazy ortonormalnej mówi nam, że:
+$$
+\sum_k \ket{k}\bra{k} = I \Rightarrow \Tr_B(\ket{\Psi}\bra{\Phi}
+\otimes \ket{\alpha}\bra{\beta}) = \ket{\Psi}\bra{\Phi}
+\braket{\alpha}{\beta} \quad \square
+$$
+
+\subsection{Zadanie 3}
+
+$$
+U(a) = e^{iA}, A = A^\dag \rightarrow U(A)^\dag U(A) = I =
+U(A)U(A)^\dag
+$$
+
+Z definicji:
+$$
+U = e^{iA} = \sum_{n=1}^{\infty} \frac{(iA)^n}{n!} \Rightarrow U^\dag
+= \sum_{n=1}^{\infty} \left(\frac{(iA)^n}{n!}\right)^\dag =
+\sum_{n=1}^{\infty} \frac{((iA)^n)^\dag}{n!}
+$$
+Ponieważ $A$ jest hermitowska:
+$$
+((iA)^n)^\dag = (A^\dag)^n(i^n)^\dag = A^n (-i)^n = (-iA)^n
+$$
+$$
+U^\dag = \sum_{n=1}^{\infty} \frac{(-iA)^n}{n!} = e^{-iA}
+$$
+$$
+U^\dag U = e^{-iA} e^{iA} = I \quad UU^\dag = e^{iA} e^{-iA} = I \quad \square
+$$
+
+\subsection{Zadanie 4}
+
+$$
+A = A^\dag \quad A\ket{\alpha} = \alpha \ket{\alpha} \quad A\ket{\beta} = \beta
+\ket{\beta} \quad \braket{\alpha}{\beta} = 0 \quad \alpha \neq \beta
+$$
+
+$$
+\bra{\beta}A\ket{\alpha} = \alpha \braket{\beta}{\alpha}
+$$
+$$
+\bra{\beta}A\ket{\alpha} = (A^\dag \ket{\beta})^\dag \ket{\alpha} =
+\beta \braket{\beta}{\alpha}
+$$
+$$
+\alpha \braket{\beta}{\alpha} = \beta \braket{\beta}{\alpha}
+$$
+Więc, ponieważ $\alpha \neq \beta$, $\braket{\alpha}{\beta} = 0 \quad \square$
+
 \end{document}
