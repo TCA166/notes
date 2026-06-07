@@ -275,6 +275,19 @@ $$
 \sin A = \textrm{diag}(\sin \lambda_1, \dots)
 $$
 
+\subsection{Pomiary}
+
+W fizyce kwantowej, dla stanu $\ket{\psi}$, wartością oczekiwaną
+obserwabli jest:
+$$
+\langle O \rangle = \bra{\psi} O \ket{\psi}
+$$
+$O$ to operator, czyli macierz Hermitowska. Jej wektory własne to różne wartości
+które można uzyskać z zadziałania operatora $O$ na wektorze $\ket{\psi}$.
+$$
+P(\lambda) = |\braket{\lambda}{\psi}|^2
+$$
+
 \section{Klatka Jordana}
 
 Macierz rozmiaru $k \times k$, postaci:
@@ -464,6 +477,15 @@ $$
 \frac{1}{2}(I + \vec{r} \cdot \vec{q})
 $$
 $\vec{r}$ nazywamy wektorem Blocha, a $\sigma$ to macierze Pauliego.
+
+$$
+\ket{\psi} = \cos(\frac{\theta}{2}) \ket{0} +
+e^{i\phi}\sin(\frac{\theta}{2}) \ket{1}
+$$
+$$
+x = \sin(\theta)\cos(\phi) \quad y = \sin(\theta)\sin(\phi) \quad z =
+\cos(\theta)
+$$
 
 \section{Ortogonalizacja Grama-Schmidta}
 
@@ -1089,10 +1111,5 @@ $$
 E(\ket{\psi}_{AB}) = S(\rho_A) = S(\rho_B) \quad \rho_A =
 \Tr_B(\ket{\psi} \bra{\psi})
 $$
-
-%Definicja entropii splątania
-%Wyśladuj jeden z podukładów
-%Oblicz macierz gęstości jednego z podukładów
-%Oblicz entropię splątania
 
 \end{document}
