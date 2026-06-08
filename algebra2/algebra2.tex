@@ -72,6 +72,23 @@ nie da się wyrazić przy pomocy siebie, przy pomocy których można wyrazić do
 wektor z $V$ jako kombinację liniową. Można o bazie myśleć jako o zbiorze
 elementarnych wartości, bloków budulcowych.
 
+\subsubsection{Baza Kubitu}
+
+$$
+\ket{0} =
+\begin{bmatrix} 1 \\ 0
+\end{bmatrix}\quad \ket{1} =
+\begin{bmatrix} 0 \\ 1
+\end{bmatrix}
+$$
+
+\subsubsection{Baza Hadamarda}
+
+$$
+\ket{+} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) \quad \ket{-} =
+\frac{1}{\sqrt{2}}(\ket{0} - \ket{1})
+$$
+
 \subsection{Przekształcenia liniowe}
 
 Niech $U$ i $V$ będą przestrzeniami wektorowymi nad $K$. Funkcję $T: U \to V$
@@ -469,6 +486,12 @@ $$
 \langle A \rangle = \tr(\rho A)
 $$
 
+Prawdopodobieństwo uzyskania wyniku $\lambda$, gdzie $\lambda$ to wartość własna
+operatora $A$, jest:
+$$
+P(\lambda) = \Tr(\ketbra{\lambda}{\lambda} \rho)
+$$
+
 \subsubsection{Sfera Blocha}
 
 Dowolną macierz gęstości kubitu można zapisać jako:
@@ -477,6 +500,17 @@ $$
 \frac{1}{2}(I + \vec{r} \cdot \vec{q})
 $$
 $\vec{r}$ nazywamy wektorem Blocha, a $\sigma$ to macierze Pauliego.
+$$
+\sigma_x =
+\begin{bmatrix} 0 & 1 \\ 1 & 0
+\end{bmatrix} \quad
+\sigma_y =
+\begin{bmatrix} 0 & -i \\ i & 0
+\end{bmatrix} \quad
+\sigma_z =
+\begin{bmatrix} 1 & 0 \\ 0 & -1
+\end{bmatrix}
+$$
 
 $$
 \ket{\psi} = \cos(\frac{\theta}{2}) \ket{0} +
@@ -588,6 +622,44 @@ $$
 $$
 Stany, które można zapisać w tej postaci, nazywamy separowalnymi lub
 produktowymi.
+
+\begin{examplebox}
+  Stan $\ket{\psi} = \frac{1}{\sqrt{3}} (\ket{001} + \ket{010} + \ket{100})$
+  jest splątany. Jeśli nie byłby, to dałoby się zapisać:
+  $$
+  \ket{\psi} = \ket{\phi_1} \otimes \ket{\phi_2} \otimes \ket{\phi_3}
+  \quad \ket{\phi_i} = \alpha \ket{0} + \beta \ket{1}
+  $$
+  $$
+  \ket{\phi_1} \otimes \ket{\phi_2} \otimes \ket{\phi_3} =
+  \begin{pmatrix}
+    a & b
+  \end{pmatrix}
+  \otimes
+  \begin{pmatrix}
+    c & d
+  \end{pmatrix}
+  \otimes
+  \begin{pmatrix}
+    e & f
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    ac & ad & bc & bd
+  \end{pmatrix}
+  \otimes
+  \begin{pmatrix}
+    e & f
+  \end{pmatrix}
+  =
+  $$
+  $$
+  =
+  \begin{pmatrix}
+    ace & acf & ade & adf & bce & bcf & bde & bdf
+  \end{pmatrix}
+  $$
+\end{examplebox}
 
 \subsection{Iloczyn Kroneckera}
 
