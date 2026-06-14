@@ -365,9 +365,9 @@ gracz drugi nigdy nie ma strategii wygrywającej. Stąd też wartość to albo
 $1/2$ lub $1$. Zatem, wartość gry $[k]^n$ sprowadza się do problemu tego,
 czy w grze jest remis.
 
-\subsubsection{Twierdzenie Halesa-Jewetta}
+\subsection{Twierdzenie Halesa-Jewetta}
 
-Dla dowolnego $k \in \mathbb{N}$, istnieje $n \in mathbb{N}$, że przy dowolnym
+Dla dowolnego $k \in \mathbb{N}$, istnieje $n \in \mathbb{N}$, że przy dowolnym
 pokolorowaniu dwoma kolorami planszy $[k]^n$ powstanie monochromatyczna linia.
 
 Lub inaczej; jest $k$, dla którego przy odpowiednim $n$, nie da się
@@ -375,13 +375,11 @@ zremisować. Najmniejsze takie $n$ oznaczamy $hj(k)$.
 \textbf{Uwaga na notację!}, $HJ(k) \neq hj(k)$.
 
 $$
-hj(3) = 3
+hj(3) = 3 \quad hj(4) \geq 3
 $$
 
 Jeśli $n \geq hj(k)$, to nie ma remisów w $[k]^n$, a co za tym idzie wartość
 gry musi być $1$.
-
-\subsection{Set}
 
 \section{Gry KK vs KD}
 
@@ -441,13 +439,11 @@ kolorujemy elementy $X$, czyli punkty wizualizacji. Jeśli jakiś podzbiór,
 "ziemniaczek" jak to zostało cudownie nazwane na wykładzie, będzie jednego
 koloru, to wygrywa Konstruktor.
 
-\subsection{Rachunek prawdopodobieństwa}
+\subsection{Twierdzenie Erd\H{o}sa-Selfridge'a}
 
 Wyobraźmy sobie, że losowo każdy element z $X$ kolorujemy na 2 kolory.
 Ile będzie zbiorów czerwonych w $\mathcal{W}$? Mierzymy to jako zmienną losową
 $Z$.
-
-\subsubsection{Twierdzenie Erdosa-Selfridge'a}
 
 Jeśli $\mathbb{E}Z < 0.5$, to Destruktor ma strategię wygrywającą.
 
@@ -455,6 +451,29 @@ $$
 \mathbb{E}Z = \sum_{w \in \mathcal{W}} \frac{1}{2^{|w|}}
 $$
 \textbf{Kryterium nie działa w drugą stronę}
+
+\begin{examplebox}
+  Rozważmy grę Ramseyowską KK w budowanie $K_5$ na $K_{10}$. Uzasadnij,
+  że wartością gry jest $\frac{1}{2}$.
+
+  \vspace{1em}
+  Wiemy, że $r(5, 5) > 10$, bo $r(4, 4) = 18$. Więc, wiemy, że w grze
+  istnieją stany remisowe. Jeśli rozważymy wariant KD gry, to możemy udowodnić,
+  że wariant KD wygrywa Destruktor. Wynika to z Erdos-Selfridge'a, albowiem:
+  $$
+  \mathbb{E}Z = \sum_{w \in \mathcal{W}} \frac{1}{2^{|w|}} =
+  \sum^{252} \frac{1}{2^{10}} < 0.5
+  $$
+  $|W| = \binom{10}{5} = 252$, czyli w $K_{10}$ jest $252$ możliwych
+  podgrafów $K_5$, oraz $|w| = \binom{5}{2} = 10$, czyli w $K_5$ jest
+  $10$ krawędzi.
+
+  Wiemy więc, że wariant KD wygrywa Destruktor, więc w KK wiemy, że
+  zawsze Destruktor może zablokować Konstruktora. Z kradzieży strategii, możemy
+  zauważyć, że Destruktor nie może mieć strategii wygrywającej, bo inaczej
+  Konstruktor mógłby ją ukraść. Więc ani Konstruktor ani Destruktor nie może
+  mieć strategii wygrywającej, więc wartość musi być $\frac{1}{2}$.
+\end{examplebox}
 
 \section{Gry NIM}
 
