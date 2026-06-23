@@ -25,11 +25,14 @@ Przestrzeń wektorowa $V$ nad ciałem $K$ to:
     1 \cdot v = v
     $
 \end{itemize}
-
 Intuicyjnie, jest to ciało skalarów i grupa wektorów z dodatkowym
-działaniem. Przestrzenią wektorową może być wiele rzeczy. Od wielowymiarowych
-ciał $\mathbb{R}^n$, poprzez bajty ($\mathbb{F}_2^8$), aż po funkcje w ramach
-szeregów Fourier'a.
+działaniem.
+
+\begin{examplebox}
+  Przestrzenią wektorową może być wiele rzeczy. Od wielowymiarowych
+  ciał $\mathbb{R}^n$, poprzez bajty ($\mathbb{F}_2^8$), aż po funkcje w ramach
+  szeregów Fourier'a.
+\end{examplebox}
 
 \subsection{Powłoka liniowa}
 
@@ -42,6 +45,13 @@ $$
 nazywamy powłoką zbioru $S$. Intuicyjnie, jest to zbiór skalarów odpowiadających
 pewnym wektorom z $V$. Mnożymy skalary z wektorami i dostajemy nowy wektor,
 powstały z kombinacji liniowej. Wszystkie takie wektory tworzą powłokę liniową.
+
+\begin{examplebox}
+  Dla dwóch wektorów $v_1, v_2 \in V$, wiemy, że $v \in
+  \mathrm{span}(\{v_1, v_2\})$, jeśli istnieją skalarne $\alpha_1,
+  \alpha_2 \in K$ takie, że $v = \alpha_1 v_1 + \alpha_2 v_2$. Na podstawie
+  tego, możemy określić postać powłoki.
+\end{examplebox}
 
 Inaczej, powłoka liniowa to najmniejsza podprzestrzeń $V$, zawierająca wszystkie
 wektory z $S$. Mówimy, że wektory z $S$ rozpinają podprzestrzeń $V$, równoważną
@@ -61,6 +71,18 @@ Intuicyjnie, jeśli nie da się wyrazić dowolnego wektora z $S$ jako kombinacji
 liniowej innych wektorów z $S$, to $S$ jest liniowo niezależny. Jeśli da się
 wyrazić dowolny wektor z $S$ przy pomocy innych wektorów z $S$, to da się też
 zsumować dowolnie te wektory do zera, tak, że skalary nie są równe zero.
+
+\begin{examplebox}
+  Aby powłoki dwóch zbiorów $S_1, S_2 \subseteq V$, były równe, to musi dać
+  się wyrazić dowolny wektor z $S_1$ przy pomocy wektorów z $S_2$
+  oraz odwrotnie. Wtedy, można łatwo pokazać, że powłoki muszą być równe, skoro
+  da się je sprowadzić do jednej konstrukcji.
+  $$
+  \mathrm{span}(S_1) = \{\alpha_1 v_1 + \alpha_2 v_2 + \dots +
+  \alpha_n v_n\} = \{\alpha_1 (\beta_1 u_1 + \beta_2 u_2 + \dots +
+  \beta_n u_n) + \dots\}
+  $$
+\end{examplebox}
 
 \subsection{Baza}
 
@@ -99,6 +121,24 @@ $$
 T(\alpha_1 u_1 + \alpha_2 u_2) = \alpha_1 T(u_1) + \alpha_2 T(u_2)
 $$
 
+\subsection{Rzut na płaszczyznę}
+
+Rzut punktu $v$ na płaszczyznę $z = c$, o normalnej $n$, jest dana przez wzór:
+$$
+P(v) = v - \frac{v \cdot n}{n \cdot n} n
+$$
+
+Do analizy $P(v)$, przydają się dwie obserwacje:
+\begin{itemize}
+  \item $P(v) = v : v \in z$, czyli punkt na płaszczyźnie jest taki
+    sam jak wejściowy punkt
+  \item $P(n) = 0$, czyli punkt prostopadły do płaszczyzny jest
+    rzutowany na zero
+\end{itemize}
+To nam pozwala określić łatwo wektory własne $P$; czyli $v$ taki, że $P(v) = v$,
+oraz punkty prostopadłe do płaszczyzny. Stąd też, można łatwo określić wartości
+własne, czyli $1$ i $0$. $\ker P = \textrm{span}(n)$
+
 \subsection{Zmiana bazy}
 
 Dla przestrzeni $U$ z bazą $S = \{v_1, v_2, \dots, v_n\}$, oraz $V$ z
@@ -110,19 +150,52 @@ $$
 Intuicyjnie, w j-tej kolumnie macierzy $M_S^{S'}$ stoją współrzędne wektora
 $v_j$ w bazie $S'$.
 
-Wspólrzędne wektora $v \in V$ w bazie $S'$ to $\langle v \rangle_{S'}
-= M_S^{S'} \langle v \rangle_S$, dla danych koordynatów w bazie $S$
-$\langle v \rangle_S$.
-
 Macierzą przejścia dla przestrzeni $V$ z bazą S i $U$ z bazą $S'$,
 oraz macierzą przekształcenia $M_S^{S'}$ jest macierz
 $M_S^{S'}(Id_S)$, $Id_V : V \to V$.
+
+\begin{examplebox}
+  $$
+  \textrm{NOT}: \mathbb{C}^2 \to \mathbb{C}^2 \quad S = \{\ket{0},
+  \ket{1}\} \quad M_S^S(\textrm{NOT}) =
+  \begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}
+  $$
+  Dla $S' = \{\ket{+}, \ket{-}\}, \textrm{NOT}\ket{+} = \ket{+},
+  \textrm{NOT}\ket{-} =
+  -\ket{-}$, więc:
+  $$
+  M_{S'}^{S'}(\textrm{NOT}) =
+  \begin{pmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{pmatrix} = M_S^{S'}(I) \cdot \textrm{NOT} \cdot M_{S'}^{S}(I)
+  = H \cdot \textrm{NOT} \cdot H^{-1}
+  $$
+  Ponieważ: $\textrm{NOT}\ket{0} = \ket{1} =
+  \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \textrm{NOT}\ket{1} =
+  \ket{0} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1})$, więc:
+  $$
+  M_S^{S'}(\textrm{NOT}) =
+  \frac{1}{\sqrt{2}}
+  \begin{pmatrix}
+    1 & 1 \\
+    -1 & 1
+  \end{pmatrix} = H \cdot \textrm{NOT} = M_S^{S'}(I) \cdot \textrm{NOT}
+  $$
+\end{examplebox}
+
+Wspólrzędne wektora $v \in V$ w bazie $S'$ to $\langle v \rangle_{S'}
+= M_S^{S'} \langle v \rangle_S$, dla danych koordynatów w bazie $S$
+$\langle v \rangle_S$.
 
 \subsection{Własności}
 
 Śladem macierzy $A$ nazywamy $\tr A$; gdzie:
 $$
-\tr A = \sum_{i=1}^n a_{ii}
+\tr A = \sum_{i=1}^n a_{ii} = \sum_{i=0}^{n} \lambda_i
 $$
 
 Jądrem nazywamy zbiór wektorów (punktów), które są przekształcane w zero.
@@ -147,7 +220,7 @@ $$
 \section{Wektory własne}
 
 Dla przestrzeni $V$ nad ciałem $K$, z przekształceniem $T: V \to V$, jeśli
-dla niezerowego $v \in V$ spełnione jest:
+dla \textbf{niezerowego} $v \in V$ spełnione jest:
 $$
 Tv = \lambda v
 $$
@@ -158,17 +231,26 @@ po wrzuceniu do operatora może zwrócić tylko przeskalowany ten sam wektor.
 Odwrócenie macierzy nieosobliwej, odwraca też jej wartości własne.
 
 $$
-\prod_i \lambda_i = \det A
+\prod_i \lambda_i = \det A \quad \sum_i \lambda_i = \tr A
 $$
 
 Z powyższego można wyprowadzić wzór na wartości własne; oraz
 zdefiniować wielomian charakterystyczny:
 $$
-\determinant (A - \lambda I) = 0 = p_T(\lambda)
+\determinant (T - \lambda I) = 0 = p_T(\lambda)
 $$
 $$
 (T - \lambda I)v_\lambda = 0
 $$
+
+Krotnością geometryczną wartości własnej $\lambda$ nazywamy wymiar przestrzeni
+własnej, odpowiadającej wartości własnej $\lambda$.
+$$
+\dim \ker (T - \lambda I)
+$$
+Dla wartości własnej możemy zdefiniować nieskończoność wektorów własnych, lecz
+dla wartości własnej o krotności geometrycznej $n$, będzie $n$ wektorów własnych
+ortogonalnych do siebie.
 
 Wektor $\ket{m}$ nazywamy uogólnionym wektorem własnym rzędu $m$ macierzy $A$
 dla wartości własnej $\lambda$ jeśli $(A - \lambda I)^m \ket{m} = 0$, oraz
@@ -208,11 +290,25 @@ Dla wielomianu charakterystycznego:
 $$
 p_A(t) = (t - \lambda_1)^{k_1} (t - \lambda_2)^{k_2} \dots (t - \lambda_m)^{k_m}
 $$
-liczbę $k_i : i \leq m$ nazywamy krotnością wartości własnej $\lambda_i$.
-Jeśli da się zapisać $p_A(t) = c_nt^n + \dots c_0$, to:
+liczbę $k_i : i \leq m$ nazywamy krotnością algebraiczną wartości
+własnej $\lambda_i$. Jeśli da się zapisać $p_A(t) = c_nt^n + \dots c_0$, to:
 $$
 c_n = 1, \tr A = - c_{n - 1}, \determinant A = (-1)^n c_0
 $$
+
+\begin{examplebox}
+  $$
+  A =
+  \begin{pmatrix}
+    1 & 2 \\
+    2 & 1
+  \end{pmatrix} \quad
+  \begin{vmatrix}
+    1 - \lambda & 2 \\
+    2 & 1 - \lambda
+  \end{vmatrix} = 0 = (1 - \lambda)^2 - 4
+  $$
+\end{examplebox}
 
 \subsubsection{Twierdzenie Cayleya-Hamiltona}
 
@@ -266,6 +362,14 @@ Macierz można zdiagonalizować tylko jeśli:
     krotności algebraicznej
 \end{itemize}
 
+Intuicyjnie, musi mieć zbiór $n$ wektorów własnych, liniowo niezależnych, tak
+aby dało się stworzyć bazę ortonormalną, w której macierz przyjmuje
+postać diagonalną.
+
+$$
+A = PDP^{-1}
+$$
+
 \subsubsection{Komutacja}
 
 Macierze można jednocześnie diagonalizować, tylko jeśli ze sobą komutują:
@@ -279,7 +383,8 @@ $$
 S^{-1}AS = \textrm{diag}(\lambda_{1}(A), \dots) \quad S^{-1}BS =
 \textrm{diag}(\lambda_1(B), \dots)
 $$
-Wiemy też, że $B$ i $A$ mają zbiór wspólnych wektorów własnych, oraz, że $S$
+Wiemy też, że $B$ i $A$ mają zbiór wspólnych \textbf{parami różnych}
+wektorów własnych, oraz, że $S$
 to zestawienie kolumnowe tych właśnie wspólnych wektorów własnych.
 
 \subsubsection{Funkcje macierzowe}
@@ -415,9 +520,14 @@ jest unitarna.
 
 Przekształcenia unitarne i ortogonalne zachowują kąty między wektorami.
 Klasycznym, zatem przekształceniem jest ortogonalnym jest macierz obrotu.
+Co więcej, transformacje unitarne zachowują iloczyn skalarny:
+$$
+$$
 
 Jeśli $||Tv||_W = ||v||V$, to $T$ nazywamy izometrią. Przekształcenia unitarne
 i ortogonalne są izometriami.
+
+Dla unitarności, obraz wektora bazowego $x = Uv$, musi mieć normę $||x|| = 1$.
 
 \subsection{Metryka}
 
@@ -748,7 +858,7 @@ $$
 A = \frac{A + A^T}{2} + \frac{A - A^T}{2}
 $$
 $$
-x^T \frac{A - A^T}{2}x = (x^T\frac{(A - A^T)^T}{2}x)^T = -x^T\frac{A
+x^T \frac{A - A^T}{2}x = \left(x^T\frac{(A - A^T)^T}{2}x\right)^T = -x^T\frac{A
 - A^T}{2}x = 0
 $$
 
@@ -775,6 +885,16 @@ Alternatywnie, można rozważać określoność zależnie od wartości własnych
     \textrm{sgn}(\lambda_j)$
   \item półokreślona jeśli $\lambda_i \geq 0$ lub $\lambda_i \leq 0$
 \end{itemize}
+
+\begin{examplebox}
+  Rozważmy określoność macierzy $A =
+  \begin{pmatrix}
+    1 & 2 \\
+    2 & 1
+  \end{pmatrix}$. $A > 0$, lecz, wartości własne $A$ to $\lambda_1 =
+  -1,\lambda_2 = 3$.
+  Zatem, możemy okreslić, że choć $A > 0$, to $A$ nie jest dodatnio określona.
+\end{examplebox}
 
 Na podstawie kryterium Sylvestera:
 \begin{itemize}
@@ -958,7 +1078,7 @@ $$
 Każdą macierz rzeczywistą $A \in \mathbb{R}^{m \times n}$ można
 przedstawić jako:
 $$
-A = U \Sigma V^{*}
+A = U \Sigma V^\dag
 $$
 gdzie $U \in \mathbb{C}^{m\times m}$ i $V \in
 \mathbb{C}^{n \times n}$ to macierze unitarne, a $\Sigma \in
@@ -980,6 +1100,44 @@ Aby znaleźć rozkład SVD należy:
   \item Jeśli konieczne uzupełnij wartości $U$ i $V$, ortogonalizacją
     Grama-Schidta
 \end{enumerate}
+
+\subsection{Pseudoodwrotność}
+
+Nie wszystkie macierze mają odwrotność, stąd, dla tych macierzy
+zdefiniujemy pseudoodwrotność:
+$$
+A^+ = V \Sigma^+ U^\dag, \quad \Sigma^+ = \left[\sigma_i^{-1} : i =
+1, \dots, n\right]
+$$
+
+Pseudoodwrotność pozwala przybliżyć rozwiązanie równania liniowego
+$Ax = b$ poprzez rozwiązanie układu równań $A^+ b = x$.
+
+\subsection{PCA}
+
+PCA to technika redukcji wymiarowości, która pozwala na znalezienie
+najważniejszych cech danych poprzez transformację macierzy danych.
+
+W PCA określamy nową przestrzeń dla danych, zdefiniowaną poprzez ortonormalną
+bazę zbudowaną z "principal components". Principal component to
+liniowa kombinacja współrzędnych danych, która ma największą wariancję.
+Intuicyjnie, szukamy wektorów, które najlepiej "wyjaśniają" dane,
+$\max \frac{||Av||}{||v||}$
+
+Najpierw obliczamy macierz kowariancji $C$:
+$$
+C = \frac{1}{n-1} X X^T
+$$
+potem określamy nową bazę, jako $k$ wektorów własnych macierzy $C$,
+odpowiadającym największym wartościom własnym:
+$$
+W = \left[\ket{a}_C, \ket{b}_C, \dots, \ket{k}_C\right], \quad Z = W^TX
+$$
+
+Można też określić PCA przez SVD:
+$$
+C = U \frac{\Sigma\Sigma^T}{n-1} U^T
+$$
 
 \section{Równania Liniowe}
 
@@ -1183,5 +1341,18 @@ $$
 E(\ket{\psi}_{AB}) = S(\rho_A) = S(\rho_B) \quad \rho_A =
 \Tr_B(\ket{\psi} \bra{\psi})
 $$
+
+\subsection{Hamiltonian}
+
+Wartość oczekiwana energii Hamiltonianu $H$:
+$$
+\langle H \rangle = \Tr(\rho H)
+$$
+
+Dla stanu maksymalnie mieszanego, mamy:
+$$
+\rho = \frac{I}{d}
+$$
+gdzie $d$ to wymiar przestrzeni stanów.
 
 \end{document}
