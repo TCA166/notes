@@ -500,6 +500,275 @@ regionami na obrazku, a przestrzenią czynników.
 Zamiast heurystycznie szukać regionów, do konkretnego problemu, możemy
 nauczyć sień neuronową, aby to robiła za nas.
 
+\section{Segmentacja Semantyczna}
+
+W semantycznej segmentacji, każdemu pikselowi chcemy przyporządkować pewną
+klasę semantyczną w obrazku.
+Naiwnym rozwiązaniem jest, po raz kolejny, przesuwanie okienka kontekstowego
+i aplikowanie modelu klasyfikacyjnego na każdym pikselu.
+
+\subsection{U-net}
+
+Bardziej kompleksowym rozwiązaniem jest pełna konwolucyjna sieć neuronowa (CNN),
+która jest trenowana na całym obrazie i każdemu pikselowi
+przyporządkowuje klasę semantyczną. Problemem, jest ograniczone
+\textit{receptive field} każdej warstwy konwolucyjnej, oraz koszta związane z
+tym podejściem.
+
+Tutaj, standardowo, stosuje się kombinacje downsamplingu i upsamplingu,
+aby zwiększyć \textit{receptive field} każdej warstwy konwolucyjnej.
+Downsampling to prosta sprawa, pooling jest rodzajem downsamplingu, który
+zredukuje rozmiar obrazu poprzez agregację pikseli w oknach.
+
+\subsection{Upsampling}
+
+Jest wiele sposobów, na który można robić upsampling:
+\begin{itemize}
+  \item Bed of Nails - nadaj nowym komórkom wartość $0$
+  \item Nearest Neighbor - nadaj nowym komórkom wartość najbliższego sąsiada
+  \item Bilinear Interpolation - użyj dwóch najbliższych sąsiadów w
+    obydwu wymiarach i skonstruuj interpolację liniową
+  \item Bicubic Interpolation - użyj trzech najbliższych sąsiadów w
+    obydwu wymiarach i skonstruuj interpolację kubiczną
+  \item Max-Unpooling - przy downsamplingu zapamiętujemy pozycję największych
+    wartości w każdym oknie, a przy upsamplingu przywracamy w te pozycje
+    wartości
+\end{itemize}
+
+\begin{examplebox}
+  $$
+  \begin{bmatrix}
+    1 & 2 & 6 & 3 \\
+    3 & \textcolor{red}{5} & 2 & 1 \\
+    1 & 2 & 2 & 1 \\
+    7 & 3 & 4 & 8
+  \end{bmatrix} \Rightarrow
+  \begin{bmatrix}
+    \textcolor{red}{5} & 6 \\
+    7 & 8
+  \end{bmatrix}
+  \Rightarrow \dots \Rightarrow
+  \begin{bmatrix}
+    \textcolor{red}{1} & 2 \\
+    3 & 4
+  \end{bmatrix}
+  \Rightarrow
+  \begin{bmatrix}
+    0 & 0 & 2 & 0 \\
+    0 & \textcolor{red}{1} & 0 & 0 \\
+    0 & 0 & 0 & 0 \\
+    3 & 0 & 0 & 4
+  \end{bmatrix}
+  $$
+\end{examplebox}
+
+\section{RNN}
+
+Rekurencyjne sieci neuronowe (RNN) są sieciami neuronowymi, które przetwarzają
+dane sekwencyjne, gdzie każdy element sekwencji jest przetwarzany w kontekście
+poprzednich elementów. Kluczowym konceptem, jest tak zwany
+\textit{hidden state}.
+$$
+h_t = f_W(h_{t-1}, x_t) \quad y_t = g(h_t)
+$$
+W zależności od problemu, możemy mieć do czynienia z tylko jednym
+wejściem zamiast $t$ wejść, oraz jednym wyjściem zamiast $t$ wyjść. To wszystko
+zależy od problemu, który chcemy rozwiązać.
+
+\begin{figure}
+  \centering
+  \resizebox{0.8\textwidth}{!}{%
+    \begin{tikzpicture}[
+        >=Stealth,
+        every node/.style={font=\Large},
+        hidden/.style={
+          draw,
+          fill=green!20,
+          minimum width=1.6cm,
+          minimum height=2.2cm
+        },
+        output/.style={
+          draw,
+          fill=blue!20,
+          minimum width=1.6cm,
+          minimum height=2.2cm
+        },
+        func/.style={
+          draw,
+          fill=gray!15,
+          minimum width=1.8cm,
+          minimum height=1.8cm
+        },
+        input/.style={
+          draw,
+          fill=red!20,
+          minimum width=1.3cm,
+          minimum height=2.2cm
+        },
+        weight/.style={
+          draw,
+          fill=orange!20,
+          minimum width=1.6cm,
+          minimum height=2cm
+        },
+        loss/.style={
+          draw,
+          fill=violet!20,
+          minimum width=1.3cm,
+          minimum height=1.0cm
+        },
+        total/.style={
+          draw,
+          fill=violet!20,
+          minimum width=1.7cm,
+          minimum height=1.5cm
+        }
+      ]
+
+      %--------------------------------------------------
+      % Main RNN chain
+      %--------------------------------------------------
+
+      \node[hidden] (h0) {$h_0$};
+
+      \node[func, right=1.2cm of h0] (f1) {$\mathrm{f}_{W}$};
+      \node[hidden, right=1.2cm of f1] (h1) {$h_1$};
+
+      \node[func, right=1.2cm of h1] (f2) {$\mathrm{f}_{W}$};
+      \node[hidden, right=1.2cm of f2] (h2) {$h_2$};
+
+      \node[func, right=1.2cm of h2] (f3) {$\mathrm{f}_{W}$};
+      \node[hidden, right=1.2cm of f3] (h3) {$h_3$};
+
+      \node[hidden, right=5.0cm of h3] (hT) {$h_T$};
+
+      %--------------------------------------------------
+      % Outputs
+      %--------------------------------------------------
+
+      \node[output, above=1.1cm of h1] (y1) {$y_1$};
+      \node[output, above=1.1cm of h2] (y2) {$y_2$};
+      \node[output, above=1.1cm of h3] (y3) {$y_3$};
+      \node[output, above=1.1cm of hT] (yT) {$y_T$};
+
+      %--------------------------------------------------
+      % Inputs
+      %--------------------------------------------------
+
+      \node[input, below=1.2cm of f1] (x1) {$x_1$};
+      \node[input, below=1.2cm of f2] (x2) {$x_2$};
+      \node[input, below=1.2cm of f3] (x3) {$x_3$};
+
+      %--------------------------------------------------
+      % Shared weights
+      %--------------------------------------------------
+
+      \node[weight, below left=1.8cm and 1.7cm of f1] (W) {$W$};
+
+      %--------------------------------------------------
+      % Losses
+      %--------------------------------------------------
+
+      \node[loss, right=1.0cm of y1] (L1) {$L_1$};
+      \node[loss, right=1.0cm of y2] (L2) {$L_2$};
+      \node[loss, right=1.0cm of y3] (L3) {$L_3$};
+      \node[loss, right=1.0cm of yT] (LT) {$L_T$};
+
+      \node[total, above right=1.8cm and 0.8cm of LT] (L) {$L$};
+
+      %--------------------------------------------------
+      % Forward recurrence
+      %--------------------------------------------------
+
+      \draw[->] (h0) -- (f1);
+      \draw[->] (f1) -- (h1);
+
+      \draw[->] (h1) -- (f2);
+      \draw[->] (f2) -- (h2);
+
+      \draw[->] (h2) -- (f3);
+      \draw[->] (f3) -- (h3);
+
+      \draw[->] (h3) -- ++(1.3,0);
+      \draw[->] ($(hT.west)+(-1.1,0)$) -- (hT);
+
+      %--------------------------------------------------
+      % Outputs
+      %--------------------------------------------------
+
+      \draw[->] (h1) -- (y1);
+      \draw[->] (h2) -- (y2);
+      \draw[->] (h3) -- (y3);
+      \draw[->] (hT) -- (yT);
+
+      %--------------------------------------------------
+      % Inputs to cells
+      %--------------------------------------------------
+
+      \draw[->] (x1) -- (f1);
+      \draw[->] (x2) -- (f2);
+      \draw[->] (x3) -- (f3);
+
+      %--------------------------------------------------
+      % Shared parameter arrows
+      %--------------------------------------------------
+
+      \draw[->]
+      (W) to[out=60,in=-140]
+      (f1.south west);
+
+      \draw[->]
+      (W.east) .. controls +(2,-0.4) and +(-1.0,-1.4) ..
+      (f2.south);
+
+      \draw[->]
+      (W.east) .. controls +(4,-0.8) and +(-1.0,-1.4) ..
+      (f3.south);
+
+      %--------------------------------------------------
+      % Per-step losses
+      %--------------------------------------------------
+
+      \draw[->] (y1) -- (L1);
+      \draw[->] (y2) -- (L2);
+      \draw[->] (y3) -- (L3);
+      \draw[->] (yT) -- (LT);
+
+      %--------------------------------------------------
+      % Loss aggregation
+      %--------------------------------------------------
+
+      \draw[->]
+      (L1.north)
+      .. controls +(0,1.0) and +(-3.0,-0.3) ..
+      (L.west);
+
+      \draw[->]
+      (L2.north)
+      .. controls +(0,0.9) and +(-2.0,-0.2) ..
+      (L.west);
+
+      \draw[->]
+      (L3.north)
+      .. controls +(0,0.8) and +(-1.0,-0.3) ..
+      (L.west);
+
+      \draw[->]
+      (LT.north)
+      .. controls +(0,0.7) and +(0,-0.8) ..
+      (L.south);
+
+      %--------------------------------------------------
+      % Ellipsis
+      %--------------------------------------------------
+
+      \node[scale=2.5] at ($(h3)!0.5!(hT)$) {$\cdots$};
+
+    \end{tikzpicture}
+  }
+  \caption{Ilustracja architektury RNN w modelu z wieloma wejściami i wyjściami}
+\end{figure}
+
 \section{NN search}
 
 W związku z trudnością projektowania sieci neuronowych, zaproponowano
