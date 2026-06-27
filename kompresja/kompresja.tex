@@ -788,13 +788,13 @@ G(n) =
     1 & 1 & 1 & \dots & 1 \\
   \end{bmatrix}
 }_{\times n}
-\Bigg \} \times n + 1
+\Bigg \rbrace \times n + 1
 $$
 $$
 H(n) = \underbrace{
-\begin{bmatrix}
-  1 & \dots & 1 \\
-\end{bmatrix}
+  \begin{bmatrix}
+    1 & \dots & 1 \\
+  \end{bmatrix}
 }_{\times n + 1}
 $$
 
@@ -816,24 +816,24 @@ danych.
 $$
 G(n) =
 \begin{bmatrix}
-1 \\
-\vdots \\
-1 \\
+  1 \\
+  \vdots \\
+  1 \\
 \end{bmatrix}
-\Bigg \} \times n
+\Bigg \rbrace \times n
 $$
 
 $$
 H(n) =
 \underbrace{
-\begin{bmatrix}
-1 & 1 & 0 & \dots & 0 \\
-1 & 0 & 1 & \dots & 0 \\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-1 & 0 & 0 & \dots & 1 \\
-\end{bmatrix}
+  \begin{bmatrix}
+    1 & 1 & 0 & \dots & 0 \\
+    1 & 0 & 1 & \dots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & 0 & 0 & \dots & 1 \\
+  \end{bmatrix}
 }_{\times n}
-\Bigg \} \times n - 1
+\Bigg \rbrace \times n - 1
 $$
 
 \subsection{Współczynnik informacji}
@@ -865,9 +865,9 @@ liczby binarne od $1$ do $n$. Dla $m = 3$:
 $$
 H_H(3) =
 \begin{bmatrix}
-0 & 0 & 0 & 1 & 1 & 1 & 1 \\
-0 & 1 & 1 & 0 & 0 & 1 & 1 \\
-1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+  0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+  0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+  1 & 0 & 1 & 0 & 1 & 0 & 1 \\
 \end{bmatrix}
 $$
 To jest macierz parzystości dla kodu Hamminga dla $m = 3$.
@@ -889,13 +889,13 @@ układowi równań.
 $$
 G_H(3) =
 \begin{bmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1 \\
-0 & 1 & 1 & 1 \\
-1 & 0 & 1 & 1 \\
-1 & 1 & 0 & 1 \\
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1 \\
+  0 & 1 & 1 & 1 \\
+  1 & 0 & 1 & 1 \\
+  1 & 1 & 0 & 1 \\
 \end{bmatrix}
 $$
 Dla wektora informacji $x$, kod liczymy jako: $k(x) = G(K)x$
@@ -918,10 +918,10 @@ zawiera słowo kodowe $g(x)$ stopnia $n - k$. Dla takiego kodu:
 $$
 G(k) =
 \begin{bmatrix}
-g(x) \\
-xg(x) \\
-\vdots \\
-x^{k - 1}g(x) \\
+  g(x) \\
+  xg(x) \\
+  \vdots \\
+  x^{k - 1}g(x) \\
 \end{bmatrix}
 $$
 
@@ -954,10 +954,10 @@ zbiór.
 \noindent
 Dwa odwzorowania:
 \begin{itemize}
-\item kodujące: dzieli zbiór wartości na pewną liczbę podprzedziałów,
-przypisuje każdemu podprzedziałowi
-odpowiedni symbol
-\item dekodujące: przyjmuje symbol i zwraca odpowiedni podprzedział
+  \item kodujące: dzieli zbiór wartości na pewną liczbę podprzedziałów,
+    przypisuje każdemu podprzedziałowi
+    odpowiedni symbol
+  \item dekodujące: przyjmuje symbol i zwraca odpowiedni podprzedział
 \end{itemize}
 
 Z reguły w kwantyzacji mierzymy błąd, jako różnicę między wartością wejściową
@@ -974,8 +974,8 @@ liczbą całkowitą od $0$ do $n - 1$.
 
 Wyróżniamy dwa rodzaje kwantyzatorów skalarnych:
 \begin{itemize}
-\item równomierne
-\item nierównomierne
+  \item równomierne
+  \item nierównomierne
 \end{itemize}
 również kwantyzator może mieć krok w zerze lub nie, zależy od charakterystyki
 sygnału wejściowego.
@@ -1005,14 +1005,14 @@ w kwantyzatorze wektorowym. Algorytm ten jest wykorzystywany w kompresji obrazó
 i audio.
 
 \begin{enumerate}
-\item Ustal dowolnie zbiór $Y$ wartości rekonstruowanych
-\item Znajdź zbiory $V_i$, takie, że każdy ich element jest najbliżej $i$-tej
-wartości rekonstruowanej
-\item Jeśli zmiana zniekształcenia w porównaniu z poprzednią iteracją
-jest mniejsza
-niż $\epsilon$, zakończ algorytm.
-\item W przeciwnym razie, zaktualizuj granice podprzedziałów na podstawie
-średniej wartości elementów w każdym zbiorze $V_i$.
+  \item Ustal dowolnie zbiór $Y$ wartości rekonstruowanych
+  \item Znajdź zbiory $V_i$, takie, że każdy ich element jest najbliżej $i$-tej
+    wartości rekonstruowanej
+  \item Jeśli zmiana zniekształcenia w porównaniu z poprzednią iteracją
+    jest mniejsza
+    niż $\epsilon$, zakończ algorytm.
+  \item W przeciwnym razie, zaktualizuj granice podprzedziałów na podstawie
+    średniej wartości elementów w każdym zbiorze $V_i$.
 \end{enumerate}
 
 \section{Kodowanie różnicowe}
@@ -1043,9 +1043,9 @@ prosta predykcja poprzedniej wartości, gdzie $p_n = x_{n-1} + s_n$.
 $$
 s_n =
 \begin{cases}
-1 & \text{jeśli } x_n > x_{n-1} \\
--1 & \text{jeśli } x_n < x_{n-1} \\
-0 & \text{jeśli } x_n = x_{n-1}
+  1 & \text{jeśli } x_n > x_{n-1} \\
+  -1 & \text{jeśli } x_n < x_{n-1} \\
+  0 & \text{jeśli } x_n = x_{n-1}
 \end{cases}
 $$
 
@@ -1053,10 +1053,10 @@ $$
 
 Z reguły kodowanie transformujące opiera się na następujacych czterech krokach:
 \begin{enumerate}
-\item Podziel sygnał wejściowy na bloki
-\item oblicz przekształcenie każdego bloku
-\item kwantyzuj przekształcenie
-\item koduj kwantyzację
+  \item Podziel sygnał wejściowy na bloki
+  \item oblicz przekształcenie każdego bloku
+  \item kwantyzuj przekształcenie
+  \item koduj kwantyzację
 \end{enumerate}
 
 \subsection{Przekształcenie Karhunena-Loevego}
@@ -1071,8 +1071,8 @@ Przekształcenie DCT opiera się na macierzy przekształcenia $N \times N$.
 $$
 [C]_{i,j} =
 \begin{cases}
-\sqrt{\frac{1}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i = 0 \\
-\sqrt{\frac{4}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i \neq 0
+  \sqrt{\frac{1}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i = 0 \\
+  \sqrt{\frac{4}{N}} \cos \frac{(2j + 1)i\pi}{2N} & \text{jeśli } i \neq 0
 \end{cases}
 $$
 Jest łatwiejsza do policzenia i lepiej się sprawdza niż dyskretna
@@ -1106,9 +1106,9 @@ Mimo to, aby zapobiec akumulacji błędu, nie możemy się opierać tylko na
 rekonstrukcji klatek. Co którąś klatkę musimy przesłać w całości, lub
 minimalnie skompresowaną. Z reguły rozróżniamy zatem trzy rodzaje ramek(klatek):
 \begin{itemize}
-\item Typ I: obraz zakodowany jak JPEG
-\item Typ P: obraz zakodowany jako różnica od ostaniej klatki P lub I
-\item Typ B: obraz zakodowany jako różnica od dwóch ostatnich klatek P lub I
+  \item Typ I: obraz zakodowany jak JPEG
+  \item Typ P: obraz zakodowany jako różnica od ostaniej klatki P lub I
+  \item Typ B: obraz zakodowany jako różnica od dwóch ostatnich klatek P lub I
 \end{itemize}
 Z reguły zatem różne formaty mają różne schematy i sekwencje typów klatek.
 
@@ -1124,11 +1124,11 @@ klatce i zakodować wektor przesunięcia oraz różnicę kolorów między blokam
 Poprzez transformację jednego sygnału na różne podpasma, możemy
 osiagnąć wyższy stopień kompresji. Podstawowy schemat kodowania ma 4 kroki:
 \begin{enumerate}
-\item Wybierz zbiór filtrów do rozkładu źródła
-\item Używając filtrów oblicz sygnały podpasm
-\item Zdziesiątkuj wyjście filtra
-\item Zakoduj zdziesiątkowane wyjście
-\item Zakoduj zakodowane wyjście
+  \item Wybierz zbiór filtrów do rozkładu źródła
+  \item Używając filtrów oblicz sygnały podpasm
+  \item Zdziesiątkuj wyjście filtra
+  \item Zakoduj zdziesiątkowane wyjście
+  \item Zakoduj zakodowane wyjście
 \end{enumerate}
 
 Na przykład, na sygnale możemy zastosować filtr $y_n = \frac{x_n +
@@ -1172,10 +1172,10 @@ Głównym założeniem za algorytmem jest to, że po podziale sygnału na
 podpasma, to współczynniki tych podpasm mogą być od siebie zależne, tworząc
 drzewo. W takim drzewie można wyróżnić cztery rodzaje współczynników:
 \begin{itemize}
-\item korzeń drzewa zerowego (ZR)
-\item izolowane zero (IZ)
-\item znacząco dodatni (SP)
-\item znacząco ujemny (SN)
+  \item korzeń drzewa zerowego (ZR)
+  \item izolowane zero (IZ)
+  \item znacząco dodatni (SP)
+  \item znacząco ujemny (SN)
 \end{itemize}
 
 EZW ma dwa kroki: dominujący i podrzędny. Na początku $C_{max} = \max_m |w(m)|$,
@@ -1184,18 +1184,18 @@ wierzchołki, podrzędna jest pusta. Po każdym kroku $T_i = \frac{T_{i-1}}{2}$.
 
 Krok dominujący: Dla każdego wierzchołka $w[m]$:
 \begin{itemize}
-\item Jeśli $|w[m]| > T_k$:
-przenieś na listę podrzędną oraz
-\begin{itemize}
-\item SP jeśli $|w[m]| > 0$
-\item SN jeśli $|w[m]| < 0$
-\end{itemize}
-\item W przeciwnym razie:
-\begin{itemize}
-\item ZR jeśli dalej nie ma istotnych współczynników
-\item IZ jeśli jest nieistotny, ale ma istotne potomstwo
-\item \texttt{NIL} w przeciwnym razie
-\end{itemize}
+  \item Jeśli $|w[m]| > T_k$:
+    przenieś na listę podrzędną oraz
+    \begin{itemize}
+      \item SP jeśli $|w[m]| > 0$
+      \item SN jeśli $|w[m]| < 0$
+    \end{itemize}
+  \item W przeciwnym razie:
+    \begin{itemize}
+      \item ZR jeśli dalej nie ma istotnych współczynników
+      \item IZ jeśli jest nieistotny, ale ma istotne potomstwo
+      \item \texttt{NIL} w przeciwnym razie
+    \end{itemize}
 \end{itemize}
 
 Krok podrzędny:
