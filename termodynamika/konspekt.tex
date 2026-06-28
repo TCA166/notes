@@ -25,6 +25,7 @@
   \frac{\partial^2 z}{\partial x \partial y} = \frac{\partial^2
   z}{\partial y \partial x}
   $$
+  \vspace{-2em}
 
   \section{Stany}
 
@@ -38,8 +39,9 @@
     \item Adiabatyczny - ciepło jest stałe\\
       $\partial Q = 0, \quad dU = \partial W$
   \end{itemize}
+  \vspace{-2em}
 
-  \section{Pierwsze zasada termodynamiki}
+  \section{Pierwsza zasada termodynamiki}
   $$
   dU = \partial W + \partial Q
   $$
@@ -47,20 +49,21 @@
   $$
   \partial W = -pdV
   $$
+  \vspace{-4em}
 
   \section{Ciepło}
   $$
   \tcap_x = \pderiv{Q}{T}_x \quad \tcap_p = \pderiv{H}{T}_p \quad
   \tcap_V = \pderiv{U}{T}_V \quad C_x = \frac{\tcap_x}{m}
   $$
+  \vspace{-2em}
 
   \section{Gaz Doskonały}
   $$
   pV = nRT
   $$
   $$
-  \tcap_p - \tcap_V = nR \quad \tcap_V = \frac{\sigma}{2}R \quad
-  \tcap_V = \frac{\sigma + 2}{2} R
+  \tcap_p - \tcap_V = nR \quad \tcap_V = \frac{\sigma}{2}R
   $$
   $$
   S(V, T) = C_0 + NK_B\ln(BT^{\frac{3}{2}})
@@ -69,16 +72,22 @@
   $$
   U(T) = n\tcap_VT
   $$
+  \vspace{-3em}
+
   \subsection{Adiabata}
   $$
   pV^\kappa = \tilde{C} = p_1V_1^\kappa = p_2V_2^\kappa \quad
   \kappa = \frac{\tcap_p}{\tcap_V} > 1
   $$
+  \vspace{-2em}
+
   \subsection{Rozkład Maxwella}
   $$
   \rho(v) = 4 \pi \left(\frac{m_0}{2\pi k_BT}\right)^{\frac{3}{2}} v^2
   e^{-\frac{m_0v^2}{2k_BT}}
   $$
+  \vspace{-2em}
+
   \subsection{Relacje Maxwella}
   \begin{multicols}{2}
     \begin{enumerate}
@@ -88,6 +97,7 @@
       \item $\pderiv{S}{p}_T = - \pderiv{V}{T}_p$
     \end{enumerate}
   \end{multicols}
+  \vspace{-2em}
 
   \section{Funkcje potencjału}
   $$
@@ -99,6 +109,7 @@
   $$
   \pderiv{F}{T}_V = -S = \pderiv{G}{T}_p \quad \pderiv{G}{p}_T = V
   $$
+  \vspace{-2em}
 
   \section{Cykle}
 
@@ -128,17 +139,90 @@
       \frac{(T_C - T_D)}{\kappa (T_B - T_A)}
       $$
   \end{itemize}
+  \vspace{-2em}
 
   \section{Potencjał chemiczny}
 
-  $$\hspace{-3em}
+  $$
+  \hspace{-3em}
   \begin{aligned}
     dU = \pderiv{U}{S}_{V, n} dS + \pderiv{U}{V}_{S, n} dV +
     \pderiv{U}{n}_{S, V} dn &\rightarrow& \mu = \pderiv{U}{n}_{S, V} \\
     dF = -SdT - pdV + \mu dn &\rightarrow& \mu = \pderiv{F}{n}_{T, V} \\
     dH = TdS + Vdp + \mu dn &\rightarrow& \mu = \pderiv{H}{n}_{s, p} \\
-    dG & \rightarrow & \mu = \pderiv{G}{n}_{T,P}
+    dG = Vdp - SdT + \mu dn & \rightarrow & \mu = \pderiv{G}{n}_{T,P}
   \end{aligned}
+  $$
+  \vspace{-2em}
+
+  \section{Druga i Trzecia zasada termodynamiki}
+
+  $$
+  dS = \frac{\partial Q}{T} \quad \lim_{T \to 0} S = 0
+  $$
+  \vspace{-3em}
+
+  \section{Praca Minimalna}
+
+  $$
+  W \geq \Delta U - T^{(o)} \Delta S
+  $$
+
+  \resizebox{\linewidth}{!}{%
+    \centering
+    \begin{tabular}{l|c|c|c|c}
+      \textbf{Proces} & \textrm{const} & $\min W$ & równowaga
+      & $\min$ w równowadze \\
+      \hline
+      izoentropowy & $S$ & $W \geq \Delta U$ & $0 \geq \Delta U$ &
+      $U$ \\ \hline
+      izoentropowo-choryczny & $S, V$ & $\tilde{W} \geq \Delta U$ & $0
+      \geq \Delta U$ & $U$ \\ \hline
+      izoentropowo-baryczny & $S, p$ & $\tilde{W} \geq \Delta H$ & $0
+      \geq \Delta H$ & $H$ \\ \hline
+      izotermiczny & $T$ & $W \geq \Delta F$ & $0 \geq \Delta F$ &
+      $F$ \\ \hline
+      izotermiczno-choryczny & $T, V$ & $\tilde{W} \geq \Delta F$ & $0
+      \geq \Delta F$ & $F$ \\ \hline
+      izotermiczno-baryczny & $T, p$ & $\tilde{W} \geq \Delta G$ & $0
+      \geq \Delta G$ & $G$
+    \end{tabular}
+  }
+  \vspace{-2em}
+
+  \section{Fizyka Statystyczna}
+
+  $$
+  \frac{1}{T} = \frac{\partial S}{\partial E} \quad \mathbb{P}(Q) =
+  \frac{1}{\Gamma} \quad   \beta = \frac{1}{k_BT}
+  $$
+  \hrule
+  $$
+  \mathbb{P}(Q) = \frac{\Gamma_o}{\Gamma_c}
+  \quad \mathbb{P}(Q) = A \exp\left[-\beta E(Q)\right]
+  $$
+  \hrule
+  $$
+  \mathbb{P}(Q, N) = \frac{\exp \left[-\beta(E(Q_N) - \mu
+  N)\right]}{\sum_N \sum_{Q_N} \mathbb{P}(Q_N, N)}
+  $$
+
+  \section{Równania Gibbsa-Durbena}
+
+  $$
+  -SdT + Vdp = \sum_i^\alpha n_i d\mu \quad \alpha + 2 - \beta = 0
+  $$
+
+  \section{Wielki potencjał termodynamiczny}
+
+  $$
+  \Omega = F - \mu n \quad d\Omega = -SdT - pdV - nd\mu
+  $$
+
+  \section{Gaz van der Waalsa}
+
+  $$
+  \left(p + \frac{n^2a}{V^2}\right)\left(V - nb\right) = nRT
   $$
 
 \end{multicols}
