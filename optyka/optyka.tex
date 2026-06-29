@@ -157,6 +157,7 @@ $$
 
 \section{Wektor Poyntinga}
 
+Energia przenoszona przez pole w jednostce czasu na jednostkę powierzchni:
 $$
 \vec{S} = \frac{1}{\mu_0}(\vec{E} \times \vec{B})
 $$
@@ -193,6 +194,30 @@ $$
 $$
 v = f\lambda = \frac{\omega}{k} \quad\left[\frac{\textrm{m}}{\textrm{s}}\right]
 $$
+
+\subsection{Równanie falowe}
+
+$$
+\frac{\partial^2 f}{\partial z^2} = \frac{1}{v^2} \frac{\partial^2
+f}{\partial t^2}
+$$
+Ogólnym rozwiązeniem tego równania, jest funkcja postaci:
+$$
+f(z, t) = g(z - vt)
+$$
+
+\subsection{Fala Płaska}
+
+Fala płaska to taka, której czoło fali jest płaszczyzną, o pewnym
+kierunku $\vec{v}$, i stałym kierunku propagacji $\vec{k}$.
+$$
+\psi(\vec{v}, t) = A f(k \vec{v} - \omega t)
+$$
+
+\subsection{Fala monochromatyczna}
+
+Fala monochromatyczna, to taka, która ma jedną konkretną barwę, czyli jedną
+konkretną częstotliwość.
 
 \section{Wzór Eulera}
 
@@ -258,6 +283,34 @@ gdzie $n_1$ to współczynnik załamania ośrodka, $v_1$ to prędkość
 Kąt padania i odbicia są równe:
 $$
 \theta_I = \theta_R
+$$
+
+\subsection{Warunki Brzegowe}
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \draw[dotted, ->] (0,-0.5) -- (0,2) node[above] {$y$};
+    \draw[dotted, ->] (0,0) -- (3,0) node[right] {$x$};
+
+    \draw[->, thick] (1,1.5) node[above left] {$\vec{E}$} -- (2.5,0);
+    \draw[->, dotted] (1,1.5) -- (2.5,1.5) node[above right]
+    {$\vec{E}^\parallel$};
+    \draw[->, dotted] (1,1.5) -- (1,0) node[above right] {$\vec{E}^\perp$};
+  \end{tikzpicture}
+  \caption{Składowe elektromagnetyczne fali padającej z ośrodka 1}
+\end{figure}
+
+Dla składowych prostopadłych do powierzchni $\perp$ oraz $\parallel$:
+\begin{enumerate}
+  \item $E_1^\parallel - E_2^\parallel = 0$ - pole elektryczne
+  \item $D_1^\perp - D_2^\perp = 0$ - indukcja pola elektrycznego
+  \item $H_1^\parallel - H_2^\parallel = 0$ - pola magnetyczne
+  \item $B_1^\perp - B_2^\perp = 0$ - indukcja pola magnetycznego
+\end{enumerate}
+
+$$
+\vec{D} = \epsilon \vec{E} \quad \vec{B} = \mu \vec{H}
 $$
 
 \subsection{Prawo Snella}
