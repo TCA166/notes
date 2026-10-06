@@ -1,0 +1,209 @@
+
+\documentclass{../notatki}
+
+\title{Narzędzia matematyki w informatyce}
+
+\begin{document}
+
+Myślałbyś, drogi użytkowniku, że to podobny kaliber i jakość zajęć co mfi, lecz
+nie! To ma sensowny wykład i ćwiczenia - triumf akademii.
+
+\section{Teoria złożoności}
+
+\begin{itemize}
+  \item P - klasa problemów, które można rozwiązać w czasie wielomianowym $$
+    c \cdot (|V| + |E|)^k
+    $$
+  \item NP - klasa problemów, których nie można rozwiązać w czasie wielomianowym
+  \item NP-trudne - problemy, które można wielomianowo zamienić w
+    inny problem w klasie NP.
+  \item co-NP - klasa problemów, których komplement jest w klasie NP
+\end{itemize}
+
+Klasa P jest symetryczna. Jeśli problem decyzyjny należy do klasy P, to jego
+komplement - negacja, również należy do klasy P. Klasa NP nie jest symetryczna.
+
+\section{Grafy}
+
+\begin{itemize}
+  \item Graf regularny - wszystkie wierzchołki są tego samego stopnia
+  \item Indukowany - podgraf stworzony przez wybranie podzbioru wierzchołków
+  \item Składowe - spójne podgrafy, które nie są połączone
+  \item Rozpinający - podgraf, który zawiera wszystkie wierzchołki
+    grafu. \textbf{Niekoniecznie spójny} - kwestia konwencji
+  \item Cykl Hamiltona - cykl, który przechodzi przez wszystkie wierzchołki
+    grafu
+\end{itemize}
+
+Równość w grafie jest \textit{dziwna}. Aby grafy były równe, muszą mieć
+identyczne zbiory wierzchołków i krawędzi. Jako że, elementy zbioru są
+unikalne i rozróżnialne, to wpływ etykietowania na równość jest istotny.
+Identyczne grafy, o innym etykietowaniu, są różne; można stworzyć nowy graf,
+zmieniając etykietowanie.
+
+\subsection{Graf Dwudzielny}
+
+Graf dwudzielny, to graf, w którym wierzchołki są podzielone na dwa zbiory.
+Między wierzchołkami z różnych zbiorów występują krawędzie, lecz
+między wierzchołkami z tego samego zbioru nie ma krawędzi.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw, circle] (A) at (0,2) {A};
+    \node[draw, circle] (B) at (0,1) {B};
+    \node[draw, circle] (C) at (0,0) {C};
+    \node[draw, circle] (D) at (4,2) {D};
+    \node[draw, circle] (E) at (4,0) {E};
+    \draw (A) -- (D);
+    \draw (B) -- (D);
+    \draw (C) -- (E);
+
+    \node[
+      draw,
+      ellipse,
+      fit=(A) (B) (C),
+      inner sep=5pt,
+    ] {};
+
+    \node[
+      draw,
+      ellipse,
+      fit=(D) (E),
+      inner sep=5pt
+    ] {};
+
+  \end{tikzpicture}
+  \caption{Przykład grafu dwudzielnego}
+\end{figure}
+
+Jeśli nie ma cyklu nieparzystego, i tylko wtedy, to graf jest dwudzielny.
+
+\subsection{Drzewo}
+
+Drzewo to graf acykliczny, w którym każdy wierzchołek ma jednego lub więcej
+wierzchołków potomnych. Graf pusty, jest drzewem. Każde drzewo, jest lasem,
+czyli niespójnym drzewem.
+
+\subsection{Izomorfizm}
+
+Izomorfizm to relacja między dwoma grafami, oznaczana $\cong$. Znaczy ona, że
+istnieje bijekcja między wierzchołkami i krawędziami dwóch grafów. To
+oznacza, że
+aby grafy były izomorficzne, każdy wierzchołek i krawędź jednego grafu musi być
+mapowany na odpowiedni wierzchołek i krawędź drugiego grafu,
+zachowując relatywną strukturę.
+
+To oznacza, że stopnie nie mogą się różnić, cykle muszą być identyczne, stopnie
+sąsiedztwa muszą być identyczne, etc\dots \ . Nie ma prostego sposobu
+na sprawdzenie.
+
+\subsection{Skojarzenie}
+
+Skojarzenie to zbiór rozłączny krawędzi, czyli podgraf, zdefiniowany
+przez krawędzie, tak, że każdy wierzchołek jest końcem jednej
+krawędzi. $\mu(G)$ to maksymalne skojarzenie w grafie $G$.
+Skojarzenie doskonałe to takie, które jest maksymalnym skojarzeniem w
+grafie $G$.
+
+Mówimy, że wierzchołki należące do skojarzenia są nasycone.
+
+\subsubsection{Twierdzenie Halla}
+
+Graf dwudzielny $G = (V \cup W, E)$ ma skojarzenie sycące każdy wierzchołek
+zbioru $W$ wtedy i tylko wtedy, gdy spełnione jest:
+$$
+\forall_{S \subseteq W} |N(S)| \geq |S|
+$$
+gdzie $N(S)$ to zbiór sąsiadów wierzchołków w $S$.
+
+Tutaj istotnym jest obserwacja, że tym skojarzeniem, są połączenia między
+dwoma zbiorami $V$ i $W$.
+
+\subsubsection{Twierdzenie o małżeństwach}
+
+Każdy $k$-regularny graf dwudzielny $G = (V \cup W, E)$ ma
+skojarzenie doskonałe.
+
+Kluczową obserwacją jest $|E| = k |V| = k |W|$. Z tego wynika, przy pomocy
+twierdzenia Halla:
+$$
+\forall_{S \subseteq W} k|N(S)| \geq k|S| \quad \Rightarrow |S| \leq |N(S)|
+$$
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw, circle] (A) at (0,2) {};
+    \node[draw, circle] (B) at (0,1) {};
+    \node[draw, circle] (C) at (0,0) {};
+    \node[draw, circle] (D) at (0,-1) {};
+    \node[draw, circle] (E) at (0,-2) {};
+    \node[draw, circle] (F) at (0,-3) {};
+
+    \node[draw, circle] (G) at (4,2) {};
+    \node[draw, circle] (H) at (4,1) {};
+    \node[draw, circle] (I) at (4,0) {};
+    \node[draw, circle] (J) at (4,-1) {};
+    \node[draw, circle] (K) at (4,-2) {};
+    \node[draw, circle] (L) at (4,-3) {};
+
+    \draw (A) -- (H);
+    \draw (A) -- (L);
+    \draw (B) -- (J);
+    \draw (B) -- (K);
+    \draw (C) -- (I);
+    \draw (C) -- (J);
+    \draw[thick, color=red] (D) -- (G);
+    \draw[thick, color=red] (D) -- (H);
+    \draw[thick, color=red] (E) -- (H);
+    \draw[thick, color=red] (E) -- (I);
+    \draw (F) -- (L);
+    \draw (F) -- (G);
+
+    \node[
+      draw,
+      ellipse,
+      fit=(A) (B) (C) (D) (E) (F),
+      inner sep=5pt,
+      label={[label distance=5pt]below:$V$}
+    ] {};
+
+    \node[
+      draw,
+      ellipse,
+      fit=(G) (H) (I) (J) (K) (L),
+      inner sep=5pt,
+      label={[label distance=5pt]below:$W$}
+    ] {};
+
+    \node[
+      draw,
+      rectangle,
+      fit=(D) (E),
+      inner sep=3pt,
+      label={[label distance=5pt]left:$S$}
+    ] {};
+
+    \node[
+      draw,
+      rectangle,
+      fit=(G) (H) (I),
+      inner sep=3pt,
+      label={[label distance=5pt]right:$N(S)$}
+    ] {};
+
+  \end{tikzpicture}
+  \caption{Graf z twierdzenia dla $k = 2$}
+\end{figure}
+
+\subsubsection{Twierdzenie Tutte}
+
+Niech $G = (V, E)$ będzie dowolnym grafem. $G$ ma skojarzenie doskonałe wtedy i
+tylko wtedy, gdy
+$$
+\forall_{S \subseteq V} o(G \setminus S) \leq |S|
+$$
+gdzie $o(G)$ to liczbą składowych nieparzystych w grafie $G$.
+
+\end{document}

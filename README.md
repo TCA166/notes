@@ -32,6 +32,7 @@ skompilowane pliki `.pdf`. Notatki można przeszukiwać za pomocą embedding
 - [gry.pdf](gry/gry.pdf) "Gry Kombinatoryczne" (06-S4IN01-F01047)
 - [mfi.pdf](mfi/mfi.pdf) "Matematyczne fundamenty informatyki" (06-S4IN01-P00990)
 - [ug.pdf](ug/ug.pdf) "Uczenie Głębokie" (06-S4IN01-P00991)
+- [nmi.pdf](nmi/nmi.pdf) "Narzędzia matematyki w informatyce" (06-S4IN02-F01031)
 
 ## Informatyka Kwantowa
 
