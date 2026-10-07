@@ -50,3 +50,4 @@ skompilowane pliki `.pdf`. Notatki można przeszukiwać za pomocą embedding
 - [optyka.pdf](optyka/optyka.pdf) "Optyka z fotoniką" (04-S3INK04-P02420)
 - [termodynamika.pdf](termodynamika/termodynamika.pdf) "Termodynamika i podstawy fizyki statystycznej" (04-S3INK04-P02157)
 - [tik.pdf](tik/tik.pdf) "Teoria informacji kwantowej" (04-S3INK05-F02430)
+- [transmony.pdf](transmony/transmony.pdf) "Komputery kwantowe - fizyka operacji na transmonach" (04-S3INK05-F06435)
