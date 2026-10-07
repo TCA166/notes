@@ -1,0 +1,37 @@
+\documentclass{../notatki}
+
+\title{Teoria informacji kwantowej}
+
+\begin{document}
+
+\section{Wstęp}
+
+Głównym źródłem zewnętrznym wiedzy jest
+\textit{\href{https://www.preskill.caltech.edu/ph219/chap10_6A_2025.pdf}{wykład
+Johna Preskilla}}.
+
+Stan polaryzacji fotonu w systemie kwantowym, można opisać przy pomocy stanu:
+$$
+\ket{\psi} = \cos \theta \ket{\ |\ } + \sin \theta \ket{-}
+$$
+$$
+\mathbb{P}(\ |\ ) = |\cos \theta|^2 \quad \mathbb{P}( - ) = |\sin \theta|^2
+$$
+
+Operator rzutowania $P$:
+$$
+P_0 = \ket{0}\bra{0} \quad P_1 = \ket{1}\bra{1}
+$$
+Ponieważ baza kubitu jest ortonormalna; $P_0 + P_1 = \ket{0}\bra{0} +
+\ket{1}\bra{1} = 1$
+
+$$
+\mathbb{P}(0) = \ket{\psi} P_0 \bra{\psi}
+$$
+
+Stan układu po pomiarze to:
+$$
+\frac{P_0 \ket{\psi}}{\sqrt{\mathbb{P}(0)}}
+$$
+
+\end{document}

@@ -49,3 +49,4 @@ skompilowane pliki `.pdf`. Notatki można przeszukiwać za pomocą embedding
 - [algebra2.pdf](algebra2/algebra2.pdf) "Algebra liniowa z zastosowaniami 2. Podstawy obliczeń kwantowych" (04-S3INK03-P04812)
 - [optyka.pdf](optyka/optyka.pdf) "Optyka z fotoniką" (04-S3INK04-P02420)
 - [termodynamika.pdf](termodynamika/termodynamika.pdf) "Termodynamika i podstawy fizyki statystycznej" (04-S3INK04-P02157)
+- [tik.pdf](tik/tik.pdf) "Teoria informacji kwantowej" (04-S3INK05-F02430)
