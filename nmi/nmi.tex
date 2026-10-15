@@ -98,17 +98,15 @@ To oznacza, że stopnie nie mogą się różnić, cykle muszą być identyczne, 
 sąsiedztwa muszą być identyczne, etc\dots \ . Nie ma prostego sposobu
 na sprawdzenie.
 
-\subsection{Skojarzenie}
+\section{Skojarzenie}
 
 Skojarzenie to zbiór rozłączny krawędzi, czyli podgraf, zdefiniowany
 przez krawędzie, tak, że każdy wierzchołek jest końcem jednej
 krawędzi. $\mu(G)$ to maksymalne skojarzenie w grafie $G$.
-Skojarzenie doskonałe to takie, które jest maksymalnym skojarzeniem w
-grafie $G$.
-
+Skojarzenie doskonałe to takie, które nasyca każdy wierzchołek $G$.
 Mówimy, że wierzchołki należące do skojarzenia są nasycone.
 
-\subsubsection{Twierdzenie Halla}
+\subsection{Twierdzenie Halla}
 
 Graf dwudzielny $G = (V \cup W, E)$ ma skojarzenie sycące każdy wierzchołek
 zbioru $W$ wtedy i tylko wtedy, gdy spełnione jest:
@@ -120,7 +118,30 @@ gdzie $N(S)$ to zbiór sąsiadów wierzchołków w $S$.
 Tutaj istotnym jest obserwacja, że tym skojarzeniem, są połączenia między
 dwoma zbiorami $V$ i $W$.
 
-\subsubsection{Twierdzenie o małżeństwach}
+\begin{examplebox}
+  Dany jest graf dwudzielny $G=(X \cup Y, E)$, oraz liczba $k > 0$. Zachodzi:
+  $$
+  \forall_{x \in X} d(x) \leq k \quad \forall_{y \in Y} d(y) \geq k
+  $$
+  Zatem $G$ zawiera skojarzenie nasycające $X$.
+  \\
+  Dowód:
+  $$
+  S \subseteq X : |E(S, N(S))| \geq k|S|
+  $$
+  $$
+  S \subseteq X: |E(S, N(S))| \leq k|N(S)|
+  $$
+  $$
+  k|S| \leq |E(S, N(S))| \leq k|N(S)|
+  $$
+  $$
+  k|S| \leq k|N(S)| \Rightarrow |S| \leq |N(S)|
+  $$
+
+\end{examplebox}
+
+\subsection{Twierdzenie o małżeństwach}
 
 Każdy $k$-regularny graf dwudzielny $G = (V \cup W, E)$ ma
 skojarzenie doskonałe.
@@ -197,7 +218,7 @@ $$
   \caption{Graf z twierdzenia dla $k = 2$}
 \end{figure}
 
-\subsubsection{Twierdzenie Tutte}
+\subsection{Twierdzenie Tutte}
 
 Niech $G = (V, E)$ będzie dowolnym grafem. $G$ ma skojarzenie doskonałe wtedy i
 tylko wtedy, gdy
@@ -205,5 +226,147 @@ $$
 \forall_{S \subseteq V} o(G \setminus S) \leq |S|
 $$
 gdzie $o(G)$ to liczbą składowych nieparzystych w grafie $G$.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw, circle] (A) at (0,1) {};
+    \node[draw, circle] (B) at (1,1) {};
+    \node[draw, circle] (C) at (0,0) {};
+
+    \draw (A) -- (B) -- (C) -- (A);
+
+    \node[draw, circle] (D) at (1,0) {};
+    \node[draw, circle] (E) at (0,-1) {};
+    \node[draw, circle] (F) at (1,-1) {};
+
+    \draw (D) -- (E) -- (F) -- (D);
+
+    \node[draw, circle] (G) at (3,-1) {};
+    \node[draw, circle] (H) at (2,0) {};
+    \node[draw, circle] (I) at (3,1) {};
+    \node[draw, circle, red, label={[label distance=5pt]right:$S$}]
+    (J) at (4,0) {};
+
+    \draw (G) -- (H) -- (I) -- (J) -- (G);
+
+    \node[above right=of J] {$\exists_{S \subseteq V} o(G \setminus
+    S) > |S|$};
+  \end{tikzpicture}
+  \caption{Graf o 10 wierzchołkach, każdy o minimalnym stopniu 2,
+    który nie jest dwudzielny i na podstawie twierdzenia Tutte nie ma
+  skojarzenia doskonałego.}
+\end{figure}
+
+\section{Grafy planarne}
+
+Graf, który możemy narysować na płaszczyźnie, tak abby krawędzie się
+nie przecinały to graf planarny. Na rysunku krawędzie nie muszą być proste.
+
+\begin{itemize}
+  \item $K_4$, $K_3$ - planarny
+  \item $K_{7,2}$ - planarny
+  \item $K_5$ - nie planarny
+\end{itemize}
+
+Rysunek grafu planarnego to graf płaski. Scianą grafu płaskiego jest
+ciągła zamknięta powierzchnia w grafie płaskim.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node[draw, circle] (A) at (0,0) {};
+    \node[draw, circle] (B) at (0,1) {};
+    \node[draw, circle] (C) at (1,0) {};
+    \node[draw, circle] (D) at (1,1) {};
+    \node[draw, circle] (E) at (0,2) {};
+    \node[draw, circle] (F) at (-1,1) {};
+    \node[draw, circle] (G) at (-1,2) {};
+
+    \draw (A) -- (B) -- (D) -- (C) -- (A);
+    \draw (B) -- (E) -- (D);
+    \draw (G) -- (E) -- (F);
+
+    \node (text1) at (3, 3) {$v(G) = 7$};
+    \node[below=of text1, yshift=1cm] (text2) {$e(G)=8$};
+    \node[below=of text2, yshift=1cm] (text3) {$f(G)=3$};
+
+  \end{tikzpicture}
+  \caption{Graf płaski, o trzech ścianach}
+\end{figure}
+
+\subsection{Wzór Eulera}
+
+Jeśli $G$ jest spójnym grafem płaskim:
+$$
+v(G) - e(G) + f(G) = 2
+$$
+
+Dla $\omega(G)$ oznaczającego ilość składowych spójności, zachodzi też:
+$$
+v(G) - e(G) + f(G) - \omega(G) = 1
+$$
+
+\subsection{Twierdzenie Kuratowskiego}
+
+Graf jest planarny wtedy, i tylko wtedy, gdy nie zawiera topologicznej kopii
+$K_{3,3}$ i $K_5$. Topologiczna kopia to zmodyfikowana wersja grafu, poprzez
+dodawanie wierzchołków na liniach.
+
+\subsection{Twierdzenie Appel i Haken}
+
+Jeśli $G$ jest planarny to $\chi(G) \leq 4$.
+
+\section{Minor}
+
+Graf $H$ jest minorem $G$ ($H \triangleleft G$), jeśli można otrzymać $H$ z $G$
+przy pomocą ciągu trzech operacji:
+\begin{itemize}
+  \item wyrzucenie wierzchołków
+  \item usunięcie krawędzi
+  \item sciąganie krawędzi
+\end{itemize}
+Te operacje mają naturalne odpowiedniki dla macierzowej reprezentacji grafu.
+
+\subsection{Twierdzenie Wojnera}
+
+Graf jest planarny wtedy, i tylko wtedy, gdy nie zawiera $K_5$, $K_{3,3}$ jako
+minora. Rodzina grafów planarnych jest zamknięta ze względu na branie minora.
+
+\subsection{Grafy bez cykli}
+
+Grafy bez cykli też są zamknięte na branie minora. Dla dowolnego
+grafu bez cykli $G$:
+$$
+G \ntriangleright H
+$$
+
+\subsection{Twierdzenie Robertsona i Seymoura}
+
+Da ustalonego $H$ problem $H \triangleleft G$ jest w klasie $P$, konkretnie jest
+$O(n^3)$.
+
+Każda rodzina grafów domknięta ze względu na branie minora jest charakteryzowana
+przez \textbf{skończoną} liczbę zakazanych minorów.
+
+\subsection{Niezależności}
+
+$\alpha(G)$ to liczba niezależności $G$. Niezależność to trochę jakby "anty
+skojarzenie". Jest to wielkość największego zbioru $W \subseteq U$, tzn takiego,
+że nie zawiera żadnej krawędzi.
+
+Problem $\alpha(G) \geq k$ należy do NP, gdzie $\alpha(G) \leq k$
+należy do co-NP.
+
+$$
+\log^2n \leq \alpha(G) \leq \frac{n}{\log^2n}
+$$
+
+\subsection{Liczba Chromatyczna}
+
+$\chi(G)$ to najmniejsza liczba $k$, taka, że wierzchołki grafu $G$
+można pomalować $k$ kolorami tak, aby żadna krawędź nie była monochromatyczna
+
+Problem $\chi(G) \leq k$ należy do NP, gdzie $\chi(G) > k$ należy do co-NP.
 
 \end{document}
