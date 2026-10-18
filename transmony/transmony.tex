@@ -2,7 +2,14 @@
 
 \title{Komputery kwantowe \\ fizyka operacji na transmonach}
 
+\newcommand{\zpf}{\mathrm{zpf}}
+
 \begin{document}
+
+\begin{itemize}
+  \item \href{https://arxiv.org/pdf/1904.06560}{Genialny przegląd inżynierii
+    układów kwantowych}
+\end{itemize}
 
 \section{Złącze Josephsona}
 
@@ -42,6 +49,215 @@ dwóch stron złącza.
 Podstawową zależnością, która musi zachodzić, jest:
 $$
 K_BT \leq \hbar \omega_q \leq 2 \Delta
+$$
+
+\section{Kwantowy Oscylator Harmoniczny}
+
+$$
+\hat{H} \ket{\psi(t)} = i \hbar \frac{\partial \ket{\psi(t)}}{\partial t}
+$$
+to równanie Schrödingera, które opisuje ewolucję stanu kwantowego w
+czasie. $\hat{H}$ to hamiltonian układu, daszek oznacza, że to
+operator kwantowy.
+$$
+\ket{\psi(t)} = e^{-i \hat{H} t / \hbar} \ket{\psi(0)}
+$$
+
+\subsection{Rezonator LC}
+
+Aby dojśc do kubitu, zaczynamy od liniowego rezonatora LC.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (1, 0) -- (2, 0) to[C, l=$C$] (2,-2);
+    \draw[->] (2,-2) -- (1,-2) -- (0,-2) to[L, l=$L$] (0,0) -- (1,0);
+    \draw (1,-2) node[ground] {};
+
+  \end{tikzpicture}
+  \caption{Liniowy rezonator LC}
+\end{figure}
+W tym układzie energia oscyluje między energią elektryczną w kondensatorze $C$,
+a energią magnetyczną w cewce $L$.
+$$
+E(t) = \int_{-\infty}^t V(t') I(t') dt'
+$$
+Aby stworzyć klasyczny Hamiltonian, stosujemy formulację Lagrange'a,
+korzystając ze strumienia indukcji magnetycznej $\Phi$:
+$$
+\Phi(t) = \int_{-\infty}^t V(t') dt' \quad V = L \frac{dI}{dt} \quad I
+= C \frac{dV}{dt}
+$$
+Korzystając z powyższych, możemy zapisać energię $C$ i $L$ przy pomocy $\Phi$:
+$$
+\mathcal{T}_C = \frac{1}{2} C \dot{\Phi}^2 \quad \mathcal{U}_L =
+\frac{\Phi^2}{2L}
+$$
+Lagrangian układu to różnica energii kinetycznej i potencjalnej:
+$$
+\mathcal{L} = \mathcal{T}_C - \mathcal{U}_L
+$$
+Z $\mathcal{L}$ możemy zastosować transformację Legendre'a, stosując
+wielkość kanonicznie sprzężoną z $\Phi$, czyli ładunek na kondensatorze $Q$:
+$$
+Q = \frac{\partial \mathcal{L}}{\partial \dot{\Phi}} = C \dot{\Phi}
+\quad H = Q \dot{\Phi} - \mathcal{L} = \frac{Q^2}{2C} + \frac{\Phi^2}{2L}
+$$
+
+\subsubsection{Klasyczny oscylator harmoniczny}
+
+Dla klasycznego oscylatora harmonicznego, Hamiltonian jest dany wzorem:
+$$
+H = \frac{p^2}{2m} + \frac{1}{2} m \omega^2 x^2
+$$
+co jest równoważne z naszym Hamiltonianem LC, jeśli przyjmiemy:
+$$
+\omega = \frac{1}{\sqrt{LC}} \quad x = \Phi \quad p = Q \quad m = C
+$$
+
+\subsubsection{Kwantowy Hamiltonian}
+
+Dotychczasowy Hamiltonian jest klasyczny. Różnica jest istotna, albowiem:
+$$
+\{\Phi, Q\} = 1 - 0 = 1 \quad [\hat{\Phi}, \hat{Q}] = i \hbar
+$$
+Zatem definiujemy zredukowany strumień $\phi$, oraz zredukowany ładunek $n$:
+$$
+\phi \equiv \frac{2\pi\Phi}{\Phi_0} \quad n \equiv \frac{Q}{2e} \quad
+\Rightarrow \hat{H} = 4 E_C \hat{n}^2 + \frac{1}{2} E_L \hat{\phi}^2
+$$
+gdzie $E_C$ to energia potrzebna, aby dodać każdy
+elektron pary Coopera
+do \textit{wyspy} (nieprzewodzącej części układu). $E_L$ to energia
+indukcyjna, a $\Phi_0$ to nadprzewodzący strumień magnetyczny.
+$$
+E_c = \frac{e^2}{2C} \quad E_L = \left(\frac{\Phi_0}{2\pi}\right)^2
+\frac{1}{L} \quad \Phi_0 = \frac{h}{2e} \quad [\phi, n] = i
+$$
+
+\subsubsection{Rozwiązanie}
+
+Wektory własne Hamiltonianu kwantowego oscylatora harmonicznego to stany w
+których układ może się znajdować. Ogólnie, mamy nieskończoną liczbę stanów
+własnych tego układu $\ket{k}$, dla odpowiednich wartości własnych
+$k$ - poziomów energetycznych. Odpowiednia energia własna stanu $k$ jest dana
+wzorem:
+$$
+E_k - E_{k - 1} = \hbar \omega_r \quad \omega_r =
+\frac{\sqrt{8E_LE_C}}{\hbar} = \frac{1}{\sqrt{LC}}
+$$
+
+Te wyniki możemy przedstawić czytelniej;
+$$
+\hat{H} = \hbar \omega_r \left(\bra{a}\ket{a} + \frac{1}{2}\right)
+$$
+gdzie $\ket{a}$ to operator zniszczenia ($\bra{a}$ - odpowiednio
+kreacji) pojedynczej ekscytacji rezonatora.
+
+\subsubsection{ZPF}
+
+Oryginalne $n$ oraz $\phi$ możemy przedstawić przy pomocy $\ket{a}$ i $\bra{a}$:
+$$
+n = n_\zpf \times i (\ket{a} - \bra{a}) \quad \phi = \phi_zpf \times
+(\ket{a} + \bra{a})
+$$
+
+$n_\zpf$ oraz $\phi_\zpf$ to \textit{fluktuacje zeropunktowe} ładunku
+oraz strumienia. Stany kwantowe to funkcje falowe, która mają
+niezerowe standardowe odchylenie $\sigma$. Dystrybucje tych funkcji
+falowych nazywa się fluktuacjami, a fluktuacje w stanie podstawowym
+nazywamy fluktuacjami zeropunktowymi ($\zpf$).
+
+\subsubsection{Problem}
+
+Liniowa charakterystyka kwantowego oscylatora harmonicznego, który
+generalizuje LC, powoduje problemy dla stosowania układu LC do
+procesowania informacji kwantowej.
+
+Qubit potrzebuje dwóch stanów, odpowiadającym dwóm poziomom
+energetycznym. Jednak, równa dystrybucja
+poziomów energetycznych w kwantowym oscylatorze harmonicznym utrudnia
+takie zastosowanie. Ciężko, przy równej odległości między kolejnymi poziomami
+energetycznymi wzbudzić przejście między $\ket{0} \to \ket{1}$, bez wzbudzenia
+przejścia $\ket{1} \to \ket{2}$, które jest niepożądane.
+
+\subsection{Transmon}
+
+Aby rozwiązać problem z liniowym oscylatorem harmonicznym,
+wprowadzamy nieliniowość do układu, aharmoniczność. W tym celu
+zastępujemy cewkę $L$ złączem Josephsona $J$.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \draw[->] (1, 0) -- (2, 0) to[C, l=$C$] (2,-2);
+    \draw[->] (2,-2) -- (1,-2) -- (0,-2) to[xgeneric, l=$J$] (0,0) -- (1,0);
+    \draw (1,-2) node[ground] {};
+  \end{tikzpicture}
+  \caption{Rezonator LC z cewką zastąpioną złączem Josephsona; transmon}
+\end{figure}
+
+Zastąpienie $L$ złączem $J$ daje nam Hamiltonian transmonu:
+$$
+\hat{H} = 4 E_C \hat{n}^2 - E_J \cos \hat{\phi} \quad E_C =
+\frac{e^2}{2C_\Sigma} \quad C_\Sigma = C_s + C_J \quad E_J =
+\frac{\Phi_0 I_c}{2\pi}
+$$
+gdzie $C_\Sigma$ to łaczna pojemność, $C_J$ to pojemność $J$, $E_J$
+to energia Josephsona, a $I_C$ to prąd krytyczny złącza Josephsona.
+
+\subsubsection{\texorpdfstring{$E_J / E_C$}{E\_J / E\_C}}
+
+Dynamika wyżej opisanego systemu jest głównie sterowana przez
+stosunek $\frac{E_J}{E_C}$. Większość transmonów, jest projektowana
+tak, że: $E_J \gg E_C$. W przeciwnym przypadku; $E_J \leq E_C$ qubit
+staje się znacznie wrażliwy na szum ładunkowy, który jest trudny do
+kontrolowania.
+
+Powszechnie, aby zapewnić $E_J \gg E_C$ stosuje się duże $C$, co zapewnia:
+$$
+C_s \gg C_J
+$$
+Czysto teoretycznie, dopiero przy powyższym warunku układ to \textbf{transmon}.
+
+Aby uniknąc zapisywania $\cos$ w $\hat{H}$, stosuje się rozwinięcie w
+szereg Taylora:
+$$
+E_J \cos(\hat{\phi}) \approx \frac{1}{2} E_J
+\hat{\phi}^2 - \frac{1}{24} E_J \hat{\phi}^4 + \mathcal{O}(\hat{\phi}^6)
+$$
+Taki zapis pozwala na formalizację różnicy między transmonem, a
+układem LC. Pierwszy człon w rozwinięciu Taylora jest równoważny z
+członem $E_L \hat{\phi}^2$ w Hamiltonianie LC, który wprowadza zachowanie
+harmonicznie. Dopiero drugi człon wprowadza nieliniowość, która jest
+odpowiedzialna za
+aharmoniczność transmonu.
+
+\subsubsection{Aharmoniczność a parametry}
+
+Ujemny znak w drugim członie rozwinięcia Taylora $E_J
+\cos(\hat{\phi})$ sugeruje, że
+aharmoniczność $\alpha = \omega_q^{1 \to 2} - \omega_q^{0 \to 1}$
+jest ujemna i jej granica nie może być arbitralnie duża. W przypadku
+transmonu, $\alpha \approx -E_C$ jest zazwyczaj ustalane tak, aby było w
+zakresie $[100, 300]$ MHz. To pozwala zachować częstość kubitu $\omega_q$:
+$$
+\omega_q = \frac{\sqrt{8E_JE_C}}{\hbar} \sim [3, 6] \text{GHz}
+$$
+rzędu 3-6 GHz, równocześnie zachowując $\frac{E_J}{E_C} \geq 50$ co
+jest konieczne do odporności na szum ładunkowy.
+
+\subsubsection{Oscylator Duffinga}
+
+Wykorzystując człony czwartego rzędu w rozwinięciu Taylora, oraz wykorzystując
+bazy własne kwantowego oscylatora harmonicznego, hamiltonian systemu przyjmuje
+postać podobną do oscylatora Duffinga:
+$$
+\hat{H} = \omega_q \bra{a}\ket{a} + \frac{\alpha}{2} \bra{a}^2\ket{a}^2
+$$
+Jeśli ekscytacja wyższych stanów energetycznych $k > 1$ jest
+zaniedbana, można uprościć hamiltonian do:
+$$
+\hat{H} = \omega_q \frac{\sigma_z}{2} \quad \sigma_z = \ket{0}\bra{0}
+- \ket{1}\bra{1}
 $$
 
 \end{document}
