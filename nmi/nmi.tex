@@ -313,10 +313,6 @@ Graf jest planarny wtedy, i tylko wtedy, gdy nie zawiera topologicznej kopii
 $K_{3,3}$ i $K_5$. Topologiczna kopia to zmodyfikowana wersja grafu, poprzez
 dodawanie wierzchołków na liniach.
 
-\subsection{Twierdzenie Appel i Haken}
-
-Jeśli $G$ jest planarny to $\chi(G) \leq 4$.
-
 \section{Minor}
 
 Graf $H$ jest minorem $G$ ($H \triangleleft G$), jeśli można otrzymać $H$ z $G$
@@ -328,7 +324,7 @@ przy pomocą ciągu trzech operacji:
 \end{itemize}
 Te operacje mają naturalne odpowiedniki dla macierzowej reprezentacji grafu.
 
-\subsection{Twierdzenie Wojnera}
+\subsection{Twierdzenie Wagnera}
 
 Graf jest planarny wtedy, i tylko wtedy, gdy nie zawiera $K_5$, $K_{3,3}$ jako
 minora. Rodzina grafów planarnych jest zamknięta ze względu na branie minora.
@@ -349,7 +345,7 @@ $O(n^3)$.
 Każda rodzina grafów domknięta ze względu na branie minora jest charakteryzowana
 przez \textbf{skończoną} liczbę zakazanych minorów.
 
-\subsection{Niezależności}
+\section{Niezależności}
 
 $\alpha(G)$ to liczba niezależności $G$. Niezależność to trochę jakby "anty
 skojarzenie". Jest to wielkość największego zbioru $W \subseteq U$, tzn takiego,
@@ -362,11 +358,15 @@ $$
 \log^2n \leq \alpha(G) \leq \frac{n}{\log^2n}
 $$
 
-\subsection{Liczba Chromatyczna}
+\section{Liczba Chromatyczna}
 
 $\chi(G)$ to najmniejsza liczba $k$, taka, że wierzchołki grafu $G$
 można pomalować $k$ kolorami tak, aby żadna krawędź nie była monochromatyczna
 
 Problem $\chi(G) \leq k$ należy do NP, gdzie $\chi(G) > k$ należy do co-NP.
+
+\subsection{Twierdzenie Appel i Haken}
+
+Jeśli $G$ jest planarny to $\chi(G) \leq 4$.
 
 \end{document}
