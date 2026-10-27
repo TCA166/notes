@@ -7,6 +7,7 @@
 
 \RequirePackage{float}
 \RequirePackage{multicol}
+\RequirePackage{nicematrix}
 
 %zmiana marginesów
 \RequirePackage{geometry}[a4paper]
