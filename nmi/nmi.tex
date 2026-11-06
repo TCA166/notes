@@ -3,6 +3,8 @@
 
 \title{Narzędzia matematyki w informatyce}
 
+\newcommand{\maxcut}{\textrm{MAXCUT}}
+
 \begin{document}
 
 Myślałbyś, drogi użytkowniku, że to podobny kaliber i jakość zajęć co mfi, lecz
@@ -358,6 +360,12 @@ $$
 \log^2n \leq \alpha(G) \leq \frac{n}{\log^2n}
 $$
 
+Dla grafu $G$ o $n$ wierzchołkach i $\delta = \min_{v \in V} \deg(v)$, oraz
+$\mu_n = \max_{i} \lambda_i$
+$$
+\alpha(G) \leq \left\lfloor n\left(1 - \frac{\delta}{\mu_n}\right)\right\rfloor
+$$
+
 \section{Liczba Chromatyczna}
 
 $\chi(G)$ to najmniejsza liczba $k$, taka, że wierzchołki grafu $G$
@@ -419,11 +427,11 @@ własna $\lambda$ też je spełnia.
 
 Jeśli graf jest $d$-regularny, to $\exists_i \lambda_i = d$.
 $$
-\ket{d} =
+\bra{d} =
 \begin{bmatrix}
-  1\\
-  1\\
-  \vdots\\
+  1 &
+  1 &
+  \hdots &
   1
 \end{bmatrix}
 $$
@@ -579,5 +587,101 @@ $L[G]$ jest macierzą półdodatnio określoną, czyli spełnia:
   \item $\exists_M L = MM^T$
   \item $\forall_{\ket{v}} \bra{v}L\ket{v} \geq 0$
 \end{itemize}
+
+\subsection{Diagonalizacja}
+
+$$
+\det(H) = \det(C \Lambda C^{-1}) = \det(C) \det(\Lambda) \det(C^{-1}) =
+\det(\Lambda) \det(C C^{-1}) = \det(\Lambda) = \prod_i \lambda_i
+$$
+
+\section{MAXCUT}
+
+$$
+\overline{S} = V \setminus S \quad
+$$
+$$
+\maxcut(G) = \max_{S \subseteq V} e(S, \overline{S})
+$$
+
+Problem $\maxcut(G) \geq k$ należy do NP, gdzie $\maxcut(G) < k$
+należy do co-NP.
+
+$$
+\maxcut(G) \leq \frac{n}{4} \mu_n
+$$
+
+\subsection{Twierdzenie Rayleigha-Ritza}
+
+Największe wartości własne macierzy $H$ to:
+$$
+\nu_1 = \max_{\ket{1} \in \mathbb{R}^n}
+\frac{\bra{1}H\ket{1}}{\braket{1}{1}}, \quad \nu_2 = \max_{\ket{2} \in
+\mathbb{R}^n : \ket{1} \perp \ket{2}}
+\frac{\bra{2}H\ket{2}}{\braket{2}{2}} = \max_{2 \leq i \leq n}
+|\nu_i|, \quad \dots, \quad \nu_n = \min_{\ket{n} \in \mathbb{R}^n}
+\frac{\bra{n}H\ket{n}}{\braket{n}{n}}
+$$
+
+Ogólnie, dla macierzy $H$ o wartościach własnych $\nu_1 \geq \nu_2
+\geq \dots \geq \nu_n$:
+$$
+\nu_1 = \max_{x \neq 0} \frac{x^THx}{x^Tx}
+$$
+
+\begin{examplebox}
+  $$
+  e(S, \overline{S}) = \left|\left|\frac{\ket{S} M}{4}\right|\right|^2 =
+  \frac{\bra{S}MM^T\ket{S}}{4} =
+  \frac{\bra{S}L\ket{S}}{4}
+  $$
+
+  $$
+  \maxcut(G) = \max_{S \subseteq V} e(S, \overline{S}) = \max_{S
+  \subseteq V} \frac{\bra{S}L\ket{S}}{4} = \frac{n}{4} \max_{S
+  \subseteq V} \frac{\bra{S}L\ket{S}}{\braket{S}{S}} \leq \frac{n}{4}
+  \max_{v \in \mathbb{R}^n} \frac{v^TLv}{v^tv} = \frac{n}{4} \mu_n
+  $$
+  gdzie $\mu_n$ to największa wartość własna macierzy $L$.
+\end{examplebox}
+
+\subsection{Graf Dwudzielny Pełny}
+
+$$
+\maxcut(K_{m, n}) = \frac{2mn}{4}
+$$
+
+\section{Liczba drzew rozpinających}
+
+$T(G)$ to liczba drzew rozpinających graf $G$.
+
+$$
+\forall_{e \in G} T(G) = T(G \setminus e) + T(G \cdot e)
+$$
+
+\subsection{Twierdzenie Kirchhoffa}
+
+Jeśli $0 \leq \mu_1 \leq \mu_2 \leq \dots \leq \mu_n$ oznaczają wartości własne
+macierzy $L$ grafu $G$, to:
+$$
+T(G) = \frac{1}{n} \prod_{i = 2}^n \mu_i
+$$
+
+To oznacza, że wykreślając jeden wiersz i jedną kolumnę w $L$, możemy znaleźć
+$|\det(L_{ij})|$
+
+\subsection{Wzór Cayleya}
+
+Dla grafu $K_n$, mamy:
+$$
+\forall_{2 \leq i \leq n} \mu_i = n \quad \Rightarrow \quad T(K_n) =
+\frac{1}{n} n^{n-1} = n^{n-2}
+$$
+
+Dla grafu $K_{n, n}$, mamy:
+$$
+\forall_{2 \leq i < 2n} \mu_i = n \quad \mu_{2n} = 2n \quad \Rightarrow
+\quad T(K_{n, n}) = \frac{1}{2n} n^{2n-2} 2n = n^{2n-2}
+$$
 
 \end{document}
