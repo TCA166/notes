@@ -3,6 +3,8 @@
 
 \title{Narzędzia matematyki w informatyce}
 
+\newcommand{\maxcut}{\textrm{MAXCUT}}
+
 \begin{document}
 
 Myślałbyś, drogi użytkowniku, że to podobny kaliber i jakość zajęć co mfi, lecz
@@ -313,10 +315,6 @@ Graf jest planarny wtedy, i tylko wtedy, gdy nie zawiera topologicznej kopii
 $K_{3,3}$ i $K_5$. Topologiczna kopia to zmodyfikowana wersja grafu, poprzez
 dodawanie wierzchołków na liniach.
 
-\subsection{Twierdzenie Appel i Haken}
-
-Jeśli $G$ jest planarny to $\chi(G) \leq 4$.
-
 \section{Minor}
 
 Graf $H$ jest minorem $G$ ($H \triangleleft G$), jeśli można otrzymać $H$ z $G$
@@ -328,7 +326,7 @@ przy pomocą ciągu trzech operacji:
 \end{itemize}
 Te operacje mają naturalne odpowiedniki dla macierzowej reprezentacji grafu.
 
-\subsection{Twierdzenie Wojnera}
+\subsection{Twierdzenie Wagnera}
 
 Graf jest planarny wtedy, i tylko wtedy, gdy nie zawiera $K_5$, $K_{3,3}$ jako
 minora. Rodzina grafów planarnych jest zamknięta ze względu na branie minora.
@@ -349,7 +347,7 @@ $O(n^3)$.
 Każda rodzina grafów domknięta ze względu na branie minora jest charakteryzowana
 przez \textbf{skończoną} liczbę zakazanych minorów.
 
-\subsection{Niezależności}
+\section{Niezależności}
 
 $\alpha(G)$ to liczba niezależności $G$. Niezależność to trochę jakby "anty
 skojarzenie". Jest to wielkość największego zbioru $W \subseteq U$, tzn takiego,
@@ -362,12 +360,328 @@ $$
 \log^2n \leq \alpha(G) \leq \frac{n}{\log^2n}
 $$
 
-\subsection{Liczba Chromatyczna}
+Dla grafu $G$ o $n$ wierzchołkach i $\delta = \min_{v \in V} \deg(v)$, oraz
+$\mu_n = \max_{i} \lambda_i$
+$$
+\alpha(G) \leq \left\lfloor n\left(1 - \frac{\delta}{\mu_n}\right)\right\rfloor
+$$
+
+\section{Liczba Chromatyczna}
 
 $\chi(G)$ to najmniejsza liczba $k$, taka, że wierzchołki grafu $G$
 można pomalować $k$ kolorami tak, aby żadna krawędź nie była monochromatyczna
 
 Problem $\chi(G) \leq k$ należy do NP, gdzie $\chi(G) > k$ należy do co-NP.
+
+\subsection{Twierdzenie Appel i Haken}
+
+Jeśli $G$ jest planarny to $\chi(G) \leq 4$.
+
+\section{Algebraiczna teoria Grafów}
+
+Dla macierzy $A$ sąsiedztwa grafu $G$; $A^k_{ij}$ oznacza ilość
+spacerów długości $k$ z $i$ do $j$.
+
+$$
+\Tr A = \sum_i \lambda_i = 0 \quad \Tr A^2 = \sum_i \lambda_i^2 =
+\sum_{v \in V} \deg(v) = 2|E| \quad \Tr A^3 = \sum_i \lambda_i^3
+= \#\{K_3 \subseteq G\} / 6
+$$
+$$
+\Tr A^k = \sum_i \lambda_i^k
+$$
+
+\subsection{Równania}
+
+Jeśli macierz sąsiedztwa $H$ spełnia równanie, to każda wartość
+własna $\lambda$ też je spełnia.
+
+\begin{examplebox}
+  $$
+  H^3 - 2H + 1 = 0 \quad \Rightarrow (H^3 - 2H + 1)\ket{\lambda} = (\lambda^3 -
+  2\lambda + 1)\ket{\lambda} = 0 \cdot \ket{\lambda}
+  $$
+  $$
+  (\lambda^3 -2\lambda + 1) = 0
+  $$
+\end{examplebox}
+
+\begin{examplebox}
+  Dla grafu $G = K_n$, macierz incydencji $A^2$ ma postać:
+  $$
+  A^2 =
+  \begin{bmatrix}
+    n - 1 & n - 2 & \cdots & n-2 \\
+    n - 2 & n - 1 & \cdots & n-2\\
+    \vdots & \vdots & \ddots & \vdots \\
+    n - 2 & n - 2 & \cdots & n-1
+  \end{bmatrix}
+  = (n - 2)A + (n-1)I
+  $$
+  $$
+  \lambda^2 - (n-2)I - (n-1) = 0
+  $$
+\end{examplebox}
+
+\subsection{Twierdzenie o d-regularności}
+
+Jeśli graf jest $d$-regularny, to $\exists_i \lambda_i = d$.
+$$
+\bra{d} =
+\begin{bmatrix}
+  1 &
+  1 &
+  \hdots &
+  1
+\end{bmatrix}
+$$
+
+\subsection{Ranga}
+
+$\rank(A)$ - to ilość niezależnych wektorów w macierzy $A$. Wektory
+są niezależne, jeśli nie są liniową kombinacją innych wektorów.
+$$
+\rank(\textrm{Im} A) = \rank A = |\{\lambda_i : \lambda_i \neq 0\}|
+$$
+
+\begin{examplebox}
+  Dla grafu $G = K_{2,3}$, macierz $A$ wygląda następująco:
+  $$
+  A =
+  \begin{bmatrix}
+    0 & 0 & 1 & 1 & 1 \\
+    0 & 0 & 1 & 1 & 1 \\
+    1 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 \\
+  \end{bmatrix}
+  \quad \rank(A) = 2
+  $$
+  Z powyższych twierdzeń możemy wnioskować, że:
+  $$
+  \sigma(A) = \{0, 0, 0, a, b\} = \{0, 0, 0, a, -a\} =
+  \{0,0,0,\sqrt{6},-\sqrt{6}\}
+  $$
+\end{examplebox}
+
+\subsection{Twierdzenie o mieszaniu}
+
+$G = (V, E)$, gdzie $G$ jest $d$-regularny, $|V|=n$. $S, T \subseteq V$, niech:
+$$
+E(S, T) = \{(v, w) : v \in S, w \in T, vw \in E\} \quad e(S, T) = |E(S, T)|
+$$
+oraz zdefinujmy największą nie-$d$ wartość własną; $\lambda_1 = d$:
+$$
+\Lambda = \max_{2 \leq i \leq n} |\lambda_i|
+$$
+Wtedy, ogólnie:
+$$
+e(S, T) \sim \frac{d}{n} |S| \cdot |T|
+$$
+co bardziej formalnie daje:
+$$
+|e(S, T) - \frac{d}{n}\cdot |S|\cdot|T|| \leq \Lambda \sqrt{|S| |T|}
+$$
+
+\begin{examplebox}
+  \textbf{Dowód}:
+  Ogólnie $e(S, T)$ jest równa liczbie $1$ w fragmencie $A$,
+  odpowiadającym skrzyżowaniu $S$ i $T$. Aby zapisać to formalnie to definiujemy
+  wektory, których wymnożenie da nam dokładnie ilość $1$ w tym regionie.
+  \vspace{1em}
+  $$
+  \bra{T} =
+  \begin{bNiceMatrix}
+    0 & \cdots & 0 & 1 & \cdots & 1 \\
+    \CodeAfter
+    \OverBrace{1-1}{1-3}{n - |T|}
+    \OverBrace{1-4}{1-6}{|T|}
+  \end{bNiceMatrix} = \sum_{i = 1}^{n} \alpha_i \ket{\lambda_i}
+  \quad
+  \bra{S} =
+  \begin{bNiceMatrix}
+    1 & \cdots & 1 & 0 & \cdots & 0 \\
+    \CodeAfter
+    \OverBrace{1-1}{1-3}{|S|}
+    \OverBrace{1-4}{1-6}{n - |S|}
+  \end{bNiceMatrix} = \sum_{i = 1}^n \beta_i \ket{\lambda_i}
+  $$
+  $$
+  e(S, T) = \bra{T}A\ket{S}
+  $$
+  $$
+  e(S, T) = \sum_i \sum_j \alpha_i \bra{\lambda_i} \lambda_j \beta_j
+  \ket{\lambda_i} = \sum_{i = 1}^n \alpha_i \beta_i \lambda_i =
+  \alpha_1 \beta_1 d + \sum_{i = 2}^n \alpha_i \beta_i \lambda_i
+  $$
+  $$
+  \alpha_1 = \ket{T}\ket{d} = \frac{|T|}{\sqrt{n}} \quad \beta_1 =
+  \frac{|S|}{\sqrt{n}}
+  $$
+  $$
+  e(S, T) = \frac{|S||T|}{n}d + \sum_{i=2}^n \alpha_i \beta_i \lambda_i
+  $$
+  $$
+  \left|\sum_{i=2}^n \alpha_i \beta_i \lambda_i\right| \leq \sum_{i =
+  2}^n |\lambda_i| |\alpha_i \beta_i| \leq \Lambda \sum_{i =
+  2}^n |\alpha_i \beta_i|
+  $$
+  $$
+  \sum_{i} \alpha_i^2 = |T| \quad \sum_i \beta_i^2 = |S|
+  $$
+  Teraz stosując twierdzenie Cauchy'ego-Schwartza:
+  $$
+  \Lambda \sum_{i = 2}^n |\alpha_i \beta_i| \leq \Lambda
+  \sqrt{\sum_{i = 1}^n \alpha_i^2} \sqrt{\sum_{i = 1}^n \beta_i^2} =
+  \Lambda \sqrt{|S||T|}
+  $$
+  \textit{trywialne i krótkie}
+\end{examplebox}
+
+\subsection{Laplasjan}
+
+$$
+L = \left[l_{ij}\right] \quad l_{ij} =
+\begin{cases}
+  \deg(i) & i = j \\
+  -1 & ij \in E \\
+  0 & ij \notin E
+\end{cases}
+$$
+Dla macierzy $D$, gdzie na diagonali mamy stopnie wierzchołków:
+$$
+L = D - A
+$$
+
+\subsubsection{Twierdzenie}
+
+Jeśli $G$ jest $d$-regularny, wartości własne macierzy $A$ to
+$\lambda_1, \lambda_2, \dots, \lambda_n$, z odpowiednimi wektorami
+własnymi $\ket{\lambda_1}, \ket{\lambda_2}, \dots, \ket{\lambda_n}$,
+wtedy wartości własne $L[G]$ to $d - \lambda_1, d - \lambda_2, \dots,
+d - \lambda_n$, z niemienionymi wektorami własnymi.
+
+Wektor $\ket{d}$ jest zawsze wektorem własnym $L$, odpowiadający
+wartości własnej $0$.
+
+\subsubsection{Macierz Incydencji}
+
+$$
+M^* = \left[m^*_{ve}\right] \quad m^*_{ve} =
+\begin{cases}
+  1 & v \in e \\
+  0 & v \notin e
+\end{cases}
+$$
+Wtedy $\underline{\underline{M}}$ to oszukana macierz incydencji, gdzie
+jeden $1$ w każdej kolumnie to $-1$, tak aby suma każdej kolumny to było $0$.
+$$
+\underline{\underline{M}}\underline{\underline{M}}^T = L
+$$
+
+\subsubsection{Określoność}
+
+$L[G]$ jest macierzą półdodatnio określoną, czyli spełnia:
+\begin{itemize}
+  \item $\forall_i \lambda_i \geq 0$
+  \item $\exists_M L = MM^T$
+  \item $\forall_{\ket{v}} \bra{v}L\ket{v} \geq 0$
+\end{itemize}
+
+\subsection{Diagonalizacja}
+
+$$
+\det(H) = \det(C \Lambda C^{-1}) = \det(C) \det(\Lambda) \det(C^{-1}) =
+\det(\Lambda) \det(C C^{-1}) = \det(\Lambda) = \prod_i \lambda_i
+$$
+
+\section{MAXCUT}
+
+$$
+\overline{S} = V \setminus S \quad
+$$
+$$
+\maxcut(G) = \max_{S \subseteq V} e(S, \overline{S})
+$$
+
+Problem $\maxcut(G) \geq k$ należy do NP, gdzie $\maxcut(G) < k$
+należy do co-NP.
+
+$$
+\maxcut(G) \leq \frac{n}{4} \mu_n
+$$
+
+\subsection{Twierdzenie Rayleigha-Ritza}
+
+Największe wartości własne macierzy $H$ to:
+$$
+\nu_1 = \max_{\ket{1} \in \mathbb{R}^n}
+\frac{\bra{1}H\ket{1}}{\braket{1}{1}}, \quad \nu_2 = \max_{\ket{2} \in
+\mathbb{R}^n : \ket{1} \perp \ket{2}}
+\frac{\bra{2}H\ket{2}}{\braket{2}{2}} = \max_{2 \leq i \leq n}
+|\nu_i|, \quad \dots, \quad \nu_n = \min_{\ket{n} \in \mathbb{R}^n}
+\frac{\bra{n}H\ket{n}}{\braket{n}{n}}
+$$
+
+Ogólnie, dla macierzy $H$ o wartościach własnych $\nu_1 \geq \nu_2
+\geq \dots \geq \nu_n$:
+$$
+\nu_1 = \max_{x \neq 0} \frac{x^THx}{x^Tx}
+$$
+
+\begin{examplebox}
+  $$
+  e(S, \overline{S}) = \left|\left|\frac{\ket{S} M}{4}\right|\right|^2 =
+  \frac{\bra{S}MM^T\ket{S}}{4} =
+  \frac{\bra{S}L\ket{S}}{4}
+  $$
+
+  $$
+  \maxcut(G) = \max_{S \subseteq V} e(S, \overline{S}) = \max_{S
+  \subseteq V} \frac{\bra{S}L\ket{S}}{4} = \frac{n}{4} \max_{S
+  \subseteq V} \frac{\bra{S}L\ket{S}}{\braket{S}{S}} \leq \frac{n}{4}
+  \max_{v \in \mathbb{R}^n} \frac{v^TLv}{v^tv} = \frac{n}{4} \mu_n
+  $$
+  gdzie $\mu_n$ to największa wartość własna macierzy $L$.
+\end{examplebox}
+
+\subsection{Graf Dwudzielny Pełny}
+
+$$
+\maxcut(K_{m, n}) = \frac{2mn}{4}
+$$
+
+\section{Liczba drzew rozpinających}
+
+$T(G)$ to liczba drzew rozpinających graf $G$.
+
+$$
+\forall_{e \in G} T(G) = T(G \setminus e) + T(G \cdot e)
+$$
+
+\subsection{Twierdzenie Kirchhoffa}
+
+Jeśli $0 \leq \mu_1 \leq \mu_2 \leq \dots \leq \mu_n$ oznaczają wartości własne
+macierzy $L$ grafu $G$, to:
+$$
+T(G) = \frac{1}{n} \prod_{i = 2}^n \mu_i
+$$
+
+Poprzez minor możemy też wyliczyć $T(G)$; $T(G) = |\det(L_{ij})|$
+
+\subsection{Wzór Cayleya}
+
+Dla grafu $K_n$, mamy:
+$$
+\forall_{2 \leq i \leq n} \mu_i = n \quad \Rightarrow \quad T(K_n) =
+\frac{1}{n} n^{n-1} = n^{n-2}
+$$
+
+Dla grafu $K_{n, n}$, mamy:
+$$
+\forall_{2 \leq i < 2n} \mu_i = n \quad \mu_{2n} = 2n \quad \Rightarrow
+\quad T(K_{n, n}) = \frac{1}{2n} n^{2n-2} 2n = n^{2n-2}
+$$
 
 \section{Teoria Przepływu}
 
