@@ -369,4 +369,22 @@ można pomalować $k$ kolorami tak, aby żadna krawędź nie była monochromatyc
 
 Problem $\chi(G) \leq k$ należy do NP, gdzie $\chi(G) > k$ należy do co-NP.
 
+\section{Teoria Przepływu}
+
+Wartością przepływu $f$; $\textrm{val}(f)$, jest suma wartości przepływu
+na strzałkach wychodzących ze źródła. Pojemnością cięcia $(S, \overline{S})$,
+oznaczaną jako $\textrm{cap}(S, \overline{S})$ nazywamy sumę pojemności krawędzi
+w cięciu.
+
+\subsection{MAX-FLOW MIN-CUT}
+
+$$
+\max_f \textrm{val}(f) = \min_{(S, \overline{S})} \textrm{cap}(S, \overline{S})
+$$
+
+Jeśli $f_{\max}$ jest maksymalnym przepływem, a $(S_{\min},
+\overline{S_{\min}})$ jest minimalnym cięciem, to na każdej strzałce
+wychodzącej z $S_{\min}$ przepływ jest równy pojemności, a na każdej
+strzałce wchodzącej do $S_{\min}$ przepływ jest równy 0.
+
 \end{document}
